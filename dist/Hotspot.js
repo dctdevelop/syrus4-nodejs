@@ -36,6 +36,12 @@ function _handler(verb, param1 = null, param2 = null) {
  * returns the list of the connected clients to the hotspot
  */
 function list() {
+    return _handler("list");
+}
+/**
+ * returns the state of the connected clients to the hotspot
+ */
+function state() {
     return _handler("state");
 }
 /**
@@ -73,5 +79,5 @@ function route(netInterface = "ppp0") {
 function edit(parameter = "wpa_passphrase", newValue) {
     return _handler("edit", parameter, newValue);
 }
-exports.default = { list, start, stop, reset, route, edit };
+exports.default = { list, state, start, stop, reset, route, edit };
 //# sourceMappingURL=Hotspot.js.map

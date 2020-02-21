@@ -4,7 +4,7 @@ Interactive function to consult enable or disable multiple modules for APEX OS
 ## Quick Start
 Install using npm github
 ```bash
-$ npm install git+ssh://git@github.com/dctdevelop/syrus4-node.git#master
+$ npm install git+ssh://git@github.com/dctdevelop/syrus4-nodejs.git#master
 ```
 
 
@@ -82,6 +82,7 @@ Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
 
 * [Hotspot](#module_Hotspot)
     * [~list()](#module_Hotspot..list)
+    * [~state()](#module_Hotspot..state)
     * [~start()](#module_Hotspot..start)
     * [~stop()](#module_Hotspot..stop)
     * [~reset()](#module_Hotspot..reset)
@@ -92,6 +93,12 @@ Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
 
 ### Hotspot~list()
 returns the list of the connected clients to the hotspot
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+<a name="module_Hotspot..state"></a>
+
+### Hotspot~state()
+returns the state of the connected clients to the hotspot
 
 **Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
 <a name="module_Hotspot..start"></a>
