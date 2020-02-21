@@ -1,0 +1,28 @@
+{
+	"name": "syrus4-sdk",
+	"version": "0.5.0",
+	"description": "Syrus 4 SdK for javascript/Nodejs",
+	"main": "dist/syrus4.js",
+	"scripts": {
+		"tsc": "tsc",
+		"build": "tsc && jsdoc2md --files ./dist/*.js --template README.hbs > README.md",
+		"document": "jsdoc2md --files ./dist/*.js --template README.hbs > README.md"
+	},
+	"keywords": [
+		"syrus4",
+		"sdk"
+	],
+	"author": "developers@digitalcomtech.com",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.19.0",
+		"ioredis": "^4.14.1",
+		"mqtt": "^3.0.0"
+	},
+	"devDependencies": {
+		"@types/ioredis": "^4.14.1",
+		"@types/node": "^12.12.17",
+		"@types/redis": "^2.8.14",
+		"jsdoc-to-markdown": "^5.0.3"
+	}
+}
