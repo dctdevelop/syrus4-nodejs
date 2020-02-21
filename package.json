@@ -1,6 +1,6 @@
 {
 	"name": "syrus4-sdk",
-	"version": "0.5.0",
+	"version": "0.1.0",
 	"description": "Syrus 4 SdK for javascript/Nodejs",
 	"main": "dist/syrus4.js",
 	"scripts": {
