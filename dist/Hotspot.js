@@ -77,7 +77,6 @@ function route(netInterface = "ppp0") {
  * @param newValue new value for the parameter
  */
 function edit(parameter = "wpa_passphrase", newValue) {
-    return _handler("edit", parameter, newValue);
+    return _handler(parameter, newValue);
 }
 exports.default = { list, state, start, stop, reset, route, edit };
-//# sourceMappingURL=Hotspot.js.map

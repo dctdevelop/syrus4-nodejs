@@ -15,4 +15,3 @@ exports.Hotspot = Hotspot_1.default;
 const IOS_1 = require("./IOS");
 exports.IOS = IOS_1.default;
 exports.default = { GPS: GPS_1.default, WIFI: WIFI_1.default, Utils: Utils_1.default, System: System_1.default, Update: Update_1.default, Hotspot: Hotspot_1.default, IOS: IOS_1.default };
-//# sourceMappingURL=syrus4.js.map

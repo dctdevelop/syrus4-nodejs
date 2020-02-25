@@ -100,4 +100,3 @@ function stop() {
 }
 exports.stop = stop;
 run();
-//# sourceMappingURL=ioTest.js.map

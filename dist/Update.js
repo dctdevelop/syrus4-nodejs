@@ -40,4 +40,3 @@ function update(force = false) {
     return _handler("update", force);
 }
 exports.default = { check, update };
-//# sourceMappingURL=Update.js.map

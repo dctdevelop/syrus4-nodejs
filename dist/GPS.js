@@ -116,4 +116,3 @@ exports.default = {
     watchPosition,
     watchGPS
 };
-//# sourceMappingURL=GPS.js.map

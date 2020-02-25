@@ -29,4 +29,3 @@ function info() {
     return _handler();
 }
 exports.default = { info };
-//# sourceMappingURL=System.js.map

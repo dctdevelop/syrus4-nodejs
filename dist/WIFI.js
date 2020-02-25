@@ -78,4 +78,3 @@ function remove(ssid) {
     return _handler("add", ssid);
 }
 exports.default = { scan, state, list, start, stop, reset, add, remove };
-//# sourceMappingURL=WIFI.js.map
