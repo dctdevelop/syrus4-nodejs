@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const syrus4_1 = require("../syrus4");
+const syrus4_1 = require("../src/syrus4");
 const axios_1 = require("axios");
 const { execFile } = require("child_process");
 const endPoint = "https://pegasus1.peginstances.com/receivers/json";
