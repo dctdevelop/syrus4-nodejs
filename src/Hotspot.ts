@@ -16,7 +16,7 @@ function _handler(verb: string, param1 = null, param2 = null) {
 				return reject(error);
 			}
 			if (stderr) {
-				console.error(stderr);
+				console.error(stderr, stdout);
 				return reject(stderr);
 			}
 			var data = stdout.toString();
@@ -79,6 +79,6 @@ function route(netInterface = "ppp0"): Promise<any> {
  * @param newValue new value for the parameter
  */
 function edit(parameter: Parameter = "wpa_passphrase", newValue): Promise<any> {
-	return _handler("edit", parameter, newValue);
+	return _handler(parameter, newValue);
 }
 export default { list, state, start, stop, reset, route, edit };

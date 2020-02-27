@@ -61,4 +61,3 @@ function stop() {
 }
 exports.stop = stop;
 run();
-//# sourceMappingURL=test.js.map
