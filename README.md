@@ -210,25 +210,70 @@ Update module check for update and make update for ApexOS
 
 
 * [Update](#module_Update)
-    * [~check()](#module_Update..check)
-    * [~update(force)](#module_Update..update)
+    * [~checkCore()](#module_Update..checkCore)
+    * [~UpdateCore(force)](#module_Update..UpdateCore)
+    * [~listOS()](#module_Update..listOS)
+    * [~checkOS()](#module_Update..checkOS)
+    * [~recoverOS()](#module_Update..recoverOS)
+    * [~updateOS(force)](#module_Update..updateOS)
+    * [~installOS(package_name)](#module_Update..installOS)
 
-<a name="module_Update..check"></a>
+<a name="module_Update..checkCore"></a>
 
-### Update~check()
-Check if an update is available in the dctserver
+### Update~checkCore()
+Check if an update is available in the dctserver for Core Ccomponentss
 
 **Kind**: inner method of [<code>Update</code>](#module_Update)  
-<a name="module_Update..update"></a>
+<a name="module_Update..UpdateCore"></a>
 
-### Update~update(force)
-Start the update by using the dctserver or specifying the location
+### Update~UpdateCore(force)
+Start the update of the core packages by using the dctserver
 
 **Kind**: inner method of [<code>Update</code>](#module_Update)  
 
 | Param | Default | Description |
 | --- | --- | --- |
 | force | <code>false</code> | The same as start but without checking the network interface |
+
+<a name="module_Update..listOS"></a>
+
+### Update~listOS()
+list installed packages from OS components in the distribution
+
+**Kind**: inner method of [<code>Update</code>](#module_Update)  
+<a name="module_Update..checkOS"></a>
+
+### Update~checkOS()
+Check if an update is available in the dctserver for OS apps and return a list of the latest version of the packages
+
+**Kind**: inner method of [<code>Update</code>](#module_Update)  
+<a name="module_Update..recoverOS"></a>
+
+### Update~recoverOS()
+allows to recover from broken packages when a bad install or updates happens
+
+**Kind**: inner method of [<code>Update</code>](#module_Update)  
+<a name="module_Update..updateOS"></a>
+
+### Update~updateOS(force)
+Start the update of the OS components by using the dctserver
+
+**Kind**: inner method of [<code>Update</code>](#module_Update)  
+
+| Param | Description |
+| --- | --- |
+| force | The same as start but without checking the network interface |
+
+<a name="module_Update..installOS"></a>
+
+### Update~installOS(package_name)
+upgrade a package to the lastest version available in the dctserver
+
+**Kind**: inner method of [<code>Update</code>](#module_Update)  
+
+| Param | Description |
+| --- | --- |
+| package_name | the name of the  package that it wants to be updated |
 
 <a name="module_WIFI"></a>
 

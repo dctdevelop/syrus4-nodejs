@@ -47,6 +47,7 @@ function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, ti
         tries++;
         if (tries > MAX_TRIES) {
             tries = 0;
+            return true;
         }
         else {
             return false;
@@ -54,13 +55,16 @@ function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, ti
     }
     if (!last)
         return true;
-    if (config.distance > 0 && Utils_1.default.distanceBetweenCoordinates(last, current) > config.distance)
-        return true;
-    if (config.time > 0 && new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime() > config.time)
-        return true;
-    if (config.bearing > 0 && Math.abs(last.coords.bearing - current.coords.bearing) >= config.bearing)
-        return true;
-    return false;
+    var distance = Utils_1.default.distanceBetweenCoordinates(last, current);
+    var secs = new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime();
+    var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
+    if (config.distance > 0 && distance < config.distance)
+        return false;
+    if (config.time > 0 && secs < config.time)
+        return false;
+    if (config.bearing > 0 && bearing < config.bearing)
+        return false;
+    return true;
 }
 /**
  * Get last current location from GPS

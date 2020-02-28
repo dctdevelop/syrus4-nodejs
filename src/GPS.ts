@@ -38,15 +38,20 @@ function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, ti
 		tries++;
 		if (tries > MAX_TRIES) {
 			tries = 0;
+			return true;
 		} else {
 			return false;
 		}
 	}
+
 	if (!last) return true;
-	if (config.distance > 0 && utils.distanceBetweenCoordinates(last, current) > config.distance) return true;
-	if (config.time > 0 && new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime() > config.time) return true;
-	if (config.bearing > 0 && Math.abs(last.coords.bearing - current.coords.bearing) >= config.bearing) return true;
-	return false;
+	var distance = utils.distanceBetweenCoordinates(last, current);
+	var secs = new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime();
+	var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
+	if (config.distance > 0 && distance < config.distance) return false;
+	if (config.time > 0 && secs < config.time) return false;
+	if (config.bearing > 0 && bearing < config.bearing) return false;
+	return true;
 }
 
 /**
