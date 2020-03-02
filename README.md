@@ -178,7 +178,7 @@ get a promise that resolve the current input or output state
 
 | Param | Default | Description |
 | --- | --- | --- |
-| inputName | <code>OUT1</code> | the input/output requested |
+| inputName | <code>IGN</code> | the input/output requested |
 
 <a name="module_IOS..setOutputState"></a>
 

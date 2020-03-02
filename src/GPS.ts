@@ -33,7 +33,7 @@ function rawdataToCoordinates(raw: string) {
 	};
 }
 
-function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }): boolean {
+function evaluateCriteria(current, last = null, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }): boolean {
 	if (config.accuracy > 0 && current.coords.accuracy > config.accuracy) {
 		tries++;
 		if (tries > MAX_TRIES) {
@@ -45,20 +45,31 @@ function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, ti
 	}
 
 	if (!last) return true;
+	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0;
 	var distance = utils.distanceBetweenCoordinates(last, current);
-	var secs = new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime();
+	var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime());
 	var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
-	if (config.distance > 0 && distance < config.distance) return false;
-	if (config.time > 0 && secs < config.time) return false;
-	if (config.bearing > 0 && bearing < config.bearing) return false;
-	return true;
+	if (config.distance > 0 && distance >= config.distance) criteria = true;
+	if (config.time > 0 && secs >= config.time) criteria = true;
+	if (config.bearing > 0 && bearing >= config.bearing) criteria = true;
+	return criteria;
 }
 
 /**
  * Get last current location from GPS
  */
-async function getCurrentLocation() {
-	return rawdataToCoordinates(await redis.get("gps"));
+function getCurrentLocation(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+	return new Promise((resolve, reject) => {
+		var handler = function(_channel, gps) {
+			var position = rawdataToCoordinates(gps);
+			if (evaluateCriteria(position)) {
+				resolve(position);
+				redis.off("gps", handler);
+			}
+		};
+		redis.subscribe("gps");
+		redis.on("message", handler);
+	});
 }
 
 /**
@@ -71,7 +82,7 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 	var last = null;
 	var handler = function(_channel, gps) {
 		var position = rawdataToCoordinates(gps);
-		if (evaluateCriteria(position, last)) {
+		if (evaluateCriteria(position, last, config)) {
 			callback(position);
 			last = position;
 		}

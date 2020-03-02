@@ -17,7 +17,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Redis = require("ioredis");
 var redis = new Redis();
 var notis = new Redis();
-const SUBSCRIBE_CHANNEL = "io/input";
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe
@@ -25,6 +24,13 @@ const SUBSCRIBE_CHANNEL = "io/input";
  * @param errorCallback
  */
 function watchInputState(inputName = "IGN", cb, errorCallback) {
+    var channel = `interface/input/${inputName}`;
+    if (inputName[0] == "O") {
+        channel = `interface/output/${inputName}`;
+    }
+    if (inputName[0] == "A") {
+        channel = `interface/analog/${inputName}`;
+    }
     var callback = function (_pattern, channel, raw) {
         var input = channel.split("/")[2];
         if (input == inputName) {
@@ -36,14 +42,12 @@ function watchInputState(inputName = "IGN", cb, errorCallback) {
             cb(returnable);
         }
     };
-    var channel = `${SUBSCRIBE_CHANNEL}/${inputName}`;
-    console.log("channel-name:", channel);
+    console.log("channel name:", channel);
     notis.psubscribe(channel);
     notis.on("pmessage", callback);
     return {
         unsubscribe: () => {
-            notis.off(`${SUBSCRIBE_CHANNEL}/${inputName}`, callback);
-            notis.unsubscribe(`${SUBSCRIBE_CHANNEL}/${inputName}`);
+            notis.off(`${channel}`, callback);
         }
     };
 }
@@ -51,9 +55,16 @@ function watchInputState(inputName = "IGN", cb, errorCallback) {
  * get a promise that resolve the current input or output state
  * @param inputName the input/output requested
  */
-function getInputState(inputName = "OUT1") {
+function getInputState(inputName = "IGN") {
+    var channel = "current_input_state";
+    if (inputName[0] == "O") {
+        channel = "current_output_state";
+    }
+    if (inputName[0] == "A") {
+        channel = "current_analog_state";
+    }
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        var response = yield redis.hget("current_output_state", inputName);
+        var response = yield redis.hget(channel, inputName);
         var returnable = response;
         if (response == "true")
             returnable = true;
@@ -70,6 +81,7 @@ function getInputState(inputName = "OUT1") {
 function setOutputState(inputName = "OUT1", state = true) {
     return new Promise((resolve, reject) => {
         redis.hset("desired_output_state", inputName, `${state}`);
+        notis.publish(`desired/interface/output/${inputName}`, `${state}`);
         resolve(state);
     });
 }
