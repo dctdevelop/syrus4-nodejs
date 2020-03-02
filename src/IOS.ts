@@ -89,6 +89,7 @@ async function getAll() {
 	});
 	return response;
 }
+
 export default {
 	watchInputState,
 	getInputState,

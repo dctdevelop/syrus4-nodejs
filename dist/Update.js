@@ -41,7 +41,7 @@ function checkCore() {
  * @param force The same as start but without checking the network interface
  */
 function UpdateCore(force = false) {
-    return _handler("apx-core-update", force ? "force" : "update");
+    return _handler("apx-core-update", force ? "force" : "install");
 }
 /**
  * list installed packages from OS components in the distribution
