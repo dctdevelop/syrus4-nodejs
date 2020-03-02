@@ -6,7 +6,6 @@
 import * as Redis from "ioredis";
 var redis = new Redis();
 var notis = new Redis();
-const SUBSCRIBE_CHANNEL = "io/input";
 
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
@@ -15,6 +14,13 @@ const SUBSCRIBE_CHANNEL = "io/input";
  * @param errorCallback
  */
 function watchInputState(inputName = "IGN", cb, errorCallback?: Function) {
+	var channel = `interface/input/${inputName}`;
+	if (inputName[0] == "O") {
+		channel = `interface/output/${inputName}`;
+	}
+	if (inputName[0] == "A") {
+		channel = `interface/analog/${inputName}`;
+	}
 	var callback = function(_pattern, channel, raw) {
 		var input = channel.split("/")[2];
 		if (input == inputName) {
@@ -24,15 +30,13 @@ function watchInputState(inputName = "IGN", cb, errorCallback?: Function) {
 			cb(returnable);
 		}
 	};
-	var channel = `${SUBSCRIBE_CHANNEL}/${inputName}`;
-	console.log("channel-name:", channel);
+	console.log("channel name:", channel);
 	notis.psubscribe(channel);
 	notis.on("pmessage", callback);
 
 	return {
 		unsubscribe: () => {
-			notis.off(`${SUBSCRIBE_CHANNEL}/${inputName}`, callback);
-			notis.unsubscribe(`${SUBSCRIBE_CHANNEL}/${inputName}`);
+			notis.off(`${channel}`, callback);
 		}
 	};
 }
@@ -40,9 +44,16 @@ function watchInputState(inputName = "IGN", cb, errorCallback?: Function) {
  * get a promise that resolve the current input or output state
  * @param inputName the input/output requested
  */
-function getInputState(inputName = "OUT1"): Promise<any> {
+function getInputState(inputName = "IGN"): Promise<any> {
+	var channel = "current_input_state";
+	if (inputName[0] == "O") {
+		channel = "current_output_state";
+	}
+	if (inputName[0] == "A") {
+		channel = "current_analog_state";
+	}
 	return new Promise(async (resolve, reject) => {
-		var response = await redis.hget("current_output_state", inputName);
+		var response = await redis.hget(channel, inputName);
 		var returnable: any = response;
 		if (response == "true") returnable = true;
 		if (response == "false") returnable = false;
@@ -57,6 +68,7 @@ function getInputState(inputName = "OUT1"): Promise<any> {
 function setOutputState(inputName = "OUT1", state = true): Promise<boolean | number> {
 	return new Promise((resolve, reject) => {
 		redis.hset("desired_output_state", inputName, `${state}`);
+		notis.publish(`desired/interface/output/${inputName}`, `${state}`);
 		resolve(state);
 	});
 }

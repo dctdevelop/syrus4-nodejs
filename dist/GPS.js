@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * GPS module get information about gps and location in ApexOS
@@ -42,7 +33,7 @@ function rawdataToCoordinates(raw) {
         }
     };
 }
-function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function evaluateCriteria(current, last = null, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
     if (config.accuracy > 0 && current.coords.accuracy > config.accuracy) {
         tries++;
         if (tries > MAX_TRIES) {
@@ -55,23 +46,32 @@ function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, ti
     }
     if (!last)
         return true;
+    var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0;
     var distance = Utils_1.default.distanceBetweenCoordinates(last, current);
-    var secs = new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime();
+    var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime());
     var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
-    if (config.distance > 0 && distance < config.distance)
-        return false;
-    if (config.time > 0 && secs < config.time)
-        return false;
-    if (config.bearing > 0 && bearing < config.bearing)
-        return false;
-    return true;
+    if (config.distance > 0 && distance >= config.distance)
+        criteria = true;
+    if (config.time > 0 && secs >= config.time)
+        criteria = true;
+    if (config.bearing > 0 && bearing >= config.bearing)
+        criteria = true;
+    return criteria;
 }
 /**
  * Get last current location from GPS
  */
-function getCurrentLocation() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return rawdataToCoordinates(yield redis.get("gps"));
+function getCurrentLocation(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+    return new Promise((resolve, reject) => {
+        var handler = function (_channel, gps) {
+            var position = rawdataToCoordinates(gps);
+            if (evaluateCriteria(position)) {
+                resolve(position);
+                redis.off("gps", handler);
+            }
+        };
+        redis.subscribe("gps");
+        redis.on("message", handler);
     });
 }
 /**
@@ -84,7 +84,7 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
     var last = null;
     var handler = function (_channel, gps) {
         var position = rawdataToCoordinates(gps);
-        if (evaluateCriteria(position, last)) {
+        if (evaluateCriteria(position, last, config)) {
             callback(position);
             last = position;
         }
