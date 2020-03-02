@@ -48,7 +48,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
         return true;
     var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0;
     var distance = Utils_1.default.distanceBetweenCoordinates(last, current);
-    var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime());
+    var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
     var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
     if (config.distance > 0 && distance >= config.distance)
         criteria = true;
