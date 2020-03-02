@@ -66,7 +66,7 @@ function recoverOS() {
  * @param force The same as start but without checking the network interface
  */
 function updateOS() {
-    return _handler("apx-os-update", "install");
+    return _handler("apx-os-update", "start");
 }
 /**
  * upgrade a package to the lastest version available in the dctserver
