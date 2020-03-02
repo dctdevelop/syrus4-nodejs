@@ -155,6 +155,7 @@ TODO: implement this
     * [~watchInputState(inputName, cb, errorCallback)](#module_IOS..watchInputState)
     * [~getInputState(inputName)](#module_IOS..getInputState)
     * [~setOutputState(inputName, state)](#module_IOS..setOutputState)
+    * [~getAll()](#module_IOS..getAll)
 
 <a name="module_IOS..watchInputState"></a>
 
@@ -192,6 +193,12 @@ Allow to change the state of an output
 | inputName | <code>OUT1</code> | the output to change state |
 | state | <code>true</code> | the new state  of the output |
 
+<a name="module_IOS..getAll"></a>
+
+### IOS~getAll()
+Get the current state of all inputs, outputs and analogs in the Syrus4 device
+
+**Kind**: inner method of [<code>IOS</code>](#module_IOS)  
 <a name="module_System-Info"></a>
 
 ## System-Info

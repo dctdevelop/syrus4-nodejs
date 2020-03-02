@@ -42,7 +42,7 @@ function watchInputState(inputName = "IGN", cb, errorCallback) {
             cb(returnable);
         }
     };
-    console.log("channel name:", channel);
+    // console.log("channel name:", channel);
     notis.psubscribe(channel);
     notis.on("pmessage", callback);
     return {
@@ -85,8 +85,22 @@ function setOutputState(inputName = "OUT1", state = true) {
         resolve(state);
     });
 }
+/**
+ * Get the current state of all inputs, outputs and analogs in the Syrus4 device
+ */
+function getAll() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var inputs = (yield redis.hgetall("current_input_state")) || {};
+        var outputs = (yield redis.hgetall("current_output_state")) || {};
+        var analogs = (yield redis.hgetall("current_analog_state")) || {};
+        var response = Object.assign(inputs, outputs);
+        response = Object.assign(response, analogs);
+        return response;
+    });
+}
 exports.default = {
     watchInputState,
     getInputState,
-    setOutputState
+    setOutputState,
+    getAll
 };
