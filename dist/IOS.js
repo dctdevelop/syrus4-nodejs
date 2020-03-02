@@ -95,6 +95,14 @@ function getAll() {
         var analogs = (yield redis.hgetall("current_analog_state")) || {};
         var response = Object.assign(inputs, outputs);
         response = Object.assign(response, analogs);
+        Object.keys(response).forEach(key => {
+            if (response[key] == "true")
+                response[key] = true;
+            if (response[key] == "false")
+                response[key] = false;
+            if (parseFloat(response[key]))
+                response[key] = parseFloat(response[key]);
+        });
         return response;
     });
 }

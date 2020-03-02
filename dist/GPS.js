@@ -6,8 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Redis = require("ioredis");
 const Utils_1 = require("./Utils");
-var redis = new Redis();
 const MAX_TRIES = 3;
+const SPEED_THRESHOLD = 3;
+var redis = new Redis();
 var tries = 0;
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
@@ -15,10 +16,10 @@ function rawdataToCoordinates(raw) {
         coords: {
             latitude: gps.lat,
             longitude: gps.lon,
-            speed: gps.speed,
+            speed: gps.speed >= SPEED_THRESHOLD ? gps.speed : 0,
             accuracy: 5 * gps.hdop,
             altitude: gps.alt,
-            bearing: gps.track,
+            bearing: gps.speed >= SPEED_THRESHOLD ? gps.track : 0,
             altitudeAccuracy: 5 * gps.vdop
         },
         timestamp: new Date(gps.time).getTime() / 1000,
