@@ -61,17 +61,18 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 /**
  * Get last current location from GPS
  */
-function getCurrentLocation(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
     return new Promise((resolve, reject) => {
+        var sub = new Redis();
         var handler = function (_channel, gps) {
             var position = rawdataToCoordinates(gps);
             if (evaluateCriteria(position)) {
                 resolve(position);
-                redis.off("gps", handler);
+                sub.off("gps", handler);
             }
         };
-        redis.subscribe("gps");
-        redis.on("message", handler);
+        sub.subscribe("gps");
+        sub.on("message", handler);
     });
 }
 /**
@@ -116,7 +117,7 @@ function watchGPS(callback, errorCallback) {
     };
 }
 exports.default = {
-    getCurrentLocation,
+    getCurrentPosition,
     watchPosition,
     watchGPS
 };

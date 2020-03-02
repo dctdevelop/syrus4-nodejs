@@ -58,7 +58,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 /**
  * Get last current location from GPS
  */
-function getCurrentLocation(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	return new Promise((resolve, reject) => {
 		var sub = new Redis();
 		var handler = function(_channel, gps) {
@@ -118,7 +118,7 @@ function watchGPS(callback, errorCallback: Function) {
 }
 
 export default {
-	getCurrentLocation,
+	getCurrentPosition,
 	watchPosition,
 	watchGPS
 };

@@ -39,13 +39,13 @@ GPS module get information about gps and location in ApexOS
 
 
 * [GPS](#module_GPS)
-    * [~getCurrentLocation()](#module_GPS..getCurrentLocation)
+    * [~getCurrentPosition()](#module_GPS..getCurrentPosition)
     * [~watchPosition(callback, errorCallback, config)](#module_GPS..watchPosition)
     * [~watchGPS(callback, errorCallback)](#module_GPS..watchGPS)
 
-<a name="module_GPS..getCurrentLocation"></a>
+<a name="module_GPS..getCurrentPosition"></a>
 
-### GPS~getCurrentLocation()
+### GPS~getCurrentPosition()
 Get last current location from GPS
 
 **Kind**: inner method of [<code>GPS</code>](#module_GPS)  
