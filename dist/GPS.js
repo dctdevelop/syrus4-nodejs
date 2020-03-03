@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * GPS module get information about gps and location in ApexOS
@@ -63,18 +72,25 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
  * Get last current location from GPS
  */
 function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
-    return new Promise((resolve, reject) => {
-        var sub = new Redis();
-        var handler = function (_channel, gps) {
-            var position = rawdataToCoordinates(gps);
-            if (evaluateCriteria(position)) {
-                resolve(position);
-                sub.off("gps", handler);
-            }
-        };
-        sub.subscribe("gps");
-        sub.on("message", handler);
-    });
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            var sub = new Redis();
+            var handler = function (_channel, gps) {
+                var position = rawdataToCoordinates(gps);
+                if (evaluateCriteria(position)) {
+                    resolve(position);
+                    sub.unsubscribe("gps");
+                    sub.disconnect();
+                    sub = null;
+                }
+            };
+            sub.on("message", handler);
+            sub.subscribe("gps");
+        }
+        catch (error) {
+            reject(error);
+        }
+    }));
 }
 /**
  * allows to subscribe to position events in GPS module
@@ -95,7 +111,6 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
     redis.on("message", handler);
     return {
         unsubscribe: () => {
-            redis.off("gps", handler);
             redis.unsubscribe("gps");
         }
     };
@@ -112,7 +127,6 @@ function watchGPS(callback, errorCallback) {
     });
     return {
         unsubscribe: () => {
-            redis.off("gps", callback);
             redis.unsubscribe("gps");
         }
     };

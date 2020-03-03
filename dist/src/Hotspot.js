@@ -1,18 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
  * @module Hotspot
  */
-const { execFile } = require("child_process");
-function _handler(verb, param1 = null, param2 = null) {
-    return new Promise((resolve, reject) => {
+var execFile = require("child_process").execFile;
+"wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_key_mgmt";
+function _handler(verb, param1, param2) {
+    if (param1 === void 0) { param1 = null; }
+    if (param2 === void 0) { param2 = null; }
+    return new Promise(function (resolve, reject) {
         var args = ["apx-hotspot", verb];
         if (param1)
             args.push(param1);
         if (param2)
             args.push(param2);
-        execFile("sudo", args, (error, stdout, stderr) => {
+        execFile("sudo", args, function (error, stdout, stderr) {
             if (error) {
                 console.error(error);
                 return reject(error);
@@ -66,7 +67,8 @@ function reset() {
  * Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface
  * @param netInterface Interface you ant allow internet access default="ppp0"
  */
-function route(netInterface = "ppp0") {
+function route(netInterface) {
+    if (netInterface === void 0) { netInterface = "ppp0"; }
     return _handler("route", netInterface);
 }
 /**
@@ -76,7 +78,8 @@ function route(netInterface = "ppp0") {
  * @param parameter param to edit config
  * @param newValue new value for the parameter
  */
-function edit(parameter = "wpa_passphrase", newValue) {
+function edit(parameter, newValue) {
+    if (parameter === void 0) { parameter = "wpa_passphrase"; }
     return _handler(parameter, newValue);
 }
-exports.default = { list, state, start, stop, reset, route, edit };
+exports.default = { list: list, state: state, start: start, stop: stop, reset: reset, route: route, edit: edit };

@@ -1,16 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Update module check for update and make update for ApexOS
  * @module Update
  */
-const { execFile } = require("child_process");
-function _handler(command = "apx-os-update", verb, arg2) {
-    return new Promise((resolve, reject) => {
+var execFile = require("child_process").execFile;
+function _handler(command, verb, arg2) {
+    if (command === void 0) { command = "apx-os-update"; }
+    return new Promise(function (resolve, reject) {
         var args = [command, verb];
         if (arg2)
             args.push(arg2);
-        execFile("sudo", args, (error, stdout, stderr) => {
+        execFile("sudo", args, function (error, stdout, stderr) {
             if (error) {
                 console.error(error);
                 return reject(error);
@@ -40,8 +39,9 @@ function checkCore() {
  * Start the update of the core packages by using the dctserver
  * @param force The same as start but without checking the network interface
  */
-function UpdateCore(force = false) {
-    return _handler("apx-core-update", force ? "force" : "update");
+function UpdateCore(force) {
+    if (force === void 0) { force = false; }
+    return _handler("apx-core-update", force ? "force" : "install");
 }
 /**
  * list installed packages from OS components in the distribution
@@ -66,7 +66,7 @@ function recoverOS() {
  * @param force The same as start but without checking the network interface
  */
 function updateOS() {
-    return _handler("apx-os-update", "install");
+    return _handler("apx-os-update", "start");
 }
 /**
  * upgrade a package to the lastest version available in the dctserver
@@ -79,11 +79,11 @@ function installOS(package_name) {
     return _handler("apx-os-update", "install", package_name);
 }
 exports.default = {
-    checkCore,
-    UpdateCore,
-    listOS,
-    checkOS,
-    recoverOS,
-    updateOS,
-    installOS
+    checkCore: checkCore,
+    UpdateCore: UpdateCore,
+    listOS: listOS,
+    checkOS: checkOS,
+    recoverOS: recoverOS,
+    updateOS: updateOS,
+    installOS: installOS
 };

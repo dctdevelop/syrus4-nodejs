@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
 exports.default = {
-    distanceBetweenCoordinates: (coord1, coord2) => {
+    distanceBetweenCoordinates: function (coord1, coord2) {
         if (!coord1 || !coord2)
             return null;
         var lat1 = coord1.coords.latitude;
@@ -19,12 +17,13 @@ exports.default = {
         var d = R * c; // Distance in km
         return d;
     },
-    toJSONReceiver: (coord, imei, siteId = 1) => {
+    toJSONReceiver: function (coord, imei, siteId) {
+        if (siteId === void 0) { siteId = 1; }
         return [
             {
                 ident: imei,
                 timestamp: coord.timestamp,
-                "device.name": `imei=${imei}&peg=${siteId}`,
+                "device.name": "imei=" + imei + "&peg=" + siteId,
                 "protocol.id": "syrus4",
                 "device.type.id": "syrus4",
                 "position.latitude": coord.coords.latitude,

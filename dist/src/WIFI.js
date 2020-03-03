@@ -1,18 +1,18 @@
-"use strict";
 /**
  * WIFI module to interacte with the enable/disable WIFI mode  with Apex OS
  * @module WIFI
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-const { execFile } = require("child_process");
-function _handler(verb, ssid = null, password = null) {
-    return new Promise((resolve, reject) => {
+var execFile = require("child_process").execFile;
+function _handler(verb, ssid, password) {
+    if (ssid === void 0) { ssid = null; }
+    if (password === void 0) { password = null; }
+    return new Promise(function (resolve, reject) {
         var args = ["apx-wifi", verb];
         if (ssid)
             args.push(ssid);
         if (password)
             args.push(password);
-        execFile("sudo", args, (error, stdout, stderr) => {
+        execFile("sudo", args, function (error, stdout, stderr) {
             if (error) {
                 console.error(error);
                 return reject(error);
@@ -77,4 +77,4 @@ function add(ssid, password) {
 function remove(ssid) {
     return _handler("add", ssid);
 }
-exports.default = { scan, state, list, start, stop, reset, add, remove };
+exports.default = { scan: scan, state: state, list: list, start: start, stop: stop, reset: reset, add: add, remove: remove };

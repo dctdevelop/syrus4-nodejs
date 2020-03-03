@@ -1,22 +1,12 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * GPS module get information about gps and location in ApexOS
  * @module GPS
  */
-const Redis = require("ioredis");
-const Utils_1 = require("./Utils");
+var Redis = require("ioredis");
+var Utils_1 = require("./Utils");
+var MAX_TRIES = 3;
+var SPEED_THRESHOLD = 3;
 var redis = new Redis();
-const MAX_TRIES = 3;
 var tries = 0;
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
@@ -24,10 +14,10 @@ function rawdataToCoordinates(raw) {
         coords: {
             latitude: gps.lat,
             longitude: gps.lon,
-            speed: gps.speed,
+            speed: gps.speed >= SPEED_THRESHOLD ? gps.speed : 0,
             accuracy: 5 * gps.hdop,
             altitude: gps.alt,
-            bearing: gps.track,
+            bearing: gps.speed >= SPEED_THRESHOLD ? gps.track : 0,
             altitudeAccuracy: 5 * gps.vdop
         },
         timestamp: new Date(gps.time).getTime() / 1000,
@@ -42,11 +32,14 @@ function rawdataToCoordinates(raw) {
         }
     };
 }
-function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function evaluateCriteria(current, last, config) {
+    if (last === void 0) { last = null; }
+    if (config === void 0) { config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }; }
     if (config.accuracy > 0 && current.coords.accuracy > config.accuracy) {
         tries++;
         if (tries > MAX_TRIES) {
             tries = 0;
+            return true;
         }
         else {
             return false;
@@ -54,20 +47,41 @@ function evaluateCriteria(current, last, config = { accuracy: 0, distance: 0, ti
     }
     if (!last)
         return true;
-    if (config.distance > 0 && Utils_1.default.distanceBetweenCoordinates(last, current) > config.distance)
-        return true;
-    if (config.time > 0 && new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime() > config.time)
-        return true;
-    if (config.bearing > 0 && Math.abs(last.coords.bearing - current.coords.bearing) >= config.bearing)
-        return true;
-    return false;
+    var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0;
+    var distance = Utils_1.default.distanceBetweenCoordinates(last, current);
+    var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
+    var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
+    if (config.distance > 0 && distance >= config.distance)
+        criteria = true;
+    if (config.time > 0 && secs >= config.time)
+        criteria = true;
+    if (config.bearing > 0 && bearing >= config.bearing)
+        criteria = true;
+    return criteria;
 }
 /**
  * Get last current location from GPS
  */
-function getCurrentLocation() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return rawdataToCoordinates(yield redis.get("gps"));
+function getCurrentPosition(config) {
+    if (config === void 0) { config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }; }
+    return new Promise(function (resolve, reject) {
+        try {
+            var sub = new Redis();
+            var handler = function (_channel, gps) {
+                var position = rawdataToCoordinates(gps);
+                if (evaluateCriteria(position)) {
+                    resolve(position);
+                    sub.unsubscribe("gps");
+                    sub.disconnect();
+                    sub = null;
+                }
+            };
+            sub.on("message", handler);
+            sub.subscribe("gps");
+        }
+        catch (error) {
+            reject(error);
+        }
     });
 }
 /**
@@ -76,11 +90,12 @@ function getCurrentLocation() {
  * @param errorCallback Errorcallback executes when is unable to get gps location
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
-function watchPosition(callback, errorCallback, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function watchPosition(callback, errorCallback, config) {
+    if (config === void 0) { config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }; }
     var last = null;
     var handler = function (_channel, gps) {
         var position = rawdataToCoordinates(gps);
-        if (evaluateCriteria(position, last)) {
+        if (evaluateCriteria(position, last, config)) {
             callback(position);
             last = position;
         }
@@ -88,7 +103,7 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
     redis.subscribe("gps");
     redis.on("message", handler);
     return {
-        unsubscribe: () => {
+        unsubscribe: function () {
             redis.off("gps", handler);
             redis.unsubscribe("gps");
         }
@@ -105,14 +120,14 @@ function watchGPS(callback, errorCallback) {
         callback(gps);
     });
     return {
-        unsubscribe: () => {
+        unsubscribe: function () {
             redis.off("gps", callback);
             redis.unsubscribe("gps");
         }
     };
 }
 exports.default = {
-    getCurrentLocation,
-    watchPosition,
-    watchGPS
+    getCurrentPosition: getCurrentPosition,
+    watchPosition: watchPosition,
+    watchGPS: watchGPS
 };

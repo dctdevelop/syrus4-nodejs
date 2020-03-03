@@ -1,14 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * System module get information about ApexOS
  * @module System-Info
  */
-const { execFile } = require("child_process");
+var execFile = require("child_process").execFile;
 function _handler() {
-    return new Promise((resolve, reject) => {
+    return new Promise(function (resolve, reject) {
         var args = ["apx-about"];
-        execFile("sudo", args, (error, stdout, stderr) => {
+        execFile("sudo", args, function (error, stdout, stderr) {
             if (error) {
                 console.error(error);
                 return reject(error);
@@ -28,4 +26,4 @@ function _handler() {
 function info() {
     return _handler();
 }
-exports.default = { info };
+exports.default = { info: info };
