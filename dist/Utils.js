@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const { execFile } = require("child_process");
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
@@ -44,5 +45,29 @@ exports.default = {
                 "device.id": imei
             }
         ];
+    },
+    OSExecute(...args) {
+        return new Promise((resolve, reject) => {
+            execFile("sudo", args, (error, stdout, stderr) => {
+                if (error) {
+                    console.error(error);
+                    return reject(error);
+                }
+                if (stderr) {
+                    console.error(stderr);
+                    return reject({
+                        error: stderr,
+                        errorText: stdout.toString()
+                    });
+                }
+                var data = stdout.toString();
+                try {
+                    resolve(JSON.parse(data));
+                }
+                catch (error) {
+                    resolve(data);
+                }
+            });
+        });
     }
 };
