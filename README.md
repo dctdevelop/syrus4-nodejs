@@ -14,12 +14,12 @@ $ npm install git+ssh://git@github.com/dctdevelop/syrus4-nodejs.git#master
 <dt><a href="#module_GPS">GPS</a></dt>
 <dd><p>GPS module get information about gps and location in ApexOS</p>
 </dd>
-<dt><a href="#module_Hotspot">Hotspot</a></dt>
-<dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
-</dd>
 <dt><a href="#module_IOS">IOS</a></dt>
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
 TODO: implement this</p>
+</dd>
+<dt><a href="#module_Mobile">Mobile</a></dt>
+<dd><p>Mobile module to interacte with the Mobile Network allow to set rf configurations and read them</p>
 </dd>
 <dt><a href="#module_System-Info">System-Info</a></dt>
 <dd><p>System module get information about ApexOS</p>
@@ -29,6 +29,34 @@ TODO: implement this</p>
 </dd>
 <dt><a href="#module_WIFI">WIFI</a></dt>
 <dd><p>WIFI module to interacte with the enable/disable WIFI mode  with Apex OS</p>
+</dd>
+</dl>
+
+## Functions
+
+<dl>
+<dt><a href="#list">list()</a></dt>
+<dd><p>returns the list of the connected clients to the hotspot</p>
+</dd>
+<dt><a href="#state">state()</a></dt>
+<dd><p>returns the state of the connected clients to the hotspot</p>
+</dd>
+<dt><a href="#start">start()</a></dt>
+<dd><p>start the hotspot service, also stop wifi service</p>
+</dd>
+<dt><a href="#stop">stop()</a></dt>
+<dd><p>stops the hotspot service</p>
+</dd>
+<dt><a href="#reset">reset()</a></dt>
+<dd><p>executes a stop-start in the same call</p>
+</dd>
+<dt><a href="#route">route(netInterface)</a></dt>
+<dd><p>Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface</p>
+</dd>
+<dt><a href="#edit">edit(parameter, newValue)</a></dt>
+<dd><p>edits the parameter received in the hotspot configuration file. <br>
+Example apx-hotspot edit wpa_passphrase myNewPass1234
+Possible Values: &quot;wpa_passphrase&quot; | &quot;ssid&quot; | &quot;max_num_sta&quot; | &quot;channel&quot; | &quot;wpa_key_mgmt&quot;</p>
 </dd>
 </dl>
 
@@ -74,76 +102,6 @@ allows to subscribe to gps data changes in GPS module
 | callback | handler to execute when new gps data arrives |
 | errorCallback | Errorcallback executes when is unable to get gps location |
 
-<a name="module_Hotspot"></a>
-
-## Hotspot
-Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
-
-
-* [Hotspot](#module_Hotspot)
-    * [~list()](#module_Hotspot..list)
-    * [~state()](#module_Hotspot..state)
-    * [~start()](#module_Hotspot..start)
-    * [~stop()](#module_Hotspot..stop)
-    * [~reset()](#module_Hotspot..reset)
-    * [~route(netInterface)](#module_Hotspot..route)
-    * [~edit(parameter, newValue)](#module_Hotspot..edit)
-
-<a name="module_Hotspot..list"></a>
-
-### Hotspot~list()
-returns the list of the connected clients to the hotspot
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-<a name="module_Hotspot..state"></a>
-
-### Hotspot~state()
-returns the state of the connected clients to the hotspot
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-<a name="module_Hotspot..start"></a>
-
-### Hotspot~start()
-start the hotspot service, also stop wifi service
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-<a name="module_Hotspot..stop"></a>
-
-### Hotspot~stop()
-stops the hotspot service
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-<a name="module_Hotspot..reset"></a>
-
-### Hotspot~reset()
-executes a stop-start in the same call
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-<a name="module_Hotspot..route"></a>
-
-### Hotspot~route(netInterface)
-Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| netInterface | <code>ppp0</code> | Interface you ant allow internet access default="ppp0" |
-
-<a name="module_Hotspot..edit"></a>
-
-### Hotspot~edit(parameter, newValue)
-edits the parameter received in the hotspot configuration file. <br>
-Example apx-hotspot edit wpa_passphrase myNewPass1234
-Possible Values: "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_key_mgmt"
-
-**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| parameter | <code>wpa_passphrase</code> | param to edit config |
-| newValue |  | new value for the parameter |
-
 <a name="module_IOS"></a>
 
 ## IOS
@@ -166,7 +124,7 @@ Allow to subcribe to changes in a input or output accepts sub patterns
 
 | Param | Default | Description |
 | --- | --- | --- |
-| inputName | <code>IGN</code> | input or patter to subscribe |
+| inputName | <code>*</code> | input or patter to subscribe |
 | cb |  | callback execute everytime the input state changed, first argument contains the new state |
 | errorCallback |  |  |
 
@@ -199,6 +157,34 @@ Allow to change the state of an output
 Get the current state of all inputs, outputs and analogs in the Syrus4 device
 
 **Kind**: inner method of [<code>IOS</code>](#module_IOS)  
+<a name="module_Mobile"></a>
+
+## Mobile
+Mobile module to interacte with the Mobile Network allow to set rf configurations and read them
+
+
+* [Mobile](#module_Mobile)
+    * [~getInfo()](#module_Mobile..getInfo)
+    * [~set(key, value)](#module_Mobile..set)
+
+<a name="module_Mobile..getInfo"></a>
+
+### Mobile~getInfo()
+returns a JSON with the configured values in RF
+
+**Kind**: inner method of [<code>Mobile</code>](#module_Mobile)  
+<a name="module_Mobile..set"></a>
+
+### Mobile~set(key, value)
+Use this option to configure the network variable for mobile networks
+
+**Kind**: inner method of [<code>Mobile</code>](#module_Mobile)  
+
+| Param | Description |
+| --- | --- |
+| key | the paramter to be configured, posible values are: "apn", "user", "pin", "pass" |
+| value | the new value of the parameter |
+
 <a name="module_System-Info"></a>
 
 ## System-Info
@@ -356,6 +342,61 @@ It removes a network from the WIFI configuration file, in this case you have to 
 | Param | Description |
 | --- | --- |
 | ssid | Name of the SSID you want to remove |
+
+<a name="list"></a>
+
+## list()
+returns the list of the connected clients to the hotspot
+
+**Kind**: global function  
+<a name="state"></a>
+
+## state()
+returns the state of the connected clients to the hotspot
+
+**Kind**: global function  
+<a name="start"></a>
+
+## start()
+start the hotspot service, also stop wifi service
+
+**Kind**: global function  
+<a name="stop"></a>
+
+## stop()
+stops the hotspot service
+
+**Kind**: global function  
+<a name="reset"></a>
+
+## reset()
+executes a stop-start in the same call
+
+**Kind**: global function  
+<a name="route"></a>
+
+## route(netInterface)
+Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface
+
+**Kind**: global function  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| netInterface | <code>ppp0</code> | Interface you ant allow internet access default="ppp0" |
+
+<a name="edit"></a>
+
+## edit(parameter, newValue)
+edits the parameter received in the hotspot configuration file. <br>
+Example apx-hotspot edit wpa_passphrase myNewPass1234
+Possible Values: "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_key_mgmt"
+
+**Kind**: global function  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| parameter | <code>wpa_passphrase</code> | param to edit config |
+| newValue |  | new value for the parameter |
 
 
 * * *

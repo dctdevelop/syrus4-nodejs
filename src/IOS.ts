@@ -13,12 +13,14 @@ var notis = new Redis();
  * @param cb callback execute everytime the input state changed, first argument contains the new state
  * @param errorCallback
  */
-function watchInputState(inputName = "IGN", cb, errorCallback?: Function) {
+function watchInputState(inputName = "*", cb, errorCallback?: Function) {
 	var channel = `interface/input/${inputName}`;
+	if (inputName == "*") {
+		channel = `interface/*`;
+	}
 	if (inputName[0] == "O") {
 		channel = `interface/output/${inputName}`;
-	}
-	if (inputName[0] == "A") {
+	} else if (inputName[0] == "A") {
 		channel = `interface/analog/${inputName}`;
 	}
 	var callback = function(_pattern, channel, raw) {
