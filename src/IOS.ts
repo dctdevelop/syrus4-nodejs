@@ -25,11 +25,13 @@ function watchInputState(inputName = "*", cb, errorCallback?: Function) {
 	}
 	var callback = function(_pattern, channel, raw) {
 		var input = channel.split("/")[2];
-		if (input == inputName) {
+		if (inputName == "*" || input == inputName) {
 			var returnable = raw;
 			if (raw == "true") returnable = true;
 			if (raw == "false") returnable = false;
-			cb(returnable);
+			var response = {};
+			response[inputName] = returnable;
+			cb(response);
 		}
 	};
 	// console.log("channel name:", channel);
