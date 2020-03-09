@@ -28,7 +28,7 @@ function watchInputState(inputName = "*", cb, errorCallback) {
     if (inputName == "*") {
         channel = `interface/*`;
     }
-    if (inputName[0] == "O") {
+    else if (inputName[0] == "O") {
         channel = `interface/output/${inputName}`;
     }
     else if (inputName[0] == "A") {
@@ -43,7 +43,7 @@ function watchInputState(inputName = "*", cb, errorCallback) {
             if (raw == "false")
                 returnable = false;
             var response = {};
-            response[inputName] = returnable;
+            response[input] = returnable;
             cb(response);
         }
     };
