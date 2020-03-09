@@ -15,8 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module IOS
  */
 const Redis = require("ioredis");
-var redis = new Redis();
+var publisher = new Redis();
 var notis = new Redis();
+var reader = new Redis();
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe
@@ -69,7 +70,7 @@ function getInputState(inputName = "IGN") {
         channel = "current_analog_state";
     }
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        var response = yield redis.hget(channel, inputName);
+        var response = yield reader.hget(channel, inputName);
         var returnable = response;
         if (response == "true")
             returnable = true;
@@ -85,8 +86,8 @@ function getInputState(inputName = "IGN") {
  */
 function setOutputState(inputName = "OUT1", state = true) {
     return new Promise((resolve, reject) => {
-        redis.hset("desired_output_state", inputName, `${state}`);
-        notis.publish(`desired/interface/output/${inputName}`, `${state}`);
+        reader.hset("desired_output_state", inputName, `${state}`);
+        publisher.publish(`desired/interface/output/${inputName}`, `${state}`);
         resolve(state);
     });
 }
@@ -95,9 +96,9 @@ function setOutputState(inputName = "OUT1", state = true) {
  */
 function getAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        var inputs = (yield redis.hgetall("current_input_state")) || {};
-        var outputs = (yield redis.hgetall("current_output_state")) || {};
-        var analogs = (yield redis.hgetall("current_analog_state")) || {};
+        var inputs = (yield reader.hgetall("current_input_state")) || {};
+        var outputs = (yield reader.hgetall("current_output_state")) || {};
+        var analogs = (yield reader.hgetall("current_analog_state")) || {};
         var response = Object.assign(inputs, outputs);
         response = Object.assign(response, analogs);
         Object.keys(response).forEach(key => {

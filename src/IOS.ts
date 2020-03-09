@@ -4,8 +4,9 @@
  * @module IOS
  */
 import * as Redis from "ioredis";
-var redis = new Redis();
+var publisher = new Redis();
 var notis = new Redis();
+var reader = new Redis();
 
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
@@ -56,7 +57,7 @@ function getInputState(inputName = "IGN"): Promise<any> {
 		channel = "current_analog_state";
 	}
 	return new Promise(async (resolve, reject) => {
-		var response = await redis.hget(channel, inputName);
+		var response = await reader.hget(channel, inputName);
 		var returnable: any = response;
 		if (response == "true") returnable = true;
 		if (response == "false") returnable = false;
@@ -70,8 +71,8 @@ function getInputState(inputName = "IGN"): Promise<any> {
  */
 function setOutputState(inputName = "OUT1", state = true): Promise<boolean | number> {
 	return new Promise((resolve, reject) => {
-		redis.hset("desired_output_state", inputName, `${state}`);
-		notis.publish(`desired/interface/output/${inputName}`, `${state}`);
+		reader.hset("desired_output_state", inputName, `${state}`);
+		publisher.publish(`desired/interface/output/${inputName}`, `${state}`);
 		resolve(state);
 	});
 }
@@ -80,9 +81,9 @@ function setOutputState(inputName = "OUT1", state = true): Promise<boolean | num
  * Get the current state of all inputs, outputs and analogs in the Syrus4 device
  */
 async function getAll() {
-	var inputs = (await redis.hgetall("current_input_state")) || {};
-	var outputs = (await redis.hgetall("current_output_state")) || {};
-	var analogs = (await redis.hgetall("current_analog_state")) || {};
+	var inputs = (await reader.hgetall("current_input_state")) || {};
+	var outputs = (await reader.hgetall("current_output_state")) || {};
+	var analogs = (await reader.hgetall("current_analog_state")) || {};
 	var response = Object.assign(inputs, outputs);
 	response = Object.assign(response, analogs);
 	Object.keys(response).forEach(key => {
