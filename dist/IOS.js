@@ -87,7 +87,7 @@ function getInputState(inputName = "IGN") {
 function setOutputState(inputName = "OUT1", state = true) {
     return new Promise((resolve, reject) => {
         reader.hset("desired_output_state", inputName, `${state}`);
-        publisher.publish(`desired/interface/output/${inputName}`, `${state}`);
+        publisher.publish(`desired/interface/output/${inputName}`, `${state}`, console.error);
         resolve(state);
     });
 }
