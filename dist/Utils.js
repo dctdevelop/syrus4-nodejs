@@ -50,14 +50,17 @@ exports.default = {
         return new Promise((resolve, reject) => {
             execFile("sudo", args, (error, stdout, stderr) => {
                 if (error) {
-                    console.error(error);
-                    return reject(error);
+                    return reject({
+                        error: error,
+                        errorText: stderr.toString(),
+                        output: stdout.toString()
+                    });
                 }
                 if (stderr) {
-                    console.error(stderr);
                     return reject({
-                        error: stderr,
-                        errorText: stdout.toString()
+                        error: error,
+                        errorText: stderr.toString(),
+                        output: stdout.toString()
                     });
                 }
                 var data = stdout.toString();
