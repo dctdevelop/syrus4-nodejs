@@ -1,4 +1,4 @@
-const { execFile } = require("child_process");
+const { exec } = require("child_process");
 function deg2rad(deg) {
 	return deg * (Math.PI / 180);
 }
@@ -49,8 +49,12 @@ export default {
 	},
 
 	OSExecute(...args) {
+		if (args.length == 1) {
+			args = args[0].split(" ");
+		}
+		var command = ["sudo", ...args].join(" ");
 		return new Promise((resolve, reject) => {
-			execFile("sudo", args, (error, stdout, stderr) => {
+			exec(command, (error, stdout, stderr) => {
 				if (error) {
 					return reject({
 						error: error,
