@@ -49,6 +49,9 @@ export default {
 	},
 
 	OSExecute(...args) {
+		if (args.length == 1) {
+			args = args[0].split(" ");
+		}
 		return new Promise((resolve, reject) => {
 			execFile("sudo", args, (error, stdout, stderr) => {
 				if (error) {
