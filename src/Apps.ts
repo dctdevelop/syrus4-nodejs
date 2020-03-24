@@ -4,6 +4,7 @@
  */
 import utils from "./Utils";
 const fs = require("fs");
+type Parameter = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
 
 /**
  * allows to execute commands from the apps-manager utility from ApexOs
@@ -11,7 +12,7 @@ const fs = require("fs");
  * @param app the name of the App
  * @param zipPath the zip location unde where unzip the app
  */
-function execute(action: string, app: string = null, zipPath: string = null) {
+function execute(action: Parameter, app: string = null, zipPath: string = null) {
 	return utils.OSExecute("apx-apps", action, app, zipPath);
 }
 
