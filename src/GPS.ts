@@ -10,14 +10,15 @@ var redis = new Redis();
 var tries = 0;
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
+	var speed = parseFloat(gps.speed) * 0.277778;
 	return {
 		coords: {
 			latitude: gps.lat,
 			longitude: gps.lon,
-			speed: gps.speed >= SPEED_THRESHOLD ? gps.speed : 0,
+			speed: speed >= SPEED_THRESHOLD ? speed : 0,
 			accuracy: 5 * gps.hdop,
 			altitude: gps.alt,
-			bearing: gps.speed >= SPEED_THRESHOLD ? gps.track : 0,
+			bearing: speed >= SPEED_THRESHOLD ? gps.track : 0,
 			altitudeAccuracy: 5 * gps.vdop
 		},
 		timestamp: new Date(gps.time).getTime() / 1000,

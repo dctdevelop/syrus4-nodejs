@@ -1,5 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
+ * @module Hotspot
+ */
 const Utils_1 = require("./Utils");
 /**
  * returns the list of the connected clients to the hotspot

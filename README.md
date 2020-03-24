@@ -11,8 +11,14 @@ $ npm install git+ssh://git@github.com/dctdevelop/syrus4-nodejs.git#master
 ## Modules
 
 <dl>
+<dt><a href="#module_Apps">Apps</a></dt>
+<dd><p>Apps module to start/stop/enable/disable/install third parts apps running in apex-os</p>
+</dd>
 <dt><a href="#module_GPS">GPS</a></dt>
 <dd><p>GPS module get information about gps and location in ApexOS</p>
+</dd>
+<dt><a href="#module_Hotspot">Hotspot</a></dt>
+<dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
 </dd>
 <dt><a href="#module_IOS">IOS</a></dt>
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
@@ -32,33 +38,156 @@ TODO: implement this</p>
 </dd>
 </dl>
 
-## Functions
+<a name="module_Apps"></a>
 
-<dl>
-<dt><a href="#list">list()</a></dt>
-<dd><p>returns the list of the connected clients to the hotspot</p>
-</dd>
-<dt><a href="#state">state()</a></dt>
-<dd><p>returns the state of the connected clients to the hotspot</p>
-</dd>
-<dt><a href="#start">start()</a></dt>
-<dd><p>start the hotspot service, also stop wifi service</p>
-</dd>
-<dt><a href="#stop">stop()</a></dt>
-<dd><p>stops the hotspot service</p>
-</dd>
-<dt><a href="#reset">reset()</a></dt>
-<dd><p>executes a stop-start in the same call</p>
-</dd>
-<dt><a href="#route">route(netInterface)</a></dt>
-<dd><p>Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface</p>
-</dd>
-<dt><a href="#edit">edit(parameter, newValue)</a></dt>
-<dd><p>edits the parameter received in the hotspot configuration file. <br>
-Example apx-hotspot edit wpa_passphrase myNewPass1234
-Possible Values: &quot;wpa_passphrase&quot; | &quot;ssid&quot; | &quot;max_num_sta&quot; | &quot;channel&quot; | &quot;wpa_key_mgmt&quot;</p>
-</dd>
-</dl>
+## Apps
+Apps module to start/stop/enable/disable/install third parts apps running in apex-os
+
+
+* [Apps](#module_Apps)
+    * [~execute(action, app, zipPath)](#module_Apps..execute)
+    * [~start(app)](#module_Apps..start)
+    * [~stop(app)](#module_Apps..stop)
+    * [~restart(app)](#module_Apps..restart)
+    * [~enable(app)](#module_Apps..enable)
+    * [~disable(app)](#module_Apps..disable)
+    * [~list()](#module_Apps..list)
+    * [~state(app)](#module_Apps..state)
+    * [~install(app, zipPath)](#module_Apps..install)
+    * [~uninstall(app)](#module_Apps..uninstall)
+    * [~setConfiguration(app, newConfig)](#module_Apps..setConfiguration)
+    * [~getConfiguration(app)](#module_Apps..getConfiguration)
+
+<a name="module_Apps..execute"></a>
+
+### Apps~execute(action, app, zipPath)
+allows to execute commands from the apps-manager utility from ApexOs
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| action |  | action to execute |
+| app | <code></code> | the name of the App |
+| zipPath | <code></code> | the zip location unde where unzip the app |
+
+<a name="module_Apps..start"></a>
+
+### Apps~start(app)
+Start an application under /data/applications folder
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..stop"></a>
+
+### Apps~stop(app)
+Stop an application under /data/applications folder
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..restart"></a>
+
+### Apps~restart(app)
+Restart an application under /data/applications folder
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..enable"></a>
+
+### Apps~enable(app)
+Enable an application for start on boot under /data/applications folder
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..disable"></a>
+
+### Apps~disable(app)
+Disable an application for start on boot under /data/applications folder
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..list"></a>
+
+### Apps~list()
+List all the running applications
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+<a name="module_Apps..state"></a>
+
+### Apps~state(app)
+return the state of the app
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..install"></a>
+
+### Apps~install(app, zipPath)
+Allows install an app receive as parameter the name of the app and the zip location or the data of the zip in question
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+| zipPath | the zip location |
+
+<a name="module_Apps..uninstall"></a>
+
+### Apps~uninstall(app)
+Uninstall and deletes the data from an app
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+
+<a name="module_Apps..setConfiguration"></a>
+
+### Apps~setConfiguration(app, newConfig)
+write .env file configuration of the app, if the .env exists, replace it
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
+| newConfig |  |
+
+<a name="module_Apps..getConfiguration"></a>
+
+### Apps~getConfiguration(app)
+Get the contents of .env file configuration
+
+**Kind**: inner method of [<code>Apps</code>](#module_Apps)  
+
+| Param | Description |
+| --- | --- |
+| app | the name of the app |
 
 <a name="module_GPS"></a>
 
@@ -101,6 +230,76 @@ allows to subscribe to gps data changes in GPS module
 | --- | --- |
 | callback | handler to execute when new gps data arrives |
 | errorCallback | Errorcallback executes when is unable to get gps location |
+
+<a name="module_Hotspot"></a>
+
+## Hotspot
+Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
+
+
+* [Hotspot](#module_Hotspot)
+    * [~list()](#module_Hotspot..list)
+    * [~state()](#module_Hotspot..state)
+    * [~start()](#module_Hotspot..start)
+    * [~stop()](#module_Hotspot..stop)
+    * [~reset()](#module_Hotspot..reset)
+    * [~route(netInterface)](#module_Hotspot..route)
+    * [~edit(parameter, newValue)](#module_Hotspot..edit)
+
+<a name="module_Hotspot..list"></a>
+
+### Hotspot~list()
+returns the list of the connected clients to the hotspot
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+<a name="module_Hotspot..state"></a>
+
+### Hotspot~state()
+returns the state of the connected clients to the hotspot
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+<a name="module_Hotspot..start"></a>
+
+### Hotspot~start()
+start the hotspot service, also stop wifi service
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+<a name="module_Hotspot..stop"></a>
+
+### Hotspot~stop()
+stops the hotspot service
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+<a name="module_Hotspot..reset"></a>
+
+### Hotspot~reset()
+executes a stop-start in the same call
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+<a name="module_Hotspot..route"></a>
+
+### Hotspot~route(netInterface)
+Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| netInterface | <code>ppp0</code> | Interface you ant allow internet access default="ppp0" |
+
+<a name="module_Hotspot..edit"></a>
+
+### Hotspot~edit(parameter, newValue)
+edits the parameter received in the hotspot configuration file. <br>
+Example apx-hotspot edit wpa_passphrase myNewPass1234
+Possible Values: "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_key_mgmt"
+
+**Kind**: inner method of [<code>Hotspot</code>](#module_Hotspot)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| parameter | <code>wpa_passphrase</code> | param to edit config |
+| newValue |  | new value for the parameter |
 
 <a name="module_IOS"></a>
 
@@ -342,61 +541,6 @@ It removes a network from the WIFI configuration file, in this case you have to 
 | Param | Description |
 | --- | --- |
 | ssid | Name of the SSID you want to remove |
-
-<a name="list"></a>
-
-## list()
-returns the list of the connected clients to the hotspot
-
-**Kind**: global function  
-<a name="state"></a>
-
-## state()
-returns the state of the connected clients to the hotspot
-
-**Kind**: global function  
-<a name="start"></a>
-
-## start()
-start the hotspot service, also stop wifi service
-
-**Kind**: global function  
-<a name="stop"></a>
-
-## stop()
-stops the hotspot service
-
-**Kind**: global function  
-<a name="reset"></a>
-
-## reset()
-executes a stop-start in the same call
-
-**Kind**: global function  
-<a name="route"></a>
-
-## route(netInterface)
-Use this option for forwarding the wlan traffic to another interface, it allows you to have internet access by specifying the output interface
-
-**Kind**: global function  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| netInterface | <code>ppp0</code> | Interface you ant allow internet access default="ppp0" |
-
-<a name="edit"></a>
-
-## edit(parameter, newValue)
-edits the parameter received in the hotspot configuration file. <br>
-Example apx-hotspot edit wpa_passphrase myNewPass1234
-Possible Values: "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_key_mgmt"
-
-**Kind**: global function  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| parameter | <code>wpa_passphrase</code> | param to edit config |
-| newValue |  | new value for the parameter |
 
 
 * * *
