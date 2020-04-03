@@ -65,7 +65,7 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
 			var sub = new Redis();
 			var handler = function(_channel, gps) {
 				var position = rawdataToCoordinates(gps);
-				if (evaluateCriteria(position)) {
+				if (!config || evaluateCriteria(position)) {
 					resolve(position);
 					sub.unsubscribe("gps");
 					sub.disconnect();
@@ -100,6 +100,7 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 
 	return {
 		unsubscribe: () => {
+			redis.off("message", handler);
 			redis.unsubscribe("gps");
 		}
 	};
@@ -111,15 +112,22 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
  * @param errorCallback Errorcallback executes when is unable to get gps location
  */
 function watchGPS(callback, errorCallback: Function) {
-	redis.subscribe("gps");
-	redis.on("message", function(_channel, gps) {
-		callback(gps);
-	});
-	return {
-		unsubscribe: () => {
-			redis.unsubscribe("gps");
-		}
-	};
+	try {
+		redis.subscribe("gps");
+		var cb = function(_channel, gps) {
+			callback(gps);
+		};
+		redis.on("message", cb);
+		return {
+			unsubscribe: () => {
+				redis.off("message", cb);
+				redis.unsubscribe("gps");
+			}
+		};
+	} catch (error) {
+		if (errorCallback) errorCallback(error);
+		else console.error(error);
+	}
 }
 
 export default {
