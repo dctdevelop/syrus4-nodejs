@@ -112,6 +112,7 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
     redis.on("message", handler);
     return {
         unsubscribe: () => {
+            redis.off("message", handler);
             redis.unsubscribe("gps");
         }
     };

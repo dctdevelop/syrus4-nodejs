@@ -14,7 +14,7 @@ var reader = new Redis();
  * @param cb callback execute everytime the input state changed, first argument contains the new state
  * @param errorCallback
  */
-function watchInputState(inputName = "*", cb, errorCallback?: Function) {
+function watchInputState(inputName = "*", cb: (response: any) => void, errorCallback?: Function) {
 	var channel = `interface/input/${inputName}`;
 	if (inputName == "*") {
 		channel = `interface/*`;
@@ -40,7 +40,8 @@ function watchInputState(inputName = "*", cb, errorCallback?: Function) {
 
 	return {
 		unsubscribe: () => {
-			notis.off(`${channel}`, callback);
+			notis.off("pmessage", callback);
+			notis.punsubscribe(channel);
 		}
 	};
 }

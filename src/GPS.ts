@@ -100,6 +100,7 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 
 	return {
 		unsubscribe: () => {
+			redis.off("message", handler);
 			redis.unsubscribe("gps");
 		}
 	};

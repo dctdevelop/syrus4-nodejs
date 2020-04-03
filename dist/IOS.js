@@ -53,7 +53,8 @@ function watchInputState(inputName = "*", cb, errorCallback) {
     notis.on("pmessage", callback);
     return {
         unsubscribe: () => {
-            notis.off(`${channel}`, callback);
+            notis.off("pmessage", callback);
+            notis.punsubscribe(channel);
         }
     };
 }
