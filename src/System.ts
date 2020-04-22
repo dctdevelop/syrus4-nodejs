@@ -1,5 +1,5 @@
 import Utils from "./Utils";
-
+import * as Redis from "ioredis";
 /**
  * System module get information about ApexOS
  * @module System-Info
@@ -12,4 +12,11 @@ function info() {
 	return Utils.OSExecute("apx-about");
 }
 
-export default { info };
+async function modem() {
+	var reader = new Redis();
+	var response = await reader.hgetall("modem_information");
+	reader = null;
+	return response;
+}
+
+export default { info, modem };
