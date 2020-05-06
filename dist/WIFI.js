@@ -47,13 +47,13 @@ function reset() {
  * @param password the password of the SSID
  */
 function add(ssid, password) {
-    return Utils_1.default.OSExecute("apx-wifi", "add", ssid, password);
+    return Utils_1.default.OSExecute("apx-wifi", "add", `"${ssid}"`, `"${password}"`);
 }
 /**
  * It removes a network from the WIFI configuration file, in this case you have to include the SSID as parametes
  * @param ssid Name of the SSID you want to remove
  */
 function remove(ssid) {
-    return Utils_1.default.OSExecute("apx-wifi", "remove", ssid);
+    return Utils_1.default.OSExecute("apx-wifi", "remove", `"${ssid}"`);
 }
 exports.default = { scan, state, list, start, stop, reset, add, remove };
