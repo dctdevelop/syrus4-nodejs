@@ -56,7 +56,7 @@ function getNetworkState() {
         if (net == "wlan0") {
             data = yield Utils_1.default.OSExecute("apx-wifi", "state");
         }
-        data = Object.assign(data, getNetworkInfo(net));
+        data = Object.assign(data, yield getNetworkInfo(net));
         return { network: net, information: data };
     });
 }
@@ -70,19 +70,19 @@ function getNetworkInfo(net) {
         if (net == "none") {
             return {};
         }
-        var raw = yield Utils_1.default.OSExecute(`ifconfig ${net}`);
+        var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
         var start = raw.indexOf("inet addr:") + 10;
         var end = raw.indexOf(" ", start);
         if (start > -1)
-            data.address = raw.substring(start, end);
+            data.ip = raw.substring(start, end);
         start = raw.indexOf("RX bytes:") + 9;
         end = raw.indexOf(" ", start);
         if (start > -1)
-            data["Rx bytes"] = raw.substring(start, end);
+            data["rx_bytes"] = parseInt(raw.substring(start, end));
         start = raw.indexOf("TX bytes:") + 9;
         end = raw.indexOf(" ", start);
         if (start > -1)
-            data["Tx bytes"] = raw.substring(start, end);
+            data["tx_bytes"] = parseInt(raw.substring(start, end));
         return data;
     });
 }

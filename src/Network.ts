@@ -46,7 +46,7 @@ async function getNetworkState() {
 	if (net == "wlan0") {
 		data = await Utils.OSExecute("apx-wifi", "state");
 	}
-	data = Object.assign(data, getNetworkInfo(net));
+	data = Object.assign(data, await getNetworkInfo(net));
 	return { network: net, information: data };
 }
 
@@ -59,20 +59,20 @@ async function getNetworkInfo(net) {
 	if (net == "none") {
 		return {};
 	}
-	var raw: any = await Utils.OSExecute(`ifconfig ${net}`);
+	var raw: any = await Utils.execute(`ifconfig ${net}`);
 
 	var start = raw.indexOf("inet addr:") + 10;
 	var end = raw.indexOf(" ", start);
-	if (start > -1) data.address = raw.substring(start, end);
+	if (start > -1) data.ip = raw.substring(start, end);
 
 	start = raw.indexOf("RX bytes:") + 9;
 	end = raw.indexOf(" ", start);
-	if (start > -1) data["Rx bytes"] = raw.substring(start, end);
+	if (start > -1) data["rx_bytes"] = parseInt(raw.substring(start, end));
 
 	start = raw.indexOf("TX bytes:") + 9;
 	end = raw.indexOf(" ", start);
 
-	if (start > -1) data["Tx bytes"] = raw.substring(start, end);
+	if (start > -1) data["tx_bytes"] = parseInt(raw.substring(start, end));
 
 	return data;
 }

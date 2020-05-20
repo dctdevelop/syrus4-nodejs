@@ -76,5 +76,36 @@ exports.default = {
                 }
             });
         });
+    },
+    execute(...args) {
+        if (args.length == 1) {
+            args = args[0].split(" ");
+        }
+        var command = [...args].join(" ");
+        return new Promise((resolve, reject) => {
+            exec(command, (error, stdout, stderr) => {
+                if (error) {
+                    return reject({
+                        error: error,
+                        errorText: stderr.toString(),
+                        output: stdout.toString()
+                    });
+                }
+                if (stderr) {
+                    return reject({
+                        error: error,
+                        errorText: stderr.toString(),
+                        output: stdout.toString()
+                    });
+                }
+                var data = stdout.toString();
+                try {
+                    resolve(JSON.parse(data));
+                }
+                catch (error) {
+                    resolve(data);
+                }
+            });
+        });
     }
 };
