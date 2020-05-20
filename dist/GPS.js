@@ -14,10 +14,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module GPS
  */
 const Redis = require("ioredis");
+const redis_conf_1 = require("./redis_conf");
 const Utils_1 = require("./Utils");
 const MAX_TRIES = 3;
 const SPEED_THRESHOLD = 3;
-var redis = new Redis();
+var redis = new Redis(redis_conf_1.default);
 var tries = 0;
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
@@ -75,7 +76,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         try {
-            var sub = new Redis();
+            var sub = new Redis(redis_conf_1.default);
             var handler = function (_channel, gps) {
                 var position = rawdataToCoordinates(gps);
                 if (!config || evaluateCriteria(position)) {

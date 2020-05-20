@@ -3,10 +3,11 @@
  * @module GPS
  */
 import * as Redis from "ioredis";
+import redis_conf from "./redis_conf";
 import utils from "./Utils";
 const MAX_TRIES = 3;
 const SPEED_THRESHOLD = 3;
-var redis = new Redis();
+var redis = new Redis(redis_conf);
 var tries = 0;
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
@@ -62,7 +63,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			var sub = new Redis();
+			var sub = new Redis(redis_conf);
 			var handler = function(_channel, gps) {
 				var position = rawdataToCoordinates(gps);
 				if (!config || evaluateCriteria(position)) {

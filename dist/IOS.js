@@ -15,9 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module IOS
  */
 const Redis = require("ioredis");
-var publisher = new Redis();
-var notis = new Redis();
-var reader = new Redis();
+const redis_conf_1 = require("./redis_conf");
+var publisher = new Redis(redis_conf_1.default);
+var notis = new Redis(redis_conf_1.default);
+var reader = new Redis(redis_conf_1.default);
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe

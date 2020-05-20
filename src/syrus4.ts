@@ -1,3 +1,5 @@
+import Accelerometer from "./Accelerometer";
+import Network from "./Network";
 import Utils from "./Utils";
 import GPS from "./GPS";
 import WIFI from "./WIFI";
@@ -6,5 +8,5 @@ import Update from "./Update";
 import Hotspot from "./Hotspot";
 import Mobile from "./Mobile";
 import IOS from "./IOS";
-export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS };
-export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS };
+export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network };
+export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network };

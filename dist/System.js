@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Utils_1 = require("./Utils");
 const Redis = require("ioredis");
+const redis_conf_1 = require("./redis_conf");
 /**
  * System module get information about ApexOS
  * @module System-Info
@@ -23,7 +24,7 @@ function info() {
 }
 function modem() {
     return __awaiter(this, void 0, void 0, function* () {
-        var reader = new Redis();
+        var reader = new Redis(redis_conf_1.default);
         var response = yield reader.hgetall("modem_information");
         reader = null;
         return response;
