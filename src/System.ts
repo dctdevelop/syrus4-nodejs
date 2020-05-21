@@ -1,5 +1,6 @@
 import Utils from "./Utils";
 import * as Redis from "ioredis";
+import redis_conf from "./redis_conf";
 /**
  * System module get information about ApexOS
  * @module System-Info
@@ -13,7 +14,7 @@ function info() {
 }
 
 async function modem() {
-	var reader = new Redis();
+	var reader = new Redis(redis_conf);
 	var response = await reader.hgetall("modem_information");
 	reader = null;
 	return response;

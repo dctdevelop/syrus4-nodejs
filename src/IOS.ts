@@ -4,9 +4,10 @@
  * @module IOS
  */
 import * as Redis from "ioredis";
-var publisher = new Redis();
-var notis = new Redis();
-var reader = new Redis();
+import redis_conf from "./redis_conf";
+var publisher = new Redis(redis_conf);
+var notis = new Redis(redis_conf);
+var reader = new Redis(redis_conf);
 
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns

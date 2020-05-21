@@ -11,6 +11,9 @@ $ npm install git+ssh://git@github.com/dctdevelop/syrus4-nodejs.git#master
 ## Modules
 
 <dl>
+<dt><a href="#module_Accelerometer">Accelerometer</a></dt>
+<dd><p>Accelerometer module get information about hardware acceleration and events in ApexOS</p>
+</dd>
 <dt><a href="#module_Apps">Apps</a></dt>
 <dd><p>Apps module to start/stop/enable/disable/install third parts apps running in apex-os</p>
 </dd>
@@ -27,6 +30,9 @@ TODO: implement this</p>
 <dt><a href="#module_Mobile">Mobile</a></dt>
 <dd><p>Mobile module to interacte with the Mobile Network allow to set rf configurations and read them</p>
 </dd>
+<dt><a href="#module_Network">Network</a></dt>
+<dd><p>Network module get information about networks and events in ApexOS</p>
+</dd>
 <dt><a href="#module_System-Info">System-Info</a></dt>
 <dd><p>System module get information about ApexOS</p>
 </dd>
@@ -38,6 +44,98 @@ TODO: implement this</p>
 </dd>
 </dl>
 
+<a name="module_Accelerometer"></a>
+
+## Accelerometer
+Accelerometer module get information about hardware acceleration and events in ApexOS
+
+
+* [Accelerometer](#module_Accelerometer)
+    * [~onMotionChange(callback, errorCallback)](#module_Accelerometer..onMotionChange)
+    * [~on(callback, errorCallback)](#module_Accelerometer..on)
+    * [~startAutoAlignment(state)](#module_Accelerometer..startAutoAlignment)
+    * [~startSelfAccelerationTest(state)](#module_Accelerometer..startSelfAccelerationTest)
+    * [~setDebugMode(state)](#module_Accelerometer..setDebugMode)
+    * [~isAutoAligning()](#module_Accelerometer..isAutoAligning)
+    * [~isAccelerationTest()](#module_Accelerometer..isAccelerationTest)
+    * [~isDebugMode()](#module_Accelerometer..isDebugMode)
+
+<a name="module_Accelerometer..onMotionChange"></a>
+
+### Accelerometer~onMotionChange(callback, errorCallback)
+Watch the motion state of the Syrus Apex accceleration hardware module
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to executed when motion state changes |
+| errorCallback | callback to execute in case of error |
+
+<a name="module_Accelerometer..on"></a>
+
+### Accelerometer~on(callback, errorCallback)
+Watch for accelerations events in Apex OS. possible events:
+FORWARD_COLLISION, BACKWARD_COLLISION, LAT_COLLISION_FROM_RIGHT, LAT_COLLISION_FROM_LEFT, HARSH_FWD_ACCELERATION, HARD_BRAKING, CORNERING_RIGHT, CORNERING_LEFT
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to executed when new acceleration event received |
+| errorCallback | callback to execute in case of error |
+
+<a name="module_Accelerometer..startAutoAlignment"></a>
+
+### Accelerometer~startAutoAlignment(state)
+Set the state for the auto alignment procces of the APEX OS acceleration hardware
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| state | <code>true</code> | desired state of auto alignment proccess |
+
+<a name="module_Accelerometer..startSelfAccelerationTest"></a>
+
+### Accelerometer~startSelfAccelerationTest(state)
+Set the state for the self acceleration test of the APEX OS acceleration hardware
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| state | <code>true</code> | desired state of self acceleration test proccess |
+
+<a name="module_Accelerometer..setDebugMode"></a>
+
+### Accelerometer~setDebugMode(state)
+enable or disable serial port debugger for acceleration hardware in APEX OS
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| state | <code>true</code> | desired state of serial port debugger |
+
+<a name="module_Accelerometer..isAutoAligning"></a>
+
+### Accelerometer~isAutoAligning()
+check is hardware is on state auto aligning returns a promise with the state
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+<a name="module_Accelerometer..isAccelerationTest"></a>
+
+### Accelerometer~isAccelerationTest()
+check is hardware is on state acceleration test returns a promise with the state
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+<a name="module_Accelerometer..isDebugMode"></a>
+
+### Accelerometer~isDebugMode()
+check is hardware is on serial port debug mode returns a promise with the state
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
 <a name="module_Apps"></a>
 
 ## Apps
@@ -384,6 +482,53 @@ Use this option to configure the network variable for mobile networks
 | key | the paramter to be configured, posible values are: "apn", "user", "pin", "pass" |
 | value | the new value of the parameter |
 
+<a name="module_Network"></a>
+
+## Network
+Network module get information about networks and events in ApexOS
+
+
+* [Network](#module_Network)
+    * [~onNetworkChange(callback, errorCallback)](#module_Network..onNetworkChange)
+    * [~getActiveNetwork()](#module_Network..getActiveNetwork)
+    * [~getNetworkInfo(net)](#module_Network..getNetworkInfo)
+    * [~getNetworks()](#module_Network..getNetworks)
+
+<a name="module_Network..onNetworkChange"></a>
+
+### Network~onNetworkChange(callback, errorCallback)
+Watch the network state change
+
+**Kind**: inner method of [<code>Network</code>](#module_Network)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to executed when network state changes |
+| errorCallback | callback to execute in case of error |
+
+<a name="module_Network..getActiveNetwork"></a>
+
+### Network~getActiveNetwork()
+get the current state of the network of the APEX OS, returns a promise with the info
+
+**Kind**: inner method of [<code>Network</code>](#module_Network)  
+<a name="module_Network..getNetworkInfo"></a>
+
+### Network~getNetworkInfo(net)
+get Network Information about specific network
+
+**Kind**: inner method of [<code>Network</code>](#module_Network)  
+
+| Param | Description |
+| --- | --- |
+| net | network that want to know the information valid options are: eth0, ppp0, wlan0 |
+
+<a name="module_Network..getNetworks"></a>
+
+### Network~getNetworks()
+get network information about all the available networks on APEX OS
+
+**Kind**: inner method of [<code>Network</code>](#module_Network)  
 <a name="module_System-Info"></a>
 
 ## System-Info
