@@ -71,10 +71,31 @@ function getNetworkInfo(net) {
             return {};
         }
         var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
+        if (net == "ppp0") {
+            var redis = new Redis(redis_conf_1.default);
+            var modemInfo = yield redis.hgetall("modem_information");
+            data.imei = modemInfo.IMEI;
+            data.operator = modemInfo.OPERATOR;
+            data.imsi = modemInfo.SIM_IMSI;
+            data.iccid = modemInfo.SIM_ID;
+            data.mcm = modemInfo.MCC_MNC.substring(0, 3);
+            data.mnc = modemInfo.MCC_MNC.substring(3);
+        }
+        if (net == "wlan0") {
+            try {
+                var wifiInfo = yield Utils_1.default.OSExecute("apx-wifi state");
+                data = Object.assign(data, wifiInfo);
+                data.signal = Number(data.signal);
+                delete data.ip;
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
         var start = raw.indexOf("inet addr:") + 10;
         var end = raw.indexOf(" ", start);
         if (start > -1)
-            data.ip = raw.substring(start, end);
+            data.ip_address = raw.substring(start, end);
         start = raw.indexOf("RX bytes:") + 9;
         end = raw.indexOf(" ", start);
         if (start > -1)
@@ -84,8 +105,8 @@ function getNetworkInfo(net) {
         if (start > -1)
             data["tx_bytes"] = parseInt(raw.substring(start, end));
         data.state = "enable";
-        if (data.ip == "") {
-            data.ip = null;
+        if (data.ip_address == "") {
+            data.ip_address = null;
             data.state = "disable";
         }
         return data;
