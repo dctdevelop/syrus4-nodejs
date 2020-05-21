@@ -48,7 +48,7 @@ function onNetworkChange(callback, errorCallback) {
 /**
  * get the current state of the network of the APEX OS, returns a promise with the info
  */
-function getNetworkState() {
+function getActiveNetwork() {
     return __awaiter(this, void 0, void 0, function* () {
         var redis = new Redis(redis_conf_1.default);
         var net = yield redis.get("network_interface");
@@ -83,11 +83,31 @@ function getNetworkInfo(net) {
         end = raw.indexOf(" ", start);
         if (start > -1)
             data["tx_bytes"] = parseInt(raw.substring(start, end));
+        data.state = "enable";
+        if (data.ip == "") {
+            data.ip = null;
+            data.state = "disable";
+        }
         return data;
+    });
+}
+/**
+ * get network information about all the available networks on APEX OS
+ */
+function getNetworks() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var nets = yield Utils_1.default.execute(`ifconfig | grep 'Link encap:'`);
+        nets = nets.split("\n").map(str => str.split(" ")[0]).filter(str => str);
+        var info = {};
+        for (const net of nets) {
+            info[net] = yield getNetworkInfo(net);
+        }
+        return info;
     });
 }
 exports.default = {
     onNetworkChange,
-    getNetworkState,
-    getNetworkInfo
+    getActiveNetwork,
+    getNetworkInfo,
+    getNetworks
 };

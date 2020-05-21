@@ -490,8 +490,9 @@ Network module get information about networks and events in ApexOS
 
 * [Network](#module_Network)
     * [~onNetworkChange(callback, errorCallback)](#module_Network..onNetworkChange)
-    * [~getNetworkState()](#module_Network..getNetworkState)
+    * [~getActiveNetwork()](#module_Network..getActiveNetwork)
     * [~getNetworkInfo(net)](#module_Network..getNetworkInfo)
+    * [~getNetworks()](#module_Network..getNetworks)
 
 <a name="module_Network..onNetworkChange"></a>
 
@@ -505,9 +506,9 @@ Watch the network state change
 | callback | callback to executed when network state changes |
 | errorCallback | callback to execute in case of error |
 
-<a name="module_Network..getNetworkState"></a>
+<a name="module_Network..getActiveNetwork"></a>
 
-### Network~getNetworkState()
+### Network~getActiveNetwork()
 get the current state of the network of the APEX OS, returns a promise with the info
 
 **Kind**: inner method of [<code>Network</code>](#module_Network)  
@@ -522,6 +523,12 @@ get Network Information about specific network
 | --- | --- |
 | net | network that want to know the information valid options are: eth0, ppp0, wlan0 |
 
+<a name="module_Network..getNetworks"></a>
+
+### Network~getNetworks()
+get network information about all the available networks on APEX OS
+
+**Kind**: inner method of [<code>Network</code>](#module_Network)  
 <a name="module_System-Info"></a>
 
 ## System-Info
