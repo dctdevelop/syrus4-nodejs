@@ -68,7 +68,9 @@ function getNetworkInfo(net) {
     return __awaiter(this, void 0, void 0, function* () {
         var data = {};
         if (net == "none") {
-            return {};
+            return {
+                connected: false
+            };
         }
         var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
         if (net == "ppp0") {
@@ -104,10 +106,10 @@ function getNetworkInfo(net) {
         end = raw.indexOf(" ", start);
         if (start > -1)
             data["tx_bytes"] = parseInt(raw.substring(start, end));
-        data.state = "enable";
+        data.connected = true;
         if (data.ip_address == "") {
             data.ip_address = null;
-            data.state = "disable";
+            data.connected = false;
         }
         return data;
     });

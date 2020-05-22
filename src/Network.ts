@@ -57,7 +57,9 @@ async function getActiveNetwork() {
 async function getNetworkInfo(net) {
 	var data: any = {};
 	if (net == "none") {
-		return {};
+		return {
+			connected: false
+		};
 	}
 	var raw: any = await Utils.execute(`ifconfig ${net}`);
 	if(net == "ppp0"){
@@ -93,10 +95,10 @@ async function getNetworkInfo(net) {
 	end = raw.indexOf(" ", start);
 	if (start > -1) data["tx_bytes"] = parseInt(raw.substring(start, end));
 
-	data.state = "enable";
+	data.connected = true;
 	if (data.ip_address == ""){
 		data.ip_address = null;
-		data.state = "disable";
+		data.connected = false;
 	}
 	return data;
 }
