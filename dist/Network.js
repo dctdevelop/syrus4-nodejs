@@ -80,7 +80,7 @@ function getNetworkInfo(net) {
             data.operator = modemInfo.OPERATOR;
             data.imsi = modemInfo.SIM_IMSI;
             data.iccid = modemInfo.SIM_ID;
-            data.mcm = modemInfo.MCC_MNC.substring(0, 3);
+            data.mcc = modemInfo.MCC_MNC.substring(0, 3);
             data.mnc = modemInfo.MCC_MNC.substring(3);
         }
         if (net == "wlan0") {
