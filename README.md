@@ -24,8 +24,7 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
 </dd>
 <dt><a href="#module_IOS">IOS</a></dt>
-<dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
-TODO: implement this</p>
+<dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS</p>
 </dd>
 <dt><a href="#module_Mobile">Mobile</a></dt>
 <dd><p>Mobile module to interacte with the Mobile Network allow to set rf configurations and read them</p>
@@ -58,6 +57,7 @@ Accelerometer module get information about hardware acceleration and events in A
     * [~setDebugMode(state)](#module_Accelerometer..setDebugMode)
     * [~isAutoAligning()](#module_Accelerometer..isAutoAligning)
     * [~isAccelerationTest()](#module_Accelerometer..isAccelerationTest)
+    * [~isMoving()](#module_Accelerometer..isMoving)
     * [~isDebugMode()](#module_Accelerometer..isDebugMode)
 
 <a name="module_Accelerometer..onMotionChange"></a>
@@ -128,6 +128,12 @@ check is hardware is on state auto aligning returns a promise with the state
 
 ### Accelerometer~isAccelerationTest()
 check is hardware is on state acceleration test returns a promise with the state
+
+**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
+<a name="module_Accelerometer..isMoving"></a>
+
+### Accelerometer~isMoving()
+Check the current state of the acceloremeter hardware is moving
 
 **Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
 <a name="module_Accelerometer..isDebugMode"></a>
@@ -403,7 +409,6 @@ Possible Values: "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_ke
 
 ## IOS
 IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
-TODO: implement this
 
 
 * [IOS](#module_IOS)

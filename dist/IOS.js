@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
- * TODO: implement this
  * @module IOS
  */
 const Redis = require("ioredis");
