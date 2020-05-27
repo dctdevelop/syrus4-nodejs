@@ -1,6 +1,5 @@
 /**
  * IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
- * TODO: implement this
  * @module IOS
  */
 import * as Redis from "ioredis";

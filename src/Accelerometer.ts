@@ -28,11 +28,13 @@ function onMotionChange(callback, errorCallback) {
 	return {
 		unsubscribe: () => {
 			redis.off("message", handler);
-			redis.unsubscribe("accel/events");
+            redis.unsubscribe("accel/events");
+            redis.disconnect();
         },
         off: ()=>{
             redis.off("message", handler);
             redis.unsubscribe("accel/events");
+            redis.disconnect();
         }
 	};
 }
@@ -60,11 +62,13 @@ function on(callback, errorCallback){
 	return {
 		unsubscribe: () => {
 			redis.off("message", handler);
-			redis.unsubscribe("accel/events");
+            redis.unsubscribe("accel/events");
+            redis.disconnect();
         },
         off: ()=>{
             redis.off("message", handler);
             redis.unsubscribe("accel/events");
+            redis.disconnect();
         }
 	};
 }
@@ -77,6 +81,7 @@ function startAutoAlignment(state = true){
     var redis = new Redis(redis_conf);
     redis.hset("accel_desired_action", "START_ALIGN_PROCESS", state ? "1" : "0");
     redis.publish("accel/desired/action/START_ALIGN_PROCESS", state ? "1" : "0");
+    redis.disconnect();
 }
 
 /**
@@ -87,6 +92,7 @@ function startSelfAccelerationTest(state = true){
     var redis = new Redis(redis_conf);
     redis.hset("accel_desired_action", "START_SELF_ACCEL_TEST", state ? "1" : "0");
     redis.publish("accel/desired/action/START_SELF_ACCEL_TEST", state ? "1" : "0");
+    redis.disconnect();
 }
 
 
@@ -98,6 +104,7 @@ function setDebugMode(state = true){
     var redis = new Redis(redis_conf);
     redis.hset("accel_desired_action", "DEBUG_SERIAL_PORT", state ? "1" : "0");
     redis.publish("accel/desired/action/DEBUG_SERIAL_PORT", state ? "1" : "0");
+    redis.disconnect();
 }
 
 /**
@@ -106,6 +113,7 @@ function setDebugMode(state = true){
 async function isAutoAligning(){
     var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_desired_action", "START_ALIGN_PROCESS");
+    redis.disconnect();
     return result == "1";
 }
 
@@ -115,8 +123,21 @@ async function isAutoAligning(){
 async function isAccelerationTest(){
     var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_desired_action", "START_SELF_ACCEL_TEST");
+    redis.disconnect();
     return result == "1";
 }
+
+
+/**
+ * Check the current state of the acceloremeter hardware is moving
+ */
+async function isMoving(){
+    var redis = new Redis(redis_conf);
+    var result = await redis.hget("accel_current_state", "MOTION");
+    redis.disconnect();
+    return result == "1";
+}
+
 
 /**
  * check is hardware is on serial port debug mode returns a promise with the state
@@ -124,10 +145,12 @@ async function isAccelerationTest(){
 async function isDebugMode(){
     var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_desired_action", "DEBUG_SERIAL_PORT");
+    redis.disconnect();
     return result == "1";
 }
 
 export default {
+    isMoving,
     onMotionChange,
     on,
     startAutoAlignment,
