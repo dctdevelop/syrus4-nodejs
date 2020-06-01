@@ -4,13 +4,13 @@
  */
 import * as Redis from "ioredis";
 import redis_conf from "./redis_conf";
+var redis = new Redis(redis_conf);
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
  * @param errorCallback callback to execute in case of error
  */
 function onMotionChange(callback, errorCallback) {
-    var redis = new Redis(redis_conf);
 	try {
 		var handler = raw => {
 			var [eventType, isMoving] = raw.split(",");
@@ -29,12 +29,10 @@ function onMotionChange(callback, errorCallback) {
 		unsubscribe: () => {
 			redis.off("message", handler);
             redis.unsubscribe("accel/events");
-            redis.disconnect();
         },
         off: ()=>{
             redis.off("message", handler);
             redis.unsubscribe("accel/events");
-            redis.disconnect();
         }
 	};
 }
@@ -46,7 +44,6 @@ function onMotionChange(callback, errorCallback) {
  * @param errorCallback callback to execute in case of error
  */
 function on(callback, errorCallback){
-    var redis = new Redis(redis_conf);
 	try {
 		var handler = raw => {
             var [eventType, ...results] = raw.split(",");
@@ -63,12 +60,10 @@ function on(callback, errorCallback){
 		unsubscribe: () => {
 			redis.off("message", handler);
             redis.unsubscribe("accel/events");
-            redis.disconnect();
         },
         off: ()=>{
             redis.off("message", handler);
             redis.unsubscribe("accel/events");
-            redis.disconnect();
         }
 	};
 }
@@ -78,10 +73,8 @@ function on(callback, errorCallback){
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true){
-    var redis = new Redis(redis_conf);
     redis.hset("accel_desired_action", "START_ALIGN_PROCESS", state ? "1" : "0");
     redis.publish("accel/desired/action/START_ALIGN_PROCESS", state ? "1" : "0");
-    redis.disconnect();
 }
 
 /**
@@ -89,10 +82,8 @@ function startAutoAlignment(state = true){
  * @param state desired state of self acceleration test proccess
  */
 function startSelfAccelerationTest(state = true){
-    var redis = new Redis(redis_conf);
     redis.hset("accel_desired_action", "START_SELF_ACCEL_TEST", state ? "1" : "0");
     redis.publish("accel/desired/action/START_SELF_ACCEL_TEST", state ? "1" : "0");
-    redis.disconnect();
 }
 
 
@@ -101,19 +92,15 @@ function startSelfAccelerationTest(state = true){
  * @param state desired state of serial port debugger
  */
 function setDebugMode(state = true){
-    var redis = new Redis(redis_conf);
     redis.hset("accel_desired_action", "DEBUG_SERIAL_PORT", state ? "1" : "0");
     redis.publish("accel/desired/action/DEBUG_SERIAL_PORT", state ? "1" : "0");
-    redis.disconnect();
 }
 
 /**
  * check is hardware is on state auto aligning returns a promise with the state
  */
 async function isAutoAligning(){
-    var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_desired_action", "START_ALIGN_PROCESS");
-    redis.disconnect();
     return result == "1";
 }
 
@@ -121,9 +108,7 @@ async function isAutoAligning(){
  * check is hardware is on state acceleration test returns a promise with the state
  */
 async function isAccelerationTest(){
-    var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_desired_action", "START_SELF_ACCEL_TEST");
-    redis.disconnect();
     return result == "1";
 }
 
@@ -132,9 +117,7 @@ async function isAccelerationTest(){
  * Check the current state of the acceloremeter hardware is moving
  */
 async function isMoving(){
-    var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_current_state", "MOTION");
-    redis.disconnect();
     return result == "1";
 }
 
@@ -143,9 +126,7 @@ async function isMoving(){
  * check is hardware is on serial port debug mode returns a promise with the state
  */
 async function isDebugMode(){
-    var redis = new Redis(redis_conf);
     var result = await redis.hget("accel_desired_action", "DEBUG_SERIAL_PORT");
-    redis.disconnect();
     return result == "1";
 }
 

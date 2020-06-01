@@ -16,13 +16,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Redis = require("ioredis");
 const Utils_1 = require("./Utils");
 const redis_conf_1 = require("./redis_conf");
+var redis = new Redis(redis_conf_1.default);
 /**
  * Watch the network state change
  * @param callback callback to executed when network state changes
  * @param errorCallback callback to execute in case of error
  */
 function onNetworkChange(callback, errorCallback) {
-    var redis = new Redis(redis_conf_1.default);
     try {
         var handler = raw => {
             callback(raw);
@@ -50,7 +50,6 @@ function onNetworkChange(callback, errorCallback) {
  */
 function getActiveNetwork() {
     return __awaiter(this, void 0, void 0, function* () {
-        var redis = new Redis(redis_conf_1.default);
         var net = yield redis.get("network_interface");
         var data = {};
         if (net == "wlan0") {
@@ -74,7 +73,6 @@ function getNetworkInfo(net) {
         }
         var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
         if (net == "ppp0") {
-            var redis = new Redis(redis_conf_1.default);
             var modemInfo = yield redis.hgetall("modem_information");
             data.imei = modemInfo.IMEI;
             data.operator = modemInfo.OPERATOR;
