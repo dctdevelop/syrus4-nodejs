@@ -5,6 +5,7 @@
 import * as Redis from "ioredis";
 import redis_conf from "./redis_conf";
 var redis = new Redis(redis_conf);
+var subscriber = new Redis(redis_conf);
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -18,8 +19,8 @@ function onMotionChange(callback, errorCallback) {
 				callback(isMoving == "1");
 			}
 		};
-		redis.subscribe("accel/events");
-		redis.on("message", handler);
+		subscriber.subscribe("accel/events");
+		subscriber.on("message", handler);
 	} catch (error) {
 		console.error(error);
 		errorCallback(error);
@@ -27,12 +28,12 @@ function onMotionChange(callback, errorCallback) {
 
 	return {
 		unsubscribe: () => {
-			redis.off("message", handler);
-            redis.unsubscribe("accel/events");
+			subscriber.off("message", handler);
+            subscriber.unsubscribe("accel/events");
         },
         off: ()=>{
-            redis.off("message", handler);
-            redis.unsubscribe("accel/events");
+            subscriber.off("message", handler);
+            subscriber.unsubscribe("accel/events");
         }
 	};
 }
@@ -49,8 +50,8 @@ function on(callback, errorCallback){
             var [eventType, ...results] = raw.split(",");
             if(eventType != "MOTION") callback(eventType, results);
 		};
-		redis.subscribe("accel/events");
-		redis.on("message", handler);
+		subscriber.subscribe("accel/events");
+		subscriber.on("message", handler);
 	} catch (error) {
 		console.error(error);
 		errorCallback(error);
@@ -58,12 +59,12 @@ function on(callback, errorCallback){
 
 	return {
 		unsubscribe: () => {
-			redis.off("message", handler);
-            redis.unsubscribe("accel/events");
+			subscriber.off("message", handler);
+            subscriber.unsubscribe("accel/events");
         },
         off: ()=>{
-            redis.off("message", handler);
-            redis.unsubscribe("accel/events");
+            subscriber.off("message", handler);
+            subscriber.unsubscribe("accel/events");
         }
 	};
 }
