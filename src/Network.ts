@@ -5,14 +5,13 @@
 import * as Redis from "ioredis";
 import Utils from "./Utils";
 import redis_conf from "./redis_conf";
-
+var redis = new Redis(redis_conf);
 /**
  * Watch the network state change
  * @param callback callback to executed when network state changes
  * @param errorCallback callback to execute in case of error
  */
 function onNetworkChange(callback, errorCallback) {
-	var redis = new Redis(redis_conf);
 	try {
 		var handler = raw => {
 			callback(raw);
@@ -40,7 +39,7 @@ function onNetworkChange(callback, errorCallback) {
  * get the current state of the network of the APEX OS, returns a promise with the info
  */
 async function getActiveNetwork() {
-	var redis = new Redis(redis_conf);
+
 	var net = await redis.get("network_interface");
 	var data: any = {};
 	if (net == "wlan0") {
@@ -63,7 +62,6 @@ async function getNetworkInfo(net) {
 	}
 	var raw: any = await Utils.execute(`ifconfig ${net}`);
 	if(net == "ppp0"){
-		var redis = new Redis(redis_conf);
 		var modemInfo:any = await redis.hgetall("modem_information");
 		data.imei = modemInfo.IMEI;
 		data.operator = modemInfo.OPERATOR;
