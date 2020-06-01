@@ -6,6 +6,7 @@ import * as Redis from "ioredis";
 import Utils from "./Utils";
 import redis_conf from "./redis_conf";
 var redis = new Redis(redis_conf);
+var subscriber = new Redis(redis_conf);
 /**
  * Watch the network state change
  * @param callback callback to executed when network state changes
@@ -16,8 +17,8 @@ function onNetworkChange(callback, errorCallback) {
 		var handler = raw => {
 			callback(raw);
 		};
-		redis.subscribe("network/interface");
-		redis.on("message", handler);
+		subscriber.subscribe("network/interface");
+		subscriber.on("message", handler);
 	} catch (error) {
 		console.error(error);
 		errorCallback(error);
@@ -25,12 +26,12 @@ function onNetworkChange(callback, errorCallback) {
 
 	return {
 		unsubscribe: () => {
-			redis.off("message", handler);
-			redis.unsubscribe("network/interface");
+			subscriber.off("message", handler);
+			subscriber.unsubscribe("network/interface");
 		},
 		off: () => {
-			redis.off("message", handler);
-			redis.unsubscribe("network/interface");
+			subscriber.off("message", handler);
+			subscriber.unsubscribe("network/interface");
 		}
 	};
 }
