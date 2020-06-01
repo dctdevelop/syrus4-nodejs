@@ -31,7 +31,7 @@ function onMotionChange(callback, errorCallback) {
             }
         };
         subscriber.subscribe("accel/events");
-        redis.on("message", handler);
+        subscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
