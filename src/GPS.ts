@@ -65,6 +65,7 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
 		try {
 			var sub = new Redis(redis_conf);
 			var handler = function(_channel, gps) {
+				if(!gps.lat) return;
 				var position = rawdataToCoordinates(gps);
 				if (!config || evaluateCriteria(position)) {
 					resolve(position);
@@ -90,6 +91,7 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
 function watchPosition(callback: Function, errorCallback: Function, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	var last = null;
 	var handler = function(_channel, gps) {
+		if(!gps.lat) return;
 		var position = rawdataToCoordinates(gps);
 		if (evaluateCriteria(position, last, config)) {
 			callback(position);
