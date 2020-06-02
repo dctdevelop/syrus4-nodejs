@@ -13,10 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Accelerometer module get information about hardware acceleration and events in ApexOS
  * @module Accelerometer
  */
-const Redis = require("ioredis");
-const redis_conf_1 = require("./redis_conf");
-var redis = new Redis(redis_conf_1.default);
-var subscriber = new Redis(redis_conf_1.default);
+const Redis_1 = require("./Redis");
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -24,29 +21,29 @@ var subscriber = new Redis(redis_conf_1.default);
  */
 function onMotionChange(callback, errorCallback) {
     try {
-        var handler = raw => {
+        var handler = (channel, raw) => {
+            if (channel != "accel/events")
+                return;
             var [eventType, isMoving] = raw.split(",");
             if (eventType == "MOTION") {
                 callback(isMoving == "1");
             }
         };
-        subscriber.subscribe("accel/events");
-        subscriber.on("message", handler);
+        Redis_1.redisSubscriber.subscribe("accel/events");
+        Redis_1.redisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
         errorCallback(error);
     }
-    return {
+    var returnable = {
         unsubscribe: () => {
-            subscriber.off("message", handler);
-            subscriber.unsubscribe("accel/events");
-        },
-        off: () => {
-            subscriber.off("message", handler);
-            subscriber.unsubscribe("accel/events");
+            Redis_1.redisSubscriber.off("message", handler);
+            Redis_1.redisSubscriber.unsubscribe("accel/events");
         }
     };
+    returnable.off = returnable.unsubscribe;
+    return returnable;
 }
 /**
  * Watch for accelerations events in Apex OS. possible events:
@@ -56,59 +53,59 @@ function onMotionChange(callback, errorCallback) {
  */
 function on(callback, errorCallback) {
     try {
-        var handler = raw => {
+        var handler = (channel, raw) => {
+            if (channel != "accel/events")
+                return;
             var [eventType, ...results] = raw.split(",");
             if (eventType != "MOTION")
                 callback(eventType, results);
         };
-        subscriber.subscribe("accel/events");
-        subscriber.on("message", handler);
+        Redis_1.redisSubscriber.subscribe("accel/events");
+        Redis_1.redisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
         errorCallback(error);
     }
-    return {
+    var returnable = {
         unsubscribe: () => {
-            subscriber.off("message", handler);
-            subscriber.unsubscribe("accel/events");
-        },
-        off: () => {
-            subscriber.off("message", handler);
-            subscriber.unsubscribe("accel/events");
+            Redis_1.redisSubscriber.off("message", handler);
+            Redis_1.redisSubscriber.unsubscribe("accel/events");
         }
     };
+    returnable.off = returnable.unsubscribe;
+    return returnable;
 }
 /**
  * Set the state for the auto alignment procces of the APEX OS acceleration hardware
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true) {
-    redis.hset("accel_desired_action", "START_ALIGN_PROCESS", state ? "1" : "0");
-    redis.publish("accel/desired/action/START_ALIGN_PROCESS", state ? "1" : "0");
+    Redis_1.redisClient.hset("accel_desired_action", "START_ALIGN_PROCESS", state ? "1" : "0");
+    Redis_1.redisClient.publish("accel/desired/action/START_ALIGN_PROCESS", state ? "1" : "0");
 }
 /**
  * Set the state for the self acceleration test of the APEX OS acceleration hardware
  * @param state desired state of self acceleration test proccess
  */
 function startSelfAccelerationTest(state = true) {
-    redis.hset("accel_desired_action", "START_SELF_ACCEL_TEST", state ? "1" : "0");
-    redis.publish("accel/desired/action/START_SELF_ACCEL_TEST", state ? "1" : "0");
+    Redis_1.redisClient.hset("accel_desired_action", "START_SELF_ACCEL_TEST", state ? "1" : "0");
+    Redis_1.redisClient.publish("accel/desired/action/START_SELF_ACCEL_TEST", state ? "1" : "0");
 }
 /**
  * enable or disable serial port debugger for acceleration hardware in APEX OS
  * @param state desired state of serial port debugger
  */
 function setDebugMode(state = true) {
-    redis.hset("accel_desired_action", "DEBUG_SERIAL_PORT", state ? "1" : "0");
-    redis.publish("accel/desired/action/DEBUG_SERIAL_PORT", state ? "1" : "0");
+    Redis_1.redisClient.hset("accel_desired_action", "DEBUG_SERIAL_PORT", state ? "1" : "0");
+    Redis_1.redisClient.publish("accel/desired/action/DEBUG_SERIAL_PORT", state ? "1" : "0");
 }
 /**
  * check is hardware is on state auto aligning returns a promise with the state
  */
 function isAutoAligning() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield redis.hget("accel_desired_action", "START_ALIGN_PROCESS");
+        var result = yield Redis_1.redisClient.hget("accel_desired_action", "START_ALIGN_PROCESS");
         return result == "1";
     });
 }
@@ -117,7 +114,7 @@ function isAutoAligning() {
  */
 function isAccelerationTest() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield redis.hget("accel_desired_action", "START_SELF_ACCEL_TEST");
+        var result = yield Redis_1.redisClient.hget("accel_desired_action", "START_SELF_ACCEL_TEST");
         return result == "1";
     });
 }
@@ -126,7 +123,7 @@ function isAccelerationTest() {
  */
 function isMoving() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield redis.hget("accel_current_state", "MOTION");
+        var result = yield Redis_1.redisClient.hget("accel_current_state", "MOTION");
         return result == "1";
     });
 }
@@ -135,7 +132,7 @@ function isMoving() {
  */
 function isDebugMode() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield redis.hget("accel_desired_action", "DEBUG_SERIAL_PORT");
+        var result = yield Redis_1.redisClient.hget("accel_desired_action", "DEBUG_SERIAL_PORT");
         return result == "1";
     });
 }
