@@ -38,6 +38,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Update">Update</a></dt>
 <dd><p>Update module check for update and make update for ApexOS</p>
 </dd>
+<dt><a href="#module_Utils">Utils</a></dt>
+<dd><p>Utils module some utlities in ApexOS</p>
+</dd>
 <dt><a href="#module_WIFI">WIFI</a></dt>
 <dd><p>WIFI module to interacte with the enable/disable WIFI mode  with Apex OS</p>
 </dd>
@@ -616,6 +619,65 @@ upgrade a package to the lastest version available in the dctserver
 | Param | Description |
 | --- | --- |
 | package_name | the name of the  package that it wants to be updated |
+
+<a name="module_Utils"></a>
+
+## Utils
+Utils module some utlities in ApexOS
+
+
+* [Utils](#module_Utils)
+    * [~execute(...args)](#module_Utils..execute)
+    * [~OSExecute(...args)](#module_Utils..OSExecute)
+    * [~distanceBetweenCoordinates(coord1, coord2)](#module_Utils..distanceBetweenCoordinates)
+    * [~toJSONReceiver(coord, imei, siteId)](#module_Utils..toJSONReceiver)
+
+<a name="module_Utils..execute"></a>
+
+### Utils~execute(...args)
+Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+
+| Param | Description |
+| --- | --- |
+| ...args | arguments to pass to the function to execute |
+
+<a name="module_Utils..OSExecute"></a>
+
+### Utils~OSExecute(...args)
+Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+
+| Param | Description |
+| --- | --- |
+| ...args | arguments to pass to the function to execute |
+
+<a name="module_Utils..distanceBetweenCoordinates"></a>
+
+### Utils~distanceBetweenCoordinates(coord1, coord2)
+return distance in km between two coordinates points
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+
+| Param | Description |
+| --- | --- |
+| coord1 | first coordinate to calculate the distance |
+| coord2 | second coordinate to calculate the distance |
+
+<a name="module_Utils..toJSONReceiver"></a>
+
+### Utils~toJSONReceiver(coord, imei, siteId)
+convert coord and imei to JSON receiver format for JSON listener
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| coord |  | coordinates of the gps |
+| imei |  | imei of the device |
+| siteId | <code>1</code> | the site that the command should be transmitted |
 
 <a name="module_WIFI"></a>
 
