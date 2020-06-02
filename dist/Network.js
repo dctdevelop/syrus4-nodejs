@@ -13,11 +13,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Network module get information about networks and events in ApexOS
  * @module Network
  */
-const Redis = require("ioredis");
+const Redis_1 = require("./Redis");
 const Utils_1 = require("./Utils");
-const redis_conf_1 = require("./redis_conf");
-var redis = new Redis(redis_conf_1.default);
-var subscriber = new Redis(redis_conf_1.default);
 /**
  * Watch the network state change
  * @param callback callback to executed when network state changes
@@ -25,33 +22,31 @@ var subscriber = new Redis(redis_conf_1.default);
  */
 function onNetworkChange(callback, errorCallback) {
     try {
-        var handler = raw => {
+        var handler = (channel, raw) => {
+            if (channel !== "network/interface")
+                return;
             callback(raw);
         };
-        subscriber.subscribe("network/interface");
-        subscriber.on("message", handler);
+        Redis_1.redisSubscriber.subscribe("network/interface");
+        Redis_1.redisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
         errorCallback(error);
     }
-    return {
+    var returnable = {
         unsubscribe: () => {
-            subscriber.off("message", handler);
-            subscriber.unsubscribe("network/interface");
-        },
-        off: () => {
-            subscriber.off("message", handler);
-            subscriber.unsubscribe("network/interface");
+            Redis_1.redisSubscriber.off("message", handler);
         }
     };
+    returnable.off = returnable.unsubscribe;
 }
 /**
  * get the current state of the network of the APEX OS, returns a promise with the info
  */
 function getActiveNetwork() {
     return __awaiter(this, void 0, void 0, function* () {
-        var net = yield redis.get("network_interface");
+        var net = yield Redis_1.redisClient.get("network_interface");
         var data = {};
         if (net == "wlan0") {
             data = yield Utils_1.default.OSExecute("apx-wifi", "state");
@@ -74,7 +69,7 @@ function getNetworkInfo(net) {
         }
         var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
         if (net == "ppp0") {
-            var modemInfo = yield redis.hgetall("modem_information");
+            var modemInfo = yield Redis_1.redisClient.hgetall("modem_information");
             data.imei = modemInfo.IMEI;
             data.operator = modemInfo.OPERATOR;
             data.imsi = modemInfo.SIM_IMSI;
@@ -119,7 +114,10 @@ function getNetworkInfo(net) {
 function getNetworks() {
     return __awaiter(this, void 0, void 0, function* () {
         var nets = yield Utils_1.default.execute(`ifconfig | grep 'Link encap:'`);
-        nets = nets.split("\n").map(str => str.split(" ")[0]).filter(str => str);
+        nets = nets
+            .split("\n")
+            .map(str => str.split(" ")[0])
+            .filter(str => str);
         var info = {};
         for (const net of nets) {
             info[net] = yield getNetworkInfo(net);

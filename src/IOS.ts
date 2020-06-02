@@ -2,11 +2,7 @@
  * IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
  * @module IOS
  */
-import * as Redis from "ioredis";
-import redis_conf from "./redis_conf";
-var publisher = new Redis(redis_conf);
-var notis = new Redis(redis_conf);
-var reader = new Redis(redis_conf);
+import {redisSubscriber as subscriber, redisClient as redis } from "./Redis";
 
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
@@ -23,7 +19,8 @@ function watchInputState(inputName = "*", cb: (response: any) => void, errorCall
 	} else if (inputName[0] == "A") {
 		channel = `interface/analog/${inputName}`;
 	}
-	var callback = function(_pattern, channel, raw) {
+	var callback = function(pattern, channel, raw) {
+		if(pattern != channel) return;
 		var input = channel.split("/")[2];
 		if (inputName == "*" || input == inputName) {
 			var returnable = raw;
@@ -35,13 +32,13 @@ function watchInputState(inputName = "*", cb: (response: any) => void, errorCall
 		}
 	};
 	// console.log("channel name:", channel);
-	notis.psubscribe(channel);
-	notis.on("pmessage", callback);
+	subscriber.psubscribe(channel);
+	subscriber.on("pmessage", callback);
 
 	return {
 		unsubscribe: () => {
-			notis.off("pmessage", callback);
-			notis.punsubscribe(channel);
+			subscriber.off("pmessage", callback);
+			subscriber.punsubscribe(channel);
 		}
 	};
 }
@@ -58,7 +55,7 @@ function getInputState(inputName = "IGN"): Promise<any> {
 		channel = "current_analog_state";
 	}
 	return new Promise(async (resolve, reject) => {
-		var response = await reader.hget(channel, inputName);
+		var response = await redis.hget(channel, inputName);
 		var returnable: any = response;
 		if (response == "true") returnable = true;
 		if (response == "false") returnable = false;
@@ -72,8 +69,8 @@ function getInputState(inputName = "IGN"): Promise<any> {
  */
 function setOutputState(inputName = "OUT1", state = true): Promise<boolean | number> {
 	return new Promise((resolve, reject) => {
-		reader.hset("desired_output_state", inputName, `${state}`);
-		publisher.publish(`desired/interface/output/${inputName}`, `${state}`, console.error);
+		redis.hset("desired_output_state", inputName, `${state}`);
+		redis.publish(`desired/interface/output/${inputName}`, `${state}`, console.error);
 		resolve(state);
 	});
 }
@@ -82,9 +79,9 @@ function setOutputState(inputName = "OUT1", state = true): Promise<boolean | num
  * Get the current state of all inputs, outputs and analogs in the Syrus4 device
  */
 async function getAll() {
-	var inputs = (await reader.hgetall("current_input_state")) || {};
-	var outputs = (await reader.hgetall("current_output_state")) || {};
-	var analogs = (await reader.hgetall("current_analog_state")) || {};
+	var inputs = (await redis.hgetall("current_input_state")) || {};
+	var outputs = (await redis.hgetall("current_output_state")) || {};
+	var analogs = (await redis.hgetall("current_analog_state")) || {};
 	var response = Object.assign(inputs, outputs);
 	response = Object.assign(response, analogs);
 	Object.keys(response).forEach(key => {

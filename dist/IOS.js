@@ -13,11 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
  * @module IOS
  */
-const Redis = require("ioredis");
-const redis_conf_1 = require("./redis_conf");
-var publisher = new Redis(redis_conf_1.default);
-var notis = new Redis(redis_conf_1.default);
-var reader = new Redis(redis_conf_1.default);
+const Redis_1 = require("./Redis");
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe
@@ -35,7 +31,9 @@ function watchInputState(inputName = "*", cb, errorCallback) {
     else if (inputName[0] == "A") {
         channel = `interface/analog/${inputName}`;
     }
-    var callback = function (_pattern, channel, raw) {
+    var callback = function (pattern, channel, raw) {
+        if (pattern != channel)
+            return;
         var input = channel.split("/")[2];
         if (inputName == "*" || input == inputName) {
             var returnable = raw;
@@ -49,12 +47,12 @@ function watchInputState(inputName = "*", cb, errorCallback) {
         }
     };
     // console.log("channel name:", channel);
-    notis.psubscribe(channel);
-    notis.on("pmessage", callback);
+    Redis_1.redisSubscriber.psubscribe(channel);
+    Redis_1.redisSubscriber.on("pmessage", callback);
     return {
         unsubscribe: () => {
-            notis.off("pmessage", callback);
-            notis.punsubscribe(channel);
+            Redis_1.redisSubscriber.off("pmessage", callback);
+            Redis_1.redisSubscriber.punsubscribe(channel);
         }
     };
 }
@@ -71,7 +69,7 @@ function getInputState(inputName = "IGN") {
         channel = "current_analog_state";
     }
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        var response = yield reader.hget(channel, inputName);
+        var response = yield Redis_1.redisClient.hget(channel, inputName);
         var returnable = response;
         if (response == "true")
             returnable = true;
@@ -87,8 +85,8 @@ function getInputState(inputName = "IGN") {
  */
 function setOutputState(inputName = "OUT1", state = true) {
     return new Promise((resolve, reject) => {
-        reader.hset("desired_output_state", inputName, `${state}`);
-        publisher.publish(`desired/interface/output/${inputName}`, `${state}`, console.error);
+        Redis_1.redisClient.hset("desired_output_state", inputName, `${state}`);
+        Redis_1.redisClient.publish(`desired/interface/output/${inputName}`, `${state}`, console.error);
         resolve(state);
     });
 }
@@ -97,9 +95,9 @@ function setOutputState(inputName = "OUT1", state = true) {
  */
 function getAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        var inputs = (yield reader.hgetall("current_input_state")) || {};
-        var outputs = (yield reader.hgetall("current_output_state")) || {};
-        var analogs = (yield reader.hgetall("current_analog_state")) || {};
+        var inputs = (yield Redis_1.redisClient.hgetall("current_input_state")) || {};
+        var outputs = (yield Redis_1.redisClient.hgetall("current_output_state")) || {};
+        var analogs = (yield Redis_1.redisClient.hgetall("current_analog_state")) || {};
         var response = Object.assign(inputs, outputs);
         response = Object.assign(response, analogs);
         Object.keys(response).forEach(key => {

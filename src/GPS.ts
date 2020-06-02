@@ -2,25 +2,23 @@
  * GPS module get information about gps and location in ApexOS
  * @module GPS
  */
-import * as Redis from "ioredis";
-import redis_conf from "./redis_conf";
+import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
 import utils from "./Utils";
 const MAX_TRIES = 3;
 const SPEED_THRESHOLD = 3;
-var redis = new Redis(redis_conf);
 var tries = 0;
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
 	var speed = parseFloat(gps.speed) * 0.277778;
 	return {
 		coords: {
-			latitude: gps.lat,
-			longitude: gps.lon,
+			latitude: gps.lat || 0,
+			longitude: gps.lon || 0,
 			speed: speed >= SPEED_THRESHOLD ? speed : 0,
-			accuracy: 5 * gps.hdop,
-			altitude: gps.alt,
+			accuracy: 5 * gps.hdop || 20000,
+			altitude: gps.alt || 0,
 			bearing: speed >= SPEED_THRESHOLD ? gps.track : 0,
-			altitudeAccuracy: 5 * gps.vdop
+			altitudeAccuracy: 5 * gps.vdop || 0
 		},
 		timestamp: new Date(gps.time).getTime() / 1000,
 		extras: {
@@ -63,19 +61,16 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			var sub = new Redis(redis_conf);
-			var handler = function(_channel, gps) {
-				if(!gps.lat) return;
+			var handler = function (channel, gps) {
+				if (channel != "gps") return;
 				var position = rawdataToCoordinates(gps);
+				if(!position.coords.latitude) return;
 				if (!config || evaluateCriteria(position)) {
 					resolve(position);
-					sub.unsubscribe("gps");
-					sub.disconnect();
-					sub = null;
 				}
 			};
-			sub.on("message", handler);
-			sub.subscribe("gps");
+			subscriber.on("message", handler);
+			subscriber.subscribe("gps");
 		} catch (error) {
 			reject(error);
 		}
@@ -90,9 +85,10 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
  */
 function watchPosition(callback: Function, errorCallback: Function, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	var last = null;
-	var handler = function(_channel, gps) {
-		if(!gps.lat) return;
+	var handler = function (channel, gps) {
+		if(channel !== "gps") return;
 		var position = rawdataToCoordinates(gps);
+		if(!position.coords.latitude) return;
 		if (evaluateCriteria(position, last, config)) {
 			callback(position);
 			last = position;
@@ -104,7 +100,6 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 	return {
 		unsubscribe: () => {
 			redis.off("message", handler);
-			redis.unsubscribe("gps");
 		}
 	};
 }
@@ -117,14 +112,14 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 function watchGPS(callback, errorCallback: Function) {
 	try {
 		redis.subscribe("gps");
-		var cb = function(_channel, gps) {
+		var cb = function (channel, gps) {
+			if(channel !== "gps") return;
 			callback(gps);
 		};
 		redis.on("message", cb);
 		return {
 			unsubscribe: () => {
 				redis.off("message", cb);
-				redis.unsubscribe("gps");
 			}
 		};
 	} catch (error) {

@@ -7,6 +7,8 @@ import System from "./System";
 import Update from "./Update";
 import Hotspot from "./Hotspot";
 import Mobile from "./Mobile";
+import Redis from "./Redis";
 import IOS from "./IOS";
-export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network };
-export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network };
+
+export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis };
+export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis };
