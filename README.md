@@ -17,6 +17,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Apps">Apps</a></dt>
 <dd><p>Apps module to start/stop/enable/disable/install third parts apps running in apex-os</p>
 </dd>
+<dt><a href="#module_ECU">ECU</a></dt>
+<dd><p>ECU module get information about EcU monitor and vehicle in ApexOS</p>
+</dd>
 <dt><a href="#module_GPS">GPS</a></dt>
 <dd><p>GPS module get information about gps and location in ApexOS</p>
 </dd>
@@ -296,6 +299,41 @@ Get the contents of .env file configuration
 | --- | --- |
 | app | the name of the app |
 
+<a name="module_ECU"></a>
+
+## ECU
+ECU module get information about EcU monitor and vehicle in ApexOS
+
+
+* [ECU](#module_ECU)
+    * [~ECU_PARAM_LIST](#module_ECU..ECU_PARAM_LIST)
+    * [~watchECUParams(cb, errorCallback)](#module_ECU..watchECUParams)
+    * [~getECUParams()](#module_ECU..getECUParams)
+
+<a name="module_ECU..ECU_PARAM_LIST"></a>
+
+### ECU~ECU\_PARAM\_LIST
+ECU PARAM LIST from the ecu monitor
+
+**Kind**: inner constant of [<code>ECU</code>](#module_ECU)  
+<a name="module_ECU..watchECUParams"></a>
+
+### ECU~watchECUParams(cb, errorCallback)
+allows to subscribe for ECU parameter changes
+
+**Kind**: inner method of [<code>ECU</code>](#module_ECU)  
+
+| Param | Description |
+| --- | --- |
+| cb | calbback to execute when new ECU data arrives |
+| errorCallback | errorCallback when something wrong goes with the subscription |
+
+<a name="module_ECU..getECUParams"></a>
+
+### ECU~getECUParams()
+Get all the most recent data from ECU parameters
+
+**Kind**: inner method of [<code>ECU</code>](#module_ECU)  
 <a name="module_GPS"></a>
 
 ## GPS
