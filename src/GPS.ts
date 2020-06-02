@@ -94,12 +94,12 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 			last = position;
 		}
 	};
-	redis.subscribe("gps");
-	redis.on("message", handler);
+	subscriber.subscribe("gps");
+	subscriber.on("message", handler);
 
 	return {
 		unsubscribe: () => {
-			redis.off("message", handler);
+			subscriber.off("message", handler);
 		}
 	};
 }
@@ -111,15 +111,15 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
  */
 function watchGPS(callback, errorCallback: Function) {
 	try {
-		redis.subscribe("gps");
+		subscriber.subscribe("gps");
 		var cb = function (channel, gps) {
 			if(channel !== "gps") return;
 			callback(gps);
 		};
-		redis.on("message", cb);
+		subscriber.on("message", cb);
 		return {
 			unsubscribe: () => {
-				redis.off("message", cb);
+				subscriber.off("message", cb);
 			}
 		};
 	} catch (error) {
