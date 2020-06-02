@@ -111,11 +111,11 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
             last = position;
         }
     };
-    Redis_1.redisClient.subscribe("gps");
-    Redis_1.redisClient.on("message", handler);
+    Redis_1.redisSubscriber.subscribe("gps");
+    Redis_1.redisSubscriber.on("message", handler);
     return {
         unsubscribe: () => {
-            Redis_1.redisClient.off("message", handler);
+            Redis_1.redisSubscriber.off("message", handler);
         }
     };
 }
@@ -126,16 +126,16 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
  */
 function watchGPS(callback, errorCallback) {
     try {
-        Redis_1.redisClient.subscribe("gps");
+        Redis_1.redisSubscriber.subscribe("gps");
         var cb = function (channel, gps) {
             if (channel !== "gps")
                 return;
             callback(gps);
         };
-        Redis_1.redisClient.on("message", cb);
+        Redis_1.redisSubscriber.on("message", cb);
         return {
             unsubscribe: () => {
-                Redis_1.redisClient.off("message", cb);
+                Redis_1.redisSubscriber.off("message", cb);
             }
         };
     }
