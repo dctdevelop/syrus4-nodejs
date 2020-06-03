@@ -21,20 +21,20 @@ const Redis_1 = require("./Redis");
  * @param errorCallback
  */
 function watchInputState(inputName = "*", cb, errorCallback) {
-    var channel = `interface/input/${inputName}`;
+    var chn = `interface/input/${inputName}`;
     if (inputName == "*") {
-        channel = `interface/*`;
+        chn = `interface/*`;
     }
     else if (inputName[0] == "O") {
-        channel = `interface/output/${inputName}`;
+        chn = `interface/output/${inputName}`;
     }
     else if (inputName[0] == "A") {
-        channel = `interface/analog/${inputName}`;
+        chn = `interface/analog/${inputName}`;
     }
-    var callback = function (pattern, channel, raw) {
-        if (pattern != channel)
+    var callback = function (pattern, _channel, raw) {
+        if (pattern != chn)
             return;
-        var input = channel.split("/")[2];
+        var input = _channel.split("/")[2];
         if (inputName == "*" || input == inputName) {
             var returnable = raw;
             if (raw == "true")
@@ -46,13 +46,11 @@ function watchInputState(inputName = "*", cb, errorCallback) {
             cb(response);
         }
     };
-    // console.log("channel name:", channel);
-    Redis_1.redisSubscriber.psubscribe(channel);
+    Redis_1.redisSubscriber.psubscribe(chn);
     Redis_1.redisSubscriber.on("pmessage", callback);
     return {
         unsubscribe: () => {
             Redis_1.redisSubscriber.off("pmessage", callback);
-            Redis_1.redisSubscriber.punsubscribe(channel);
         }
     };
 }

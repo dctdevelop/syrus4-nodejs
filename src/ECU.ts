@@ -187,7 +187,7 @@ const ECU_PARAM_LIST = {
 		pgn: "fef5",
 		start_position: "4-5"
 	},
-	feea_1: { id: "feea_1", "SYRUSLANG PARAM": "axle_location", PARAM_NAME: "AXLE LOCATION", Units: "Count", Range: "0 to 255", PGN: "feea", START_POSITION: "1" },
+	feea_1: { id: "feea_1", syruslang_param: "axle_location", PARAM_NAME: "AXLE LOCATION", Units: "Count", Range: "0 to 255", PGN: "feea", START_POSITION: "1" },
 	"fef7_5-6": {
 		id: "fef7_5-6",
 		syruslang_param: "battery_power",
@@ -197,12 +197,12 @@ const ECU_PARAM_LIST = {
 		pgn: "fef7",
 		start_position: "5-6"
 	},
-	f001_2: { id: "f001_2", "SYRUSLANG PARAM": "brake_pedal", PARAM_NAME: "BRAKE PEDAL POSITION", Units: "Percentage", Range: "%", PGN: "f001", START_POSITION: "2" },
-	"fef1_4.5": { id: "fef1_4.5", "SYRUSLANG PARAM": "brake_switch", PARAM_NAME: "BRAKE SWITCH", Units: "Count ", Range: "0 to 3", PGN: "fef1", START_POSITION: "4.5" },
-	"fef1_4.7": { id: "fef1_4.7", "SYRUSLANG PARAM": "clutch_switch", PARAM_NAME: "CLUTCH SWITCH", Units: "Count ", Range: "0 to 3", PGN: "fef1", START_POSITION: "4.7" },
-	feef_8: { id: "feef_8", "SYRUSLANG PARAM": "coolant_level", PARAM_NAME: "ENGINE COOLANT LEVEL", Units: "Percentage", Range: "%", PGN: "feef", START_POSITION: "8" },
-	feef_7: { id: "feef_7", "SYRUSLANG PARAM": "coolant_pressure", PARAM_NAME: "ENGINE COOLANT PRESSURE", Units: "Pressure", Range: "kPa", PGN: "feef", START_POSITION: "7" },
-	feee_1: { id: "feee_1", "SYRUSLANG PARAM": "coolant_temp", PARAM_NAME: "ENGINE COOLANT TEMPERATURE", Units: "Temperature", Range: "C", PGN: "feee", START_POSITION: "1" },
+	f001_2: { id: "f001_2", syruslang_param: "brake_pedal", PARAM_NAME: "BRAKE PEDAL POSITION", Units: "Percentage", Range: "%", PGN: "f001", START_POSITION: "2" },
+	"fef1_4.5": { id: "fef1_4.5", syruslang_param: "brake_switch", PARAM_NAME: "BRAKE SWITCH", Units: "Count ", Range: "0 to 3", PGN: "fef1", START_POSITION: "4.5" },
+	"fef1_4.7": { id: "fef1_4.7", syruslang_param: "clutch_switch", PARAM_NAME: "CLUTCH SWITCH", Units: "Count ", Range: "0 to 3", PGN: "fef1", START_POSITION: "4.7" },
+	feef_8: { id: "feef_8", syruslang_param: "coolant_level", PARAM_NAME: "ENGINE COOLANT LEVEL", Units: "Percentage", Range: "%", PGN: "feef", START_POSITION: "8" },
+	feef_7: { id: "feef_7", syruslang_param: "coolant_pressure", PARAM_NAME: "ENGINE COOLANT PRESSURE", Units: "Pressure", Range: "kPa", PGN: "feef", START_POSITION: "7" },
+	feee_1: { id: "feee_1", syruslang_param: "coolant_temp", PARAM_NAME: "ENGINE COOLANT TEMPERATURE", Units: "Temperature", Range: "C", PGN: "feee", START_POSITION: "1" },
 	"feef_5-6": {
 		id: "feef_5-6",
 		syruslang_param: "crankcase_pressure",
@@ -239,7 +239,7 @@ const ECU_PARAM_LIST = {
 		pgn: "f004",
 		start_position: "2"
 	},
-	"fec0_2-3": { id: "fec0_2-3", "SYRUSLANG PARAM": "distance_service", PARAM_NAME: "SERVICE DISTANCE", Units: "Distance, km", Range: "km", PGN: "fec0", START_POSITION: "2-3" },
+	"fec0_2-3": { id: "fec0_2-3", syruslang_param: "distance_service", PARAM_NAME: "SERVICE DISTANCE", Units: "Distance, km", Range: "km", PGN: "fec0", START_POSITION: "2-3" },
 	"fee0_5-8": {
 		id: "fee0_5-8",
 		syruslang_param: "distance_total",
@@ -258,7 +258,7 @@ const ECU_PARAM_LIST = {
 		pgn: "fec1",
 		start_position: "1-4"
 	},
-	"fee0_1-4": { id: "fee0_1-4", "SYRUSLANG PARAM": "distance_trip", PARAM_NAME: "TRIP DISTACE", Units: "Distance, km", Range: "km", PGN: "fee0", START_POSITION: "1-4" },
+	"fee0_1-4": { id: "fee0_1-4", syruslang_param: "distance_trip", PARAM_NAME: "TRIP DISTACE", Units: "Distance, km", Range: "km", PGN: "fee0", START_POSITION: "1-4" },
 	"fec1_5-8": {
 		id: "fec1_5-8",
 		syruslang_param: "distance_trip_high_res",
@@ -295,7 +295,7 @@ const ECU_PARAM_LIST = {
 		pgn: "fd7b",
 		start_position: "1"
 	},
-	"***_***": { id: "***_***", "SYRUSLANG PARAM": "dtc", PARAM_NAME: "ACTIVE DIAGNOSTIC TROUBLE CODES ", Units: "", Range: "", PGN: "***", START_POSITION: "***" },
+	"***_***": { id: "***_***", syruslang_param: "dtc", PARAM_NAME: "ACTIVE DIAGNOSTIC TROUBLE CODES ", Units: "", Range: "", PGN: "***", START_POSITION: "***" },
 	f003_3: {
 		id: "f003_3",
 		syruslang_param: "engine_load",
@@ -368,7 +368,7 @@ const ECU_PARAM_LIST = {
 		pgn: "fef6",
 		start_position: "6-7"
 	},
-	"febd_2.1": { id: "febd_2.1", "SYRUSLANG PARAM": "fan_drive_state", PARAM_NAME: "FAN DRIVE STATE", Units: "Count ", Range: "0 to 15", PGN: "febd", START_POSITION: "2.1" },
+	"febd_2.1": { id: "febd_2.1", syruslang_param: "fan_drive_state", PARAM_NAME: "FAN DRIVE STATE", Units: "Count ", Range: "0 to 15", PGN: "febd", START_POSITION: "2.1" },
 	"fedc_1-4": {
 		id: "fedc_1-4",
 		syruslang_param: "fuel_idle",
@@ -387,9 +387,9 @@ const ECU_PARAM_LIST = {
 		pgn: "fef2",
 		start_position: "3-4"
 	},
-	fefc_2: { id: "fefc_2", "SYRUSLANG PARAM": "fuel_level", PARAM_NAME: "FUEL LEVEL 1", Units: "Percentage", Range: "%", PGN: "fefc", START_POSITION: "2" },
-	"fef2_1-2": { id: "fef2_1-2", "SYRUSLANG PARAM": "fuel_rate", PARAM_NAME: "ENGINE FUEL RATE", Units: "Flow rate, liquid", Range: "L/h", PGN: "fef2", start_position: "1-2" },
-	feee_2: { id: "feee_2", "SYRUSLANG PARAM": "fuel_temp", PARAM_NAME: "ENGINE FUEL TEMPERATURE 1", Units: "Temperature", Range: "C", PGN: "feee", START_POSITION: "2" },
+	fefc_2: { id: "fefc_2", syruslang_param: "fuel_level", PARAM_NAME: "FUEL LEVEL 1", Units: "Percentage", Range: "%", PGN: "fefc", START_POSITION: "2" },
+	"fef2_1-2": { id: "fef2_1-2", syruslang_param: "fuel_rate", PARAM_NAME: "ENGINE FUEL RATE", Units: "Flow rate, liquid", Range: "L/h", PGN: "fef2", start_position: "1-2" },
+	feee_2: { id: "feee_2", syruslang_param: "fuel_temp", PARAM_NAME: "ENGINE FUEL TEMPERATURE 1", Units: "Temperature", Range: "C", PGN: "feee", START_POSITION: "2" },
 	"fee9_5-8": {
 		id: "fee9_5-8",
 		syruslang_param: "fuel_total",
@@ -399,8 +399,8 @@ const ECU_PARAM_LIST = {
 		pgn: "fee9",
 		start_position: "5-8"
 	},
-	"fee9_1-4": { id: "fee9_1-4", "SYRUSLANG PARAM": "fuel_trip", PARAM_NAME: "ENGINE TRIP FUEL", Units: "Fuel used, liquid", Range: "L", PGN: "fee9", START_POSITION: "1-4" },
-	"fedc_5-8": { id: "fedc_5-8", "SYRUSLANG PARAM": "hours_idle", PARAM_NAME: "ENGINE TOTAL IDLE HOURS", Units: "Time, hr", Range: "hr", PGN: "fedc", START_POSITION: "5-8" },
+	"fee9_1-4": { id: "fee9_1-4", syruslang_param: "fuel_trip", PARAM_NAME: "ENGINE TRIP FUEL", Units: "Fuel used, liquid", Range: "L", PGN: "fee9", START_POSITION: "1-4" },
+	"fedc_5-8": { id: "fedc_5-8", syruslang_param: "hours_idle", PARAM_NAME: "ENGINE TOTAL IDLE HOURS", Units: "Time, hr", Range: "hr", PGN: "fedc", START_POSITION: "5-8" },
 	"fee5_1-4": {
 		id: "fee5_1-4",
 		syruslang_param: "hours_total",
@@ -410,9 +410,9 @@ const ECU_PARAM_LIST = {
 		pgn: "fee5",
 		start_position: "1-4"
 	},
-	fe68_3: { id: "fe68_3", "SYRUSLANG PARAM": "hydraulic_oil_level", PARAM_NAME: "HYDRAULIC OIL LEVEL", Units: "Percentage", Range: "%", PGN: "fe68", START_POSITION: "3" },
-	"f008_1-2": { id: "f008_1-2", "SYRUSLANG PARAM": "hydraulic_pressure", PARAM_NAME: "HYDRAULIC PRESSURE", Units: "Pressure", Range: "kPa", PGN: "f008", START_POSITION: "1-2" },
-	fe68_1: { id: "fe68_1", "SYRUSLANG PARAM": "hydraulic_temp", PARAM_NAME: "HYDRAULIC TEMPERATURE", Units: "Temperature", Range: "C", PGN: "fe68", START_POSITION: "1" },
+	fe68_3: { id: "fe68_3", syruslang_param: "hydraulic_oil_level", PARAM_NAME: "HYDRAULIC OIL LEVEL", Units: "Percentage", Range: "%", PGN: "fe68", START_POSITION: "3" },
+	"f008_1-2": { id: "f008_1-2", syruslang_param: "hydraulic_pressure", PARAM_NAME: "HYDRAULIC PRESSURE", Units: "Pressure", Range: "kPa", PGN: "f008", START_POSITION: "1-2" },
+	fe68_1: { id: "fe68_1", syruslang_param: "hydraulic_temp", PARAM_NAME: "HYDRAULIC TEMPERATURE", Units: "Temperature", Range: "C", PGN: "fe68", START_POSITION: "1" },
 	"f00a_3-4": {
 		id: "f00a_3-4",
 		syruslang_param: "intake_air_mass_flow_rate",
@@ -449,9 +449,9 @@ const ECU_PARAM_LIST = {
 		pgn: "fedf",
 		start_position: "1"
 	},
-	feef_3: { id: "feef_3", "SYRUSLANG PARAM": "oil_level", PARAM_NAME: "ENGINE OIL LEVEL", Units: "Percentage", Range: "%", PGN: "feef", START_POSITION: "3" },
-	feef_4: { id: "feef_4", "SYRUSLANG PARAM": "oil_pressure", PARAM_NAME: "ENGINE OIL PRESSURE", Units: "Pressure", Range: "kPa", PGN: "feef", START_POSITION: "4" },
-	"feee_3-4": { id: "feee_3-4", "SYRUSLANG PARAM": "oil_temp", PARAM_NAME: "ENGINE OIL TEMPERATURE 1", Units: "Temperature", Range: "C", PGN: "feee", START_POSITION: "3-4" },
+	feef_3: { id: "feef_3", syruslang_param: "oil_level", PARAM_NAME: "ENGINE OIL LEVEL", Units: "Percentage", Range: "%", PGN: "feef", START_POSITION: "3" },
+	feef_4: { id: "feef_4", syruslang_param: "oil_pressure", PARAM_NAME: "ENGINE OIL PRESSURE", Units: "Pressure", Range: "kPa", PGN: "feef", START_POSITION: "4" },
+	"feee_3-4": { id: "feee_3-4", syruslang_param: "oil_temp", PARAM_NAME: "ENGINE OIL TEMPERATURE 1", Units: "Temperature", Range: "C", PGN: "feee", START_POSITION: "3-4" },
 	"fef1_1.3": {
 		id: "fef1_1.3",
 		syruslang_param: "parking_brake_switch",
@@ -479,7 +479,7 @@ const ECU_PARAM_LIST = {
 		pgn: "fef0",
 		start_position: "6.3"
 	},
-	"fef1_7.1": { id: "fef1_7.1", "SYRUSLANG PARAM": "pto_state", PARAM_NAME: "PTO GOVERNOR STATE", Units: "Count", Range: "0 to 31", PGN: "fef1", START_POSITION: "7.1" },
+	"fef1_7.1": { id: "fef1_7.1", syruslang_param: "pto_state", PARAM_NAME: "PTO GOVERNOR STATE", Units: "Count", Range: "0 to 31", PGN: "fef1", START_POSITION: "7.1" },
 	"fee3_20-21": {
 		id: "fee3_20-21",
 		syruslang_param: "reference_torque",
@@ -498,8 +498,8 @@ const ECU_PARAM_LIST = {
 		pgn: "f000",
 		start_position: "1.5"
 	},
-	"f004_4-5": { id: "f004_4-5", "SYRUSLANG PARAM": "rpm", PARAM_NAME: "ENGINE SPEED", Units: "Velocity, rotational", Range: "rpm", PGN: "f004", START_POSITION: "4-5" },
-	"e000_4.7": { id: "e000_4.7", "SYRUSLANG PARAM": "seat_belt", PARAM_NAME: "SEAT BELT SWITCH", Units: "Count", Range: "0 to 3", PGN: "e000", START_POSITION: "4.7" },
+	"f004_4-5": { id: "f004_4-5", syruslang_param: "rpm", PARAM_NAME: "ENGINE SPEED", Units: "Velocity, rotational", Range: "rpm", PGN: "f004", START_POSITION: "4-5" },
+	"e000_4.7": { id: "e000_4.7", syruslang_param: "seat_belt", PARAM_NAME: "SEAT BELT SWITCH", Units: "Count", Range: "0 to 3", PGN: "e000", START_POSITION: "4.7" },
 	"fef1_2-3": {
 		id: "fef1_2-3",
 		syruslang_param: "speed",
@@ -509,12 +509,12 @@ const ECU_PARAM_LIST = {
 		pgn: "fef1",
 		start_position: "2-3"
 	},
-	fef4_1: { id: "fef4_1", "SYRUSLANG PARAM": "tire_location", PARAM_NAME: "TIRE LOCATION", Units: "Count", Range: "0 to 255", PGN: "fef4", START_POSITION: "1" },
-	fef4_2: { id: "fef4_2", "SYRUSLANG PARAM": "tires_psi", PARAM_NAME: "TIRE PRESSURE", Units: "Pressure", Range: "kPa", PGN: "fef4", START_POSITION: "2" },
-	"fef4_3-4": { i_: "fef4_3-4", "SYRUSLANG PARAM": "tires_tmp", PARAM_NAME: "TIRE TEMPERATURE", Units: "Temperature", Range: "C", PGN: "fef4", start_position: "3-4" },
-	"feb1_1-4": { id: "feb1_1-4", "SYRUSLANG PARAM": "total_ecu_run_time", PARAM_NAME: "TOTAL ECU RUN TIME", Units: "Time, hr", Range: "hr", PGN: "feb1", start_position: "1-4" },
-	fef8_2: { id: "fef8_2", "SYRUSLANG PARAM": "trans_oil_level", PARAM_NAME: "TRANSMISSION OIL LEVEL", Units: "Percentage", Range: "%", PGN: "fef8", start_position: "2" },
-	fef8_4: { id: "fef8_4", "SYRUSLANG PARAM": "trans_oil_pressure", PARAM_NAME: "TRANSMISSION OIL PRESSURE", Units: "Pressure", Range: "kPa", PGN: "fef8", START_POSItio_: "4" },
+	fef4_1: { id: "fef4_1", syruslang_param: "tire_location", PARAM_NAME: "TIRE LOCATION", Units: "Count", Range: "0 to 255", PGN: "fef4", START_POSITION: "1" },
+	fef4_2: { id: "fef4_2", syruslang_param: "tires_psi", PARAM_NAME: "TIRE PRESSURE", Units: "Pressure", Range: "kPa", PGN: "fef4", START_POSITION: "2" },
+	"fef4_3-4": { i_: "fef4_3-4", syruslang_param: "tires_tmp", PARAM_NAME: "TIRE TEMPERATURE", Units: "Temperature", Range: "C", PGN: "fef4", start_position: "3-4" },
+	"feb1_1-4": { id: "feb1_1-4", syruslang_param: "total_ecu_run_time", PARAM_NAME: "TOTAL ECU RUN TIME", Units: "Time, hr", Range: "hr", PGN: "feb1", start_position: "1-4" },
+	fef8_2: { id: "fef8_2", syruslang_param: "trans_oil_level", PARAM_NAME: "TRANSMISSION OIL LEVEL", Units: "Percentage", Range: "%", PGN: "fef8", start_position: "2" },
+	fef8_4: { id: "fef8_4", syruslang_param: "trans_oil_pressure", PARAM_NAME: "TRANSMISSION OIL PRESSURE", Units: "Pressure", Range: "kPa", PGN: "fef8", START_POSItio_: "4" },
 	"fef8_5-6": {
 		id: "fef8_5-6",
 		syruslang_param: "trans_oil_temp",
@@ -578,9 +578,9 @@ const ECU_PARAM_LIST = {
 		pgn: "fdd5",
 		start_position: "7.3"
 	},
-	"feff_1.1": { id: "feff_1.1", "SYRUSLANG PARAM": "water_in_fuel", PARAM_NAME: "WATER IN FUEL INDICATOR", Units: "Count", Range: "0 to 3", PGN: "feff", STArt_positio_: "1.1" },
-	"feea_2-3": { i_: "feea_2-3", "SYRUSLANG PARAM": "weight_axle", PARAM_NAME: "AXLE WEIGHT", Units: "Mass, cargo", Range: "kg", PGN: "feea", START_POSITION: "2-3" },
-	"feea_6-7": { id: "feea_6-7", "SYRUSLANG PARAM": "weight_cargo", PARAM_NAME: "CARGO WEIGHT", Units: "Mass, cargo", Range: "kg", PGN: "feea", start_positio_: "6-7" },
+	"feff_1.1": { id: "feff_1.1", syruslang_param: "water_in_fuel", PARAM_NAME: "WATER IN FUEL INDICATOR", Units: "Count", Range: "0 to 3", PGN: "feff", STArt_positio_: "1.1" },
+	"feea_2-3": { i_: "feea_2-3", syruslang_param: "weight_axle", PARAM_NAME: "AXLE WEIGHT", Units: "Mass, cargo", Range: "kg", PGN: "feea", START_POSITION: "2-3" },
+	"feea_6-7": { id: "feea_6-7", syruslang_param: "weight_cargo", PARAM_NAME: "CARGO WEIGHT", Units: "Mass, cargo", Range: "kg", PGN: "feea", start_positio_: "6-7" },
 	"fe70_3-4": {
 		id: "fe70_3-4",
 		syruslang_param: "weight_gross_combination",
@@ -599,7 +599,7 @@ const ECU_PARAM_LIST = {
 		pgn: "fe70",
 		start_positio_: "1-2"
 	},
-	"feea_4-5": { id: "feea_4-5", "SYRUSLANG PARAM": "weight_trailer", PARAM_NAME: "TRAILER WEIGHT", Units: "Mass, cargo", Range: "kg", PGN: "feea", START_POSITION: "4-5" }
+	"feea_4-5": { id: "feea_4-5", syruslang_param: "weight_trailer", PARAM_NAME: "TRAILER WEIGHT", Units: "Mass, cargo", Range: "kg", PGN: "feea", START_POSITION: "4-5" }
 };
 
 /**
@@ -614,10 +614,10 @@ function watchECUParams(cb: Function, errorCallback: Function) {
 			var ecu_values: any = {};
 			raw.split("&").map(param => {
 				var [key, value] = param.split("=");
-				if (ECU_PARAM_LIST[key]) {
+				if (ECU_PARAM_LIST[`${key}`]) {
 					ecu_values[ECU_PARAM_LIST[key].syruslang_param] = value;
 				} else {
-					ecu_values[key] = value;
+					ecu_values[`${key}`] = value;
 				}
 			});
 			cb(ecu_values);
@@ -649,7 +649,7 @@ async function getECUParams() {
 		if (ECU_PARAM_LIST[key]) {
 			ecu_values[ECU_PARAM_LIST[key].syruslang_param] = value;
 		} else {
-			ecu_values[key] = value;
+			ecu_values[`${key}`] = value;
 		}
 	}
 	return ecu_values;
