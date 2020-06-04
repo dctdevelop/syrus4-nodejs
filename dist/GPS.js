@@ -74,6 +74,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         try {
+            var timeoutToTransmit;
             var handler = function (channel, gps) {
                 if (channel != "gps")
                     return;
@@ -81,11 +82,22 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
                 if (!position.coords.latitude)
                     return;
                 if (!config || evaluateCriteria(position)) {
+                    Redis_1.redisSubscriber.off("message", handler);
                     resolve(position);
+                    clearTimeout(timeoutToTransmit);
                 }
             };
             Redis_1.redisSubscriber.on("message", handler);
+            if (config.time > 0) {
+                clearTimeout(timeoutToTransmit);
+            }
             Redis_1.redisSubscriber.subscribe("gps");
+            if (config.time > 0) {
+                timeoutToTransmit = setTimeout(() => {
+                    Redis_1.redisSubscriber.off("message", handler);
+                    resolve(rawdataToCoordinates("{}"));
+                }, config.time);
+            }
         }
         catch (error) {
             reject(error);
@@ -99,22 +111,37 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
 function watchPosition(callback, errorCallback, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
-    var last = null;
+    var last_returned = null;
+    var last_valid = rawdataToCoordinates("{}");
+    var intervalToTransmit = null;
     var handler = function (channel, gps) {
         if (channel !== "gps")
             return;
         var position = rawdataToCoordinates(gps);
         if (!position.coords.latitude)
             return;
-        if (evaluateCriteria(position, last, config)) {
+        last_valid = position;
+        if (evaluateCriteria(position, last_returned, config)) {
             callback(position);
-            last = position;
+            last_returned = position;
+            if (config.time > 0) {
+                clearInterval(intervalToTransmit);
+                intervalToTransmit = setInterval(() => {
+                    callback(last_valid);
+                }, config.time);
+            }
         }
     };
     Redis_1.redisSubscriber.subscribe("gps");
     Redis_1.redisSubscriber.on("message", handler);
+    if (config.time > 0) {
+        intervalToTransmit = setInterval(() => {
+            callback(last_valid);
+        }, config.time);
+    }
     return {
         unsubscribe: () => {
+            clearInterval(intervalToTransmit);
             Redis_1.redisSubscriber.off("message", handler);
         }
     };

@@ -2,7 +2,7 @@
  * GPS module get information about gps and location in ApexOS
  * @module GPS
  */
-import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
+import { redisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
 const MAX_TRIES = 3;
 const SPEED_THRESHOLD = 3;
@@ -61,16 +61,28 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	return new Promise(async (resolve, reject) => {
 		try {
+			var timeoutToTransmit;
 			var handler = function (channel, gps) {
 				if (channel != "gps") return;
 				var position = rawdataToCoordinates(gps);
 				if(!position.coords.latitude) return;
 				if (!config || evaluateCriteria(position)) {
+					subscriber.off("message", handler);
 					resolve(position);
+					clearTimeout(timeoutToTransmit);
 				}
 			};
 			subscriber.on("message", handler);
+			if(config.time > 0){
+				clearTimeout(timeoutToTransmit);
+			}
 			subscriber.subscribe("gps");
+			if(config.time > 0){
+				timeoutToTransmit = setTimeout(()=>{
+					subscriber.off("message", handler);
+					resolve(rawdataToCoordinates("{}"));
+				}, config.time)
+			}
 		} catch (error) {
 			reject(error);
 		}
@@ -84,21 +96,35 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
 function watchPosition(callback: Function, errorCallback: Function, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
-	var last = null;
+	var last_returned = null;
+	var last_valid = rawdataToCoordinates("{}");
+	var intervalToTransmit = null;
 	var handler = function (channel, gps) {
 		if(channel !== "gps") return;
 		var position = rawdataToCoordinates(gps);
 		if(!position.coords.latitude) return;
-		if (evaluateCriteria(position, last, config)) {
+		last_valid = position;
+		if (evaluateCriteria(position, last_returned, config)) {
 			callback(position);
-			last = position;
+			last_returned = position;
+			if(config.time > 0){
+				clearInterval(intervalToTransmit);
+				intervalToTransmit = setInterval(()=>{
+					callback(last_valid);
+				}, config.time);
+			}
 		}
 	};
 	subscriber.subscribe("gps");
 	subscriber.on("message", handler);
-
+	if(config.time > 0 ){
+		intervalToTransmit = setInterval(()=>{
+			callback(last_valid);
+		}, config.time);
+	}
 	return {
 		unsubscribe: () => {
+			clearInterval(intervalToTransmit);
 			subscriber.off("message", handler);
 		}
 	};
