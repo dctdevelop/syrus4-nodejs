@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Redis_1 = require("./Redis");
 const Utils_1 = require("./Utils");
-const MAX_TRIES = 3;
+const MAX_TRIES = 100;
 const SPEED_THRESHOLD = 3;
 var tries = 0;
 function rawdataToCoordinates(raw) {
@@ -44,21 +44,21 @@ function rawdataToCoordinates(raw) {
         }
     };
 }
-function evaluateCriteria(current, last = null, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
-    if (config.accuracy > 0 && current.coords.accuracy > config.accuracy) {
+function evaluateCriteria(current, last = null, config = { hdop: 1.5, distance: 0, time: 0, bearing: 0 }) {
+    if (config.hdop > 0 && current.extras.hdop > config.hdop) {
         tries++;
         if (tries > MAX_TRIES) {
             tries = 0;
-            return true;
         }
         else {
             return false;
         }
     }
+    tries = 0;
     if (!last)
         return "signal";
     var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
-    var distance = Utils_1.default.distanceBetweenCoordinates(last, current);
+    var distance = Utils_1.default.distanceBetweenCoordinates(last, current) * 1000;
     var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
     var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
     if (config.distance > 0 && distance >= config.distance)
@@ -72,7 +72,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 /**
  * Get last current location from GPS
  */
-function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, bearing: 0 }) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         try {
             var timeoutToTransmit;
@@ -113,7 +113,7 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
  * @param errorCallback Errorcallback executes when is unable to get gps location
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
-function watchPosition(callback, errorCallback, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function watchPosition(callback, errorCallback, config = { hdop: 0, distance: 0, time: 0, bearing: 0 }) {
     var last_returned = null;
     var last_valid = rawdataToCoordinates("{}");
     var intervalToTransmit = null;

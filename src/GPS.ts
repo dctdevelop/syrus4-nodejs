@@ -4,7 +4,7 @@
  */
 import { redisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
-const MAX_TRIES = 3;
+const MAX_TRIES = 100;
 const SPEED_THRESHOLD = 3;
 var tries = 0;
 function rawdataToCoordinates(raw: string) {
@@ -34,20 +34,19 @@ function rawdataToCoordinates(raw: string) {
 	};
 }
 
-function evaluateCriteria(current, last = null, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
-	if (config.accuracy > 0 && current.coords.accuracy > config.accuracy) {
+function evaluateCriteria(current, last = null, config = { hdop: 1.5, distance: 0, time: 0, bearing: 0 }) {
+	if (config.hdop > 0 && current.extras.hdop > config.hdop) {
 		tries++;
 		if (tries > MAX_TRIES) {
 			tries = 0;
-			return true;
 		} else {
 			return false;
 		}
 	}
-
+	tries = 0;
 	if (!last) return "signal";
 	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
-	var distance = utils.distanceBetweenCoordinates(last, current);
+	var distance = utils.distanceBetweenCoordinates(last, current) * 1000;
 	var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
 	var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
 	if (config.distance > 0 && distance >= config.distance) criteria = "distance";
@@ -59,15 +58,15 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 /**
  * Get last current location from GPS
  */
-function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, bearing: 0 }) {
 	return new Promise(async (resolve, reject) => {
 		try {
 			var timeoutToTransmit;
 			var handler = function (channel, gps) {
 				if (channel != "gps") return;
-				var position:any = rawdataToCoordinates(gps);
-				if(!position.coords.latitude) return;
-				var criteria = evaluateCriteria(position)
+				var position: any = rawdataToCoordinates(gps);
+				if (!position.coords.latitude) return;
+				var criteria = evaluateCriteria(position);
 				if (!config || !!criteria) {
 					subscriber.off("message", handler);
 					position.extras.criteria = criteria;
@@ -76,15 +75,15 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
 				}
 			};
 			subscriber.on("message", handler);
-			if(config.time > 0){
+			if (config.time > 0) {
 				clearTimeout(timeoutToTransmit);
 			}
 			subscriber.subscribe("gps");
-			if(config.time > 0){
-				timeoutToTransmit = setTimeout(()=>{
+			if (config.time > 0) {
+				timeoutToTransmit = setTimeout(() => {
 					subscriber.off("message", handler);
 					resolve(rawdataToCoordinates("{}"));
-				}, config.time)
+				}, config.time);
 			}
 		} catch (error) {
 			reject(error);
@@ -98,22 +97,22 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
  * @param errorCallback Errorcallback executes when is unable to get gps location
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
-function watchPosition(callback: Function, errorCallback: Function, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
+function watchPosition(callback: Function, errorCallback: Function, config = { hdop: 0, distance: 0, time: 0, bearing: 0 }) {
 	var last_returned = null;
 	var last_valid = rawdataToCoordinates("{}");
 	var intervalToTransmit = null;
 	var handler = function (channel, gps) {
-		if(channel !== "gps") return;
+		if (channel !== "gps") return;
 		var position = rawdataToCoordinates(gps);
-		if(!position.coords.latitude) return;
+		if (!position.coords.latitude) return;
 		last_valid = position;
 		var criteria = evaluateCriteria(position, last_returned, config);
 		if (!!criteria) {
 			callback(position, criteria);
 			last_returned = position;
-			if(config.time > 0){
+			if (config.time > 0) {
 				clearInterval(intervalToTransmit);
-				intervalToTransmit = setInterval(()=>{
+				intervalToTransmit = setInterval(() => {
 					callback(last_valid, "time");
 				}, config.time);
 			}
@@ -121,8 +120,8 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 	};
 	subscriber.subscribe("gps");
 	subscriber.on("message", handler);
-	if(config.time > 0 ){
-		intervalToTransmit = setInterval(()=>{
+	if (config.time > 0) {
+		intervalToTransmit = setInterval(() => {
 			callback(last_valid, "time");
 		}, config.time);
 	}
@@ -143,7 +142,7 @@ function watchGPS(callback, errorCallback: Function) {
 	try {
 		subscriber.subscribe("gps");
 		var cb = function (channel, gps) {
-			if(channel !== "gps") return;
+			if (channel !== "gps") return;
 			callback(gps);
 		};
 		subscriber.on("message", cb);
