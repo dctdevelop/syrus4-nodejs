@@ -45,7 +45,7 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 		}
 	}
 
-	if (!last) return true;
+	if (!last) return "signal";
 	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
 	var distance = utils.distanceBetweenCoordinates(last, current);
 	var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
