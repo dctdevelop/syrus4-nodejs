@@ -4,7 +4,7 @@
  */
 import { redisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
-const MAX_TRIES = 100;
+const MAX_TRIES = 35;
 const SPEED_THRESHOLD = 3;
 var tries = 0;
 function rawdataToCoordinates(raw: string) {
@@ -43,7 +43,6 @@ function evaluateCriteria(current, last = null, config = { hdop: 1.5, distance: 
 			return false;
 		}
 	}
-	tries = 0;
 	if (!last) return "signal";
 	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
 	var distance = utils.distanceBetweenCoordinates(last, current) * 1000;
