@@ -28,12 +28,13 @@ function rawdataToCoordinates(raw: string) {
 			quality: gps.quality,
 			fix: gps.fix,
 			satsActive: gps.satsActive,
-			satsVisible: gps.satsVisible
+			satsVisible: gps.satsVisible,
+			criteria: "signal"
 		}
 	};
 }
 
-function evaluateCriteria(current, last = null, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }): boolean {
+function evaluateCriteria(current, last = null, config = { accuracy: 0, distance: 0, time: 0, bearing: 0 }) {
 	if (config.accuracy > 0 && current.coords.accuracy > config.accuracy) {
 		tries++;
 		if (tries > MAX_TRIES) {
@@ -45,13 +46,13 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
 	}
 
 	if (!last) return true;
-	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0;
+	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
 	var distance = utils.distanceBetweenCoordinates(last, current);
 	var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
 	var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
-	if (config.distance > 0 && distance >= config.distance) criteria = true;
-	if (config.time > 0 && secs >= config.time) criteria = true;
-	if (config.bearing > 0 && bearing >= config.bearing) criteria = true;
+	if (config.distance > 0 && distance >= config.distance) criteria = "distance";
+	if (config.time > 0 && secs >= config.time) criteria = "time";
+	if (config.bearing > 0 && bearing >= config.bearing) criteria = "heading";
 	return criteria;
 }
 
@@ -64,10 +65,12 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
 			var timeoutToTransmit;
 			var handler = function (channel, gps) {
 				if (channel != "gps") return;
-				var position = rawdataToCoordinates(gps);
+				var position:any = rawdataToCoordinates(gps);
 				if(!position.coords.latitude) return;
-				if (!config || evaluateCriteria(position)) {
+				var criteria = evaluateCriteria(position)
+				if (!config || !!criteria) {
 					subscriber.off("message", handler);
+					position.extras.criteria = criteria;
 					resolve(position);
 					clearTimeout(timeoutToTransmit);
 				}
@@ -104,13 +107,14 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 		var position = rawdataToCoordinates(gps);
 		if(!position.coords.latitude) return;
 		last_valid = position;
-		if (evaluateCriteria(position, last_returned, config)) {
-			callback(position);
+		var criteria = evaluateCriteria(position, last_returned, config);
+		if (!!criteria) {
+			callback(position, criteria);
 			last_returned = position;
 			if(config.time > 0){
 				clearInterval(intervalToTransmit);
 				intervalToTransmit = setInterval(()=>{
-					callback(last_valid);
+					callback(last_valid, "time");
 				}, config.time);
 			}
 		}
@@ -119,7 +123,7 @@ function watchPosition(callback: Function, errorCallback: Function, config = { a
 	subscriber.on("message", handler);
 	if(config.time > 0 ){
 		intervalToTransmit = setInterval(()=>{
-			callback(last_valid);
+			callback(last_valid, "time");
 		}, config.time);
 	}
 	return {
