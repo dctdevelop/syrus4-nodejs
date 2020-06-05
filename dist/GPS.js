@@ -39,7 +39,8 @@ function rawdataToCoordinates(raw) {
             quality: gps.quality,
             fix: gps.fix,
             satsActive: gps.satsActive,
-            satsVisible: gps.satsVisible
+            satsVisible: gps.satsVisible,
+            criteria: "signal"
         }
     };
 }
@@ -56,16 +57,16 @@ function evaluateCriteria(current, last = null, config = { accuracy: 0, distance
     }
     if (!last)
         return true;
-    var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0;
+    var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
     var distance = Utils_1.default.distanceBetweenCoordinates(last, current);
     var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
     var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
     if (config.distance > 0 && distance >= config.distance)
-        criteria = true;
+        criteria = "distance";
     if (config.time > 0 && secs >= config.time)
-        criteria = true;
+        criteria = "time";
     if (config.bearing > 0 && bearing >= config.bearing)
-        criteria = true;
+        criteria = "heading";
     return criteria;
 }
 /**
@@ -81,8 +82,10 @@ function getCurrentPosition(config = { accuracy: 0, distance: 0, time: 0, bearin
                 var position = rawdataToCoordinates(gps);
                 if (!position.coords.latitude)
                     return;
-                if (!config || evaluateCriteria(position)) {
+                var criteria = evaluateCriteria(position);
+                if (!config || !!criteria) {
                     Redis_1.redisSubscriber.off("message", handler);
+                    position.extras.criteria = criteria;
                     resolve(position);
                     clearTimeout(timeoutToTransmit);
                 }
@@ -121,13 +124,14 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
         if (!position.coords.latitude)
             return;
         last_valid = position;
-        if (evaluateCriteria(position, last_returned, config)) {
-            callback(position);
+        var criteria = evaluateCriteria(position, last_returned, config);
+        if (!!criteria) {
+            callback(position, criteria);
             last_returned = position;
             if (config.time > 0) {
                 clearInterval(intervalToTransmit);
                 intervalToTransmit = setInterval(() => {
-                    callback(last_valid);
+                    callback(last_valid, "time");
                 }, config.time);
             }
         }
@@ -136,7 +140,7 @@ function watchPosition(callback, errorCallback, config = { accuracy: 0, distance
     Redis_1.redisSubscriber.on("message", handler);
     if (config.time > 0) {
         intervalToTransmit = setInterval(() => {
-            callback(last_valid);
+            callback(last_valid, "time");
         }, config.time);
     }
     return {
