@@ -4,7 +4,6 @@
  */
 import { redisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
-const MAX_TRIES = 35;
 const SPEED_THRESHOLD = 3;
 var tries = 0;
 function rawdataToCoordinates(raw: string) {
@@ -34,14 +33,9 @@ function rawdataToCoordinates(raw: string) {
 	};
 }
 
-function evaluateCriteria(current, last = null, config = { hdop: 1.5, distance: 0, time: 0, bearing: 0 }) {
+function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0, time: 0, bearing: 0 }) {
 	if (config.hdop > 0 && current.extras.hdop > config.hdop) {
-		tries++;
-		if (tries > MAX_TRIES) {
-			tries = 0;
-		} else {
-			return false;
-		}
+		return false;
 	}
 	if (!last) return "signal";
 	var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
