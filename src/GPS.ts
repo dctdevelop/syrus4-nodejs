@@ -26,8 +26,8 @@ function rawdataToCoordinates(raw: string) {
 			pdop: gps.pdop,
 			quality: gps.quality,
 			fix: gps.fix,
-			satsActive: gps.satsActive,
-			satsVisible: gps.satsVisible,
+			satsActive: gps.satused,
+			satsVisible: gps.satview,
 			criteria: "signal"
 		}
 	};
