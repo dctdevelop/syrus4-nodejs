@@ -626,10 +626,10 @@ function watchECUParams(cb, errorCallback) {
             raw.split("&").map(param => {
                 var [key, value] = param.split("=");
                 if (ECU_PARAM_LIST[`${key}`]) {
-                    ecu_values[ECU_PARAM_LIST[key].syruslang_param] = value;
+                    ecu_values[ECU_PARAM_LIST[key].syruslang_param] = isNaN(parseFloat(value)) ? value : parseFloat(value);
                 }
                 else {
-                    ecu_values[`${key}`] = value;
+                    ecu_values[`${key}`] = isNaN(parseFloat(value)) ? value : parseFloat(value);
                 }
             });
             cb(ecu_values);
@@ -659,10 +659,10 @@ function getECUParams() {
         for (const key in ecu_params) {
             const value = ecu_params[key];
             if (ECU_PARAM_LIST[key]) {
-                ecu_values[ECU_PARAM_LIST[key].syruslang_param] = value;
+                ecu_values[ECU_PARAM_LIST[key].syruslang_param] = isNaN(parseFloat(value)) ? value : parseFloat(value);
             }
             else {
-                ecu_values[`${key}`] = value;
+                ecu_values[`${key}`] = isNaN(parseFloat(value)) ? value : parseFloat(value);
             }
         }
         return ecu_values;
