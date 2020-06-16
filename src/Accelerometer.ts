@@ -69,8 +69,8 @@ function on(callback, errorCallback) {
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true) {
-	redis.hset("accel_desired_action", "START_ALIGN_PROCESS", state ? "1" : "0");
-	redis.publish("accel/desired/action/START_ALIGN_PROCESS", state ? "1" : "0");
+	redis.hset("accel_desired_action", "START_ALIGNMENT_PROCESS", state ? "1" : "0");
+	redis.publish("accel/desired/action/START_ALIGNMENT_PROCESS", state ? "1" : "0");
 }
 
 /**
@@ -95,7 +95,7 @@ function setDebugMode(state = true) {
  * check is hardware is on state auto aligning returns a promise with the state
  */
 async function isAutoAligning() {
-	var result = await redis.hget("accel_desired_action", "START_ALIGN_PROCESS");
+	var result = await redis.hget("accel_desired_action", "START_ALIGNMENT_PROCESS");
 	return result == "1";
 }
 

@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Redis_1 = require("./Redis");
 const Utils_1 = require("./Utils");
-const MAX_TRIES = 35;
 const SPEED_THRESHOLD = 3;
 var tries = 0;
 function rawdataToCoordinates(raw) {
@@ -38,21 +37,15 @@ function rawdataToCoordinates(raw) {
             pdop: gps.pdop,
             quality: gps.quality,
             fix: gps.fix,
-            satsActive: gps.satsActive,
-            satsVisible: gps.satsVisible,
+            satsActive: gps.satused,
+            satsVisible: gps.satview,
             criteria: "signal"
         }
     };
 }
-function evaluateCriteria(current, last = null, config = { hdop: 1.5, distance: 0, time: 0, bearing: 0 }) {
+function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0, time: 0, bearing: 0 }) {
     if (config.hdop > 0 && current.extras.hdop > config.hdop) {
-        tries++;
-        if (tries > MAX_TRIES) {
-            tries = 0;
-        }
-        else {
-            return false;
-        }
+        return false;
     }
     if (!last)
         return "signal";

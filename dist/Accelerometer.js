@@ -81,8 +81,8 @@ function on(callback, errorCallback) {
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true) {
-    Redis_1.redisClient.hset("accel_desired_action", "START_ALIGN_PROCESS", state ? "1" : "0");
-    Redis_1.redisClient.publish("accel/desired/action/START_ALIGN_PROCESS", state ? "1" : "0");
+    Redis_1.redisClient.hset("accel_desired_action", "START_ALIGNMENT_PROCESS", state ? "1" : "0");
+    Redis_1.redisClient.publish("accel/desired/action/START_ALIGNMENT_PROCESS", state ? "1" : "0");
 }
 /**
  * Set the state for the self acceleration test of the APEX OS acceleration hardware
@@ -105,7 +105,7 @@ function setDebugMode(state = true) {
  */
 function isAutoAligning() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield Redis_1.redisClient.hget("accel_desired_action", "START_ALIGN_PROCESS");
+        var result = yield Redis_1.redisClient.hget("accel_desired_action", "START_ALIGNMENT_PROCESS");
         return result == "1";
     });
 }
