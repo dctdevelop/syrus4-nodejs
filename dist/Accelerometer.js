@@ -14,6 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module Accelerometer
  */
 const Redis_1 = require("./Redis");
+const Utils_1 = require("./Utils");
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -58,7 +59,7 @@ function on(callback, errorCallback) {
                 return;
             var [eventType, ...results] = raw.split(",");
             if (eventType != "MOTION")
-                callback(eventType, results);
+                callback(eventType.toLowerCase(), results);
         };
         Redis_1.redisSubscriber.subscribe("accel/events");
         Redis_1.redisSubscriber.on("message", handler);
@@ -81,16 +82,14 @@ function on(callback, errorCallback) {
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true) {
-    Redis_1.redisClient.hset("accel_desired_action", "START_ALIGNMENT_PROCESS", state ? "1" : "0");
-    Redis_1.redisClient.publish("accel/desired/action/START_ALIGNMENT_PROCESS", state ? "1" : "0");
+    return Utils_1.default.OSExecute(`apx-imu self_alignment ${state ? 1 : 0}`);
 }
 /**
  * Set the state for the self acceleration test of the APEX OS acceleration hardware
  * @param state desired state of self acceleration test proccess
  */
 function startSelfAccelerationTest(state = true) {
-    Redis_1.redisClient.hset("accel_desired_action", "START_SELF_ACCEL_TEST", state ? "1" : "0");
-    Redis_1.redisClient.publish("accel/desired/action/START_SELF_ACCEL_TEST", state ? "1" : "0");
+    return Utils_1.default.OSExecute(`apx-imu self_test ${state ? 1 : 0}`);
 }
 /**
  * enable or disable serial port debugger for acceleration hardware in APEX OS
@@ -105,8 +104,7 @@ function setDebugMode(state = true) {
  */
 function isAutoAligning() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield Redis_1.redisClient.hget("accel_desired_action", "START_ALIGNMENT_PROCESS");
-        return result == "1";
+        return Utils_1.default.OSExecute("apx-imu self_alignment");
     });
 }
 /**
@@ -114,8 +112,7 @@ function isAutoAligning() {
  */
 function isAccelerationTest() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield Redis_1.redisClient.hget("accel_desired_action", "START_SELF_ACCEL_TEST");
-        return result == "1";
+        return Utils_1.default.OSExecute("apx-imu self_test");
     });
 }
 /**
