@@ -3,6 +3,7 @@
  * @module Accelerometer
  */
 import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
+import Utils from "./Utils";
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -45,7 +46,7 @@ function on(callback, errorCallback) {
 		var handler = (channel, raw) => {
             if(channel != "accel/events") return;
 			var [eventType, ...results] = raw.split(",");
-			if (eventType != "MOTION") callback(eventType, results);
+			if (eventType != "MOTION") callback(eventType.toLowerCase(), results);
 		};
 		subscriber.subscribe("accel/events");
 		subscriber.on("message", handler);
@@ -69,8 +70,7 @@ function on(callback, errorCallback) {
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true) {
-	redis.hset("accel_desired_action", "START_ALIGNMENT_PROCESS", state ? "1" : "0");
-	redis.publish("accel/desired/action/START_ALIGNMENT_PROCESS", state ? "1" : "0");
+	return Utils.OSExecute(`apx-imu self_alignment ${state ? 1 : 0}`);
 }
 
 /**
@@ -78,8 +78,7 @@ function startAutoAlignment(state = true) {
  * @param state desired state of self acceleration test proccess
  */
 function startSelfAccelerationTest(state = true) {
-	redis.hset("accel_desired_action", "START_SELF_ACCEL_TEST", state ? "1" : "0");
-	redis.publish("accel/desired/action/START_SELF_ACCEL_TEST", state ? "1" : "0");
+	return Utils.OSExecute(`apx-imu self_test ${state ? 1 : 0}`);
 }
 
 /**
@@ -95,16 +94,14 @@ function setDebugMode(state = true) {
  * check is hardware is on state auto aligning returns a promise with the state
  */
 async function isAutoAligning() {
-	var result = await redis.hget("accel_desired_action", "START_ALIGNMENT_PROCESS");
-	return result == "1";
+	return Utils.OSExecute("apx-imu self_alignment");
 }
 
 /**
  * check is hardware is on state acceleration test returns a promise with the state
  */
 async function isAccelerationTest() {
-	var result = await redis.hget("accel_desired_action", "START_SELF_ACCEL_TEST");
-	return result == "1";
+	return Utils.OSExecute("apx-imu self_test");
 }
 
 /**
