@@ -5,6 +5,16 @@
 import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
 import Utils from "./Utils";
 
+async function IsConnected(net){
+	try {
+		var raw: any = await Utils.execute(`ip route | grep ${net}`);
+	} catch (error) {
+		// Error means no text so grep return empty which is means disconnected
+		return false;
+	}
+	return !(raw.length == 0 || raw.indexOf("linkdown") > -1);
+}
+
 /**
  * Watch the network state change
  * @param callback callback to executed when network state changes
@@ -88,10 +98,9 @@ async function getNetworkInfo(net) {
 	end = raw.indexOf(" ", start);
 	if (start > -1) data["tx_bytes"] = parseInt(raw.substring(start, end));
 
-	data.connected = true;
+	data.connected = await IsConnected(net);
 	if (data.ip_address == "") {
 		data.ip_address = null;
-		data.connected = false;
 	}
 	return data;
 }
@@ -106,9 +115,19 @@ async function getNetworks() {
 		.map(str => str.split(" ")[0])
 		.filter(str => str);
 	var info = {};
-	for (const net of nets) {
-		info[net] = await getNetworkInfo(net);
-	}
+	var promises = []
+	promises = []
+	nets.forEach((net)=>{
+		var promise = getNetworkInfo(net);
+		promise.then((resp)=>{
+			info[net] = resp
+		})
+		.catch((err)=>{
+			throw err;
+		});
+		promises.push(promise);
+	})
+	await Promise.all(promises);
 	return info;
 }
 
