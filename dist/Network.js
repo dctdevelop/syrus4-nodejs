@@ -15,6 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Redis_1 = require("./Redis");
 const Utils_1 = require("./Utils");
+function IsConnected(net) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            var raw = yield Utils_1.default.execute(`ip route | grep ${net}`);
+        }
+        catch (error) {
+            // Error means no text so grep return empty which is means disconnected
+            return false;
+        }
+        return !(raw.length == 0 || raw.indexOf("linkdown") > -1);
+    });
+}
 /**
  * Watch the network state change
  * @param callback callback to executed when network state changes
@@ -100,10 +112,9 @@ function getNetworkInfo(net) {
         end = raw.indexOf(" ", start);
         if (start > -1)
             data["tx_bytes"] = parseInt(raw.substring(start, end));
-        data.connected = true;
+        data.connected = yield IsConnected(net);
         if (data.ip_address == "") {
             data.ip_address = null;
-            data.connected = false;
         }
         return data;
     });
@@ -119,9 +130,19 @@ function getNetworks() {
             .map(str => str.split(" ")[0])
             .filter(str => str);
         var info = {};
-        for (const net of nets) {
-            info[net] = yield getNetworkInfo(net);
-        }
+        var promises = [];
+        promises = [];
+        nets.forEach((net) => {
+            var promise = getNetworkInfo(net);
+            promise.then((resp) => {
+                info[net] = resp;
+            })
+                .catch((err) => {
+                throw err;
+            });
+            promises.push(promise);
+        });
+        yield Promise.all(promises);
         return info;
     });
 }
