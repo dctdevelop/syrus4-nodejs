@@ -52,6 +52,7 @@ function onNetworkChange(callback, errorCallback) {
         }
     };
     returnable.off = returnable.unsubscribe;
+    return returnable;
 }
 /**
  * get the current state of the network of the APEX OS, returns a promise with the info

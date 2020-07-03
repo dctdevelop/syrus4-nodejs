@@ -580,12 +580,29 @@ get network information about all the available networks on APEX OS
 ## System-Info
 System module get information about ApexOS
 
+
+* [System-Info](#module_System-Info)
+    * [~info()](#module_System-Info..info)
+    * [~onSleepOn(callback, errorCallback)](#module_System-Info..onSleepOn)
+
 <a name="module_System-Info..info"></a>
 
 ### System-Info~info()
 Get Info about the system like RAM,CPU,uptime, etc
 
 **Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+<a name="module_System-Info..onSleepOn"></a>
+
+### System-Info~onSleepOn(callback, errorCallback)
+hanlder to detect power save mode and execute callback 15 seconds before the device goes to sleep
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when power save mode is on and device is about to turn off |
+| errorCallback | callbac to execute in case of any error |
+
 <a name="module_Update"></a>
 
 ## Update
