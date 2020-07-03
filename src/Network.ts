@@ -39,6 +39,7 @@ function onNetworkChange(callback, errorCallback) {
 		}
 	};
 	returnable.off = returnable.unsubscribe;
+	return returnable;
 }
 
 /**
