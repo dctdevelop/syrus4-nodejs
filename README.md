@@ -584,6 +584,9 @@ System module get information about ApexOS
 * [System-Info](#module_System-Info)
     * [~info()](#module_System-Info..info)
     * [~onSleepOn(callback, errorCallback)](#module_System-Info..onSleepOn)
+    * [~getLastWakeUp()](#module_System-Info..getLastWakeUp)
+    * [~getlastSleepOn()](#module_System-Info..getlastSleepOn)
+    * [~getWakeUpList()](#module_System-Info..getWakeUpList)
 
 <a name="module_System-Info..info"></a>
 
@@ -603,6 +606,24 @@ hanlder to detect power save mode and execute callback 15 seconds before the dev
 | callback | callback to execute when power save mode is on and device is about to turn off |
 | errorCallback | callbac to execute in case of any error |
 
+<a name="module_System-Info..getLastWakeUp"></a>
+
+### System-Info~getLastWakeUp()
+Get the latest wakeup reason and timestamp from sleep on from APEX OS
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+<a name="module_System-Info..getlastSleepOn"></a>
+
+### System-Info~getlastSleepOn()
+Get the latest time from  sleep on event from APEX OS
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+<a name="module_System-Info..getWakeUpList"></a>
+
+### System-Info~getWakeUpList()
+Get the list of latets sleep on and wakeup events with reason and timestamp
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
 <a name="module_Update"></a>
 
 ## Update
