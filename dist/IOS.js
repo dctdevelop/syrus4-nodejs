@@ -14,6 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module IOS
  */
 const Redis_1 = require("./Redis");
+const Utils_1 = require("./Utils");
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe
@@ -59,22 +60,10 @@ function watchInputState(inputName = "*", cb, errorCallback) {
  * @param inputName the input/output requested
  */
 function getInputState(inputName = "IGN") {
-    var channel = "current_input_state";
-    if (inputName[0] == "O") {
-        channel = "current_output_state";
-    }
-    if (inputName[0] == "A") {
-        channel = "current_analog_state";
-    }
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        var response = yield Redis_1.redisClient.hget(channel, inputName);
-        var returnable = response;
-        if (response == "true")
-            returnable = true;
-        if (response == "false")
-            returnable = false;
-        resolve(returnable);
-    }));
+    return __awaiter(this, void 0, void 0, function* () {
+        var response = yield Utils_1.default.OSExecute(`apx-io get ${inputName}`);
+        return response == "true";
+    });
 }
 /**
  * Allow to change the state of an output
@@ -82,10 +71,9 @@ function getInputState(inputName = "IGN") {
  * @param state the new state  of the output
  */
 function setOutputState(inputName = "OUT1", state = true) {
-    return new Promise((resolve, reject) => {
-        Redis_1.redisClient.hset("desired_output_state", inputName, `${state}`);
-        Redis_1.redisClient.publish(`desired/interface/output/${inputName}`, `${state}`, console.error);
-        resolve(state);
+    return __awaiter(this, void 0, void 0, function* () {
+        yield Utils_1.default.OSExecute(`apx-io set ${inputName} ${state}`);
+        return `${state}` == "true";
     });
 }
 /**
@@ -93,19 +81,43 @@ function setOutputState(inputName = "OUT1", state = true) {
  */
 function getAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        var inputs = (yield Redis_1.redisClient.hgetall("current_input_state")) || {};
-        var outputs = (yield Redis_1.redisClient.hgetall("current_output_state")) || {};
-        var analogs = (yield Redis_1.redisClient.hgetall("current_analog_state")) || {};
-        var response = Object.assign(inputs, outputs);
-        response = Object.assign(response, analogs);
-        Object.keys(response).forEach(key => {
-            if (response[key] == "true")
-                response[key] = true;
-            if (response[key] == "false")
-                response[key] = false;
-            if (parseFloat(response[key]))
-                response[key] = parseFloat(response[key]);
-        });
+        var response = {};
+        var key = null;
+        var text = yield Utils_1.default.OSExecute(`apx-io getall inputs`);
+        text = text.split("\n");
+        for (const val of text) {
+            if (!key) {
+                key = val;
+            }
+            else {
+                response[key] = val == "true";
+                key = null;
+            }
+        }
+        key = null;
+        text = yield Utils_1.default.OSExecute(`apx-io getall outputs`);
+        text = text.split("\n");
+        for (const val of text) {
+            if (!key) {
+                key = val;
+            }
+            else {
+                response[key] = val == "true";
+                key = null;
+            }
+        }
+        key = null;
+        text = yield Utils_1.default.OSExecute(`apx-io getall analogs`);
+        text = text.split("\n");
+        for (const val of text) {
+            if (!key) {
+                key = val;
+            }
+            else {
+                response[key] = parseFloat(val);
+                key = null;
+            }
+        }
         return response;
     });
 }

@@ -55,8 +55,79 @@ function onSleepOn(callback, errorCallback) {
     returnable.off = returnable.unsubscribe;
     return returnable;
 }
-// async function getSleepOffReason(){
-//     var data = await redis.hgetall("current_interface_information");
-//     data["SOC_RST_REASON"]
-// }
-exports.default = { info, modem, onSleepOn };
+/**
+ * Get the latest wakeup reason and timestamp from sleep on from APEX OS
+ */
+function getLastWakeUp() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var data = yield Redis_1.redisClient.lrange("psm_events", 0, 5);
+        if (data.length === 0)
+            return false;
+        for (const entry of data) {
+            if (entry.indexOf("PSM_ACTIVATED,") == -1) {
+                var parts = entry.split(",");
+                var unix = parts.pop();
+                return {
+                    wakeup_reason: parts[0],
+                    reasons: parts,
+                    timestamp: new Date(parseInt(unix) * 1000)
+                };
+            }
+        }
+        return false;
+    });
+}
+/**
+ * Get the latest time from  sleep on event from APEX OS
+ */
+function getlastSleepOn() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var data = yield Redis_1.redisClient.lrange("psm_events", 0, 5);
+        if (data.length === 0)
+            return false;
+        for (const entry of data) {
+            if (entry.indexOf("PSM_ACTIVATED,") != -1) {
+                var parts = entry.split(",");
+                var unix = parts.pop();
+                return {
+                    event: "wakeup",
+                    timestamp: new Date(parseInt(unix) * 1000)
+                };
+            }
+        }
+        return false;
+    });
+}
+/**
+ * Get the list of latets sleep on and wakeup events with reason and timestamp
+ */
+function getWakeUpList() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var list = [];
+        var data = yield Redis_1.redisClient.lrange("psm_events", 0, 5);
+        if (data.length === 0)
+            return [];
+        for (const entry of data) {
+            if (entry.indexOf("PSM_ACTIVATED,") == -1) {
+                let parts = entry.split(",");
+                let unix = parts.pop();
+                list.push({
+                    wakeup_reason: parts[0],
+                    reasons: parts,
+                    timestamp: new Date(parseInt(unix) * 1000),
+                    event: "wakeup",
+                });
+            }
+            else {
+                let parts = entry.split(",");
+                let unix = parts.pop();
+                list.push({
+                    timestamp: new Date(parseInt(unix) * 1000),
+                    event: "sleep",
+                });
+            }
+        }
+        return list;
+    });
+}
+exports.default = { info, modem, onSleepOn, getLastWakeUp, getlastSleepOn, getWakeUpList };
