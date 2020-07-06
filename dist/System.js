@@ -35,11 +35,10 @@ function modem() {
 function onSleepOn(callback, errorCallback) {
     try {
         var handler = (channel, raw) => {
-            if (channel !== "interface/notification/PSM" && channel !== "interface/notification/PSM_ACTIVATED")
+            if (channel !== "interface/notification/PSM_ACTIVATED")
                 return;
             callback(raw);
         };
-        Redis_1.redisSubscriber.subscribe("interface/notification/PSM");
         Redis_1.redisSubscriber.subscribe("interface/notification/PSM_ACTIVATED");
         Redis_1.redisSubscriber.on("message", handler);
     }
