@@ -4,8 +4,7 @@
  */
 import { redisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
-const SPEED_THRESHOLD = 3;
-var tries = 0;
+
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
 	var speed = parseFloat(gps.speed) * 0.277778;
@@ -13,10 +12,10 @@ function rawdataToCoordinates(raw: string) {
 		coords: {
 			latitude: gps.lat || 0,
 			longitude: gps.lon || 0,
-			speed: speed >= SPEED_THRESHOLD ? speed : 0,
+			speed: speed,
 			accuracy: 5 * gps.hdop || 20000,
 			altitude: gps.alt || 0,
-			bearing: speed >= SPEED_THRESHOLD ? gps.track : 0,
+			bearing: speed,
 			altitudeAccuracy: 5 * gps.vdop || 0
 		},
 		timestamp: new Date(gps.time).getTime() / 1000,
@@ -28,7 +27,7 @@ function rawdataToCoordinates(raw: string) {
 			fix: gps.fix,
 			satsActive: gps.satused,
 			satsVisible: gps.satview,
-			criteria: "signal"
+			criteria: gps.type
 		}
 	};
 }
@@ -150,8 +149,112 @@ function watchGPS(callback, errorCallback: Function) {
 	}
 }
 
+
+
+
+/**
+ * define a tracking resolution using apx-tracking tool to receive filtered data gps
+ * @param callback callback to execute when new data arrive from tracking resolution
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ */
+function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+	if (!prefix) {
+		var arr = `${__dirname}`.split("/");
+		arr.pop();
+		prefix = arr.pop();
+	}
+	if (!namespace) {
+		throw "Namespace is required";
+	}
+	var name = `${prefix}_${namespace}`;
+	if(!(!heading && !time && !distance)) utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	var handler = function (channel, gps) {
+		if (channel !== `tracking/notification/${name}`) return;
+		var position = rawdataToCoordinates(gps);
+		callback(position, position.extras.criteria);
+	};
+	subscriber.subscribe(`tracking/notification/${name}`);
+
+	subscriber.on("message", handler);
+	if (deleteOnExit) {
+		function exitHandler() {
+			process.stdin.resume();
+			utils.OSExecute(`apx-tracking delete "${name}"`);
+			setTimeout(()=>{process.exit();}, 10);
+		}
+		//do something when app is closing
+		process.on("exit", exitHandler);
+		//catches ctrl+c event
+		process.on("SIGINT", exitHandler);
+		// catches "kill pid" (for example: nodemon restart)
+		process.on("SIGUSR1", exitHandler);
+		process.on("SIGUSR2", exitHandler);
+		//catches uncaught exceptions
+		process.on("uncaughtException", exitHandler);
+	}
+	return {
+		unsubscribe: () => {
+			utils.OSExecute(`apx-tracking delete "${name}"`);
+			subscriber.off("message", handler);
+			subscriber.unsubscribe(`tracking/notification/${name}`);
+		}
+	};
+}
+
+/**
+ *  get all the active tracking resolutions`in the apex tol apx-tracking
+ * @param prefixed prefix to lookup tracking_resolution
+ */
+async function getActiveTrackingsResolutions(prefixed = "") {
+	var tracks:any = await utils.OSExecute(`apx-tracking getall`);
+	var response = {};
+	for (const key in tracks) {
+		if (!key.startsWith(prefixed)) continue;
+        const track = tracks[key];
+        response[key] = {heading: track[0], time: track[1], distance: track[2] };
+    }
+    return response;
+}
+
+/**
+ * set options for a tracking_resolution for the apex tool apx-tracking
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ */
+async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }){
+	if (!prefix) {
+		var arr = `${__dirname}`.split("/");
+		arr.pop();
+		prefix = arr.pop();
+	}
+	if (!namespace) {
+		throw "Namespace is required";
+	}
+	var name = `${prefix}_${namespace}`;
+    await utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+    if (deleteOnExit) {
+		function exitHandler() {
+			process.stdin.resume();
+			utils.OSExecute(`apx-tracking delete "${name}"`);
+			setTimeout(()=>{process.exit();}, 10);
+		}
+		//do something when app is closing
+		process.on("exit", exitHandler);
+		//catches ctrl+c event
+		process.on("SIGINT", exitHandler);
+		// catches "kill pid" (for example: nodemon restart)
+		process.on("SIGUSR1", exitHandler);
+		process.on("SIGUSR2", exitHandler);
+		//catches uncaught exceptions
+		process.on("uncaughtException", exitHandler);
+    }
+    return true;
+}
+
 export default {
 	getCurrentPosition,
 	watchPosition,
-	watchGPS
+	watchGPS,
+	watchTrackingResolution,
+	getActiveTrackingsResolutions,
+	setTrackingResolution,
 };

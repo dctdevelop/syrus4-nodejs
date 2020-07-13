@@ -49,6 +49,20 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 </dd>
 </dl>
 
+## Functions
+
+<dl>
+<dt><a href="#watchTrackingResolution">watchTrackingResolution(callback, opts)</a></dt>
+<dd><p>define a tracking resolution using apx-tracking tool to receive filtered data gps</p>
+</dd>
+<dt><a href="#getActiveTrackingsResolutions">getActiveTrackingsResolutions(prefixed)</a></dt>
+<dd><p>get all the active tracking resolutions`in the apex tol apx-tracking</p>
+</dd>
+<dt><a href="#setTrackingResolution">setTrackingResolution(opts)</a></dt>
+<dd><p>set options for a tracking_resolution for the apex tool apx-tracking</p>
+</dd>
+</dl>
+
 <a name="module_Accelerometer"></a>
 
 ## Accelerometer
@@ -344,6 +358,9 @@ GPS module get information about gps and location in ApexOS
     * [~getCurrentPosition()](#module_GPS..getCurrentPosition)
     * [~watchPosition(callback, errorCallback, config)](#module_GPS..watchPosition)
     * [~watchGPS(callback, errorCallback)](#module_GPS..watchGPS)
+    * [~watchTrackingResolution(callback, opts)](#module_GPS..watchTrackingResolution)
+    * [~getActiveTrackingsResolutions(prefixed)](#module_GPS..getActiveTrackingsResolutions)
+    * [~setTrackingResolution(opts)](#module_GPS..setTrackingResolution)
 
 <a name="module_GPS..getCurrentPosition"></a>
 
@@ -375,6 +392,40 @@ allows to subscribe to gps data changes in GPS module
 | --- | --- |
 | callback | handler to execute when new gps data arrives |
 | errorCallback | Errorcallback executes when is unable to get gps location |
+
+<a name="module_GPS..watchTrackingResolution"></a>
+
+### GPS~watchTrackingResolution(callback, opts)
+define a tracking resolution using apx-tracking tool to receive filtered data gps
+
+**Kind**: inner method of [<code>GPS</code>](#module_GPS)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when new data arrive from tracking resolution |
+| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
+
+<a name="module_GPS..getActiveTrackingsResolutions"></a>
+
+### GPS~getActiveTrackingsResolutions(prefixed)
+get all the active tracking resolutions`in the apex tol apx-tracking
+
+**Kind**: inner method of [<code>GPS</code>](#module_GPS)  
+
+| Param | Description |
+| --- | --- |
+| prefixed | prefix to lookup tracking_resolution |
+
+<a name="module_GPS..setTrackingResolution"></a>
+
+### GPS~setTrackingResolution(opts)
+set options for a tracking_resolution for the apex tool apx-tracking
+
+**Kind**: inner method of [<code>GPS</code>](#module_GPS)  
+
+| Param | Description |
+| --- | --- |
+| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
 
 <a name="module_Hotspot"></a>
 
@@ -829,6 +880,40 @@ It removes a network from the WIFI configuration file, in this case you have to 
 | Param | Description |
 | --- | --- |
 | ssid | Name of the SSID you want to remove |
+
+<a name="watchTrackingResolution"></a>
+
+## watchTrackingResolution(callback, opts)
+define a tracking resolution using apx-tracking tool to receive filtered data gps
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when new data arrive from tracking resolution |
+| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
+
+<a name="getActiveTrackingsResolutions"></a>
+
+## getActiveTrackingsResolutions(prefixed)
+get all the active tracking resolutions`in the apex tol apx-tracking
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| prefixed | prefix to lookup tracking_resolution |
+
+<a name="setTrackingResolution"></a>
+
+## setTrackingResolution(opts)
+set options for a tracking_resolution for the apex tool apx-tracking
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
 
 
 * * *
