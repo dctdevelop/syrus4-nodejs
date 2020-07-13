@@ -27,10 +27,9 @@ async function modem() {
 function onSleepOn(callback, errorCallback){
     try {
 		var handler = (channel, raw) => {
-			if(channel !== "interface/notification/PSM" && channel !== "interface/notification/PSM_ACTIVATED") return;
+			if(channel !== "interface/notification/PSM_ACTIVATED") return;
 			callback(raw);
 		};
-		subscriber.subscribe("interface/notification/PSM");
 		subscriber.subscribe("interface/notification/PSM_ACTIVATED");
 		subscriber.on("message", handler);
 	} catch (error) {
