@@ -265,7 +265,7 @@ async function getTrackingResolution({namespace, prefix }){
 	}
 	var name = `${prefix}_${namespace}`;
 	var resp = await utils.OSExecute(`apx-tracking get "${name}"`);
-	if(!resp[name]) return null;
+	if(!resp[name] || !resp[name][0]) return null;
     return {
 		bearing: resp[name][0],
 		time: resp[name][1],
