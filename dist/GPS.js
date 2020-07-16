@@ -284,7 +284,7 @@ function getTrackingResolution({ namespace, prefix }) {
         }
         var name = `${prefix}_${namespace}`;
         var resp = yield Utils_1.default.OSExecute(`apx-tracking get "${name}"`);
-        if (!resp[name])
+        if (!resp[name] || !resp[name][0])
             return null;
         return {
             bearing: resp[name][0],
