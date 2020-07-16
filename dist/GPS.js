@@ -170,11 +170,11 @@ function watchGPS(callback, errorCallback) {
 /**
  * define a tracking resolution using apx-tracking tool to receive filtered data gps
  * @param callback callback to execute when new data arrive from tracking resolution
- * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   bearing:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+function watchTrackingResolution(callback, { distance = 0, bearing = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     if (!prefix) {
-        var arr = `${__dirname}`.split("/");
+        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
         arr.pop();
         prefix = arr.pop();
     }
@@ -182,8 +182,8 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
         throw "Namespace is required";
     }
     var name = `${prefix}_${namespace}`;
-    if (!(!heading && !time && !distance))
-        Utils_1.default.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+    if (!(!bearing && !time && !distance))
+        Utils_1.default.OSExecute(`apx-tracking set "${name}" ${bearing} ${time} ${distance}`);
     var handler = function (channel, gps) {
         if (channel !== `tracking/notification/${name}`)
             return;
@@ -235,12 +235,12 @@ function getActiveTrackingsResolutions(prefixed = "") {
 }
 /**
  * set options for a tracking_resolution for the apex tool apx-tracking
- * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   bearing:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+function setTrackingResolution({ distance = 0, bearing = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${__dirname}`.split("/");
+            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
             arr.pop();
             prefix = arr.pop();
         }
@@ -248,7 +248,7 @@ function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace,
             throw "Namespace is required";
         }
         var name = `${prefix}_${namespace}`;
-        yield Utils_1.default.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+        yield Utils_1.default.OSExecute(`apx-tracking set "${name}" ${bearing} ${time} ${distance}`);
         if (deleteOnExit) {
             function exitHandler() {
                 process.stdin.resume();
