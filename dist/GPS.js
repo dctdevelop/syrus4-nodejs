@@ -25,7 +25,7 @@ function rawdataToCoordinates(raw) {
             speed: speed,
             accuracy: 5 * gps.hdop || 20000,
             altitude: gps.alt || 0,
-            bearing: speed,
+            heading: speed,
             altitudeAccuracy: 5 * gps.vdop || 0
         },
         timestamp: new Date(gps.time).getTime() / 1000,
@@ -41,28 +41,28 @@ function rawdataToCoordinates(raw) {
         }
     };
 }
-function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0, time: 0, bearing: 0 }) {
+function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0, time: 0, heading: 0 }) {
     if (config.hdop > 0 && current.extras.hdop > config.hdop) {
         return false;
     }
     if (!last)
         return "signal";
-    var criteria = config.distance == 0 && config.time == 0 && config.bearing == 0 ? "accuracy" : false;
+    var criteria = config.distance == 0 && config.time == 0 && config.heading == 0 ? "accuracy" : false;
     var distance = Utils_1.default.distanceBetweenCoordinates(last, current) * 1000;
     var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
-    var bearing = Math.abs(last.coords.bearing - current.coords.bearing);
+    var heading = Math.abs(last.coords.heading - current.coords.heading);
     if (config.distance > 0 && distance >= config.distance)
         criteria = "distance";
     if (config.time > 0 && secs >= config.time)
         criteria = "time";
-    if (config.bearing > 0 && bearing >= config.bearing)
+    if (config.heading > 0 && heading >= config.heading)
         criteria = "heading";
     return criteria;
 }
 /**
  * Get last current location from GPS
  */
-function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, bearing: 0 }) {
+function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, heading: 0 }) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         try {
             var timeoutToTransmit;
@@ -103,7 +103,7 @@ function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, bearing: 0
  * @param errorCallback Errorcallback executes when is unable to get gps location
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
-function watchPosition(callback, errorCallback, config = { hdop: 0, distance: 0, time: 0, bearing: 0 }) {
+function watchPosition(callback, errorCallback, config = { hdop: 0, distance: 0, time: 0, heading: 0 }) {
     var last_returned = null;
     var last_valid = rawdataToCoordinates("{}");
     var intervalToTransmit = null;
@@ -170,9 +170,9 @@ function watchGPS(callback, errorCallback) {
 /**
  * define a tracking resolution using apx-tracking tool to receive filtered data gps
  * @param callback callback to execute when new data arrive from tracking resolution
- * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   bearing:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function watchTrackingResolution(callback, { distance = 0, bearing = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     if (!prefix) {
         var arr = `${__dirname}`.split("node_modules/")[0].split("/");
         arr.pop();
@@ -182,8 +182,8 @@ function watchTrackingResolution(callback, { distance = 0, bearing = 0, time = 0
         throw "Namespace is required";
     }
     var name = `${prefix}_${namespace}`;
-    if (!(!bearing && !time && !distance))
-        Utils_1.default.OSExecute(`apx-tracking set "${name}" ${bearing} ${time} ${distance}`);
+    if (!(!heading && !time && !distance))
+        Utils_1.default.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
     var handler = function (channel, gps) {
         if (channel !== `tracking/notification/${name}`)
             return;
@@ -235,9 +235,9 @@ function getActiveTrackingsResolutions(prefixed = "") {
 }
 /**
  * set options for a tracking_resolution for the apex tool apx-tracking
- * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   bearing:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function setTrackingResolution({ distance = 0, bearing = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
             var arr = `${__dirname}`.split("node_modules/")[0].split("/");
@@ -248,7 +248,7 @@ function setTrackingResolution({ distance = 0, bearing = 0, time = 0, namespace,
             throw "Namespace is required";
         }
         var name = `${prefix}_${namespace}`;
-        yield Utils_1.default.OSExecute(`apx-tracking set "${name}" ${bearing} ${time} ${distance}`);
+        yield Utils_1.default.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
         if (deleteOnExit) {
             function exitHandler() {
                 process.stdin.resume();
@@ -287,7 +287,7 @@ function getTrackingResolution({ namespace, prefix }) {
         if (!resp[name] || !resp[name][0])
             return null;
         return {
-            bearing: resp[name][0],
+            heading: resp[name][0],
             time: resp[name][1],
             distance: resp[name][2],
         };
