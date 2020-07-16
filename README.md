@@ -361,6 +361,7 @@ GPS module get information about gps and location in ApexOS
     * [~watchTrackingResolution(callback, opts)](#module_GPS..watchTrackingResolution)
     * [~getActiveTrackingsResolutions(prefixed)](#module_GPS..getActiveTrackingsResolutions)
     * [~setTrackingResolution(opts)](#module_GPS..setTrackingResolution)
+    * [~getTrackingResolution(opts)](#module_GPS..getTrackingResolution)
 
 <a name="module_GPS..getCurrentPosition"></a>
 
@@ -426,6 +427,17 @@ set options for a tracking_resolution for the apex tool apx-tracking
 | Param | Description |
 | --- | --- |
 | opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   bearing:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
+
+<a name="module_GPS..getTrackingResolution"></a>
+
+### GPS~getTrackingResolution(opts)
+get options for a tracking_resolution for the apex tool apx-tracking
+
+**Kind**: inner method of [<code>GPS</code>](#module_GPS)  
+
+| Param | Description |
+| --- | --- |
+| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria. |
 
 <a name="module_Hotspot"></a>
 

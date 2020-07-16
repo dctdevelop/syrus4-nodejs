@@ -268,11 +268,37 @@ function setTrackingResolution({ distance = 0, bearing = 0, time = 0, namespace,
         return true;
     });
 }
+/**
+ * get options for a tracking_resolution for the apex tool apx-tracking
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.
+ */
+function getTrackingResolution({ namespace, prefix }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!prefix) {
+            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+            arr.pop();
+            prefix = arr.pop();
+        }
+        if (!namespace) {
+            throw "Namespace is required";
+        }
+        var name = `${prefix}_${namespace}`;
+        var resp = yield Utils_1.default.OSExecute(`apx-tracking get "${name}"`);
+        if (!resp[name])
+            return null;
+        return {
+            bearing: resp[name][0],
+            time: resp[name][1],
+            distance: resp[name][2],
+        };
+    });
+}
 exports.default = {
     getCurrentPosition,
     watchPosition,
     watchGPS,
     watchTrackingResolution,
-    getActiveTrackingsResolutions,
     setTrackingResolution,
+    getTrackingResolution,
+    getActiveTrackingsResolutions,
 };
