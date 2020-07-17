@@ -15,7 +15,7 @@ function rawdataToCoordinates(raw: string) {
 			speed: speed,
 			accuracy: 5 * gps.hdop || 20000,
 			altitude: gps.alt || 0,
-			heading: speed,
+			bearing: gps.track,
 			altitudeAccuracy: 5 * gps.vdop || 0
 		},
 		timestamp: new Date(gps.time).getTime() / 1000,
