@@ -17,7 +17,7 @@ const Utils_1 = require("./Utils");
 function exists(name) {
     return __awaiter(this, void 0, void 0, function* () {
         var counters = yield Utils_1.default.OSExecute(`apx-counter list`);
-        return !!counters[name];
+        return !!counters[`${name}`] || !!counters[`counter_${name}`];
     });
 }
 function startCounters(config) {
@@ -89,11 +89,14 @@ function deleteCounters(name) {
         yield Utils_1.default.OSExecute(`apx-counter delete ${name}`);
     });
 }
-function listCounters(name) {
+function listCounters() {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "name is required";
-        yield Utils_1.default.OSExecute(`apx-counter delete ${name}`);
+        var _counters = yield Utils_1.default.OSExecute(`apx-counter list`);
+        var counters = {};
+        for (const key in _counters) {
+            counters[`${key.replace("counter_", "")}`];
+        }
+        return counters;
     });
 }
 exports.default = { startCounters, stopCounters, resetCounters, watchCounters, listCounters, deleteCounters };
