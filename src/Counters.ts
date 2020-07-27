@@ -24,7 +24,7 @@ async function startCounters(config) {
 
 async function getCounters(name) {
 	if (!name) throw "name is required";
-	await utils.OSExecute(`apx-counter getall ${name}`);
+	return await utils.OSExecute(`apx-counter getall ${name}`);
 }
 
 async function watchCounters(name, cb, cbError, interval=15){

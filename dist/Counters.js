@@ -40,7 +40,7 @@ function getCounters(name) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!name)
             throw "name is required";
-        yield Utils_1.default.OSExecute(`apx-counter getall ${name}`);
+        return yield Utils_1.default.OSExecute(`apx-counter getall ${name}`);
     });
 }
 function watchCounters(name, cb, cbError, interval = 15) {
