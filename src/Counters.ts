@@ -6,7 +6,7 @@ import utils from "./Utils";
 
 async function exists(name) {
 	var counters = await utils.OSExecute(`apx-counter list`);
-	return !!counters[name];
+	return !!counters[`${name}`] || !!counters[`counter_${name}`];
 }
 
 async function startCounters(config) {
@@ -65,9 +65,13 @@ async function deleteCounters(name) {
 	await utils.OSExecute(`apx-counter delete ${name}`);
 }
 
-async function listCounters(name) {
-	if (!name) throw "name is required";
-	await utils.OSExecute(`apx-counter delete ${name}`);
+async function listCounters() {
+	var _counters:any = await utils.OSExecute(`apx-counter list`);
+	var counters = {};
+	for (const key in _counters) {
+			counters[`${key.replace("counter_","")}`];
+	}
+	return counters;
 }
 
 export default { startCounters, stopCounters, resetCounters, watchCounters, listCounters, deleteCounters };
