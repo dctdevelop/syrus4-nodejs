@@ -64,7 +64,6 @@ async function getLastWakeUp(){
 			}
 		}
 	}
-
 	return false;
 }
 
