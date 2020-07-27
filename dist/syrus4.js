@@ -24,4 +24,6 @@ const Redis_1 = require("./Redis");
 exports.Redis = Redis_1.default;
 const IOS_1 = require("./IOS");
 exports.IOS = IOS_1.default;
-exports.default = { GPS: GPS_1.default, WIFI: WIFI_1.default, Utils: Utils_1.default, System: System_1.default, Update: Update_1.default, Hotspot: Hotspot_1.default, Mobile: Mobile_1.default, IOS: IOS_1.default, Accelerometer: Accelerometer_1.default, Network: Network_1.default, Redis: Redis_1.default, ECU: ECU_1.default };
+const Counters_1 = require("./Counters");
+exports.Counters = Counters_1.default;
+exports.default = { GPS: GPS_1.default, WIFI: WIFI_1.default, Utils: Utils_1.default, System: System_1.default, Update: Update_1.default, Hotspot: Hotspot_1.default, Mobile: Mobile_1.default, IOS: IOS_1.default, Accelerometer: Accelerometer_1.default, Network: Network_1.default, Redis: Redis_1.default, ECU: ECU_1.default, Counters: Counters_1.default };
