@@ -146,6 +146,7 @@ function addDisconnectListener(callback) {
 		process.on("uncaughtException", exitHandler.bind(null, { exit: true }));
 		defined = true
 	}
+	handlers.push(callback);
 }
 
 /**

@@ -162,6 +162,7 @@ function addDisconnectListener(callback) {
         process.on("uncaughtException", exitHandler.bind(null, { exit: true }));
         defined = true;
     }
+    handlers.push(callback);
 }
 /**
  * remove a callback from stack to execute when app signal termination
