@@ -169,7 +169,7 @@ function addDisconnectListener(callback) {
  * @param callback callback to remove from listener
  */
 function removeDisconnectListener(callback) {
-    let index = handlers.findIndex((h) => h == callback);
+    let index = handlers.findIndex(h => h == callback);
     if (index > -1)
         handlers.splice(index, 1);
     else

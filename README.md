@@ -26,6 +26,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_GPS">GPS</a></dt>
 <dd><p>GPS module get information about gps and location in ApexOS</p>
 </dd>
+<dt><a href="#module_Geofences">Geofences</a></dt>
+<dd><p>Geofences module get information about ApexOS</p>
+</dd>
 <dt><a href="#module_Hotspot">Hotspot</a></dt>
 <dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
 </dd>
@@ -446,6 +449,11 @@ get options for a tracking_resolution for the apex tool apx-tracking
 | Param | Description |
 | --- | --- |
 | opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria. |
+
+<a name="module_Geofences"></a>
+
+## Geofences
+Geofences module get information about ApexOS
 
 <a name="module_Hotspot"></a>
 

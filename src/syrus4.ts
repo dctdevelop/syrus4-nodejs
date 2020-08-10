@@ -11,6 +11,7 @@ import Mobile from "./Mobile";
 import Redis from "./Redis";
 import IOS from "./IOS";
 import Counters from "./Counters";
+import Geofences from "./Geofences";
 
-export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters };
-export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters };
+export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
+export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
