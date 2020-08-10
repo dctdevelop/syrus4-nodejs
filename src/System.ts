@@ -115,14 +115,15 @@ async function getWakeUpList() {
 	return list;
 }
 
-var defined = false
+var defined = false;
 var handlers = [];
+
 /**
  * add a callback from stack to execute when app signal termination
  * @param callback  callback to execute when application goes offline
  */
 function addDisconnectListener(callback) {
-	if(!defined){
+	if (!defined) {
 		process.stdin.resume(); //so the program will not close instantly
 		function exitHandler(options, exitCode) {
 			// console.log(options, exitCode);
@@ -144,7 +145,7 @@ function addDisconnectListener(callback) {
 		process.on("SIGUSR2", exitHandler.bind(null, { exit: true }));
 		//catches uncaught exceptions
 		process.on("uncaughtException", exitHandler.bind(null, { exit: true }));
-		defined = true
+		defined = true;
 	}
 	handlers.push(callback);
 }
@@ -153,12 +154,10 @@ function addDisconnectListener(callback) {
  * remove a callback from stack to execute when app signal termination
  * @param callback callback to remove from listener
  */
-function removeDisconnectListener(callback){
-	let index = handlers.findIndex((h)=> h == callback);
-	if(index > -1)
-		handlers.splice(index, 1);
-	else
-		throw "Handler callback never added";
+function removeDisconnectListener(callback) {
+	let index = handlers.findIndex(h => h == callback);
+	if (index > -1) handlers.splice(index, 1);
+	else throw "Handler callback never added";
 }
 
-export default { info, modem, onSleepOn, getLastWakeUp, getlastSleepOn, getWakeUpList , addDisconnectListener ,removeDisconnectListener };
+export default { info, modem, onSleepOn, getLastWakeUp, getlastSleepOn, getWakeUpList, addDisconnectListener, removeDisconnectListener };
