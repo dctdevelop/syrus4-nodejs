@@ -141,10 +141,15 @@ function addDisconnectListener(callback) {
         function exitHandler(options, exitCode) {
             // console.log(options, exitCode);
             for (const handler of handlers) {
-                handler();
+                try {
+                    handler(exitCode);
+                }
+                catch (error) {
+                    console.error(error);
+                }
             }
             if (options.exit)
-                process.exit();
+                process.exit(exitCode);
         }
         //do something when app is closing
         process.on("exit", exitHandler.bind(null, { cleanup: true }));
