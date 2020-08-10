@@ -658,6 +658,8 @@ System module get information about ApexOS
     * [~getLastWakeUp()](#module_System-Info..getLastWakeUp)
     * [~getlastSleepOn()](#module_System-Info..getlastSleepOn)
     * [~getWakeUpList()](#module_System-Info..getWakeUpList)
+    * [~addDisconnectListener(callback)](#module_System-Info..addDisconnectListener)
+    * [~removeDisconnectListener(callback)](#module_System-Info..removeDisconnectListener)
 
 <a name="module_System-Info..info"></a>
 
@@ -695,6 +697,28 @@ Get the latest time from  sleep on event from APEX OS
 Get the list of latets sleep on and wakeup events with reason and timestamp
 
 **Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+<a name="module_System-Info..addDisconnectListener"></a>
+
+### System-Info~addDisconnectListener(callback)
+add a callback from stack to execute when app signal termination
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when application goes offline |
+
+<a name="module_System-Info..removeDisconnectListener"></a>
+
+### System-Info~removeDisconnectListener(callback)
+remove a callback from stack to execute when app signal termination
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to remove from listener |
+
 <a name="module_Update"></a>
 
 ## Update

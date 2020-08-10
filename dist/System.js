@@ -114,7 +114,7 @@ function getWakeUpList() {
                     wakeup_reason: parts[0],
                     reasons: parts,
                     timestamp: new Date(parseInt(unix) * 1000),
-                    event: "wakeup",
+                    event: "wakeup"
                 });
             }
             else {
@@ -122,11 +122,51 @@ function getWakeUpList() {
                 let unix = parts.pop();
                 list.push({
                     timestamp: new Date(parseInt(unix) * 1000),
-                    event: "sleep",
+                    event: "sleep"
                 });
             }
         }
         return list;
     });
 }
-exports.default = { info, modem, onSleepOn, getLastWakeUp, getlastSleepOn, getWakeUpList };
+var defined = false;
+var handlers = [];
+/**
+ * add a callback from stack to execute when app signal termination
+ * @param callback  callback to execute when application goes offline
+ */
+function addDisconnectListener(callback) {
+    if (!defined) {
+        process.stdin.resume(); //so the program will not close instantly
+        function exitHandler(options, exitCode) {
+            // console.log(options, exitCode);
+            for (const handler of handlers) {
+                handler();
+            }
+            if (options.exit)
+                process.exit();
+        }
+        //do something when app is closing
+        process.on("exit", exitHandler.bind(null, { cleanup: true }));
+        //catches ctrl+c event
+        process.on("SIGINT", exitHandler.bind(null, { exit: true }));
+        // catches "kill pid" (for example: nodemon restart)
+        process.on("SIGUSR1", exitHandler.bind(null, { exit: true }));
+        process.on("SIGUSR2", exitHandler.bind(null, { exit: true }));
+        //catches uncaught exceptions
+        process.on("uncaughtException", exitHandler.bind(null, { exit: true }));
+        defined = true;
+    }
+}
+/**
+ * remove a callback from stack to execute when app signal termination
+ * @param callback callback to remove from listener
+ */
+function removeDisconnectListener(callback) {
+    let index = handlers.findIndex((h) => h == callback);
+    if (index > -1)
+        handlers.splice(index, 1);
+    else
+        throw "Handler callback never added";
+}
+exports.default = { info, modem, onSleepOn, getLastWakeUp, getlastSleepOn, getWakeUpList, addDisconnectListener, removeDisconnectListener };
