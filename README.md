@@ -27,7 +27,8 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dd><p>GPS module get information about gps and location in ApexOS</p>
 </dd>
 <dt><a href="#module_Geofences">Geofences</a></dt>
-<dd><p>Geofences module get information about ApexOS</p>
+<dd><p>Geofences module get information about ApexOS
+namespace for all the optiones is defined by application is not passed</p>
 </dd>
 <dt><a href="#module_Hotspot">Hotspot</a></dt>
 <dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
@@ -454,6 +455,82 @@ get options for a tracking_resolution for the apex tool apx-tracking
 
 ## Geofences
 Geofences module get information about ApexOS
+namespace for all the optiones is defined by application is not passed
+
+
+* [Geofences](#module_Geofences)
+    * [~addGeofence(opts)](#module_Geofences..addGeofence)
+    * [~updateGeofence(opts)](#module_Geofences..updateGeofence)
+    * [~removeGeofence(opts)](#module_Geofences..removeGeofence)
+    * [~get(opts)](#module_Geofences..get)
+    * [~getAll(opts)](#module_Geofences..getAll)
+    * [~watchGeofences(callback, errorCb, opts)](#module_Geofences..watchGeofences)
+
+<a name="module_Geofences..addGeofence"></a>
+
+### Geofences~addGeofence(opts)
+Add Geofence to the apx-tool
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence |
+
+<a name="module_Geofences..updateGeofence"></a>
+
+### Geofences~updateGeofence(opts)
+Update Geofence to the apx-tool
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence |
+
+<a name="module_Geofences..removeGeofence"></a>
+
+### Geofences~removeGeofence(opts)
+Remove Geofence from the apx-tool
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence |
+
+<a name="module_Geofences..get"></a>
+
+### Geofences~get(opts)
+Get state from Geofence from the apx-tool
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence |
+
+<a name="module_Geofences..getAll"></a>
+
+### Geofences~getAll(opts)
+Get states from  all Geofences from the apx-tool
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| opts | namespace: namespace that belongs of geofence |
+
+<a name="module_Geofences..watchGeofences"></a>
+
+### Geofences~watchGeofences(callback, errorCb, opts)
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when a the device entered or exited from a geofence defined in the apx-tool |
+| errorCb | error callback to execute if something fails |
+| opts | namespace: namespace to check if entered or exited from geofence |
 
 <a name="module_Hotspot"></a>
 

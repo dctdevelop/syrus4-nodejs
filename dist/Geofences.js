@@ -13,7 +13,12 @@ const Utils_1 = require("./Utils");
 const Redis_1 = require("./Redis");
 /**
  * Geofences module get information about ApexOS
+ * namespace for all the optiones is defined by application is not passed
  * @module Geofences
+ */
+/**
+ * Add Geofence to the apx-tool
+ * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
     if (!namespace) {
@@ -21,44 +26,71 @@ function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
         arr.pop();
         namespace = arr.pop();
     }
+    if (!type)
+        type = !!radius ? "circular" : "poly";
     if (type != "poly" && type != "circular")
         throw "unrecognized type of geofence";
-    if (Array.isArray(lngLats)) {
+    if (Array.isArray(lngLats))
         lngLats = lngLats.map(coord => coord.join(",")).join(" ");
-    }
-    return Utils_1.default.OSExecute(`apx-geofences add ${namespace} ${group} ${type} ${radius || ""} ${name} ${lngLats}`);
+    return Utils_1.default.OSExecute(`apx-geofences add ${namespace} ${group} ${type} ${name} ${radius || ""} ${lngLats}`);
 }
+/**
+ * Update Geofence to the apx-tool
+ * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence
+ */
 function updateGeofence(opts) {
     addGeofence(opts);
 }
-function removeGeofence({ name, lngLats, group = "", namespace, type, radius }) {
+/**
+ * Remove Geofence from the apx-tool
+ * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence
+ */
+function removeGeofence({ name, group = "", namespace }) {
     if (!namespace) {
         var arr = `${__dirname}`.split("/");
         arr.pop();
         namespace = arr.pop();
     }
-    return Utils_1.default.OSExecute(`apx-geofences delete ${namespace} ${group} ${type} ${radius || ""} ${name} ${lngLats}`);
+    return Utils_1.default.OSExecute(`apx-geofences remove ${namespace} ${group} ${name}`);
 }
-function get({ namespace, name }) {
+/**
+ * Get state from Geofence from the apx-tool
+ * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence
+ */
+function get({ namespace = "", name = null } = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!namespace) {
             var arr = `${__dirname}`.split("/");
             arr.pop();
             namespace = arr.pop();
         }
-        var results = yield Utils_1.default.OSExecute(`apx-geofences getall ${namespace}`);
+        var results = yield Utils_1.default.OSExecute(`apx-geofences getstatus ${namespace}`);
+        results = results.map(fence => {
+            fence.time = new Date(parseInt(fence.time) * 1000);
+            return fence;
+        });
         if (name) {
-            return results.find((fence) => fence.name == name);
+            return results.find(fence => fence.name == name);
         }
         return results;
     });
 }
+/**
+ * Get states from  all Geofences from the apx-tool
+ * @param opts namespace: namespace that belongs of geofence
+ */
 function getAll(opts) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield get(opts);
     });
 }
-function watchGeofences(callback, errorCb, { namespace }) {
+/**
+ *
+ * @param callback callback to execute when a the device entered or exited from a geofence defined in the apx-tool
+ * @param errorCb error callback to execute if something fails
+ * @param opts namespace: namespace to check if entered or exited from geofence
+*/
+function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     if (!namespace) {
         var arr = `${__dirname}`.split("/");
         arr.pop();
@@ -67,12 +99,13 @@ function watchGeofences(callback, errorCb, { namespace }) {
     var handler = function (pattern, channel, data) {
         if (pattern !== `geofences/notification/${namespace}/*`)
             return;
+        console.log(channel, data);
         var [group, name] = channel.replace(`geofences/notification/${namespace}/`, "").split("/");
-        var [is_inside, timestamp] = data.split("/");
+        var [is_inside, timestamp] = data.split(",");
         callback({
             name: name,
             group: group,
-            is_inside: is_inside == "true",
+            is_inside: `${is_inside}` == "true",
             timestamp: new Date(parseInt(timestamp) * 1000)
         });
     };
@@ -81,7 +114,13 @@ function watchGeofences(callback, errorCb, { namespace }) {
         Redis_1.redisSubscriber.on("pmessage", handler);
     }
     catch (error) {
-        return errorCb(error);
+        errorCb(error);
     }
+    return {
+        unsubscribe: () => {
+            Redis_1.redisSubscriber.off("pmessage", handler);
+            Redis_1.redisSubscriber.unsubscribe(`geofences/notification/${namespace}/*`);
+        }
+    };
 }
 exports.default = { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences };
