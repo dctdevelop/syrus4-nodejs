@@ -66,6 +66,8 @@ function get({ namespace = "", name = null } = {}) {
         }
         var results = yield Utils_1.default.OSExecute(`apx-geofences getstatus ${namespace}`);
         results = results.map(fence => {
+            if (!fence.name)
+                fence.name = fence.geo_name;
             fence.time = new Date(parseInt(fence.time) * 1000);
             return fence;
         });
@@ -103,7 +105,7 @@ function deleteAll({ namespace = null } = {}) {
  * @param callback callback to execute when a the device entered or exited from a geofence defined in the apx-tool
  * @param errorCb error callback to execute if something fails
  * @param opts namespace: namespace to check if entered or exited from geofence
-*/
+ */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     if (!namespace) {
         var arr = `${__dirname}`.split("node_modules/")[0].split("/");
