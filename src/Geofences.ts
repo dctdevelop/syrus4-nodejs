@@ -12,7 +12,7 @@ import { redisSubscriber as subscriber } from "./Redis";
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("/");
+		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -38,7 +38,7 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("/");
+		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -51,7 +51,7 @@ function removeGeofence({ name, group = "", namespace }) {
  */
 async function get({ namespace = "", name = null } = {}) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("/");
+		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -77,6 +77,20 @@ async function getAll(opts) {
 }
 
 /**
+ * remove all Geofences from the apx-tool
+ * @param opts namespace: namespace that belongs of geofence
+ */
+async function deleteAll({ namespace=null } = {}) {
+	if (!namespace) {
+		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		arr.pop();
+		namespace = arr.pop();
+	}
+	return Utils.OSExecute(`apx-geofences remove ${namespace}`);
+}
+
+
+/**
  *
  * @param callback callback to execute when a the device entered or exited from a geofence defined in the apx-tool
  * @param errorCb error callback to execute if something fails
@@ -84,7 +98,7 @@ async function getAll(opts) {
 */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("/");
+		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -115,4 +129,4 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	};
 }
 
-export default { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences };
+export default { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences, deleteAll };

@@ -464,6 +464,7 @@ namespace for all the optiones is defined by application is not passed
     * [~removeGeofence(opts)](#module_Geofences..removeGeofence)
     * [~get(opts)](#module_Geofences..get)
     * [~getAll(opts)](#module_Geofences..getAll)
+    * [~deleteAll(opts)](#module_Geofences..deleteAll)
     * [~watchGeofences(callback, errorCb, opts)](#module_Geofences..watchGeofences)
 
 <a name="module_Geofences..addGeofence"></a>
@@ -514,6 +515,17 @@ Get state from Geofence from the apx-tool
 
 ### Geofences~getAll(opts)
 Get states from  all Geofences from the apx-tool
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| opts | namespace: namespace that belongs of geofence |
+
+<a name="module_Geofences..deleteAll"></a>
+
+### Geofences~deleteAll(opts)
+remove all Geofences from the apx-tool
 
 **Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
 

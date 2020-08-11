@@ -22,7 +22,7 @@ const Redis_1 = require("./Redis");
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
     if (!namespace) {
-        var arr = `${__dirname}`.split("/");
+        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -47,7 +47,7 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
     if (!namespace) {
-        var arr = `${__dirname}`.split("/");
+        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -60,7 +60,7 @@ function removeGeofence({ name, group = "", namespace }) {
 function get({ namespace = "", name = null } = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!namespace) {
-            var arr = `${__dirname}`.split("/");
+            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
             arr.pop();
             namespace = arr.pop();
         }
@@ -85,6 +85,20 @@ function getAll(opts) {
     });
 }
 /**
+ * remove all Geofences from the apx-tool
+ * @param opts namespace: namespace that belongs of geofence
+ */
+function deleteAll({ namespace = null } = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!namespace) {
+            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+            arr.pop();
+            namespace = arr.pop();
+        }
+        return Utils_1.default.OSExecute(`apx-geofences remove ${namespace}`);
+    });
+}
+/**
  *
  * @param callback callback to execute when a the device entered or exited from a geofence defined in the apx-tool
  * @param errorCb error callback to execute if something fails
@@ -92,7 +106,7 @@ function getAll(opts) {
 */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     if (!namespace) {
-        var arr = `${__dirname}`.split("/");
+        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -123,4 +137,4 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
         }
     };
 }
-exports.default = { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences };
+exports.default = { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences, deleteAll };
