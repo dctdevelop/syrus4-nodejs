@@ -332,16 +332,10 @@ ECU module get information about EcU monitor and vehicle in ApexOS
 
 
 * [ECU](#module_ECU)
-    * [~ECU_PARAM_LIST](#module_ECU..ECU_PARAM_LIST)
     * [~watchECUParams(cb, errorCallback)](#module_ECU..watchECUParams)
     * [~getECUParams()](#module_ECU..getECUParams)
+    * [~getECUList()](#module_ECU..getECUList)
 
-<a name="module_ECU..ECU_PARAM_LIST"></a>
-
-### ECU~ECU\_PARAM\_LIST
-ECU PARAM LIST from the ecu monitor
-
-**Kind**: inner constant of [<code>ECU</code>](#module_ECU)  
 <a name="module_ECU..watchECUParams"></a>
 
 ### ECU~watchECUParams(cb, errorCallback)
@@ -358,6 +352,12 @@ allows to subscribe for ECU parameter changes
 
 ### ECU~getECUParams()
 Get all the most recent data from ECU parameters
+
+**Kind**: inner method of [<code>ECU</code>](#module_ECU)  
+<a name="module_ECU..getECUList"></a>
+
+### ECU~getECUList()
+get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
 
 **Kind**: inner method of [<code>ECU</code>](#module_ECU)  
 <a name="module_GPS"></a>
