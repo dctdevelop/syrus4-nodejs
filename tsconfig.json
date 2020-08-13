@@ -3,7 +3,8 @@
 		"target": "ES2015",
 		"module": "commonjs",
 		"outDir": "./dist",
-		"rootDir": "./src"
+		"rootDir": "./src",
+		"resolveJsonModule": true
 	},
 	"include": ["src/**/*", "tests"],
 	"exclude": ["node_modules/**/*"]
