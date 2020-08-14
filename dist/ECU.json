@@ -261,7 +261,7 @@
         "START_POSITION": "5-6",
         "taip_tag": "OB",
         "TAIP Units": "mV",
-        "multiplier": 1
+        "multiplier": 100
     },
     "f001_2": {
         "id": "f001_2",
