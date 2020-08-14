@@ -77,12 +77,7 @@ function getECUParams() {
         var ecu_values = {};
         for (const key in ecu_params) {
             const value = ecu_params[key];
-            if (ECU_PARAM_LIST[key]) {
-                ecu_values[ECU_PARAM_LIST[key].syruslang_param] = isNaN(parseFloat(value)) ? value : parseFloat(value);
-            }
-            else {
-                ecu_values[`${key}`] = isNaN(parseFloat(value)) ? value : parseFloat(value);
-            }
+            ecu_values[`${key}`] = isNaN(parseFloat(value)) ? value : parseFloat(value);
         }
         return ecu_values;
     });
