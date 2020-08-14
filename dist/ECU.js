@@ -18,6 +18,19 @@ const ECU_PARAM_LIST = require("./ECU.json");
 /**
  * ECU PARAM LIST from the ecu monitor
  */
+function getECUInfo() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var resp = yield Redis_1.redisClient.hgetall(`ecumonitor_configuration`);
+        var resp2 = yield Redis_1.redisClient.hgetall(`ecumonitor_current_state`);
+        return {
+            primary_can: resp.PRIMARY_CAN,
+            secondary_can: resp.SECONDARY_CAN,
+            J1708: resp.J1708,
+            listen_only_mode: resp.LISTEN_ONLY_MODE,
+            version: resp2.ECUMONITOR_VERSION
+        };
+    });
+}
 /**
  *  allows to subscribe for ECU parameter changes
  * @param cb calbback to execute when new ECU data arrives
@@ -80,4 +93,4 @@ function getECUParams() {
 function getECUList() {
     return ECU_PARAM_LIST;
 }
-exports.default = { ECU_PARAM_LIST, getECUParams, getECUList, watchECUParams };
+exports.default = { ECU_PARAM_LIST, getECUParams, getECUList, watchECUParams, getECUInfo };

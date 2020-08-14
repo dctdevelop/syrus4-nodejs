@@ -332,10 +332,17 @@ ECU module get information about EcU monitor and vehicle in ApexOS
 
 
 * [ECU](#module_ECU)
+    * [~getECUInfo()](#module_ECU..getECUInfo)
     * [~watchECUParams(cb, errorCallback)](#module_ECU..watchECUParams)
     * [~getECUParams()](#module_ECU..getECUParams)
     * [~getECUList()](#module_ECU..getECUList)
 
+<a name="module_ECU..getECUInfo"></a>
+
+### ECU~getECUInfo()
+ECU PARAM LIST from the ecu monitor
+
+**Kind**: inner method of [<code>ECU</code>](#module_ECU)  
 <a name="module_ECU..watchECUParams"></a>
 
 ### ECU~watchECUParams(cb, errorCallback)
