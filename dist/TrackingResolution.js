@@ -44,7 +44,7 @@ function rawdataToCoordinates(raw) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     if (!prefix) {
-        var arr = `${__dirname}`.split("/");
+        var arr = `${execSync('pwd').toString().replace("\n","")}`.split("/");
         arr.pop();
         prefix = arr.pop();
     }
@@ -110,7 +110,7 @@ function getActiveTrackingsResolutions(prefixed = "") {
 function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${__dirname}`.split("/");
+            var arr = `${execSync('pwd').toString().replace("\n","")}`.split("/");
             arr.pop();
             prefix = arr.pop();
         }
