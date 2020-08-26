@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Utils_1 = require("./Utils");
 const Redis_1 = require("./Redis");
+const child_process_1 = require("child_process");
 /**
  * Geofences module get information about ApexOS
  * namespace for all the optiones is defined by application is not passed
@@ -22,7 +23,7 @@ const Redis_1 = require("./Redis");
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
     if (!namespace) {
-        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -47,7 +48,7 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
     if (!namespace) {
-        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -60,7 +61,7 @@ function removeGeofence({ name, group = "", namespace }) {
 function get({ namespace = "", name = null } = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!namespace) {
-            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             namespace = arr.pop();
         }
@@ -93,7 +94,7 @@ function getAll(opts) {
 function deleteAll({ namespace = null } = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!namespace) {
-            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             namespace = arr.pop();
         }
@@ -108,7 +109,7 @@ function deleteAll({ namespace = null } = {}) {
  */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     if (!namespace) {
-        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }

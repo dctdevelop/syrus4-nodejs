@@ -1,5 +1,6 @@
 import Utils from "./Utils";
 import { redisSubscriber as subscriber } from "./Redis";
+import { execSync } from "child_process";
 /**
  * Geofences module get information about ApexOS
  * namespace for all the optiones is defined by application is not passed
@@ -12,7 +13,7 @@ import { redisSubscriber as subscriber } from "./Redis";
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -38,7 +39,7 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -51,7 +52,7 @@ function removeGeofence({ name, group = "", namespace }) {
  */
 async function get({ namespace = "", name = null } = {}) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -83,7 +84,7 @@ async function getAll(opts) {
  */
 async function deleteAll({ namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -98,7 +99,7 @@ async function deleteAll({ namespace = null } = {}) {
  */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}

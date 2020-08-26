@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Redis_1 = require("./Redis");
 const Utils_1 = require("./Utils");
+const child_process_1 = require("child_process");
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
     var speed = parseFloat(gps.speed) * 0.277778;
@@ -174,7 +175,7 @@ function watchGPS(callback, errorCallback) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     if (!prefix) {
-        var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         prefix = arr.pop();
     }
@@ -240,7 +241,7 @@ function getActiveTrackingsResolutions(prefixed = "") {
 function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             prefix = arr.pop();
         }
@@ -275,7 +276,7 @@ function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace,
 function getTrackingResolution({ namespace, prefix }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             prefix = arr.pop();
         }

@@ -4,6 +4,7 @@
  */
 import { redisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
+import { execSync } from "child_process";
 
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
@@ -159,7 +160,7 @@ function watchGPS(callback, errorCallback: Function) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
 	if (!prefix) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		prefix = arr.pop();
 	}
@@ -222,7 +223,7 @@ async function getActiveTrackingsResolutions(prefixed = "") {
  */
 async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }){
 	if (!prefix) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		prefix = arr.pop();
 	}
@@ -256,7 +257,7 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
  */
 async function getTrackingResolution({namespace, prefix }){
 	if (!prefix) {
-		var arr = `${__dirname}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		prefix = arr.pop();
 	}
