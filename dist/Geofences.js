@@ -116,7 +116,6 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     var handler = function (pattern, channel, data) {
         if (pattern !== `geofences/notification/${namespace}/*`)
             return;
-        console.log(channel, data);
         var [group, name] = channel.replace(`geofences/notification/${namespace}/`, "").split("/");
         var [is_inside, timestamp] = data.split(",");
         callback({
