@@ -108,7 +108,6 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 		if (pattern !== `geofences/notification/${namespace}/*`) return;
 		var [group, name] = channel.replace(`geofences/notification/${namespace}/`, "").split("/");
 		var [is_inside, timestamp] = data.split(",");
-		console.log(pattern, channel, data, is_inside);
 		callback({
 			name: name,
 			group: group,
@@ -147,7 +146,6 @@ function watchGroups(callback, errorCb, { namespace = null } = {}) {
 		if (pattern !== `geofences/group/notification/${namespace}/*`) return;
 		var [group_name] = channel.replace(`geofences/group/notification/${namespace}/`, "").split("/");
 		var [is_inside, timestamp] = data.split(",");
-		console.log(pattern, channel, data, is_inside);
 		callback({
 			name: group_name,
 			is_inside: `${is_inside}` == "true",
