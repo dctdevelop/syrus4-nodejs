@@ -473,6 +473,7 @@ namespace for all the optiones is defined by application is not passed
     * [~getAll(opts)](#module_Geofences..getAll)
     * [~deleteAll(opts)](#module_Geofences..deleteAll)
     * [~watchGeofences(callback, errorCb, opts)](#module_Geofences..watchGeofences)
+    * [~watchGroups(callback, errorCb, opts)](#module_Geofences..watchGroups)
 
 <a name="module_Geofences..addGeofence"></a>
 
@@ -550,6 +551,17 @@ remove all Geofences from the apx-tool
 | callback | callback to execute when a the device entered or exited from a geofence defined in the apx-tool |
 | errorCb | error callback to execute if something fails |
 | opts | namespace: namespace to check if entered or exited from geofence |
+
+<a name="module_Geofences..watchGroups"></a>
+
+### Geofences~watchGroups(callback, errorCb, opts)
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when a the device entered or exited from a group of geofenc defined in the apx-tool |
+| errorCb | error callback to execute if something fails |
+| opts | namespace: namespace to check if entered or exited from group of geofenc |
 
 <a name="module_Hotspot"></a>
 
