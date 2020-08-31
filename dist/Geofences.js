@@ -23,7 +23,7 @@ const child_process_1 = require("child_process");
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
     if (!namespace) {
-        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -48,7 +48,7 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
     if (!namespace) {
-        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -61,7 +61,7 @@ function removeGeofence({ name, group = "", namespace }) {
 function get({ namespace = "", name = null } = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!namespace) {
-            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             namespace = arr.pop();
         }
@@ -94,7 +94,7 @@ function getAll(opts) {
 function deleteAll({ namespace = null } = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!namespace) {
-            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             namespace = arr.pop();
         }
@@ -109,7 +109,7 @@ function deleteAll({ namespace = null } = {}) {
  */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     if (!namespace) {
-        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         namespace = arr.pop();
     }
@@ -118,6 +118,7 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
             return;
         var [group, name] = channel.replace(`geofences/notification/${namespace}/`, "").split("/");
         var [is_inside, timestamp] = data.split(",");
+        console.log(pattern, channel, data, is_inside);
         callback({
             name: name,
             group: group,
@@ -139,4 +140,42 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
         }
     };
 }
-exports.default = { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences, deleteAll };
+/**
+ *
+ * @param callback callback to execute when a the device entered or exited from a group of geofenc defined in the apx-tool
+ * @param errorCb error callback to execute if something fails
+ * @param opts namespace: namespace to check if entered or exited from group of geofenc
+ */
+function watchGroups(callback, errorCb, { namespace = null } = {}) {
+    if (!namespace) {
+        var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+        arr.pop();
+        namespace = arr.pop();
+    }
+    var handler = function (pattern, channel, data) {
+        if (pattern !== `geofences/group/notification/${namespace}/*`)
+            return;
+        var [group_name] = channel.replace(`geofences/group/notification/${namespace}/`, "").split("/");
+        var [is_inside, timestamp] = data.split(",");
+        console.log(pattern, channel, data, is_inside);
+        callback({
+            name: group_name,
+            is_inside: `${is_inside}` == "true",
+            timestamp: new Date(parseInt(timestamp) * 1000)
+        });
+    };
+    try {
+        Redis_1.redisSubscriber.psubscribe(`geofences/group/notification/${namespace}/*`);
+        Redis_1.redisSubscriber.on("pmessage", handler);
+    }
+    catch (error) {
+        errorCb(error);
+    }
+    return {
+        unsubscribe: () => {
+            Redis_1.redisSubscriber.off("pmessage", handler);
+            Redis_1.redisSubscriber.unsubscribe(`geofences/group/notification/${namespace}/*`);
+        }
+    };
+}
+exports.default = { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences, watchGroups, deleteAll };
