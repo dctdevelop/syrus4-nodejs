@@ -90,40 +90,25 @@ function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, heading: 0
  * @param errorCallback Errorcallback executes when is unable to get gps location
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
-function watchPosition(callback: Function, errorCallback: Function, config = { hdop: 0, distance: 0, time: 0, heading: 0 }) {
-	var last_returned = null;
-	var last_valid = rawdataToCoordinates("{}");
-	var intervalToTransmit = null;
-	var handler = function (channel, gps) {
-		if (channel !== "gps") return;
-		var position = rawdataToCoordinates(gps);
-		if (!position.coords.latitude) return;
-		last_valid = position;
-		var criteria = evaluateCriteria(position, last_returned, config);
-		if (!!criteria) {
-			callback(position, criteria);
-			last_returned = position;
-			if (config.time > 0) {
-				clearInterval(intervalToTransmit);
-				intervalToTransmit = setInterval(() => {
-					callback(last_valid, "time");
-				}, config.time);
+function watchPosition(callback: Function, errorCallback: Function) {
+	try {
+		var handler = function (channel, gps) {
+			if (channel !== "gps") return;
+			var position = rawdataToCoordinates(gps);
+			if (!position.coords.latitude) return;
+			callback(position, "time");
+		};
+		subscriber.subscribe("gps");
+		subscriber.on("message", handler);
+		return {
+			unsubscribe: () => {
+				subscriber.off("message", handler);
 			}
-		}
-	};
-	subscriber.subscribe("gps");
-	subscriber.on("message", handler);
-	if (config.time > 0) {
-		intervalToTransmit = setInterval(() => {
-			callback(last_valid, "time");
-		}, config.time);
+		};
+
+	} catch (error) {
+
 	}
-	return {
-		unsubscribe: () => {
-			clearInterval(intervalToTransmit);
-			subscriber.off("message", handler);
-		}
-	};
 }
 
 /**
@@ -150,9 +135,6 @@ function watchGPS(callback, errorCallback: Function) {
 	}
 }
 
-
-
-
 /**
  * define a tracking resolution using apx-tracking tool to receive filtered data gps
  * @param callback callback to execute when new data arrive from tracking resolution
@@ -160,7 +142,7 @@ function watchGPS(callback, errorCallback: Function) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
 	if (!prefix) {
-		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		prefix = arr.pop();
 	}
@@ -168,7 +150,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-	if(!(!heading && !time && !distance)) utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	if (!(!heading && !time && !distance)) utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
 	var handler = function (channel, gps) {
 		if (channel !== `tracking/notification/${name}`) return;
 		var position = rawdataToCoordinates(gps);
@@ -181,7 +163,9 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
 		function exitHandler() {
 			process.stdin.resume();
 			utils.OSExecute(`apx-tracking delete "${name}"`);
-			setTimeout(()=>{process.exit();}, 10);
+			setTimeout(() => {
+				process.exit();
+			}, 10);
 		}
 		//do something when app is closing
 		process.on("exit", exitHandler);
@@ -207,23 +191,23 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
  * @param prefixed prefix to lookup tracking_resolution
  */
 async function getActiveTrackingsResolutions(prefixed = "") {
-	var tracks:any = await utils.OSExecute(`apx-tracking getall`);
+	var tracks: any = await utils.OSExecute(`apx-tracking getall`);
 	var response = {};
 	for (const key in tracks) {
 		if (!key.startsWith(prefixed)) continue;
-        const track = tracks[key];
-        response[key] = {heading: track[0], time: track[1], distance: track[2] };
-    }
-    return response;
+		const track = tracks[key];
+		response[key] = { heading: track[0], time: track[1], distance: track[2] };
+	}
+	return response;
 }
 
 /**
  * set options for a tracking_resolution for the apex tool apx-tracking
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }){
+async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
 	if (!prefix) {
-		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		prefix = arr.pop();
 	}
@@ -231,12 +215,14 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-    await utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
-    if (deleteOnExit) {
+	await utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	if (deleteOnExit) {
 		function exitHandler() {
 			process.stdin.resume();
 			utils.OSExecute(`apx-tracking delete "${name}"`);
-			setTimeout(()=>{process.exit();}, 10);
+			setTimeout(() => {
+				process.exit();
+			}, 10);
 		}
 		//do something when app is closing
 		process.on("exit", exitHandler);
@@ -247,17 +233,17 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
 		process.on("SIGUSR2", exitHandler);
 		//catches uncaught exceptions
 		process.on("uncaughtException", exitHandler);
-    }
-    return true;
+	}
+	return true;
 }
 
 /**
  * get options for a tracking_resolution for the apex tool apx-tracking
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.
  */
-async function getTrackingResolution({namespace, prefix }){
+async function getTrackingResolution({ namespace, prefix }) {
 	if (!prefix) {
-		var arr = `${execSync('pwd').toString().replace("\n","")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
 		arr.pop();
 		prefix = arr.pop();
 	}
@@ -266,12 +252,12 @@ async function getTrackingResolution({namespace, prefix }){
 	}
 	var name = `${prefix}_${namespace}`;
 	var resp = await utils.OSExecute(`apx-tracking get "${name}"`);
-	if(!resp[name] || resp[name].length == 0) return null;
-    return {
+	if (!resp[name] || resp[name].length == 0) return null;
+	return {
 		heading: resp[name][0],
 		time: resp[name][1],
-		distance: resp[name][2],
-	}
+		distance: resp[name][2]
+	};
 }
 
 export default {
@@ -281,5 +267,5 @@ export default {
 	watchTrackingResolution,
 	setTrackingResolution,
 	getTrackingResolution,
-	getActiveTrackingsResolutions,
+	getActiveTrackingsResolutions
 };
