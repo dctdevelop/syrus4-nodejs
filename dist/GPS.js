@@ -104,42 +104,26 @@ function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, heading: 0
  * @param errorCallback Errorcallback executes when is unable to get gps location
  * @param config Object coniguration how evaluate criteria for watchPosition
  */
-function watchPosition(callback, errorCallback, config = { hdop: 0, distance: 0, time: 0, heading: 0 }) {
-    var last_returned = null;
-    var last_valid = rawdataToCoordinates("{}");
-    var intervalToTransmit = null;
-    var handler = function (channel, gps) {
-        if (channel !== "gps")
-            return;
-        var position = rawdataToCoordinates(gps);
-        if (!position.coords.latitude)
-            return;
-        last_valid = position;
-        var criteria = evaluateCriteria(position, last_returned, config);
-        if (!!criteria) {
-            callback(position, criteria);
-            last_returned = position;
-            if (config.time > 0) {
-                clearInterval(intervalToTransmit);
-                intervalToTransmit = setInterval(() => {
-                    callback(last_valid, "time");
-                }, config.time);
+function watchPosition(callback, errorCallback) {
+    try {
+        var handler = function (channel, gps) {
+            if (channel !== "gps")
+                return;
+            var position = rawdataToCoordinates(gps);
+            if (!position.coords.latitude)
+                return;
+            callback(position, "time");
+        };
+        Redis_1.redisSubscriber.subscribe("gps");
+        Redis_1.redisSubscriber.on("message", handler);
+        return {
+            unsubscribe: () => {
+                Redis_1.redisSubscriber.off("message", handler);
             }
-        }
-    };
-    Redis_1.redisSubscriber.subscribe("gps");
-    Redis_1.redisSubscriber.on("message", handler);
-    if (config.time > 0) {
-        intervalToTransmit = setInterval(() => {
-            callback(last_valid, "time");
-        }, config.time);
+        };
     }
-    return {
-        unsubscribe: () => {
-            clearInterval(intervalToTransmit);
-            Redis_1.redisSubscriber.off("message", handler);
-        }
-    };
+    catch (error) {
+    }
 }
 /**
  * allows to subscribe to gps data changes in GPS module
@@ -175,7 +159,7 @@ function watchGPS(callback, errorCallback) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     if (!prefix) {
-        var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+        var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
         arr.pop();
         prefix = arr.pop();
     }
@@ -197,7 +181,9 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
         function exitHandler() {
             process.stdin.resume();
             Utils_1.default.OSExecute(`apx-tracking delete "${name}"`);
-            setTimeout(() => { process.exit(); }, 10);
+            setTimeout(() => {
+                process.exit();
+            }, 10);
         }
         //do something when app is closing
         process.on("exit", exitHandler);
@@ -241,7 +227,7 @@ function getActiveTrackingsResolutions(prefixed = "") {
 function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             prefix = arr.pop();
         }
@@ -254,7 +240,9 @@ function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace,
             function exitHandler() {
                 process.stdin.resume();
                 Utils_1.default.OSExecute(`apx-tracking delete "${name}"`);
-                setTimeout(() => { process.exit(); }, 10);
+                setTimeout(() => {
+                    process.exit();
+                }, 10);
             }
             //do something when app is closing
             process.on("exit", exitHandler);
@@ -276,7 +264,7 @@ function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace,
 function getTrackingResolution({ namespace, prefix }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${child_process_1.execSync('pwd').toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+            var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
             arr.pop();
             prefix = arr.pop();
         }
@@ -290,7 +278,7 @@ function getTrackingResolution({ namespace, prefix }) {
         return {
             heading: resp[name][0],
             time: resp[name][1],
-            distance: resp[name][2],
+            distance: resp[name][2]
         };
     });
 }
@@ -301,5 +289,5 @@ exports.default = {
     watchTrackingResolution,
     setTrackingResolution,
     getTrackingResolution,
-    getActiveTrackingsResolutions,
+    getActiveTrackingsResolutions
 };
