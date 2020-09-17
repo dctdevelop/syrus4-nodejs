@@ -10,4 +10,6 @@ var redisClient = new Redis(REDIS_CONF);
 exports.redisClient = redisClient;
 var redisSubscriber = new Redis(REDIS_CONF);
 exports.redisSubscriber = redisSubscriber;
+redisSubscriber.setMaxListeners(50);
+redisClient.setMaxListeners(50);
 exports.default = { redisClient, redisSubscriber, REDIS_CONF };
