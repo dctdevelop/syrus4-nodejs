@@ -7,5 +7,8 @@ const REDIS_CONF = {
 var redisClient = new Redis(REDIS_CONF);
 var redisSubscriber = new Redis(REDIS_CONF);
 
+redisSubscriber.setMaxListeners(50);
+redisClient.setMaxListeners(50);
+
 export default { redisClient, redisSubscriber, REDIS_CONF };
 export  { redisClient, redisSubscriber, REDIS_CONF };
