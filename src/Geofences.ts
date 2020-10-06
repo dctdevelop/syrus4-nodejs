@@ -13,7 +13,11 @@ import { execSync } from "child_process";
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
 	if (!namespace) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -39,11 +43,19 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
 	if (!namespace) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
 	return Utils.OSExecute(`apx-geofences remove ${namespace} ${group} ${name}`);
+}
+
+async function getNamespaces() {
+	return Utils.OSExecute(`apx-geofences getns`);
 }
 
 /**
@@ -52,7 +64,11 @@ function removeGeofence({ name, group = "", namespace }) {
  */
 async function get({ namespace = "", name = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -84,7 +100,11 @@ async function getAll(opts) {
  */
 async function deleteAll({ namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
@@ -99,12 +119,16 @@ async function deleteAll({ namespace = null } = {}) {
  */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
 
-	var handler = function (pattern, channel, data) {
+	var handler = function(pattern, channel, data) {
 		if (pattern !== `geofences/notification/${namespace}/*`) return;
 		var [group, name] = channel.replace(`geofences/notification/${namespace}/`, "").split("/");
 		var [is_inside, timestamp] = data.split(",");
@@ -137,12 +161,16 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
  */
 function watchGroups(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
 		arr.pop();
 		namespace = arr.pop();
 	}
 
-	var handler = function (pattern, channel, data) {
+	var handler = function(pattern, channel, data) {
 		if (pattern !== `geofences/group/notification/${namespace}/*`) return;
 		var [group_name] = channel.replace(`geofences/group/notification/${namespace}/`, "").split("/");
 		var [is_inside, timestamp] = data.split(",");
@@ -166,4 +194,4 @@ function watchGroups(callback, errorCb, { namespace = null } = {}) {
 	};
 }
 
-export default { addGeofence, updateGeofence, removeGeofence, get, getAll, watchGeofences, watchGroups, deleteAll };
+export default { addGeofence, updateGeofence, removeGeofence, getNamespaces, get, getAll, watchGeofences, watchGroups, deleteAll };
