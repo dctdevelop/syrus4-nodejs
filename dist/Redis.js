@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.REDIS_CONF = exports.redisSubscriber = exports.redisClient = void 0;
 const Redis = require("ioredis");
 const REDIS_CONF = {
     "port": 6379,

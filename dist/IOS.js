@@ -84,38 +84,59 @@ function getAll() {
         var response = {};
         var key = null;
         var text = yield Utils_1.default.OSExecute(`apx-io getall inputs`);
-        text = text.split("\n");
-        for (const val of text) {
-            if (!key) {
-                key = val;
+        if (typeof text == "object") {
+            for (const key in text) {
+                response[key] = text[key];
             }
-            else {
-                response[key] = val == "true";
-                key = null;
+        }
+        else {
+            text = text.split("\n");
+            for (const val of text) {
+                if (!key) {
+                    key = val;
+                }
+                else {
+                    response[key] = val == "true";
+                    key = null;
+                }
             }
         }
         key = null;
         text = yield Utils_1.default.OSExecute(`apx-io getall outputs`);
-        text = text.split("\n");
-        for (const val of text) {
-            if (!key) {
-                key = val;
+        if (typeof text == "object") {
+            for (const key in text) {
+                response[key] = text[key];
             }
-            else {
-                response[key] = val == "true";
-                key = null;
+        }
+        else {
+            text = text.split("\n");
+            for (const val of text) {
+                if (!key) {
+                    key = val;
+                }
+                else {
+                    response[key] = val == "true";
+                    key = null;
+                }
             }
         }
         key = null;
         text = yield Utils_1.default.OSExecute(`apx-io getall analogs`);
-        text = text.split("\n");
-        for (const val of text) {
-            if (!key) {
-                key = val;
+        if (typeof text == "object") {
+            for (const key in text) {
+                response[key] = text[key];
             }
-            else {
-                response[key] = parseFloat(val);
-                key = null;
+        }
+        else {
+            text = text.split("\n");
+            for (const val of text) {
+                if (!key) {
+                    key = val;
+                }
+                else {
+                    response[key] = parseFloat(val);
+                    key = null;
+                }
             }
         }
         return response;

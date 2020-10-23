@@ -68,37 +68,55 @@ async function getAll() {
 
 	var key = null;
 	var text: any = await Utils.OSExecute(`apx-io getall inputs`);
-	text = text.split("\n");
-	for (const val of text) {
-		if (!key) {
-			key = val;
-		} else {
-			response[key] = val == "true";
-			key = null;
+	if(typeof text == "object"){
+		for (const key in text) {
+				response[key] = text[key];
+		}
+	} else{
+		text = text.split("\n");
+		for (const val of text) {
+			if (!key) {
+				key = val;
+			} else {
+				response[key] = val == "true";
+				key = null;
+			}
 		}
 	}
 
 	key = null;
 	text = await Utils.OSExecute(`apx-io getall outputs`);
-	text = text.split("\n");
-	for (const val of text) {
-		if (!key) {
-			key = val;
-		} else {
-			response[key] = val == "true";
-			key = null;
+	if(typeof text == "object"){
+		for (const key in text) {
+				response[key] = text[key];
+		}
+	} else{
+		text = text.split("\n");
+		for (const val of text) {
+			if (!key) {
+				key = val;
+			} else {
+				response[key] = val == "true";
+				key = null;
+			}
 		}
 	}
 
 	key = null;
 	text = await Utils.OSExecute(`apx-io getall analogs`);
-	text = text.split("\n");
-	for (const val of text) {
-		if (!key) {
-			key = val;
-		} else {
-			response[key] = parseFloat(val);
-			key = null;
+	if(typeof text == "object"){
+		for (const key in text) {
+				response[key] = text[key];
+		}
+	} else{
+		text = text.split("\n");
+		for (const val of text) {
+			if (!key) {
+				key = val;
+			} else {
+				response[key] = parseFloat(val);
+				key = null;
+			}
 		}
 	}
 
