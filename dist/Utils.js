@@ -18,7 +18,7 @@ function execute(...args) {
     }
     var command = [...args].join(" ");
     return new Promise((resolve, reject) => {
-        exec(command, { timeout: 60000 }, (error, stdout, stderr) => {
+        exec(command, { timeout: 60000 * 10 }, (error, stdout, stderr) => {
             if (error) {
                 return reject({
                     error: error,
@@ -53,7 +53,7 @@ function OSExecute(...args) {
     }
     var command = ["sudo", ...args].join(" ");
     return new Promise((resolve, reject) => {
-        exec(command, { timeout: 60000 }, (error, stdout, stderr) => {
+        exec(command, { timeout: 60000 * 10 }, (error, stdout, stderr) => {
             if (error) {
                 return reject({
                     error: error,
