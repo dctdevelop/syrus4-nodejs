@@ -5,6 +5,7 @@
 import utils from "./Utils";
 const fs = require("fs");
 import { execSync } from "child_process";
+import { rejects } from "assert";
 type Parameter = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
 
 /**
@@ -135,11 +136,17 @@ function getConfiguration(app?: string) {
 		arr.pop();
 		app = arr.pop();
 	}
-	return new Promise((resolve) => {
-		fs.readFile(`/data/app_data/${app}/.configuration.json`, (err, data) => {
-			if (err) return resolve({});
-			return resolve(data);
-		});
+	return new Promise((resolve, reject) => {
+		try {
+			var data = fs.readFileSync(`/data/app_data/${app}/.configuration.json`);
+		} catch (error) {
+			return resolve({});
+		}
+		try {
+			return resolve(JSON.parse(data));
+		} catch (error) {
+			return reject(error);
+		}
 	});
 }
 
