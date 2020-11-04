@@ -184,10 +184,11 @@ function watchGroups(callback, errorCb, { namespace = null } = {}) {
     var handler = function (pattern, channel, data) {
         if (pattern !== `geofences/group/notification/${namespace}/*`)
             return;
-        var [group_name] = channel.replace(`geofences/group/notification/${namespace}/`, "").split("/");
+        var [ns, group_name] = channel.replace(`geofences/group/notification/`, "").split("/");
         var [is_inside, timestamp] = data.split(",");
         callback({
             name: group_name,
+            namespace: ns,
             is_inside: `${is_inside}` == "true",
             timestamp: new Date(parseInt(timestamp) * 1000)
         });
