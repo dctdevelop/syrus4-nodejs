@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Utils_1 = require("./Utils");
 const fs = require("fs");
+const child_process_1 = require("child_process");
 /**
  * allows to execute commands from the apps-manager utility from ApexOs
  * @param action action to execute
@@ -92,8 +93,17 @@ function uninstall(app) {
  * @param newConfig
  */
 function setConfiguration(app, newConfig) {
+    if (!app) {
+        var arr = `${child_process_1.execSync("pwd")
+            .toString()
+            .replace("\n", "")}`
+            .split("node_modules/")[0]
+            .split("/");
+        arr.pop();
+        app = arr.pop();
+    }
     return new Promise((resolve, reject) => {
-        fs.writeFile(`/data/applications/${app}/.env`, newConfig, function (err) {
+        fs.writeFile(`/data/app_data/${app}/.configuration.json`, newConfig, function (err) {
             if (err)
                 return reject(err);
             return resolve({ status: "ok" });
@@ -101,14 +111,23 @@ function setConfiguration(app, newConfig) {
     });
 }
 /**
- * Get the contents of .env file configuration
+ * Get the contents of .configuration.json file where it stored the configuration of the app
  * @param app the name of the app
  */
 function getConfiguration(app) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(`/data/applications/${app}/.env`, (err, data) => {
+    if (!app) {
+        var arr = `${child_process_1.execSync("pwd")
+            .toString()
+            .replace("\n", "")}`
+            .split("node_modules/")[0]
+            .split("/");
+        arr.pop();
+        app = arr.pop();
+    }
+    return new Promise((resolve) => {
+        fs.readFile(`/data/app_data/${app}/.configuration.json`, (err, data) => {
             if (err)
-                return reject(err);
+                return resolve({});
             return resolve(data);
         });
     });

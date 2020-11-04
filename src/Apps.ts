@@ -4,6 +4,7 @@
  */
 import utils from "./Utils";
 const fs = require("fs");
+import { execSync } from "child_process";
 type Parameter = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
 
 /**
@@ -103,8 +104,17 @@ function uninstall(app: string) {
  * @param newConfig
  */
 function setConfiguration(app: string, newConfig) {
+	if (!app) {
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
+		arr.pop();
+		app = arr.pop();
+	}
 	return new Promise((resolve, reject) => {
-		fs.writeFile(`/data/applications/${app}/.env`, newConfig, function(err) {
+		fs.writeFile(`/data/app_data/${app}/.configuration.json`, newConfig, function (err) {
 			if (err) return reject(err);
 			return resolve({ status: "ok" });
 		});
@@ -112,13 +122,22 @@ function setConfiguration(app: string, newConfig) {
 }
 
 /**
- * Get the contents of .env file configuration
+ * Get the contents of .configuration.json file where it stored the configuration of the app
  * @param app the name of the app
  */
-function getConfiguration(app: string) {
-	return new Promise((resolve, reject) => {
-		fs.readFile(`/data/applications/${app}/.env`, (err, data) => {
-			if (err) return reject(err);
+function getConfiguration(app?: string) {
+	if (!app) {
+		var arr = `${execSync("pwd")
+			.toString()
+			.replace("\n", "")}`
+			.split("node_modules/")[0]
+			.split("/");
+		arr.pop();
+		app = arr.pop();
+	}
+	return new Promise((resolve) => {
+		fs.readFile(`/data/app_data/${app}/.configuration.json`, (err, data) => {
+			if (err) return resolve({});
 			return resolve(data);
 		});
 	});
