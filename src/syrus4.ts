@@ -1,3 +1,4 @@
+import Apps from "./Apps";
 import Accelerometer from "./Accelerometer";
 import Network from "./Network";
 import Utils from "./Utils";
@@ -13,5 +14,5 @@ import IOS from "./IOS";
 import Counters from "./Counters";
 import Geofences from "./Geofences";
 
-export { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
-export default { GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
+export { Apps, GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
+export default {  Apps, GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
