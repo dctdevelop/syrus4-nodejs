@@ -5,10 +5,13 @@ const REDIS_CONF = {
 	"port": 6379,
 	"host": "127.0.0.1",
 }
-var SYSTEM_REDIS_CONF = {
+var SYSTEM_REDIS_CONF: {
+    port: number;
+	host: string;
+	password?: string;
+} = {
 	"port": 6379,
 	"host": "127.0.0.1",
-	"password": undefined,
 }
 try {
 	var about =  JSON.parse(execSync("sudo apx-about"))
