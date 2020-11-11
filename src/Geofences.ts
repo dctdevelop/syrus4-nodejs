@@ -1,5 +1,5 @@
 import Utils from "./Utils";
-import { redisSubscriber as subscriber } from "./Redis";
+import { SystemRedisSubscriber as subscriber } from "./Redis";
 import { execSync } from "child_process";
 /**
  * Geofences module get information about ApexOS

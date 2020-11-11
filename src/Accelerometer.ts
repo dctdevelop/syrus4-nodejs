@@ -2,7 +2,7 @@
  * Accelerometer module get information about hardware acceleration and events in ApexOS
  * @module Accelerometer
  */
-import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
+import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import Utils from "./Utils";
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
@@ -82,15 +82,6 @@ function startSelfAccelerationTest(state = true) {
 }
 
 /**
- * enable or disable serial port debugger for acceleration hardware in APEX OS
- * @param state desired state of serial port debugger
- */
-function setDebugMode(state = true) {
-	redis.hset("accel_desired_action", "DEBUG_SERIAL_PORT", state ? "1" : "0");
-	redis.publish("accel/desired/action/DEBUG_SERIAL_PORT", state ? "1" : "0");
-}
-
-/**
  * check is hardware is on state auto aligning returns a promise with the state
  */
 async function isAutoAligning() {
@@ -112,23 +103,12 @@ async function isMoving() {
 	return result == "1";
 }
 
-/**
- * check is hardware is on serial port debug mode returns a promise with the state
- */
-async function isDebugMode() {
-	var result = await redis.hget("accel_desired_action", "DEBUG_SERIAL_PORT");
-	return result == "1";
-}
-
 export default {
 	isMoving,
 	onMotionChange,
 	on,
 	startAutoAlignment,
 	startSelfAccelerationTest,
-	setDebugMode,
-
 	isAutoAligning,
 	isAccelerationTest,
-	isDebugMode
 };

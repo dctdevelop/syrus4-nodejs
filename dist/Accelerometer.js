@@ -30,8 +30,8 @@ function onMotionChange(callback, errorCallback) {
                 callback(isMoving == "1");
             }
         };
-        Redis_1.redisSubscriber.subscribe("accel/events");
-        Redis_1.redisSubscriber.on("message", handler);
+        Redis_1.SystemRedisSubscriber.subscribe("accel/events");
+        Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
@@ -39,8 +39,8 @@ function onMotionChange(callback, errorCallback) {
     }
     var returnable = {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("message", handler);
-            Redis_1.redisSubscriber.unsubscribe("accel/events");
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe("accel/events");
         }
     };
     returnable.off = returnable.unsubscribe;
@@ -61,8 +61,8 @@ function on(callback, errorCallback) {
             if (eventType != "MOTION")
                 callback(eventType.toLowerCase(), results);
         };
-        Redis_1.redisSubscriber.subscribe("accel/events");
-        Redis_1.redisSubscriber.on("message", handler);
+        Redis_1.SystemRedisSubscriber.subscribe("accel/events");
+        Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
@@ -70,8 +70,8 @@ function on(callback, errorCallback) {
     }
     var returnable = {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("message", handler);
-            Redis_1.redisSubscriber.unsubscribe("accel/events");
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe("accel/events");
         }
     };
     returnable.off = returnable.unsubscribe;
@@ -90,14 +90,6 @@ function startAutoAlignment(state = true) {
  */
 function startSelfAccelerationTest(state = true) {
     return Utils_1.default.OSExecute(`apx-imu self_test ${state ? 1 : 0}`);
-}
-/**
- * enable or disable serial port debugger for acceleration hardware in APEX OS
- * @param state desired state of serial port debugger
- */
-function setDebugMode(state = true) {
-    Redis_1.redisClient.hset("accel_desired_action", "DEBUG_SERIAL_PORT", state ? "1" : "0");
-    Redis_1.redisClient.publish("accel/desired/action/DEBUG_SERIAL_PORT", state ? "1" : "0");
 }
 /**
  * check is hardware is on state auto aligning returns a promise with the state
@@ -120,16 +112,7 @@ function isAccelerationTest() {
  */
 function isMoving() {
     return __awaiter(this, void 0, void 0, function* () {
-        var result = yield Redis_1.redisClient.hget("accel_current_state", "MOTION");
-        return result == "1";
-    });
-}
-/**
- * check is hardware is on serial port debug mode returns a promise with the state
- */
-function isDebugMode() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var result = yield Redis_1.redisClient.hget("accel_desired_action", "DEBUG_SERIAL_PORT");
+        var result = yield Redis_1.SystemRedisClient.hget("accel_current_state", "MOTION");
         return result == "1";
     });
 }
@@ -139,8 +122,6 @@ exports.default = {
     on,
     startAutoAlignment,
     startSelfAccelerationTest,
-    setDebugMode,
     isAutoAligning,
     isAccelerationTest,
-    isDebugMode
 };

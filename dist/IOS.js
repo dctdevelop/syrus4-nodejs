@@ -47,11 +47,11 @@ function watchInputState(inputName = "*", cb, errorCallback) {
             cb(response);
         }
     };
-    Redis_1.redisSubscriber.psubscribe(chn);
-    Redis_1.redisSubscriber.on("pmessage", callback);
+    Redis_1.SystemRedisSubscriber.psubscribe(chn);
+    Redis_1.SystemRedisSubscriber.on("pmessage", callback);
     return {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("pmessage", callback);
+            Redis_1.SystemRedisSubscriber.off("pmessage", callback);
         }
     };
 }

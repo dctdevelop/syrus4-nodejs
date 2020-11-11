@@ -5,7 +5,6 @@
 import utils from "./Utils";
 const fs = require("fs");
 import { execSync } from "child_process";
-import { rejects } from "assert";
 type Parameter = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
 
 /**

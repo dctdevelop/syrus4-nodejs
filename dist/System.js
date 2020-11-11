@@ -23,7 +23,7 @@ function info() {
 }
 function modem() {
     return __awaiter(this, void 0, void 0, function* () {
-        var response = yield Redis_1.redisClient.hgetall("modem_information");
+        var response = yield Redis_1.SystemRedisClient.hgetall("modem_information");
         return response;
     });
 }
@@ -39,8 +39,8 @@ function onSleepOn(callback, errorCallback) {
                 return;
             callback(raw);
         };
-        Redis_1.redisSubscriber.subscribe("interface/notification/PSM_ACTIVATED");
-        Redis_1.redisSubscriber.on("message", handler);
+        Redis_1.SystemRedisSubscriber.subscribe("interface/notification/PSM_ACTIVATED");
+        Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
@@ -48,7 +48,7 @@ function onSleepOn(callback, errorCallback) {
     }
     var returnable = {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.off("message", handler);
         }
     };
     returnable.off = returnable.unsubscribe;
@@ -59,7 +59,7 @@ function onSleepOn(callback, errorCallback) {
  */
 function getLastWakeUp() {
     return __awaiter(this, void 0, void 0, function* () {
-        var data = yield Redis_1.redisClient.lrange("psm_events", 0, 5);
+        var data = yield Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
         if (data.length === 0)
             return false;
         for (const entry of data) {
@@ -81,7 +81,7 @@ function getLastWakeUp() {
  */
 function getlastSleepOn() {
     return __awaiter(this, void 0, void 0, function* () {
-        var data = yield Redis_1.redisClient.lrange("psm_events", 0, 5);
+        var data = yield Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
         if (data.length === 0)
             return false;
         for (const entry of data) {
@@ -103,7 +103,7 @@ function getlastSleepOn() {
 function getWakeUpList() {
     return __awaiter(this, void 0, void 0, function* () {
         var list = [];
-        var data = yield Redis_1.redisClient.lrange("psm_events", 0, 5);
+        var data = yield Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
         if (data.length === 0)
             return [];
         for (const entry of data) {

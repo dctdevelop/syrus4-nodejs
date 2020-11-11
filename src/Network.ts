@@ -2,7 +2,7 @@
  * Network module get information about networks and events in ApexOS
  * @module Network
  */
-import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
+import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import Utils from "./Utils";
 
 async function IsConnected(net){

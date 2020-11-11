@@ -81,11 +81,9 @@ Accelerometer module get information about hardware acceleration and events in A
     * [~on(callback, errorCallback)](#module_Accelerometer..on)
     * [~startAutoAlignment(state)](#module_Accelerometer..startAutoAlignment)
     * [~startSelfAccelerationTest(state)](#module_Accelerometer..startSelfAccelerationTest)
-    * [~setDebugMode(state)](#module_Accelerometer..setDebugMode)
     * [~isAutoAligning()](#module_Accelerometer..isAutoAligning)
     * [~isAccelerationTest()](#module_Accelerometer..isAccelerationTest)
     * [~isMoving()](#module_Accelerometer..isMoving)
-    * [~isDebugMode()](#module_Accelerometer..isDebugMode)
 
 <a name="module_Accelerometer..onMotionChange"></a>
 
@@ -134,17 +132,6 @@ Set the state for the self acceleration test of the APEX OS acceleration hardwar
 | --- | --- | --- |
 | state | <code>true</code> | desired state of self acceleration test proccess |
 
-<a name="module_Accelerometer..setDebugMode"></a>
-
-### Accelerometer~setDebugMode(state)
-enable or disable serial port debugger for acceleration hardware in APEX OS
-
-**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| state | <code>true</code> | desired state of serial port debugger |
-
 <a name="module_Accelerometer..isAutoAligning"></a>
 
 ### Accelerometer~isAutoAligning()
@@ -161,12 +148,6 @@ check is hardware is on state acceleration test returns a promise with the state
 
 ### Accelerometer~isMoving()
 Check the current state of the acceloremeter hardware is moving
-
-**Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
-<a name="module_Accelerometer..isDebugMode"></a>
-
-### Accelerometer~isDebugMode()
-check is hardware is on serial port debug mode returns a promise with the state
 
 **Kind**: inner method of [<code>Accelerometer</code>](#module_Accelerometer)  
 <a name="module_Apps"></a>

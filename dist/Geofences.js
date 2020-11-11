@@ -152,16 +152,16 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
         });
     };
     try {
-        Redis_1.redisSubscriber.psubscribe(`geofences/notification/${namespace}/*`);
-        Redis_1.redisSubscriber.on("pmessage", handler);
+        Redis_1.SystemRedisSubscriber.psubscribe(`geofences/notification/${namespace}/*`);
+        Redis_1.SystemRedisSubscriber.on("pmessage", handler);
     }
     catch (error) {
         errorCb(error);
     }
     return {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("pmessage", handler);
-            Redis_1.redisSubscriber.unsubscribe(`geofences/notification/${namespace}/*`);
+            Redis_1.SystemRedisSubscriber.off("pmessage", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(`geofences/notification/${namespace}/*`);
         }
     };
 }
@@ -194,16 +194,16 @@ function watchGroups(callback, errorCb, { namespace = null } = {}) {
         });
     };
     try {
-        Redis_1.redisSubscriber.psubscribe(`geofences/group/notification/${namespace}/*`);
-        Redis_1.redisSubscriber.on("pmessage", handler);
+        Redis_1.SystemRedisSubscriber.psubscribe(`geofences/group/notification/${namespace}/*`);
+        Redis_1.SystemRedisSubscriber.on("pmessage", handler);
     }
     catch (error) {
         errorCb(error);
     }
     return {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("pmessage", handler);
-            Redis_1.redisSubscriber.unsubscribe(`geofences/group/notification/${namespace}/*`);
+            Redis_1.SystemRedisSubscriber.off("pmessage", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(`geofences/group/notification/${namespace}/*`);
         }
     };
 }

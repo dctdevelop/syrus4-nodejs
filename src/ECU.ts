@@ -2,16 +2,16 @@
  * ECU module get information about EcU monitor and vehicle in ApexOS
  * @module ECU
  */
-import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
+import Utils from "./Utils";
+import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import * as ECU_PARAM_LIST from "./ECU.json";
 /**
  * ECU PARAM LIST from the ecu monitor
  */
 
 async function getECUInfo() {
-	var resp: any = await redis.hgetall(`ecumonitor_configuration`);
+	var resp: any = await Utils.OSExecute(`apx-ecu configure`);
 	var resp2: any = await redis.hgetall(`ecumonitor_current_state`);
-
 	return {
 		primary_can: resp.PRIMARY_CAN,
 		secondary_can: resp.SECONDARY_CAN,
@@ -61,7 +61,7 @@ function watchECUParams(cb: Function, errorCallback: Function) {
  * Get all the most recent data from ECU parameters
  */
 async function getECUParams() {
-	var ecu_params = await redis.hgetall("ecumonitor_parameters");
+	var ecu_params:any = await Utils.OSExecute("apx-ecu list_parameters");
 	var ecu_values: any = {};
 	for (const key in ecu_params) {
 		const value = ecu_params[key];

@@ -2,7 +2,7 @@
  * IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS
  * @module IOS
  */
-import { redisSubscriber as subscriber } from "./Redis";
+import { SystemRedisSubscriber as subscriber } from "./Redis";
 import Utils from "./Utils";
 
 /**
