@@ -13,10 +13,14 @@ function info() {
 	return Utils.OSExecute("apx-about");
 }
 
+/**
+ * Get Modem about the system like RAM,CPU,uptime, etc
+ */
 async function modem() {
 	var response = await redis.hgetall("modem_information");
 	return response;
 }
+
 
 /**
  * hanlder to detect power save mode and execute callback 15 seconds before the device goes to sleep

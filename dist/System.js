@@ -21,6 +21,9 @@ const Redis_1 = require("./Redis");
 function info() {
     return Utils_1.default.OSExecute("apx-about");
 }
+/**
+ * Get Modem about the system like RAM,CPU,uptime, etc
+ */
 function modem() {
     return __awaiter(this, void 0, void 0, function* () {
         var response = yield Redis_1.SystemRedisClient.hgetall("modem_information");

@@ -751,6 +751,7 @@ System module get information about ApexOS
 
 * [System-Info](#module_System-Info)
     * [~info()](#module_System-Info..info)
+    * [~modem()](#module_System-Info..modem)
     * [~onSleepOn(callback, errorCallback)](#module_System-Info..onSleepOn)
     * [~getLastWakeUp()](#module_System-Info..getLastWakeUp)
     * [~getlastSleepOn()](#module_System-Info..getlastSleepOn)
@@ -762,6 +763,12 @@ System module get information about ApexOS
 
 ### System-Info~info()
 Get Info about the system like RAM,CPU,uptime, etc
+
+**Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
+<a name="module_System-Info..modem"></a>
+
+### System-Info~modem()
+Get Modem about the system like RAM,CPU,uptime, etc
 
 **Kind**: inner method of [<code>System-Info</code>](#module_System-Info)  
 <a name="module_System-Info..onSleepOn"></a>
