@@ -15,10 +15,15 @@ var SYSTEM_REDIS_CONF = {
     "readOnly": false
 };
 exports.SYSTEM_REDIS_CONF = SYSTEM_REDIS_CONF;
-var about = JSON.parse(execSync("sudo apx-about"));
+try {
+    var about = JSON.parse(execSync("sudo apx-about"));
+}
+catch (error) {
+    about = { apexVersion: "20.0.0" };
+}
 var ver = about.apexVersion.replace("apex-", "");
 var semver = parseInt(ver.split(".")[0]) * 1000 + parseInt(ver.split(".")[1]) * 1;
-if (semver >= 2046) {
+if (semver >= 20046) {
     exports.SYSTEM_REDIS_CONF = SYSTEM_REDIS_CONF = {
         "port": 7480,
         "host": "127.0.0.1",
