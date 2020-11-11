@@ -1,5 +1,5 @@
 import Utils from "./Utils";
-import { redisSubscriber as subscriber, redisClient as redis } from "./Redis";
+import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 
 /**
  * System module get information about ApexOS

@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * ECU module get information about EcU monitor and vehicle in ApexOS
  * @module ECU
  */
+const Utils_1 = require("./Utils");
 const Redis_1 = require("./Redis");
 const ECU_PARAM_LIST = require("./ECU.json");
 /**
@@ -20,8 +21,8 @@ const ECU_PARAM_LIST = require("./ECU.json");
  */
 function getECUInfo() {
     return __awaiter(this, void 0, void 0, function* () {
-        var resp = yield Redis_1.redisClient.hgetall(`ecumonitor_configuration`);
-        var resp2 = yield Redis_1.redisClient.hgetall(`ecumonitor_current_state`);
+        var resp = yield Utils_1.default.OSExecute(`apx-ecu configure`);
+        var resp2 = yield Redis_1.SystemRedisClient.hgetall(`ecumonitor_current_state`);
         return {
             primary_can: resp.PRIMARY_CAN,
             secondary_can: resp.SECONDARY_CAN,
@@ -53,8 +54,8 @@ function watchECUParams(cb, errorCallback) {
             });
             cb(ecu_values);
         };
-        Redis_1.redisSubscriber.subscribe("ecumonitor/parameters");
-        Redis_1.redisSubscriber.on("message", handler);
+        Redis_1.SystemRedisSubscriber.subscribe("ecumonitor/parameters");
+        Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
@@ -62,7 +63,7 @@ function watchECUParams(cb, errorCallback) {
     }
     var returnable = {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.off("message", handler);
         }
     };
     returnable.off = returnable.unsubscribe;
@@ -73,7 +74,7 @@ function watchECUParams(cb, errorCallback) {
  */
 function getECUParams() {
     return __awaiter(this, void 0, void 0, function* () {
-        var ecu_params = yield Redis_1.redisClient.hgetall("ecumonitor_parameters");
+        var ecu_params = yield Utils_1.default.OSExecute("apx-ecu list_parameters");
         var ecu_values = {};
         for (const key in ecu_params) {
             const value = ecu_params[key];

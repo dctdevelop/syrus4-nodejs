@@ -75,20 +75,20 @@ function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, heading: 0
                     return;
                 var criteria = evaluateCriteria(position);
                 if (!config || !!criteria) {
-                    Redis_1.redisSubscriber.off("message", handler);
+                    Redis_1.SystemRedisSubscriber.off("message", handler);
                     position.extras.criteria = criteria;
                     resolve(position);
                     clearTimeout(timeoutToTransmit);
                 }
             };
-            Redis_1.redisSubscriber.on("message", handler);
+            Redis_1.SystemRedisSubscriber.on("message", handler);
             if (config.time > 0) {
                 clearTimeout(timeoutToTransmit);
             }
-            Redis_1.redisSubscriber.subscribe("gps");
+            Redis_1.SystemRedisSubscriber.subscribe("gps");
             if (config.time > 0) {
                 timeoutToTransmit = setTimeout(() => {
-                    Redis_1.redisSubscriber.off("message", handler);
+                    Redis_1.SystemRedisSubscriber.off("message", handler);
                     resolve(rawdataToCoordinates("{}"));
                 }, config.time);
             }
@@ -114,11 +114,11 @@ function watchPosition(callback, errorCallback) {
                 return;
             callback(position, "time");
         };
-        Redis_1.redisSubscriber.subscribe("gps");
-        Redis_1.redisSubscriber.on("message", handler);
+        Redis_1.SystemRedisSubscriber.subscribe("gps");
+        Redis_1.SystemRedisSubscriber.on("message", handler);
         return {
             unsubscribe: () => {
-                Redis_1.redisSubscriber.off("message", handler);
+                Redis_1.SystemRedisSubscriber.off("message", handler);
             }
         };
     }
@@ -132,16 +132,16 @@ function watchPosition(callback, errorCallback) {
  */
 function watchGPS(callback, errorCallback) {
     try {
-        Redis_1.redisSubscriber.subscribe("gps");
+        Redis_1.SystemRedisSubscriber.subscribe("gps");
         var cb = function (channel, gps) {
             if (channel !== "gps")
                 return;
             callback(gps);
         };
-        Redis_1.redisSubscriber.on("message", cb);
+        Redis_1.SystemRedisSubscriber.on("message", cb);
         return {
             unsubscribe: () => {
-                Redis_1.redisSubscriber.off("message", cb);
+                Redis_1.SystemRedisSubscriber.off("message", cb);
             }
         };
     }
@@ -175,8 +175,8 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
         var position = rawdataToCoordinates(gps);
         callback(position, position.extras.criteria);
     };
-    Redis_1.redisSubscriber.subscribe(`tracking/notification/${name}`);
-    Redis_1.redisSubscriber.on("message", handler);
+    Redis_1.SystemRedisSubscriber.subscribe(`tracking/notification/${name}`);
+    Redis_1.SystemRedisSubscriber.on("message", handler);
     if (deleteOnExit) {
         function exitHandler() {
             process.stdin.resume();
@@ -198,8 +198,8 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
     return {
         unsubscribe: () => {
             Utils_1.default.OSExecute(`apx-tracking delete "${name}"`);
-            Redis_1.redisSubscriber.off("message", handler);
-            Redis_1.redisSubscriber.unsubscribe(`tracking/notification/${name}`);
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(`tracking/notification/${name}`);
         }
     };
 }

@@ -2,7 +2,7 @@
  * GPS module get information about gps and location in ApexOS
  * @module GPS
  */
-import { redisSubscriber as subscriber } from "./Redis";
+import { SystemRedisSubscriber as subscriber } from "./Redis";
 import utils from "./Utils";
 import { execSync } from "child_process";
 

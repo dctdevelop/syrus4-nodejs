@@ -39,8 +39,8 @@ function onNetworkChange(callback, errorCallback) {
                 return;
             callback(raw);
         };
-        Redis_1.redisSubscriber.subscribe("network/interface");
-        Redis_1.redisSubscriber.on("message", handler);
+        Redis_1.SystemRedisSubscriber.subscribe("network/interface");
+        Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
         console.error(error);
@@ -48,7 +48,7 @@ function onNetworkChange(callback, errorCallback) {
     }
     var returnable = {
         unsubscribe: () => {
-            Redis_1.redisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.off("message", handler);
         }
     };
     returnable.off = returnable.unsubscribe;
@@ -59,7 +59,7 @@ function onNetworkChange(callback, errorCallback) {
  */
 function getActiveNetwork() {
     return __awaiter(this, void 0, void 0, function* () {
-        var net = yield Redis_1.redisClient.get("network_interface");
+        var net = yield Redis_1.SystemRedisClient.get("network_interface");
         var data = {};
         if (net == "wlan0") {
             data = yield Utils_1.default.OSExecute("apx-wifi", "state");
@@ -82,7 +82,7 @@ function getNetworkInfo(net) {
         }
         var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
         if (net == "ppp0") {
-            var modemInfo = yield Redis_1.redisClient.hgetall("modem_information");
+            var modemInfo = yield Redis_1.SystemRedisClient.hgetall("modem_information");
             data.imei = modemInfo.IMEI;
             data.operator = modemInfo.OPERATOR;
             data.imsi = modemInfo.SIM_IMSI;
