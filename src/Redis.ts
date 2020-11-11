@@ -11,7 +11,11 @@ var SYSTEM_REDIS_CONF = {
 	"password": null,
 	"readOnly": false
 }
-var about =  JSON.parse(execSync("sudo apx-about"))
+try {
+	var about =  JSON.parse(execSync("sudo apx-about"))
+} catch (error) {
+	about = {apexVersion: "20.0.0"}
+}
 var ver = about.apexVersion.replace("apex-", "");
 var semver = parseInt(ver.split(".")[0]) * 1000 + parseInt(ver.split(".")[1]) * 1;
 if(semver >= 20046){
