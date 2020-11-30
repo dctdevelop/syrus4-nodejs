@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SYSTEM_REDIS_CONF = exports.REDIS_CONF = exports.SystemRedisSubscriber = exports.SystemRedisClient = exports.redisSubscriber = exports.redisClient = void 0;
 const Redis = require("ioredis");
 const { execSync } = require("child_process");
 const REDIS_CONF = {
