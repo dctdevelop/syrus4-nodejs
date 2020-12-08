@@ -148,3 +148,4 @@ exports.default = {
     setOutputState,
     getAll
 };
+// TODO: create interface (typescript) para outputs;

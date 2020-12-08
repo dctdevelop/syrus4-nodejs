@@ -42,6 +42,9 @@ namespace for all the optiones is defined by application is not passed</p>
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
 </dd>
+<dt><a href="#module_OneWire">OneWire</a></dt>
+<dd><p>Onewire module get information about onewire</p>
+</dd>
 <dt><a href="#module_System-Info">System-Info</a></dt>
 <dd><p>System module get information about ApexOS</p>
 </dd>
@@ -743,6 +746,17 @@ get Network Information about specific network
 get network information about all the available networks on APEX OS
 
 **Kind**: inner method of [<code>Network</code>](#module_Network)  
+<a name="module_OneWire"></a>
+
+## OneWire
+Onewire module get information about onewire
+
+<a name="module_OneWire..getAll"></a>
+
+### OneWire~getAll()
+allow to get al lthe state of the ibuttons connected
+
+**Kind**: inner method of [<code>OneWire</code>](#module_OneWire)  
 <a name="module_System-Info"></a>
 
 ## System-Info

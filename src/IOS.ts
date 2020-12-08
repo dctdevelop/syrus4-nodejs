@@ -4,6 +4,8 @@
  */
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import Utils from "./Utils";
+type Outputs = "OUT1" | "OUT2" | "OUT3" | "OUT4";
+
 
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
@@ -50,15 +52,17 @@ async function getInputState(inputName = "IGN"): Promise<any> {
 	var response = await Utils.OSExecute(`apx-io get ${inputName}`);
 	return response == "true";
 }
+
 /**
  * Allow to change the state of an output
  * @param inputName the output to change state
  * @param state the new state  of the output
  */
-async function setOutputState(inputName = "OUT1", state = true): Promise<any> {
+async function setOutputState(inputName: Outputs = "OUT1", state = true): Promise<any> {
 	await Utils.OSExecute(`apx-io set ${inputName} ${state}`);
 	return `${state}` == "true";
 }
+
 
 /**
  * Get the current state of all inputs, outputs and analogs in the Syrus4 device
@@ -129,3 +133,6 @@ export default {
 	setOutputState,
 	getAll
 };
+
+
+// TODO: create interface (typescript) para outputs;
