@@ -11,13 +11,13 @@ function deg2rad(deg) {
  * Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
-function execute (...args) {
+function execute(...args) {
 	if (args.length == 1) {
 		args = args[0].split(" ");
 	}
-	var command = [...args].join(" ");
+	var command = [ ...args ].join(" ");
 	return new Promise((resolve, reject) => {
-		exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000, gid: 1000 }, (error, stdout, stderr) => {
+		exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000 }, (error, stdout, stderr) => {
 			if (error) {
 				return reject({
 					error: error,
@@ -50,9 +50,12 @@ function OSExecute(...args) {
 	if (args.length == 1) {
 		args = args[0].split(" ");
 	}
-	var command = ["sudo", ...args].join(" ");
+	var command = [ ...args ].join(" ");
+	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
+	if (args[0].startsWith("apx-")) command = [ "sudo", ...args ].join(" ");
+	else if (require("os").userInfo().username == "root") opts.uid = 1000;
 	return new Promise((resolve, reject) => {
-		exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000, gid: 1000 } ,(error, stdout, stderr) => {
+		exec(command, opts, (error, stdout, stderr) => {
 			if (error) {
 				return reject({
 					error: error,
@@ -76,7 +79,6 @@ function OSExecute(...args) {
 		});
 	});
 }
-
 /**
  * return distance in km between two coordinates points
  * @param coord1 first coordinate to calculate the distance

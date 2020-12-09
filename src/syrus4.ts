@@ -16,3 +16,6 @@ import Geofences from "./Geofences";
 
 export { Apps, GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
 export default {  Apps, GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
+
+
+// TODO: check if mqtt package is being used
