@@ -4,7 +4,10 @@
  */
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import Utils from "./Utils";
+type Inputs = "MOT" | "IGN" | "IN1" | "IN2" | "IN3" | "IN4" | "IN5" | "IN6" | "IN7" | "PWR" | "SO1" | "SO2" | "SO3" | "SO4" | "TIG";
 type Outputs = "OUT1" | "OUT2" | "OUT3" | "OUT4";
+type Analogs = "AN1" | "AN2" | "AN3" | "AN4";
+type AllInputs = "*" | Inputs | Outputs | Analogs;
 
 
 /**
@@ -13,7 +16,7 @@ type Outputs = "OUT1" | "OUT2" | "OUT3" | "OUT4";
  * @param cb callback execute everytime the input state changed, first argument contains the new state
  * @param errorCallback
  */
-function watchInputState(inputName = "*", cb: (response: any) => void, errorCallback?: Function) {
+function watchInputState(inputName: AllInputs = "*", cb: (response: any) => void, errorCallback?: Function) {
 	var chn = `interface/input/${inputName}`;
 	if (inputName == "*") {
 		chn = `interface/*`;
@@ -48,7 +51,7 @@ function watchInputState(inputName = "*", cb: (response: any) => void, errorCall
  * get a promise that resolve the current input or output state
  * @param inputName the input/output requested
  */
-async function getInputState(inputName = "IGN"): Promise<any> {
+async function getInputState(inputName: AllInputs = "IGN"): Promise<any> {
 	var response = await Utils.OSExecute(`apx-io get ${inputName}`);
 	return response == "true";
 }
@@ -63,7 +66,6 @@ async function setOutputState(inputName: Outputs = "OUT1", state = true): Promis
 	return `${state}` == "true";
 }
 
-
 /**
  * Get the current state of all inputs, outputs and analogs in the Syrus4 device
  */
@@ -72,11 +74,11 @@ async function getAll() {
 
 	var key = null;
 	var text: any = await Utils.OSExecute(`apx-io getall inputs`);
-	if(typeof text == "object"){
+	if (typeof text == "object") {
 		for (const key in text) {
-				response[key] = text[key];
+			response[key] = text[key];
 		}
-	} else{
+	} else {
 		text = text.split("\n");
 		for (const val of text) {
 			if (!key) {
@@ -90,11 +92,11 @@ async function getAll() {
 
 	key = null;
 	text = await Utils.OSExecute(`apx-io getall outputs`);
-	if(typeof text == "object"){
+	if (typeof text == "object") {
 		for (const key in text) {
-				response[key] = text[key];
+			response[key] = text[key];
 		}
-	} else{
+	} else {
 		text = text.split("\n");
 		for (const val of text) {
 			if (!key) {
@@ -108,11 +110,11 @@ async function getAll() {
 
 	key = null;
 	text = await Utils.OSExecute(`apx-io getall analogs`);
-	if(typeof text == "object"){
+	if (typeof text == "object") {
 		for (const key in text) {
-				response[key] = text[key];
+			response[key] = text[key];
 		}
-	} else{
+	} else {
 		text = text.split("\n");
 		for (const val of text) {
 			if (!key) {
@@ -133,6 +135,3 @@ export default {
 	setOutputState,
 	getAll
 };
-
-
-// TODO: create interface (typescript) para outputs;
