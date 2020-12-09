@@ -1,6 +1,6 @@
 {
 	"name": "syrus4-nodejs",
-	"version": "0.42.0",
+	"version": "0.43.0",
 	"description": "Syrus 4 SdK for javascript/Nodejs",
 	"main": "dist/syrus4.js",
 	"scripts": {
@@ -15,14 +15,13 @@
 	"author": "developers@digitalcomtech.com",
 	"license": "ISC",
 	"dependencies": {
-		"axios": "^0.19.0",
-		"ioredis": "^4.14.1",
-		"mqtt": "^3.0.0"
+		"ioredis": "^4.14.1"
 	},
 	"devDependencies": {
 		"@types/ioredis": "^4.14.1",
 		"@types/node": "^12.12.17",
 		"@types/redis": "^2.8.14",
+		"axios": "^0.21.0",
 		"jsdoc-to-markdown": "^5.0.3"
 	}
 }

@@ -42,7 +42,7 @@ namespace for all the optiones is defined by application is not passed</p>
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
 </dd>
-<dt><a href="#module_OneWire">OneWire</a></dt>
+<dt><a href="#module_Onewire">Onewire</a></dt>
 <dd><p>Onewire module get information about onewire</p>
 </dd>
 <dt><a href="#module_System-Info">System-Info</a></dt>
@@ -746,17 +746,35 @@ get Network Information about specific network
 get network information about all the available networks on APEX OS
 
 **Kind**: inner method of [<code>Network</code>](#module_Network)  
-<a name="module_OneWire"></a>
+<a name="module_Onewire"></a>
 
-## OneWire
+## Onewire
 Onewire module get information about onewire
 
-<a name="module_OneWire..getAll"></a>
 
-### OneWire~getAll()
+* [Onewire](#module_Onewire)
+    * [~getAll()](#module_Onewire..getAll)
+    * [~get()](#module_Onewire..get)
+    * [~create()](#module_Onewire..create)
+
+<a name="module_Onewire..getAll"></a>
+
+### Onewire~getAll()
 allow to get al lthe state of the ibuttons connected
 
-**Kind**: inner method of [<code>OneWire</code>](#module_OneWire)  
+**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
+<a name="module_Onewire..get"></a>
+
+### Onewire~get()
+allow to get al lthe state of the ibuttons connected
+
+**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
+<a name="module_Onewire..create"></a>
+
+### Onewire~create()
+allow to get al lthe state of the ibuttons connected
+
+**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
 <a name="module_System-Info"></a>
 
 ## System-Info

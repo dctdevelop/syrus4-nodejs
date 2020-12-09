@@ -1,6 +1,6 @@
 /**
  * Onewire module get information about onewire
- * @module OneWire
+ * @module Onewire
  */
 import Utils from "./Utils";
 
