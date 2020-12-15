@@ -29,3 +29,61 @@ SDK is written on Typescript and its recommend to use all the features like type
 - the test folder can be used for unit test. right now only contains some examples and output for manual test. Ideally extend this for being automated unit test that can improve the workflow.
 
 - src/ECU.json contains a structured json with all the recognized PGN and metadata info, is hihly recommend extend with new ecu data whenever is possible this way developer can deal with the ECU in a easy way.
+
+## Testing using a Syrus4 device
+
+run `npm run build` to generate dist folder and docs
+create your test on ./tests folder, and require the module that you want to test
+Example:
+
+```javascript
+S4 = require("../dist/syrus4");
+var last;
+var counter = 0;
+S4.GPS.watchPosition(
+	pos => {
+		counter++;
+		console.log(counter);
+		last = pos;
+	},
+	console.error,
+	{
+		accuracy: 50,
+		bearing: 20,
+		time: 30,
+		distance: 50
+	}
+);
+```
+
+Upload the code on any location of the data storage from syrus4, rsync is good way to make this easily
+run your test inside the folder
+Example
+
+```bash
+   cd /data/downloads/syrus4-nodejs/tests
+   node gps-test.js
+```
+
+- make sure the code works as expected.
+- profit
+
+- !important: pending improvement make this real unit test using test framework like [mochajs](https://mochajs.org/)
+
+## Testing Syrus4 device and Syrus4-App in local development
+
+in your package.json file modify your dependencies to look like this
+
+```json
+"dependencies": {
+    ...
+    "syrus4-nodejs": "file:../syrus4-nodejs"
+    ...
+}
+```
+
+- run `npm run build` to generate dist folder and docs
+- run `npm install syrus4-nodejs` on your Sryus4 App
+- build your application, produce zip and upload as an app on the Syrus4
+- make sure the code works as expected.
+- profit
