@@ -2,8 +2,10 @@
  * Utils module some utlities in ApexOS
  * @module Utils
  */
-const { exec } = require("child_process");
-function deg2rad(deg) {
+// const { exec } = require("child_process");
+import { exec } from "child_process"
+
+function deg2rad(deg: number) {
 	return deg * (Math.PI / 180);
 }
 
@@ -11,7 +13,7 @@ function deg2rad(deg) {
  * Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
-function execute(...args) {
+function execute(...args:string[]) {
 	if (args.length == 1) {
 		args = args[0].split(" ");
 	}
@@ -46,7 +48,7 @@ function execute(...args) {
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
-function OSExecute(...args) {
+function OSExecute(...args:string[]): any {
 	if (args.length == 1) {
 		args = args[0].split(" ");
 	}
@@ -105,7 +107,7 @@ function distanceBetweenCoordinates(coord1, coord2) {
  * @param imei imei of the device
  * @param siteId the site that the command should be transmitted
  */
-function toJSONReceiver(coord, imei, siteId = 1) {
+function toJSONReceiver(coord, imei, siteId=1) {
 	return [
 		{
 			ident: imei,

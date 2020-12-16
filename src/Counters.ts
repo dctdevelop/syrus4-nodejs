@@ -17,7 +17,7 @@ async function startCounters(config) {
 	var keys = ["odometer", "ignition_time", "idle_time", "over_speed", "over_rpm", "hard_brakes", "harsh_fwd_acceleration", "rpm_threshold", "speed_threshold", "begin_idle_time"];
 	if (shouldSet) {
 		for (const key of keys) {
-			if (config.key != undefined) utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()}  ${config[key]}`);
+			if (config.key != undefined) utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`);
 		}
 	}
 }
@@ -28,39 +28,38 @@ async function getCounters(name) {
 }
 
 async function watchCounters(name, cb, cbError, interval=15){
-    if(!name) throw "name is required";
-    if(!(await exists(name))) throw "counter does not exists";
-    try {
-        var intervalHandler = setInterval(async ()=>{
-            var results = (await getCounters(name));
-            cb(results);
-        }, interval * 1000);
-    } catch (error) {
-        cbError(error);
-    }
+	if(!name) throw "name is required";
+	if(!(await exists(name))) throw "counter does not exists";
+	try {
+		var intervalHandler = setInterval(async ()=>{
+			var results = (await getCounters(name));
+			cb(results);
+		}, interval * 1000);
+	} catch (error) {
+		cbError(error);
+	}
 
-    return {
-        off(){
-            clearInterval(intervalHandler);
-        },
-        unsubscribe(){
-            clearInterval(intervalHandler);
-        }
-    };
-
+	return {
+		off(){
+			clearInterval(intervalHandler);
+		},
+		unsubscribe(){
+			clearInterval(intervalHandler);
+		}
+	};
 }
 
-async function stopCounters(name) {
+async function stopCounters(name:string) {
 	if (!name) throw "name is required";
 	await utils.OSExecute(`apx-counter start ${name}`);
 }
 
-async function resetCounters(name) {
+async function resetCounters(name:string) {
 	if (!name) throw "name is required";
 	await utils.OSExecute(`apx-counter reset ${name}`);
 }
 
-async function deleteCounters(name) {
+async function deleteCounters(name:string) {
 	if (!name) throw "name is required";
 	await utils.OSExecute(`apx-counter delete ${name}`);
 }
