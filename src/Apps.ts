@@ -2,10 +2,11 @@
  * Apps module to start/stop/enable/disable/install third parts apps running in apex-os
  * @module Apps
  */
-import utils from "./Utils";
-const fs = require("fs");
-import { execSync } from "child_process";
-type Parameter = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
+import * as fs from "fs";
+
+import * as Utils from "./Utils";
+
+type AppAction = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
 
 /**
  * allows to execute commands from the apps-manager utility from ApexOs
@@ -13,8 +14,8 @@ type Parameter = "install" | "uninstall" | "list" | "state" | "enable" | "disabl
  * @param app the name of the App
  * @param zipPath the zip location unde where unzip the app
  */
-function execute(action: Parameter, app: string = null, zipPath: string = null) {
-	return utils.OSExecute("apx-apps", action, app, zipPath);
+function execute(action: AppAction, app: string = null, zipPath: string = null) {
+	return Utils.OSExecute("apx-apps", action, app, zipPath);
 }
 
 /**
@@ -105,13 +106,7 @@ function uninstall(app: string) {
  */
 function setConfiguration(app: string, newConfig) {
 	if (!app) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		app = arr.pop();
+		app = Utils.getPrefix()
 	}
 	return new Promise((resolve, reject) => {
 		fs.writeFile(`/data/app_data/${app}/.configuration.json`, newConfig, function (err) {
@@ -127,13 +122,7 @@ function setConfiguration(app: string, newConfig) {
  */
 function getConfiguration(app?: string) {
 	if (!app) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		app = arr.pop();
+		app = Utils.getPrefix()
 	}
 	return new Promise((resolve, reject) => {
 		try {
@@ -142,7 +131,7 @@ function getConfiguration(app?: string) {
 			return resolve({});
 		}
 		try {
-			return resolve(JSON.parse(data));
+			return resolve(JSON.parse(data.toString()));
 		} catch (error) {
 			return reject(error);
 		}

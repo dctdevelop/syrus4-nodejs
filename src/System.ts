@@ -1,4 +1,4 @@
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 
 /**

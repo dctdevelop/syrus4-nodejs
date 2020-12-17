@@ -1,4 +1,4 @@
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 type Parameter = "apn" | "user" | "pin" | "pass";
 /**
  * Mobile module to interacte with the Mobile Network allow to set rf configurations and read them

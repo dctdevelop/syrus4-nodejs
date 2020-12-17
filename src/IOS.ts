@@ -3,7 +3,7 @@
  * @module IOS
  */
 import { SystemRedisSubscriber as subscriber } from "./Redis";
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 type Inputs = "MOT" | "IGN" | "IN1" | "IN2" | "IN3" | "IN4" | "IN5" | "IN6" | "IN7" | "PWR" | "SO1" | "SO2" | "SO3" | "SO4" | "TIG";
 type Outputs = "OUT1" | "OUT2" | "OUT3" | "OUT4";
 type Analogs = "AN1" | "AN2" | "AN3" | "AN4";

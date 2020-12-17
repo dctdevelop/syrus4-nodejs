@@ -1,6 +1,6 @@
-import Utils from "./Utils";
+import * as Utils from "./Utils";
 import { SystemRedisSubscriber as subscriber } from "./Redis";
-import { execSync } from "child_process";
+
 /**
  * Geofences module get information about ApexOS
  * namespace for all the optiones is defined by application is not passed
@@ -13,13 +13,7 @@ import { execSync } from "child_process";
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
 	if (!namespace) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		namespace = arr.pop();
+		namespace = Utils.getPrefix();
 	}
 
 	if (!type) type = !!radius ? "circular" : "poly";
@@ -43,13 +37,7 @@ function updateGeofence(opts) {
  */
 function removeGeofence({ name, group = "", namespace }) {
 	if (!namespace) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		namespace = arr.pop();
+		namespace = Utils.getPrefix()
 	}
 	return Utils.OSExecute(`apx-geofences remove ${namespace} ${group} ${name}`);
 }
@@ -64,13 +52,7 @@ async function getNamespaces() {
  */
 async function get({ namespace = "", name = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		namespace = arr.pop();
+		namespace = Utils.getPrefix();
 	}
 	var results: any = await Utils.OSExecute(`apx-geofences getstatus ${namespace}`);
 
@@ -100,13 +82,7 @@ async function getAll(opts) {
  */
 async function deleteAll({ namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		namespace = arr.pop();
+		namespace = Utils.getPrefix();
 	}
 	return Utils.OSExecute(`apx-geofences remove ${namespace}`);
 }
@@ -119,13 +95,7 @@ async function deleteAll({ namespace = null } = {}) {
  */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		namespace = arr.pop();
+		namespace = Utils.getPrefix();
 	}
 
 	var handler = function(pattern, channel, data) {
@@ -162,13 +132,7 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
  */
 function watchGroups(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
-		var arr = `${execSync("pwd")
-			.toString()
-			.replace("\n", "")}`
-			.split("node_modules/")[0]
-			.split("/");
-		arr.pop();
-		namespace = arr.pop();
+		namespace = Utils.getPrefix();
 	}
 
 	var handler = function(pattern, channel, data) {

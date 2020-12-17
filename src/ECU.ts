@@ -2,7 +2,7 @@
  * ECU module get information about EcU monitor and vehicle in ApexOS
  * @module ECU
  */
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import * as ECU_PARAM_LIST from "./ECU.json";
 /**

@@ -2,8 +2,10 @@
  * Utils module some utlities in ApexOS
  * @module Utils
  */
-// const { exec } = require("child_process");
-import { exec } from "child_process"
+import { exec, execSync } from "child_process"
+import { userInfo } from "os"
+
+let { SYRUS4G_REMOTE_DEV } = process.env
 
 function deg2rad(deg: number) {
 	return deg * (Math.PI / 180);
@@ -44,6 +46,7 @@ function execute(...args:string[]) {
 	});
 }
 
+// TODO: !important remove the root check and uid settings
 /**
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
@@ -55,7 +58,11 @@ function OSExecute(...args:string[]): any {
 	var command = [ ...args ].join(" ");
 	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
 	if (args[0].startsWith("apx-")) command = [ "sudo", ...args ].join(" ");
-	else if (require("os").userInfo().username == "root") opts.uid = 1000;
+	else if (userInfo().username == "root") opts.uid = 1000;
+
+	if (SYRUS4G_REMOTE_DEV) {
+		command = [ SYRUS4G_REMOTE_DEV, ...args ].join(" ")
+	}
 	return new Promise((resolve, reject) => {
 		exec(command, opts, (error, stdout, stderr) => {
 			if (error) {
@@ -81,6 +88,7 @@ function OSExecute(...args:string[]): any {
 		});
 	});
 }
+
 /**
  * return distance in km between two coordinates points
  * @param coord1 first coordinate to calculate the distance
@@ -136,9 +144,20 @@ function toJSONReceiver(coord, imei, siteId=1) {
 	];
 }
 
-export default {
+function getPrefix(){
+	var arr = `${execSync("pwd")
+		.toString()
+		.replace("\n", "")}`
+		.split("node_modules/")[0]
+		.split("/");
+	arr.pop();
+	return arr.pop();
+}
+
+export {
 	distanceBetweenCoordinates,
 	toJSONReceiver,
 	OSExecute,
-	execute
+	execute,
+	getPrefix
 };

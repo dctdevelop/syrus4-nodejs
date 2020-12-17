@@ -3,7 +3,7 @@
  * @module Accelerometer
  */
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes

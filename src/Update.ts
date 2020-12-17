@@ -1,4 +1,4 @@
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 
 /**
  * Update module check for update and make update for ApexOS

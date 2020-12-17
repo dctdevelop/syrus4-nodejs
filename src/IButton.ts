@@ -4,7 +4,7 @@
  */
 
 import { SystemRedisSubscriber as subscriber } from "./Redis";
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 
 /**
  * IButtonEvent published via the broker from the core tools
@@ -56,7 +56,7 @@ class IButtonUpdate{
  * allow to get al lthe state of the ibuttons connected
  */
 function getIButtons(): Promise<{ibuttons: IButtonEvent[]}>{
-  return Utils.OSExecute("apx-onewire-ibutton getall");
+  return Utils.OSExecute("apx-onewire ibutton getall");
 }
 
 /**
@@ -64,11 +64,11 @@ function getIButtons(): Promise<{ibuttons: IButtonEvent[]}>{
  */
 function getIButton(iButton:string): Promise<IButtonEvent>{
   if(iButton == "") throw "iButton is required";
-  return Utils.OSExecute(`apx-onewire-ibutton get ${iButton}`);
+  return Utils.OSExecute(`apx-onewire ibutton get ${iButton}`);
 }
 
 function getLast(): Promise<IButtonEvent>{
-  return Utils.OSExecute(`apx-onewire-ibutton get_last`);
+  return Utils.OSExecute(`apx-onewire ibutton get_last`);
 }
 
 /**
@@ -77,7 +77,7 @@ function getLast(): Promise<IButtonEvent>{
 function setIButtonAlias(iButton: string, aliasName: string): Promise<void>{
   if(aliasName == "") throw "Alias Name is required";
   if(iButton == "") throw "iButton is required";
-  return Utils.OSExecute(`apx-onewire-ibutton create ${iButton} ${aliasName}`);
+  return Utils.OSExecute(`apx-onewire ibutton create ${iButton} ${aliasName}`);
 }
 
 /**
@@ -85,7 +85,7 @@ function setIButtonAlias(iButton: string, aliasName: string): Promise<void>{
  */
 function removeIButtonAlias(aliasName: string): Promise<void>{
   if(aliasName == "") throw "aliasName is required";
-  return Utils.OSExecute(`apx-onewire-ibutton delete ${aliasName}`);
+  return Utils.OSExecute(`apx-onewire ibutton delete ${aliasName}`);
 }
 
 /**
@@ -104,6 +104,7 @@ async function onIButtonChange(
   // set up subscribe to receive updates
   try {
     var handler = (channel:string, raw:string) => {
+      console.log({channel, raw})
       if (channel != topic) return
       let data = JSON.parse(raw)
       callback(ib_update.digest(data))
@@ -119,7 +120,7 @@ async function onIButtonChange(
       subscriber.off("message", handler);
       subscriber.unsubscribe(topic);
     },
-    off: ()=> this.unsubscribe()
+    off: function(){this.unsubscribe()}
   };
   return returnable;
 }

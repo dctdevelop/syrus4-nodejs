@@ -4,7 +4,7 @@
  */
 
 import { SystemRedisSubscriber as subscriber } from "./Redis";
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 
 /**
  * TemperatureEvent published via the broker from the core tools
@@ -46,7 +46,7 @@ class TemperatureUpdate{
  * get the current temperature state
  */
 export function getTemperatures(): Promise<{temperatures: TemperatureEvent[]}>{
-  return Utils.OSExecute("apx-onewire-temperature getall");
+  return Utils.OSExecute("apx-onewire temperature getall");
 }
 
 /**
@@ -54,7 +54,7 @@ export function getTemperatures(): Promise<{temperatures: TemperatureEvent[]}>{
  */
 export function getTemperature(lookup:string): Promise<TemperatureEvent>{
   if (lookup.length > 50) throw "alias is too long (max 50)";
-  return Utils.OSExecute(`apx-onewire-temperature get ${lookup}`);
+  return Utils.OSExecute(`apx-onewire temperature get ${lookup}`);
 }
 
 /**
@@ -63,7 +63,7 @@ export function getTemperature(lookup:string): Promise<TemperatureEvent>{
 export function setTemperatureAlias(sensorId: string, alias: string): Promise<void>{
   if(alias.length > 50) throw "alias is too long (max 50)";
   if(sensorId.length != 15) throw "sensorId must be 15 characters long";
-  return Utils.OSExecute(`apx-onewire-temperature add ${alias} ${sensorId}`);
+  return Utils.OSExecute(`apx-onewire temperature add ${alias} ${sensorId}`);
 }
 
 /**
@@ -71,14 +71,14 @@ export function setTemperatureAlias(sensorId: string, alias: string): Promise<vo
  */
 export function removeTemperatureAlias(lookup: string): Promise<void>{
   if (lookup.length > 50) throw "alias is too long (max 50)";
-  return Utils.OSExecute(`apx-onewire-temperature remove ${lookup}`);
+  return Utils.OSExecute(`apx-onewire temperature remove ${lookup}`);
 }
 
 /**
  * remove aliases from all temperature sensors
  */
 export function removeTemperatureAliases(): Promise<void> {
-  return Utils.OSExecute(`apx-onewire-temperature remove_all`);
+  return Utils.OSExecute(`apx-onewire temperature remove_all`);
 }
 
 /**
