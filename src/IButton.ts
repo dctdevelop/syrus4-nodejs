@@ -10,7 +10,7 @@ import * as Utils from "./Utils"
  * IButtonEvent published via the broker from the core tools
  * @interface IButtonEvent
  */
-interface IButtonEvent {
+export interface IButtonEvent {
   id: string | null
   alias: string
   whitelisted: boolean
@@ -24,18 +24,22 @@ interface IButtonEvent {
  * authorized contains events from whitelisted ibuttons
  * @class IButtonUpdate
  */
-class IButtonUpdate{
+export class IButtonUpdate{
   public authorized: {
-    last: IButtonEvent
+    last?: IButtonEvent
     connected?: IButtonEvent
   }
-  public last: IButtonEvent
+  public last?: IButtonEvent
   public connected?: IButtonEvent
 
   // TODO: alias lookups form initial fetch + publishes
   // alias: {[alias: string]: IButtonEvent}
 
-  constructor(){}
+  constructor(){
+    this.authorized = {}
+    this.last = null
+    this.connected = null
+  }
 
   public digest(event:IButtonEvent){
     this.last = event
@@ -55,26 +59,26 @@ class IButtonUpdate{
 /**
  * allow to get al lthe state of the ibuttons connected
  */
-function getIButtons(): Promise<{ibuttons: IButtonEvent[]}>{
+export function getIButtons(): Promise<{ibuttons: IButtonEvent[]}>{
   return Utils.OSExecute("apx-onewire ibutton getall");
 }
 
 /**
  * allow to get al lthe state of the ibuttons connected
  */
-function getIButton(iButton:string): Promise<IButtonEvent>{
+export function getIButton(iButton:string): Promise<IButtonEvent>{
   if(iButton == "") throw "iButton is required";
   return Utils.OSExecute(`apx-onewire ibutton get ${iButton}`);
 }
 
-function getLast(): Promise<IButtonEvent>{
+export function getLast(): Promise<IButtonEvent>{
   return Utils.OSExecute(`apx-onewire ibutton get_last`);
 }
 
 /**
  * allow to get al lthe state of the ibuttons connected
  */
-function setIButtonAlias(iButton: string, aliasName: string): Promise<void>{
+export function setIButtonAlias(iButton: string, aliasName: string): Promise<void>{
   if(aliasName == "") throw "Alias Name is required";
   if(iButton == "") throw "iButton is required";
   return Utils.OSExecute(`apx-onewire ibutton create ${iButton} ${aliasName}`);
@@ -83,7 +87,7 @@ function setIButtonAlias(iButton: string, aliasName: string): Promise<void>{
 /**
  * remove Alias from ibutton whitelist
  */
-function removeIButtonAlias(aliasName: string): Promise<void>{
+export function removeIButtonAlias(aliasName: string): Promise<void>{
   if(aliasName == "") throw "aliasName is required";
   return Utils.OSExecute(`apx-onewire ibutton delete ${aliasName}`);
 }
@@ -91,7 +95,7 @@ function removeIButtonAlias(aliasName: string): Promise<void>{
 /**
  * monitor iButton notifications
  */
-async function onIButtonChange(
+export async function onIButtonChange(
   callback: (arg: IButtonUpdate)=> void,
   errorCallback: (arg: Error)=> void ): Promise<{unsubscribe: ()=>void, off: ()=> void}>{
   let topic = "onewire/notification/ibutton/state"
@@ -104,7 +108,6 @@ async function onIButtonChange(
   // set up subscribe to receive updates
   try {
     var handler = (channel:string, raw:string) => {
-      console.log({channel, raw})
       if (channel != topic) return
       let data = JSON.parse(raw)
       callback(ib_update.digest(data))
@@ -125,4 +128,3 @@ async function onIButtonChange(
   return returnable;
 }
 
-export { getIButtons, getIButton, setIButtonAlias, removeIButtonAlias, onIButtonChange };

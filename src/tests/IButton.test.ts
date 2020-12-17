@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { disconnectAll } from '../Redis'
-import { onIButtonChange } from '../Ibutton'
+import { onIButtonChange, IButtonUpdate } from '../Ibutton'
 
 console.log("Begin unit testing")
 
@@ -15,30 +15,33 @@ describe('IButton Tests', () => {
 	before(async function (){
 		console.log("setting up watcher")
 		watcher = await onIButtonChange(
-			(ib_event) => {
-				console.log("received iButton", ib_event)
+			(update) => {
+				console.log("iButton update:", update)
 				for( let key in callbacks ){
-					callbacks[key](ib_event)
+					callbacks[key](update)
 				}
 			},
 			(error) => { throw error }
 		)
 	})
 
-	it('detect ibutton', function (done){
+	it('detect UNAUTHORIZED ibutton', function (done){
+		console.log("INSERT UNAUTHORIZED IBUTTON...")
 		this.timeout(TIMEOUT)
 		// register callback
-		callbacks['connected'] = function(ib_event){
-			expect(ib_event.connected.id).to.exist
-			delete callbacks['connected']
+		callbacks['unauthorized'] = function (update: IButtonUpdate){
+			expect(update.connected.id).to.exist
+			expect(update.connected.whitelisted).to.be.false
+			delete callbacks['unauthorized']
 			done()
 		}
 	});
-	it('detect authorized ibutton', function (done) {
+	it('detect AUTHORIZED ibutton', function (done) {
+		console.log("INSERT AUTHORIZED IBUTTON...")
 		this.timeout(TIMEOUT)
 		// register callback
-		callbacks['authorized'] = function (ib_event) {
-			expect(ib_event.authorized.connected.id).to.exist
+		callbacks['authorized'] = function (update: IButtonUpdate) {
+			expect(update.authorized.connected.id).to.exist
 			delete callbacks['authorized']
 			done()
 		}

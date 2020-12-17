@@ -23,20 +23,38 @@ interface TemperatureEvent {
  * authorized object contains events from whitelisted ibuttons
  * @class TemperatureUpdate
  */
-class TemperatureUpdate{
-  public last: TemperatureEvent
+export class TemperatureUpdate{
+  public last?: TemperatureEvent
   public aliases: {[alias: string]: TemperatureEvent}
   public sensors: {[id: string]: TemperatureEvent}
+  public sensor_list: TemperatureEvent[]
 
-  constructor(){}
+  constructor(){
+    this.last = null
+    this.aliases = {}
+    this.sensors = {}
+    this.sensor_list = []
+  }
 
   public digest(event: TemperatureEvent){
     if (event.alias?.length){
       this.aliases[event.alias] = event
     }
     this.sensors[event.id] = event
-    if (this.last?.epoch < event.epoch){
+    if (!this.last || this.last?.epoch < event.epoch){
       this.last = event
+    }
+    let replaced = false
+    for (const index in this.sensor_list) {
+      let sensor = this.sensor_list[index]
+      if (sensor.id == event.id){
+        this.sensor_list[index] = event
+        replaced = true
+        break
+      }
+    }
+    if (!replaced){
+      this.sensor_list.push(event)
     }
     return this
   }
@@ -46,7 +64,7 @@ class TemperatureUpdate{
  * get the current temperature state
  */
 export function getTemperatures(): Promise<{temperatures: TemperatureEvent[]}>{
-  return Utils.OSExecute("apx-onewire temperature getall");
+  return Utils.OSExecute("apx-onewire temperature get_all");
 }
 
 /**
@@ -84,15 +102,19 @@ export function removeTemperatureAliases(): Promise<void> {
 /**
  * monitor iButton notifications
  */
-export async function onTemperaureChange(
+export async function onTemperatureChange(
   callback: (arg: TemperatureUpdate)=> void,
   errorCallback: (arg: Error)=> void): Promise<{unsubscribe: ()=>void, off: ()=> void}>{
-  let topic = "onewire/notification/temperature/state"
+  const topic = "onewire/notification/temperature/state"
   // execute callback with last data
-  let update = new TemperatureUpdate()
-  let state = await getTemperatures().catch(console.error)
+  const update = new TemperatureUpdate()
+  try{
+    var state = await getTemperatures()
+  } catch (error){
+    throw error
+  }
   if(state) {
-    state.temperatures.map(update.digest)
+    state.temperatures.map((temp)=>{update.digest(temp)})
     callback(update)
   }
   // set up subscribe to receive updates
@@ -108,12 +130,12 @@ export async function onTemperaureChange(
     console.error(error);
     errorCallback(error);
   }
-  var returnable = {
+  let returnable = {
     unsubscribe: () => {
       subscriber.off("message", handler);
       subscriber.unsubscribe(topic);
     },
-    off: ()=> this.unsubscribe()
+    off: function(){ this.unsubscribe() }
   };
   return returnable;
 }
