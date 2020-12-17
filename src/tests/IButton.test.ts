@@ -1,18 +1,53 @@
 import { expect } from 'chai';
 
+import { disconnectAll } from '../Redis'
 import { onIButtonChange } from '../Ibutton'
 
-describe('IButton Test', () => {
-	it('detecting ibutton', async () => {
-		// prompt for ibutton to look for
-		// set up watcher
-		let watcher = await onIButtonChange(
-			(ib_event)=>{
+console.log("Begin unit testing")
+
+describe('IButton Tests', () => {
+	const TIMEOUT = 60000
+
+	let watcher: any
+	let callbacks = {}
+
+	// set up watcher
+	before(async function (){
+		console.log("setting up watcher")
+		watcher = await onIButtonChange(
+			(ib_event) => {
 				console.log("received iButton", ib_event)
-				expect(ib_event.connected.id).to.be(process.env['IB_TEST'])
+				for( let key in callbacks ){
+					callbacks[key](ib_event)
+				}
 			},
-			(error)=>{ throw error }
+			(error) => { throw error }
 		)
-		setTimeout(watcher.off, 30000)
+	})
+
+	it('detect ibutton', function (done){
+		this.timeout(TIMEOUT)
+		// register callback
+		callbacks['connected'] = function(ib_event){
+			expect(ib_event.connected.id).to.exist
+			delete callbacks['connected']
+			done()
+		}
 	});
+	it('detect authorized ibutton', function (done) {
+		this.timeout(TIMEOUT)
+		// register callback
+		callbacks['authorized'] = function (ib_event) {
+			expect(ib_event.authorized.connected.id).to.exist
+			delete callbacks['authorized']
+			done()
+		}
+	});
+
+	// cleanup
+	after(function(){
+		console.log('deregistering watcher')
+		watcher.off()
+		disconnectAll()
+	})
 });
