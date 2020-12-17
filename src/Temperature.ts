@@ -139,4 +139,3 @@ export async function onTemperatureChange(
   };
   return returnable;
 }
-

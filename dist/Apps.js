@@ -4,9 +4,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Apps module to start/stop/enable/disable/install third parts apps running in apex-os
  * @module Apps
  */
-const Utils_1 = require("./Utils");
 const fs = require("fs");
-const child_process_1 = require("child_process");
+const Utils = require("./Utils");
 /**
  * allows to execute commands from the apps-manager utility from ApexOs
  * @param action action to execute
@@ -14,7 +13,7 @@ const child_process_1 = require("child_process");
  * @param zipPath the zip location unde where unzip the app
  */
 function execute(action, app = null, zipPath = null) {
-    return Utils_1.default.OSExecute("apx-apps", action, app, zipPath);
+    return Utils.OSExecute("apx-apps", action, app, zipPath);
 }
 /**
  * Start an application under /data/applications folder
@@ -94,13 +93,7 @@ function uninstall(app) {
  */
 function setConfiguration(app, newConfig) {
     if (!app) {
-        var arr = `${child_process_1.execSync("pwd")
-            .toString()
-            .replace("\n", "")}`
-            .split("node_modules/")[0]
-            .split("/");
-        arr.pop();
-        app = arr.pop();
+        app = Utils.getPrefix();
     }
     return new Promise((resolve, reject) => {
         fs.writeFile(`/data/app_data/${app}/.configuration.json`, newConfig, function (err) {
@@ -116,13 +109,7 @@ function setConfiguration(app, newConfig) {
  */
 function getConfiguration(app) {
     if (!app) {
-        var arr = `${child_process_1.execSync("pwd")
-            .toString()
-            .replace("\n", "")}`
-            .split("node_modules/")[0]
-            .split("/");
-        arr.pop();
-        app = arr.pop();
+        app = Utils.getPrefix();
     }
     return new Promise((resolve, reject) => {
         try {
@@ -132,7 +119,7 @@ function getConfiguration(app) {
             return resolve({});
         }
         try {
-            return resolve(JSON.parse(data));
+            return resolve(JSON.parse(data.toString()));
         }
         catch (error) {
             return reject(error);

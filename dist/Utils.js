@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getPrefix = exports.execute = exports.OSExecute = exports.toJSONReceiver = exports.distanceBetweenCoordinates = void 0;
 /**
  * Utils module some utlities in ApexOS
  * @module Utils
  */
-const { exec } = require("child_process");
+const child_process_1 = require("child_process");
+const os_1 = require("os");
+let { SYRUS4G_REMOTE_DEV } = process.env;
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
@@ -18,7 +21,7 @@ function execute(...args) {
     }
     var command = [...args].join(" ");
     return new Promise((resolve, reject) => {
-        exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000 }, (error, stdout, stderr) => {
+        child_process_1.exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000 }, (error, stdout, stderr) => {
             if (error) {
                 return reject({
                     error: error,
@@ -43,6 +46,8 @@ function execute(...args) {
         });
     });
 }
+exports.execute = execute;
+// TODO: !important remove the root check and uid settings
 /**
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
@@ -55,10 +60,13 @@ function OSExecute(...args) {
     let opts = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
     if (args[0].startsWith("apx-"))
         command = ["sudo", ...args].join(" ");
-    else if (require("os").userInfo().username == "root")
+    else if (os_1.userInfo().username == "root")
         opts.uid = 1000;
+    if (SYRUS4G_REMOTE_DEV) {
+        command = [SYRUS4G_REMOTE_DEV, ...args].join(" ");
+    }
     return new Promise((resolve, reject) => {
-        exec(command, opts, (error, stdout, stderr) => {
+        child_process_1.exec(command, opts, (error, stdout, stderr) => {
             if (error) {
                 return reject({
                     error: error,
@@ -83,6 +91,7 @@ function OSExecute(...args) {
         });
     });
 }
+exports.OSExecute = OSExecute;
 /**
  * return distance in km between two coordinates points
  * @param coord1 first coordinate to calculate the distance
@@ -103,6 +112,7 @@ function distanceBetweenCoordinates(coord1, coord2) {
     var d = R * c; // Distance in km
     return d;
 }
+exports.distanceBetweenCoordinates = distanceBetweenCoordinates;
 /**
  * convert coord and imei to JSON receiver format for JSON listener
  * @param coord coordinates of the gps
@@ -135,9 +145,14 @@ function toJSONReceiver(coord, imei, siteId = 1) {
         }
     ];
 }
-exports.default = {
-    distanceBetweenCoordinates,
-    toJSONReceiver,
-    OSExecute,
-    execute
-};
+exports.toJSONReceiver = toJSONReceiver;
+function getPrefix() {
+    var arr = `${child_process_1.execSync("pwd")
+        .toString()
+        .replace("\n", "")}`
+        .split("node_modules/")[0]
+        .split("/");
+    arr.pop();
+    return arr.pop();
+}
+exports.getPrefix = getPrefix;

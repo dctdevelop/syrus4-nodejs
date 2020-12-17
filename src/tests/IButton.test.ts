@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { disconnectAll } from '../Redis'
-import { onIButtonChange, IButtonUpdate } from '../Ibutton'
+import { onIButtonChange, IButtonUpdate } from '../IButton'
 
 console.log("Begin unit testing")
 

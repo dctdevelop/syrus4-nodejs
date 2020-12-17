@@ -13,10 +13,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Counters module setup get and set counters from APEX OS
  * @module Counters
  */
-const Utils_1 = require("./Utils");
+const Utils = require("./Utils");
 function exists(name) {
     return __awaiter(this, void 0, void 0, function* () {
-        var counters = yield Utils_1.default.OSExecute(`apx-counter list`);
+        var counters = yield Utils.OSExecute(`apx-counter list`);
         return !!counters[`${name}`] || !!counters[`counter_${name}`];
     });
 }
@@ -26,12 +26,12 @@ function startCounters(config) {
         if (!name)
             throw "name is required";
         var shouldSet = config.forceSet || !(yield exists(name));
-        Utils_1.default.OSExecute(`apx-counter start ${name}`);
+        Utils.OSExecute(`apx-counter start ${name}`);
         var keys = ["odometer", "ignition_time", "idle_time", "over_speed", "over_rpm", "hard_brakes", "harsh_fwd_acceleration", "rpm_threshold", "speed_threshold", "begin_idle_time"];
         if (shouldSet) {
             for (const key of keys) {
                 if (config.key != undefined)
-                    Utils_1.default.OSExecute(`apx-counter set ${name} ${key.toLowerCase()}  ${config[key]}`);
+                    Utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`);
             }
         }
     });
@@ -40,7 +40,7 @@ function getCounters(name) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!name)
             throw "name is required";
-        return yield Utils_1.default.OSExecute(`apx-counter getall ${name}`);
+        return yield Utils.OSExecute(`apx-counter getall ${name}`);
     });
 }
 function watchCounters(name, cb, cbError, interval = 15) {
@@ -72,26 +72,26 @@ function stopCounters(name) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!name)
             throw "name is required";
-        yield Utils_1.default.OSExecute(`apx-counter start ${name}`);
+        yield Utils.OSExecute(`apx-counter start ${name}`);
     });
 }
 function resetCounters(name) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!name)
             throw "name is required";
-        yield Utils_1.default.OSExecute(`apx-counter reset ${name}`);
+        yield Utils.OSExecute(`apx-counter reset ${name}`);
     });
 }
 function deleteCounters(name) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!name)
             throw "name is required";
-        yield Utils_1.default.OSExecute(`apx-counter delete ${name}`);
+        yield Utils.OSExecute(`apx-counter delete ${name}`);
     });
 }
 function listCounters() {
     return __awaiter(this, void 0, void 0, function* () {
-        var _counters = yield Utils_1.default.OSExecute(`apx-counter list`);
+        var _counters = yield Utils.OSExecute(`apx-counter list`);
         var counters = {};
         for (const key in _counters) {
             counters[`${key.replace("counter_", "")}`];
