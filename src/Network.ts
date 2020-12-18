@@ -3,7 +3,7 @@
  * @module Network
  */
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 
 async function IsConnected(net){
 	try {

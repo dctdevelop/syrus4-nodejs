@@ -3,7 +3,7 @@
  * @module Accelerometer
  */
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -12,7 +12,7 @@ import Utils from "./Utils";
 function onMotionChange(callback, errorCallback) {
 	try {
 		var handler = (channel, raw) => {
-            if(channel != "accel/events") return;
+			if(channel != "accel/events") return;
 			var [eventType, isMoving] = raw.split(",");
 			if (eventType == "MOTION") {
 				callback(isMoving == "1");
@@ -30,9 +30,9 @@ function onMotionChange(callback, errorCallback) {
 			subscriber.off("message", handler);
 			subscriber.unsubscribe("accel/events");
 		}
-    };
-    returnable.off = returnable.unsubscribe;
-    return returnable;
+	};
+	returnable.off = returnable.unsubscribe;
+	return returnable;
 }
 
 /**

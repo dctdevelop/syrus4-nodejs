@@ -1,32 +1,28 @@
 import * as Redis from "ioredis";
-const { execSync } = require("child_process");
+
+let { SYRUS4G_REMOTE_DEV } = process.env
+let { APPS_REDIS_HOST, APPS_REDIS_PORT } = process.env
+let { SYSTEM_REDIS_HOST, SYSTEM_REDIS_PORT, SYSTEM_REDIS_PW } = process.env
+
+if (!SYRUS4G_REMOTE_DEV) {
+	APPS_REDIS_HOST = "127.0.0.1"
+	APPS_REDIS_PORT = "6379"
+
+	SYSTEM_REDIS_HOST = "127.0.0.1"
+	SYSTEM_REDIS_PORT = "7480"
+	SYSTEM_REDIS_PW = "BrokerCore99*-"
+}
 
 const REDIS_CONF = {
-	"port": 6379,
-	"host": "127.0.0.1",
+	"host": APPS_REDIS_HOST,
+	"port": parseInt(APPS_REDIS_PORT),
 }
-var SYSTEM_REDIS_CONF: {
-    port: number;
-	host: string;
-	password?: string;
-} = {
-	"port": 6379,
-	"host": "127.0.0.1",
+var SYSTEM_REDIS_CONF = {
+	"host": SYSTEM_REDIS_HOST,
+	"port": parseInt(SYSTEM_REDIS_PORT),
+	"password": SYSTEM_REDIS_PW,
 }
-try {
-	var about =  JSON.parse(execSync("sudo apx-about"))
-} catch (error) {
-	about = {apexVersion: "20.0.0"}
-}
-var ver = about.apexVersion.replace("apex-", "");
-var semver = parseInt(ver.split(".")[0]) * 1000 + parseInt(ver.split(".")[1]) * 1;
-if(semver >= 20046){
-	 SYSTEM_REDIS_CONF = {
-		"port": 7480,
-		"host": "127.0.0.1",
-		"password": "BrokerCore99*-",
-	}
-}
+console.log({ REDIS_CONF, SYSTEM_REDIS_CONF })
 var redisClient = new Redis(REDIS_CONF);
 var redisSubscriber = new Redis(REDIS_CONF);
 var SystemRedisClient = new Redis(SYSTEM_REDIS_CONF);
@@ -36,5 +32,12 @@ redisSubscriber.setMaxListeners(50);
 redisClient.setMaxListeners(50);
 SystemRedisClient.setMaxListeners(50);
 SystemRedisSubscriber.setMaxListeners(50);
-export default { redisClient, redisSubscriber, SystemRedisClient, SystemRedisSubscriber, REDIS_CONF, SYSTEM_REDIS_CONF };
-export  { redisClient, redisSubscriber, SystemRedisClient, SystemRedisSubscriber, REDIS_CONF, SYSTEM_REDIS_CONF };
+
+export async function disconnectAll(){
+	redisClient.disconnect()
+	redisSubscriber.disconnect()
+	SystemRedisClient.disconnect()
+	SystemRedisSubscriber.disconnect()
+}
+
+export { redisClient, redisSubscriber, SystemRedisClient, SystemRedisSubscriber };

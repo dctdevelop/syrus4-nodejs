@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module Accelerometer
  */
 const Redis_1 = require("./Redis");
-const Utils_1 = require("./Utils");
+const Utils = require("./Utils");
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -82,21 +82,21 @@ function on(callback, errorCallback) {
  * @param state desired state of auto alignment proccess
  */
 function startAutoAlignment(state = true) {
-    return Utils_1.default.OSExecute(`apx-imu self_alignment ${state ? 1 : 0}`);
+    return Utils.OSExecute(`apx-imu self_alignment ${state ? 1 : 0}`);
 }
 /**
  * Set the state for the self acceleration test of the APEX OS acceleration hardware
  * @param state desired state of self acceleration test proccess
  */
 function startSelfAccelerationTest(state = true) {
-    return Utils_1.default.OSExecute(`apx-imu self_test ${state ? 1 : 0}`);
+    return Utils.OSExecute(`apx-imu self_test ${state ? 1 : 0}`);
 }
 /**
  * check is hardware is on state auto aligning returns a promise with the state
  */
 function isAutoAligning() {
     return __awaiter(this, void 0, void 0, function* () {
-        return Utils_1.default.OSExecute("apx-imu self_alignment");
+        return Utils.OSExecute("apx-imu self_alignment");
     });
 }
 /**
@@ -104,7 +104,7 @@ function isAutoAligning() {
  */
 function isAccelerationTest() {
     return __awaiter(this, void 0, void 0, function* () {
-        return Utils_1.default.OSExecute("apx-imu self_test");
+        return Utils.OSExecute("apx-imu self_test");
     });
 }
 /**

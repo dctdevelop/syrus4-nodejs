@@ -14,11 +14,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module Network
  */
 const Redis_1 = require("./Redis");
-const Utils_1 = require("./Utils");
+const Utils = require("./Utils");
 function IsConnected(net) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            var raw = yield Utils_1.default.execute(`ip route | grep ${net}`);
+            var raw = yield Utils.execute(`ip route | grep ${net}`);
         }
         catch (error) {
             // Error means no text so grep return empty which is means disconnected
@@ -62,7 +62,7 @@ function getActiveNetwork() {
         var net = yield Redis_1.SystemRedisClient.get("network_interface");
         var data = {};
         if (net == "wlan0") {
-            data = yield Utils_1.default.OSExecute("apx-wifi", "state");
+            data = yield Utils.OSExecute("apx-wifi", "state");
         }
         data = Object.assign(data, yield getNetworkInfo(net));
         return { network: net, information: data };
@@ -80,7 +80,7 @@ function getNetworkInfo(net) {
                 connected: false
             };
         }
-        var raw = yield Utils_1.default.execute(`ifconfig ${net}`);
+        var raw = yield Utils.execute(`ifconfig ${net}`);
         if (net == "ppp0") {
             var modemInfo = yield Redis_1.SystemRedisClient.hgetall("modem_information");
             data.imei = modemInfo.IMEI;
@@ -92,7 +92,7 @@ function getNetworkInfo(net) {
         }
         if (net == "wlan0") {
             try {
-                var wifiInfo = yield Utils_1.default.OSExecute("apx-wifi state");
+                var wifiInfo = yield Utils.OSExecute("apx-wifi state");
                 data = Object.assign(data, wifiInfo);
                 data.signal = Number(data.signal);
                 delete data.ip;
@@ -125,7 +125,7 @@ function getNetworkInfo(net) {
  */
 function getNetworks() {
     return __awaiter(this, void 0, void 0, function* () {
-        var nets = yield Utils_1.default.execute(`ifconfig | grep 'Link encap:'`);
+        var nets = yield Utils.execute(`ifconfig | grep 'Link encap:'`);
         nets = nets
             .split("\n")
             .map(str => str.split(" ")[0])

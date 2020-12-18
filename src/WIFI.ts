@@ -1,4 +1,4 @@
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 
 /**
  * WIFI module to interacte with the enable/disable WIFI mode  with Apex OS

@@ -2,7 +2,7 @@
  * Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS
  * @module Hotspot
  */
-import Utils from "./Utils";
+import * as Utils from "./Utils"
 
 type Parameter = "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_key_mgmt";
 

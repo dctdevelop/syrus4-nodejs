@@ -3,8 +3,7 @@
  * @module GPS
  */
 import { SystemRedisSubscriber as subscriber } from "./Redis";
-import utils from "./Utils";
-import { execSync } from "child_process";
+import * as Utils from "./Utils";
 
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
@@ -39,7 +38,7 @@ function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0,
 	}
 	if (!last) return "signal";
 	var criteria = config.distance == 0 && config.time == 0 && config.heading == 0 ? "accuracy" : false;
-	var distance = utils.distanceBetweenCoordinates(last, current) * 1000;
+	var distance = Utils.distanceBetweenCoordinates(last, current) * 1000;
 	var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
 	var heading = Math.abs(last.coords.heading - current.coords.heading);
 	if (config.distance > 0 && distance >= config.distance) criteria = "distance";
@@ -142,15 +141,13 @@ function watchGPS(callback, errorCallback: Function) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
 	if (!prefix) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
-		arr.pop();
-		prefix = arr.pop();
+		prefix = Utils.getPrefix();
 	}
 	if (!namespace) {
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-	if (!(!heading && !time && !distance)) utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	if (!(!heading && !time && !distance)) Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
 	var handler = function (channel, gps) {
 		if (channel !== `tracking/notification/${name}`) return;
 		var position = rawdataToCoordinates(gps);
@@ -162,7 +159,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
 	if (deleteOnExit) {
 		function exitHandler() {
 			process.stdin.resume();
-			utils.OSExecute(`apx-tracking delete "${name}"`);
+			Utils.OSExecute(`apx-tracking delete "${name}"`);
 			setTimeout(() => {
 				process.exit();
 			}, 10);
@@ -179,7 +176,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
 	}
 	return {
 		unsubscribe: () => {
-			utils.OSExecute(`apx-tracking delete "${name}"`);
+			Utils.OSExecute(`apx-tracking delete "${name}"`);
 			subscriber.off("message", handler);
 			subscriber.unsubscribe(`tracking/notification/${name}`);
 		}
@@ -191,7 +188,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
  * @param prefixed prefix to lookup tracking_resolution
  */
 async function getActiveTrackingsResolutions(prefixed = "") {
-	var tracks: any = await utils.OSExecute(`apx-tracking getall`);
+	var tracks: any = await Utils.OSExecute(`apx-tracking getall`);
 	var response = {};
 	for (const key in tracks) {
 		if (!key.startsWith(prefixed)) continue;
@@ -207,19 +204,17 @@ async function getActiveTrackingsResolutions(prefixed = "") {
  */
 async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
 	if (!prefix) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
-		arr.pop();
-		prefix = arr.pop();
+		prefix = Utils.getPrefix();
 	}
 	if (!namespace) {
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-	await utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	await Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
 	if (deleteOnExit) {
 		function exitHandler() {
 			process.stdin.resume();
-			utils.OSExecute(`apx-tracking delete "${name}"`);
+			Utils.OSExecute(`apx-tracking delete "${name}"`);
 			setTimeout(() => {
 				process.exit();
 			}, 10);
@@ -243,15 +238,13 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
  */
 async function getTrackingResolution({ namespace, prefix }) {
 	if (!prefix) {
-		var arr = `${execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
-		arr.pop();
-		prefix = arr.pop();
+		prefix = Utils.getPrefix();
 	}
 	if (!namespace) {
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-	var resp = await utils.OSExecute(`apx-tracking get "${name}"`);
+	var resp = await Utils.OSExecute(`apx-tracking get "${name}"`);
 	if (!resp[name] || resp[name].length == 0) return null;
 	return {
 		heading: resp[name][0],

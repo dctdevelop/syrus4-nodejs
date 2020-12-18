@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Utils_1 = require("./Utils");
+const Utils = require("./Utils");
 const Redis_1 = require("./Redis");
 /**
  * System module get information about ApexOS
@@ -19,7 +19,7 @@ const Redis_1 = require("./Redis");
  * Get Info about the system like RAM,CPU,uptime, etc
  */
 function info() {
-    return Utils_1.default.OSExecute("apx-about");
+    return Utils.OSExecute("apx-about");
 }
 /**
  * Get Modem about the system like RAM,CPU,uptime, etc

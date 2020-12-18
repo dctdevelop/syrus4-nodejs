@@ -14,8 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module GPS
  */
 const Redis_1 = require("./Redis");
-const Utils_1 = require("./Utils");
-const child_process_1 = require("child_process");
+const Utils = require("./Utils");
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
     var speed = parseFloat(gps.speed) * 0.277778;
@@ -49,7 +48,7 @@ function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0,
     if (!last)
         return "signal";
     var criteria = config.distance == 0 && config.time == 0 && config.heading == 0 ? "accuracy" : false;
-    var distance = Utils_1.default.distanceBetweenCoordinates(last, current) * 1000;
+    var distance = Utils.distanceBetweenCoordinates(last, current) * 1000;
     var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
     var heading = Math.abs(last.coords.heading - current.coords.heading);
     if (config.distance > 0 && distance >= config.distance)
@@ -159,16 +158,14 @@ function watchGPS(callback, errorCallback) {
  */
 function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     if (!prefix) {
-        var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
-        arr.pop();
-        prefix = arr.pop();
+        prefix = Utils.getPrefix();
     }
     if (!namespace) {
         throw "Namespace is required";
     }
     var name = `${prefix}_${namespace}`;
     if (!(!heading && !time && !distance))
-        Utils_1.default.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+        Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
     var handler = function (channel, gps) {
         if (channel !== `tracking/notification/${name}`)
             return;
@@ -180,7 +177,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
     if (deleteOnExit) {
         function exitHandler() {
             process.stdin.resume();
-            Utils_1.default.OSExecute(`apx-tracking delete "${name}"`);
+            Utils.OSExecute(`apx-tracking delete "${name}"`);
             setTimeout(() => {
                 process.exit();
             }, 10);
@@ -197,7 +194,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
     }
     return {
         unsubscribe: () => {
-            Utils_1.default.OSExecute(`apx-tracking delete "${name}"`);
+            Utils.OSExecute(`apx-tracking delete "${name}"`);
             Redis_1.SystemRedisSubscriber.off("message", handler);
             Redis_1.SystemRedisSubscriber.unsubscribe(`tracking/notification/${name}`);
         }
@@ -209,7 +206,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
  */
 function getActiveTrackingsResolutions(prefixed = "") {
     return __awaiter(this, void 0, void 0, function* () {
-        var tracks = yield Utils_1.default.OSExecute(`apx-tracking getall`);
+        var tracks = yield Utils.OSExecute(`apx-tracking getall`);
         var response = {};
         for (const key in tracks) {
             if (!key.startsWith(prefixed))
@@ -227,19 +224,17 @@ function getActiveTrackingsResolutions(prefixed = "") {
 function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
-            arr.pop();
-            prefix = arr.pop();
+            prefix = Utils.getPrefix();
         }
         if (!namespace) {
             throw "Namespace is required";
         }
         var name = `${prefix}_${namespace}`;
-        yield Utils_1.default.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+        yield Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
         if (deleteOnExit) {
             function exitHandler() {
                 process.stdin.resume();
-                Utils_1.default.OSExecute(`apx-tracking delete "${name}"`);
+                Utils.OSExecute(`apx-tracking delete "${name}"`);
                 setTimeout(() => {
                     process.exit();
                 }, 10);
@@ -264,15 +259,13 @@ function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace,
 function getTrackingResolution({ namespace, prefix }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!prefix) {
-            var arr = `${child_process_1.execSync("pwd").toString().replace("\n", "")}`.split("node_modules/")[0].split("/");
-            arr.pop();
-            prefix = arr.pop();
+            prefix = Utils.getPrefix();
         }
         if (!namespace) {
             throw "Namespace is required";
         }
         var name = `${prefix}_${namespace}`;
-        var resp = yield Utils_1.default.OSExecute(`apx-tracking get "${name}"`);
+        var resp = yield Utils.OSExecute(`apx-tracking get "${name}"`);
         if (!resp[name] || resp[name].length == 0)
             return null;
         return {

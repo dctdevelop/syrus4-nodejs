@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module IOS
  */
 const Redis_1 = require("./Redis");
-const Utils_1 = require("./Utils");
+const Utils = require("./Utils");
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe
@@ -61,7 +61,7 @@ function watchInputState(inputName = "*", cb, errorCallback) {
  */
 function getInputState(inputName = "IGN") {
     return __awaiter(this, void 0, void 0, function* () {
-        var response = yield Utils_1.default.OSExecute(`apx-io get ${inputName}`);
+        var response = yield Utils.OSExecute(`apx-io get ${inputName}`);
         return response == "true";
     });
 }
@@ -72,7 +72,7 @@ function getInputState(inputName = "IGN") {
  */
 function setOutputState(inputName = "OUT1", state = true) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield Utils_1.default.OSExecute(`apx-io set ${inputName} ${state}`);
+        yield Utils.OSExecute(`apx-io set ${inputName} ${state}`);
         return `${state}` == "true";
     });
 }
@@ -83,7 +83,7 @@ function getAll() {
     return __awaiter(this, void 0, void 0, function* () {
         var response = {};
         var key = null;
-        var text = yield Utils_1.default.OSExecute(`apx-io getall inputs`);
+        var text = yield Utils.OSExecute(`apx-io getall inputs`);
         if (typeof text == "object") {
             for (const key in text) {
                 response[key] = text[key];
@@ -102,7 +102,7 @@ function getAll() {
             }
         }
         key = null;
-        text = yield Utils_1.default.OSExecute(`apx-io getall outputs`);
+        text = yield Utils.OSExecute(`apx-io getall outputs`);
         if (typeof text == "object") {
             for (const key in text) {
                 response[key] = text[key];
@@ -121,7 +121,7 @@ function getAll() {
             }
         }
         key = null;
-        text = yield Utils_1.default.OSExecute(`apx-io getall analogs`);
+        text = yield Utils.OSExecute(`apx-io getall analogs`);
         if (typeof text == "object") {
             for (const key in text) {
                 response[key] = text[key];
@@ -148,4 +148,3 @@ exports.default = {
     setOutputState,
     getAll
 };
-// TODO: create interface (typescript) para outputs;
