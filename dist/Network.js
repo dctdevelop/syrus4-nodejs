@@ -18,7 +18,7 @@ const Utils = require("./Utils");
 function IsConnected(net) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            var raw = yield Utils.execute(`ip route | grep ${net}`);
+            var raw = yield Utils.OSExecute(`ip route | grep ${net}`);
         }
         catch (error) {
             // Error means no text so grep return empty which is means disconnected
@@ -80,7 +80,7 @@ function getNetworkInfo(net) {
                 connected: false
             };
         }
-        var raw = yield Utils.execute(`ifconfig ${net}`);
+        var raw = yield Utils.OSExecute(`ifconfig ${net}`);
         if (net == "ppp0") {
             var modemInfo = yield Redis_1.SystemRedisClient.hgetall("modem_information");
             data.imei = modemInfo.IMEI;
@@ -125,7 +125,7 @@ function getNetworkInfo(net) {
  */
 function getNetworks() {
     return __awaiter(this, void 0, void 0, function* () {
-        var nets = yield Utils.execute(`ifconfig | grep 'Link encap:'`);
+        var nets = yield Utils.OSExecute(`ifconfig | grep 'Link encap:'`);
         nets = nets
             .split("\n")
             .map(str => str.split(" ")[0])

@@ -13,6 +13,25 @@ import * as Redis from "./Redis";
 import IOS from "./IOS";
 import Counters from "./Counters";
 import Geofences from "./Geofences";
+import * as IButton from "./IButton"
+import * as Temperature from "./Temperature"
 
-export { Apps, GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
-export default { Apps, GPS, WIFI, Utils, System, Update, Hotspot, Mobile, IOS, Accelerometer, Network, Redis, ECU, Counters, Geofences };
+export {
+	Apps,
+	GPS,
+	WIFI,
+	Utils,
+	System,
+	Update,
+	Hotspot,
+	Mobile,
+	IOS,
+	Accelerometer,
+	Network,
+	Redis,
+	ECU,
+	Counters,
+	Geofences,
+	IButton,
+	Temperature,
+};

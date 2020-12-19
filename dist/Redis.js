@@ -11,24 +11,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SystemRedisSubscriber = exports.SystemRedisClient = exports.redisSubscriber = exports.redisClient = exports.disconnectAll = void 0;
 const Redis = require("ioredis");
-let { SYRUS4G_REMOTE_DEV } = process.env;
-let { APPS_REDIS_HOST, APPS_REDIS_PORT } = process.env;
-let { SYSTEM_REDIS_HOST, SYSTEM_REDIS_PORT, SYSTEM_REDIS_PW } = process.env;
-if (!SYRUS4G_REMOTE_DEV) {
-    APPS_REDIS_HOST = "127.0.0.1";
-    APPS_REDIS_PORT = "6379";
-    SYSTEM_REDIS_HOST = "127.0.0.1";
-    SYSTEM_REDIS_PORT = "7480";
-    SYSTEM_REDIS_PW = "BrokerCore99*-";
+let { SYRUS4G_REMOTE } = process.env;
+let { SYRUS4G_APPS_REDIS_HOST, SYRUS4G_APPS_REDIS_PORT } = process.env;
+let { SYRUS4G_SYSTEM_REDIS_HOST, SYRUS4G_SYSTEM_REDIS_PORT, SYRUS4G_SYSTEM_REDIS_PW } = process.env;
+if (!SYRUS4G_REMOTE) {
+    SYRUS4G_APPS_REDIS_HOST = "127.0.0.1";
+    SYRUS4G_APPS_REDIS_PORT = "6379";
+    SYRUS4G_SYSTEM_REDIS_HOST = "127.0.0.1";
+    SYRUS4G_SYSTEM_REDIS_PORT = "7480";
+    SYRUS4G_SYSTEM_REDIS_PW = "BrokerCore99*-";
 }
 const REDIS_CONF = {
-    "host": APPS_REDIS_HOST,
-    "port": parseInt(APPS_REDIS_PORT),
+    "host": SYRUS4G_APPS_REDIS_HOST,
+    "port": parseInt(SYRUS4G_APPS_REDIS_PORT),
 };
 var SYSTEM_REDIS_CONF = {
-    "host": SYSTEM_REDIS_HOST,
-    "port": parseInt(SYSTEM_REDIS_PORT),
-    "password": SYSTEM_REDIS_PW,
+    "host": SYRUS4G_SYSTEM_REDIS_HOST,
+    "port": parseInt(SYRUS4G_SYSTEM_REDIS_PORT),
+    "password": SYRUS4G_SYSTEM_REDIS_PW,
 };
 console.log({ REDIS_CONF, SYSTEM_REDIS_CONF });
 var redisClient = new Redis(REDIS_CONF);

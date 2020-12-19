@@ -1,17 +1,28 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPrefix = exports.execute = exports.OSExecute = exports.toJSONReceiver = exports.distanceBetweenCoordinates = void 0;
+exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getPrefix = exports.toJSONReceiver = exports.distanceBetweenCoordinates = exports.OSExecute = void 0;
 /**
  * Utils module some utlities in ApexOS
  * @module Utils
  */
 const child_process_1 = require("child_process");
 const os_1 = require("os");
-let { SYRUS4G_REMOTE_DEV } = process.env;
+const USERNAME = os_1.userInfo().username;
+let { SYRUS4G_REMOTE, SYRUS4G_APP_NAME } = process.env;
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
 /**
+ * DEPRECATED: use OSExecute
  * Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
@@ -46,43 +57,32 @@ function execute(...args) {
         });
     });
 }
-exports.execute = execute;
 // TODO: !important remove the root check and uid settings
 /**
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
 function OSExecute(...args) {
-    if (args.length == 1) {
-        args = args[0].split(" ");
-    }
-    var command = [...args].join(" ");
+    var command = args.map((x) => x.trim()).join(" ");
     let opts = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
-    if (args[0].startsWith("apx-"))
-        command = ["sudo", ...args].join(" ");
-    else if (os_1.userInfo().username == "root")
+    if (command.startsWith("apx-"))
+        command = `sudo ${command}`;
+    if (SYRUS4G_REMOTE)
+        command = `${SYRUS4G_REMOTE} ${command}`;
+    else if (USERNAME != "syrus4g")
         opts.uid = 1000;
-    if (SYRUS4G_REMOTE_DEV) {
-        command = [SYRUS4G_REMOTE_DEV, ...args].join(" ");
-    }
     return new Promise((resolve, reject) => {
         child_process_1.exec(command, opts, (error, stdout, stderr) => {
-            if (error) {
-                return reject({
+            if (error || stderr) {
+                reject({
                     error: error,
                     errorText: stderr.toString(),
                     output: stdout.toString()
                 });
+                return;
             }
-            if (stderr) {
-                return reject({
-                    error: error,
-                    errorText: stderr.toString(),
-                    output: stdout.toString()
-                });
-            }
-            var data = stdout.toString();
             try {
+                var data = stdout.toString();
                 resolve(JSON.parse(data));
             }
             catch (error) {
@@ -146,13 +146,65 @@ function toJSONReceiver(coord, imei, siteId = 1) {
     ];
 }
 exports.toJSONReceiver = toJSONReceiver;
+/**
+ * Fetch application prefix,
+ * uses env=SYRUS4G_APP_NAME when available
+ * otherwise it builds it from the directory where the app is running
+ * @return {*}
+ */
 function getPrefix() {
+    // Use environment name if available
+    if (SYRUS4G_APP_NAME)
+        return SYRUS4G_APP_NAME;
+    // determine from current running directory
     var arr = `${child_process_1.execSync("pwd")
         .toString()
         .replace("\n", "")}`
         .split("node_modules/")[0]
         .split("/");
     arr.pop();
-    return arr.pop();
+    SYRUS4G_APP_NAME = arr.pop();
+    console.log("application prefix:", SYRUS4G_APP_NAME);
+    return SYRUS4G_APP_NAME;
 }
 exports.getPrefix = getPrefix;
+/**
+ * Utility for try/catching promises in one line, avoiding the need for try/catch blocks
+ * let [response, error] = $trycatch(await awaitable())
+ * @param {Promise<any>} promise
+ * @return {*}  {(Promise<[ any | null, Error | null ]>)}
+ */
+function $trycatch(promise) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let result = yield promise;
+            return [result, null];
+        }
+        catch (error) {
+            console.error(error);
+            return [null, error];
+        }
+    });
+}
+exports.$trycatch = $trycatch;
+// easier to use alias to $trycatch
+exports.$to = $trycatch;
+/**
+ * Utility for throwing errors inside a catch, reduces need for try/catch
+ * await awaitable().catch($throw)
+ * @param {Error} error
+ */
+function $throw(error) { throw error; }
+exports.$throw = $throw;
+/**
+ * Sleep Utility
+ * await $sleep(10*1000)
+ * @param {number} ms
+ * @return {*}  {Promise<void>}
+ */
+function $sleep(ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+    });
+}
+exports.$sleep = $sleep;
