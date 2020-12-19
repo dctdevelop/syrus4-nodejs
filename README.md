@@ -302,7 +302,7 @@ write .env file configuration of the app, if the .env exists, replace it
 <a name="module_Apps..getConfiguration"></a>
 
 ### Apps~getConfiguration(app)
-Get the contents of SYRUS4G_CONF file where it stored the configuration of the app
+Get the contents of SYRUS4G_APP_CONF_FILE file where it stored the configuration of the app
 
 **Kind**: inner method of [<code>Apps</code>](#module_Apps)  
 
@@ -1305,10 +1305,15 @@ Utils module some utlities in ApexOS
     * [~OSExecute(...args)](#module_Utils..OSExecute)
     * [~distanceBetweenCoordinates(coord1, coord2)](#module_Utils..distanceBetweenCoordinates)
     * [~toJSONReceiver(coord, imei, siteId)](#module_Utils..toJSONReceiver)
+    * [~getPrefix()](#module_Utils..getPrefix) ⇒ <code>\*</code>
+    * [~$trycatch(promise)](#module_Utils..$trycatch) ⇒ <code>\*</code>
+    * [~$throw(error)](#module_Utils..$throw)
+    * [~$sleep(ms)](#module_Utils..$sleep) ⇒ <code>\*</code>
 
 <a name="module_Utils..execute"></a>
 
 ### Utils~execute(...args)
+DEPRECATED: use OSExecute
 Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
 
 **Kind**: inner method of [<code>Utils</code>](#module_Utils)  
@@ -1352,6 +1357,52 @@ convert coord and imei to JSON receiver format for JSON listener
 | coord |  | coordinates of the gps |
 | imei |  | imei of the device |
 | siteId | <code>1</code> | the site that the command should be transmitted |
+
+<a name="module_Utils..getPrefix"></a>
+
+### Utils~getPrefix() ⇒ <code>\*</code>
+Fetch application prefix,
+uses env=SYRUS4G_APP_NAME when available
+otherwise it builds it from the directory where the app is running
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+<a name="module_Utils..$trycatch"></a>
+
+### Utils~$trycatch(promise) ⇒ <code>\*</code>
+Utility for try/catching promises in one line, avoiding the need for try/catch blocks
+let [response, error] = $trycatch(await awaitable())
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+**Returns**: <code>\*</code> - {(Promise<[ any | null, Error | null ]>)}  
+
+| Param | Type |
+| --- | --- |
+| promise | <code>Promise.&lt;any&gt;</code> | 
+
+<a name="module_Utils..$throw"></a>
+
+### Utils~$throw(error)
+Utility for throwing errors inside a catch, reduces need for try/catch
+await awaitable().catch($throw)
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+
+| Param | Type |
+| --- | --- |
+| error | <code>Error</code> | 
+
+<a name="module_Utils..$sleep"></a>
+
+### Utils~$sleep(ms) ⇒ <code>\*</code>
+Sleep Utility
+await $sleep(10*1000)
+
+**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
+**Returns**: <code>\*</code> - {Promise<void>}  
+
+| Param | Type |
+| --- | --- |
+| ms | <code>number</code> | 
 
 <a name="module_WIFI"></a>
 
