@@ -7,7 +7,7 @@ import * as Utils from "./Utils"
 
 async function IsConnected(net){
 	try {
-		var raw: any = await Utils.execute(`ip route | grep ${net}`);
+		var raw: any = await Utils.OSExecute(`ip route | grep ${net}`);
 	} catch (error) {
 		// Error means no text so grep return empty which is means disconnected
 		return false;
@@ -66,7 +66,7 @@ async function getNetworkInfo(net) {
 			connected: false
 		};
 	}
-	var raw: any = await Utils.execute(`ifconfig ${net}`);
+	var raw: any = await Utils.OSExecute(`ifconfig ${net}`);
 	if (net == "ppp0") {
 		var modemInfo: any = await redis.hgetall("modem_information");
 		data.imei = modemInfo.IMEI;
@@ -110,7 +110,7 @@ async function getNetworkInfo(net) {
  * get network information about all the available networks on APEX OS
  */
 async function getNetworks() {
-	var nets: any = await Utils.execute(`ifconfig | grep 'Link encap:'`);
+	var nets: any = await Utils.OSExecute(`ifconfig | grep 'Link encap:'`);
 	nets = nets
 		.split("\n")
 		.map(str => str.split(" ")[0])

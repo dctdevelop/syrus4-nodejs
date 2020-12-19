@@ -2,9 +2,17 @@
  * Apps module to start/stop/enable/disable/install third parts apps running in apex-os
  * @module Apps
  */
-import * as fs from "fs";
+import * as fs from "fs"
+import * as path from "path"
 
-import * as Utils from "./Utils";
+import * as Utils from "./Utils"
+
+
+// ALLOW local development
+let { SYRUS4G_APP_DATA_DIR, SYRUS4G_APP_CONF_FILE } = process.env
+
+if (!SYRUS4G_APP_DATA_DIR) SYRUS4G_APP_DATA_DIR = '/data/app_data'
+if (!SYRUS4G_APP_CONF_FILE) SYRUS4G_APP_CONF_FILE = '.configuration.json'
 
 type AppAction = "install" | "uninstall" | "list" | "state" | "enable" | "disable" | "start" | "stop" | "restart";
 
@@ -109,15 +117,16 @@ function setConfiguration(app: string, newConfig) {
 		app = Utils.getPrefix()
 	}
 	return new Promise((resolve, reject) => {
-		fs.writeFile(`/data/app_data/${app}/.configuration.json`, newConfig, function (err) {
-			if (err) return reject(err);
-			return resolve({ status: "ok" });
+		let conf_path = path.join(SYRUS4G_APP_DATA_DIR, app, SYRUS4G_APP_CONF_FILE)
+		fs.writeFile(conf_path, newConfig, function (err) {
+			if (err) reject(err);
+			resolve({ status: "ok" });
 		});
 	});
 }
 
 /**
- * Get the contents of .configuration.json file where it stored the configuration of the app
+ * Get the contents of SYRUS4G_APP_CONF_FILE file where it stored the configuration of the app
  * @param app the name of the app
  */
 function getConfiguration(app?: string) {
@@ -126,14 +135,11 @@ function getConfiguration(app?: string) {
 	}
 	return new Promise((resolve, reject) => {
 		try {
-			var data = fs.readFileSync(`/data/app_data/${app}/.configuration.json`);
+			let conf_path = path.join(SYRUS4G_APP_DATA_DIR, app, SYRUS4G_APP_CONF_FILE)
+			var data = fs.readFileSync(conf_path);
+			resolve(JSON.parse(data.toString()));
 		} catch (error) {
-			return resolve({});
-		}
-		try {
-			return resolve(JSON.parse(data.toString()));
-		} catch (error) {
-			return reject(error);
+			reject(error);
 		}
 	});
 }

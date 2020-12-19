@@ -302,7 +302,7 @@ write .env file configuration of the app, if the .env exists, replace it
 <a name="module_Apps..getConfiguration"></a>
 
 ### Apps~getConfiguration(app)
-Get the contents of .configuration.json file where it stored the configuration of the app
+Get the contents of SYRUS4G_CONF file where it stored the configuration of the app
 
 **Kind**: inner method of [<code>Apps</code>](#module_Apps)  
 
