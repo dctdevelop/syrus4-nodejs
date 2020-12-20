@@ -110,7 +110,7 @@ function onTemperatureChange(callback, errorCallback) {
         catch (error) {
             throw error;
         }
-        if (state) {
+        if (state === null || state === void 0 ? void 0 : state.temperatures) {
             state.temperatures.map((temp) => { update.digest(temp); });
             callback(update);
         }
