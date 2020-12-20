@@ -1,13 +1,14 @@
 {
 	"name": "syrus4-nodejs",
-	"version": "0.45.0",
+	"version": "0.45.1",
 	"description": "Syrus 4 SdK for javascript/Nodejs",
 	"main": "dist/syrus4.js",
 	"scripts": {
 		"tsc": "tsc",
 		"test": "mocha -r ts-node/register 'src/tests/**/*.ts'",
 		"build": "tsc && jsdoc2md --files ./dist/*.js --template README.hbs > README.md",
-		"document": "jsdoc2md --files ./dist/*.js --template README.hbs > README.md"
+		"document": "jsdoc2md --files ./dist/*.js --template README.hbs > README.md",
+		"bump": "npm version --no-git-tag-version"
 	},
 	"keywords": [
 		"syrus4",
