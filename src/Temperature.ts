@@ -113,7 +113,7 @@ export async function onTemperatureChange(
   } catch (error){
     throw error
   }
-  if(state) {
+  if(state?.temperatures) {
     state.temperatures.map((temp)=>{update.digest(temp)})
     callback(update)
   }
