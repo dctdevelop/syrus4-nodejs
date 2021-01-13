@@ -1,6 +1,6 @@
 /**
- * Onewire module get information about onewire
- * @module Onewire
+ * Temperature module get information about temperature sensors
+ * @module Temperature
  */
 
 import { SystemRedisSubscriber as subscriber } from "./Redis";
