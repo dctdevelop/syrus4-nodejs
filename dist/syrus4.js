@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Temperature = exports.IButton = exports.Geofences = exports.Counters = exports.ECU = exports.Redis = exports.Network = exports.Accelerometer = exports.IOS = exports.Mobile = exports.Hotspot = exports.Update = exports.System = exports.Utils = exports.WIFI = exports.GPS = exports.Apps = void 0;
+exports.Serial = exports.Temperature = exports.IButton = exports.Geofences = exports.Counters = exports.ECU = exports.Redis = exports.Network = exports.Accelerometer = exports.IOS = exports.Mobile = exports.Hotspot = exports.Update = exports.System = exports.Utils = exports.WIFI = exports.GPS = exports.Apps = void 0;
 const Apps_1 = require("./Apps");
 exports.Apps = Apps_1.default;
 const Accelerometer_1 = require("./Accelerometer");
@@ -35,3 +35,5 @@ const IButton = require("./IButton");
 exports.IButton = IButton;
 const Temperature = require("./Temperature");
 exports.Temperature = Temperature;
+const Serial = require("./Serial");
+exports.Serial = Serial;

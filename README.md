@@ -48,11 +48,14 @@ namespace for all the optiones is defined by application is not passed</p>
 <dt><a href="#module_Onewire">Onewire</a></dt>
 <dd><p>Onewire module get information about onewire</p>
 </dd>
+<dt><a href="#module_Serial">Serial</a></dt>
+<dd><p>Serial module, get information about serial state</p>
+</dd>
 <dt><a href="#module_System-Info">System-Info</a></dt>
 <dd><p>System module get information about ApexOS</p>
 </dd>
-<dt><a href="#module_Onewire">Onewire</a></dt>
-<dd><p>Onewire module get information about onewire</p>
+<dt><a href="#module_Temperature">Temperature</a></dt>
+<dd><p>Temperature module get information about temperature sensors</p>
 </dd>
 <dt><a href="#module_Update">Update</a></dt>
 <dd><p>Update module check for update and make update for ApexOS</p>
@@ -632,8 +635,6 @@ Onewire module get information about onewire
 * [Onewire](#module_Onewire)
     * [~IButtonUpdate](#module_Onewire..IButtonUpdate)
         * [new IButtonUpdate()](#new_module_Onewire..IButtonUpdate_new)
-    * [~TemperatureUpdate](#module_Onewire..TemperatureUpdate)
-        * [new TemperatureUpdate()](#new_module_Onewire..TemperatureUpdate_new)
     * [~getIButtons()](#module_Onewire..getIButtons)
     * [~getIButton()](#module_Onewire..getIButton)
     * [~setIButtonAlias()](#module_Onewire..setIButtonAlias)
@@ -642,12 +643,6 @@ Onewire module get information about onewire
     * [~getAll()](#module_Onewire..getAll)
     * [~get()](#module_Onewire..get)
     * [~create()](#module_Onewire..create)
-    * [~getTemperatures()](#module_Onewire..getTemperatures)
-    * [~getTemperature()](#module_Onewire..getTemperature)
-    * [~setTemperatureAlias()](#module_Onewire..setTemperatureAlias)
-    * [~removeTemperatureAlias()](#module_Onewire..removeTemperatureAlias)
-    * [~removeTemperatureAliases()](#module_Onewire..removeTemperatureAliases)
-    * [~onTemperatureChange()](#module_Onewire..onTemperatureChange)
 
 <a name="module_Onewire..IButtonUpdate"></a>
 
@@ -658,16 +653,6 @@ Onewire module get information about onewire
 #### new IButtonUpdate()
 Event published by the sdk composed of of multiple IButtonEvent
 authorized contains events from whitelisted ibuttons
-
-<a name="module_Onewire..TemperatureUpdate"></a>
-
-### Onewire~TemperatureUpdate
-**Kind**: inner class of [<code>Onewire</code>](#module_Onewire)  
-<a name="new_module_Onewire..TemperatureUpdate_new"></a>
-
-#### new TemperatureUpdate()
-Event published by the sdk composed of of multiple TemperatureEvents
-authorized object contains events from whitelisted ibuttons
 
 <a name="module_Onewire..getIButtons"></a>
 
@@ -715,42 +700,6 @@ allow to get al lthe state of the ibuttons connected
 
 ### Onewire~create()
 allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getTemperatures"></a>
-
-### Onewire~getTemperatures()
-get the current temperature state
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getTemperature"></a>
-
-### Onewire~getTemperature()
-get reading from a specific sensor, by id or alias
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..setTemperatureAlias"></a>
-
-### Onewire~setTemperatureAlias()
-set alias to a temperature sensor
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeTemperatureAlias"></a>
-
-### Onewire~removeTemperatureAlias()
-remove alias from temperature sensor
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeTemperatureAliases"></a>
-
-### Onewire~removeTemperatureAliases()
-remove aliases from all temperature sensors
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..onTemperatureChange"></a>
-
-### Onewire~onTemperatureChange()
-monitor iButton notifications
 
 **Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
 <a name="module_IOS"></a>
@@ -891,8 +840,6 @@ Onewire module get information about onewire
 * [Onewire](#module_Onewire)
     * [~IButtonUpdate](#module_Onewire..IButtonUpdate)
         * [new IButtonUpdate()](#new_module_Onewire..IButtonUpdate_new)
-    * [~TemperatureUpdate](#module_Onewire..TemperatureUpdate)
-        * [new TemperatureUpdate()](#new_module_Onewire..TemperatureUpdate_new)
     * [~getIButtons()](#module_Onewire..getIButtons)
     * [~getIButton()](#module_Onewire..getIButton)
     * [~setIButtonAlias()](#module_Onewire..setIButtonAlias)
@@ -901,12 +848,6 @@ Onewire module get information about onewire
     * [~getAll()](#module_Onewire..getAll)
     * [~get()](#module_Onewire..get)
     * [~create()](#module_Onewire..create)
-    * [~getTemperatures()](#module_Onewire..getTemperatures)
-    * [~getTemperature()](#module_Onewire..getTemperature)
-    * [~setTemperatureAlias()](#module_Onewire..setTemperatureAlias)
-    * [~removeTemperatureAlias()](#module_Onewire..removeTemperatureAlias)
-    * [~removeTemperatureAliases()](#module_Onewire..removeTemperatureAliases)
-    * [~onTemperatureChange()](#module_Onewire..onTemperatureChange)
 
 <a name="module_Onewire..IButtonUpdate"></a>
 
@@ -917,16 +858,6 @@ Onewire module get information about onewire
 #### new IButtonUpdate()
 Event published by the sdk composed of of multiple IButtonEvent
 authorized contains events from whitelisted ibuttons
-
-<a name="module_Onewire..TemperatureUpdate"></a>
-
-### Onewire~TemperatureUpdate
-**Kind**: inner class of [<code>Onewire</code>](#module_Onewire)  
-<a name="new_module_Onewire..TemperatureUpdate_new"></a>
-
-#### new TemperatureUpdate()
-Event published by the sdk composed of of multiple TemperatureEvents
-authorized object contains events from whitelisted ibuttons
 
 <a name="module_Onewire..getIButtons"></a>
 
@@ -976,42 +907,63 @@ allow to get al lthe state of the ibuttons connected
 allow to get al lthe state of the ibuttons connected
 
 **Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getTemperatures"></a>
+<a name="module_Serial"></a>
 
-### Onewire~getTemperatures()
-get the current temperature state
+## Serial
+Serial module, get information about serial state
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getTemperature"></a>
 
-### Onewire~getTemperature()
-get reading from a specific sensor, by id or alias
+* [Serial](#module_Serial)
+    * [~getSerialMode()](#module_Serial..getSerialMode)
+    * [~setSerialMode()](#module_Serial..setSerialMode)
+    * [~getSerialModemState()](#module_Serial..getSerialModemState)
+    * [~getModemBufferSize()](#module_Serial..getModemBufferSize)
+    * [~setModemBufferSize()](#module_Serial..setModemBufferSize)
+    * [~send()](#module_Serial..send)
+    * [~onIncomingMessage()](#module_Serial..onIncomingMessage)
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..setTemperatureAlias"></a>
+<a name="module_Serial..getSerialMode"></a>
 
-### Onewire~setTemperatureAlias()
-set alias to a temperature sensor
+### Serial~getSerialMode()
+get serial mode
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeTemperatureAlias"></a>
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
+<a name="module_Serial..setSerialMode"></a>
 
-### Onewire~removeTemperatureAlias()
-remove alias from temperature sensor
+### Serial~setSerialMode()
+set serial mode (console or modem)
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeTemperatureAliases"></a>
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
+<a name="module_Serial..getSerialModemState"></a>
 
-### Onewire~removeTemperatureAliases()
-remove aliases from all temperature sensors
+### Serial~getSerialModemState()
+get serial modem state
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..onTemperatureChange"></a>
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
+<a name="module_Serial..getModemBufferSize"></a>
 
-### Onewire~onTemperatureChange()
-monitor iButton notifications
+### Serial~getModemBufferSize()
+get modem buffer size
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
+<a name="module_Serial..setModemBufferSize"></a>
+
+### Serial~setModemBufferSize()
+set the buffer size
+
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
+<a name="module_Serial..send"></a>
+
+### Serial~send()
+send a message
+
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
+<a name="module_Serial..onIncomingMessage"></a>
+
+### Serial~onIncomingMessage()
+monitor incoming serial messages
+
+**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
 <a name="module_System-Info"></a>
 
 ## System-Info
@@ -1092,136 +1044,68 @@ remove a callback from stack to execute when app signal termination
 | --- | --- |
 | callback | callback to remove from listener |
 
-<a name="module_Onewire"></a>
+<a name="module_Temperature"></a>
 
-## Onewire
-Onewire module get information about onewire
+## Temperature
+Temperature module get information about temperature sensors
 
 
-* [Onewire](#module_Onewire)
-    * [~IButtonUpdate](#module_Onewire..IButtonUpdate)
-        * [new IButtonUpdate()](#new_module_Onewire..IButtonUpdate_new)
-    * [~TemperatureUpdate](#module_Onewire..TemperatureUpdate)
-        * [new TemperatureUpdate()](#new_module_Onewire..TemperatureUpdate_new)
-    * [~getIButtons()](#module_Onewire..getIButtons)
-    * [~getIButton()](#module_Onewire..getIButton)
-    * [~setIButtonAlias()](#module_Onewire..setIButtonAlias)
-    * [~removeIButtonAlias()](#module_Onewire..removeIButtonAlias)
-    * [~onIButtonChange()](#module_Onewire..onIButtonChange)
-    * [~getAll()](#module_Onewire..getAll)
-    * [~get()](#module_Onewire..get)
-    * [~create()](#module_Onewire..create)
-    * [~getTemperatures()](#module_Onewire..getTemperatures)
-    * [~getTemperature()](#module_Onewire..getTemperature)
-    * [~setTemperatureAlias()](#module_Onewire..setTemperatureAlias)
-    * [~removeTemperatureAlias()](#module_Onewire..removeTemperatureAlias)
-    * [~removeTemperatureAliases()](#module_Onewire..removeTemperatureAliases)
-    * [~onTemperatureChange()](#module_Onewire..onTemperatureChange)
+* [Temperature](#module_Temperature)
+    * [~TemperatureUpdate](#module_Temperature..TemperatureUpdate)
+        * [new TemperatureUpdate()](#new_module_Temperature..TemperatureUpdate_new)
+    * [~getTemperatures()](#module_Temperature..getTemperatures)
+    * [~getTemperature()](#module_Temperature..getTemperature)
+    * [~setTemperatureAlias()](#module_Temperature..setTemperatureAlias)
+    * [~removeTemperatureAlias()](#module_Temperature..removeTemperatureAlias)
+    * [~removeTemperatureAliases()](#module_Temperature..removeTemperatureAliases)
+    * [~onTemperatureChange()](#module_Temperature..onTemperatureChange)
 
-<a name="module_Onewire..IButtonUpdate"></a>
+<a name="module_Temperature..TemperatureUpdate"></a>
 
-### Onewire~IButtonUpdate
-**Kind**: inner class of [<code>Onewire</code>](#module_Onewire)  
-<a name="new_module_Onewire..IButtonUpdate_new"></a>
-
-#### new IButtonUpdate()
-Event published by the sdk composed of of multiple IButtonEvent
-authorized contains events from whitelisted ibuttons
-
-<a name="module_Onewire..TemperatureUpdate"></a>
-
-### Onewire~TemperatureUpdate
-**Kind**: inner class of [<code>Onewire</code>](#module_Onewire)  
-<a name="new_module_Onewire..TemperatureUpdate_new"></a>
+### Temperature~TemperatureUpdate
+**Kind**: inner class of [<code>Temperature</code>](#module_Temperature)  
+<a name="new_module_Temperature..TemperatureUpdate_new"></a>
 
 #### new TemperatureUpdate()
 Event published by the sdk composed of of multiple TemperatureEvents
 authorized object contains events from whitelisted ibuttons
 
-<a name="module_Onewire..getIButtons"></a>
+<a name="module_Temperature..getTemperatures"></a>
 
-### Onewire~getIButtons()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getIButton"></a>
-
-### Onewire~getIButton()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..setIButtonAlias"></a>
-
-### Onewire~setIButtonAlias()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeIButtonAlias"></a>
-
-### Onewire~removeIButtonAlias()
-remove Alias from ibutton whitelist
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..onIButtonChange"></a>
-
-### Onewire~onIButtonChange()
-monitor iButton notifications
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getAll"></a>
-
-### Onewire~getAll()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..get"></a>
-
-### Onewire~get()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..create"></a>
-
-### Onewire~create()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getTemperatures"></a>
-
-### Onewire~getTemperatures()
+### Temperature~getTemperatures()
 get the current temperature state
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getTemperature"></a>
+**Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
+<a name="module_Temperature..getTemperature"></a>
 
-### Onewire~getTemperature()
+### Temperature~getTemperature()
 get reading from a specific sensor, by id or alias
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..setTemperatureAlias"></a>
+**Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
+<a name="module_Temperature..setTemperatureAlias"></a>
 
-### Onewire~setTemperatureAlias()
+### Temperature~setTemperatureAlias()
 set alias to a temperature sensor
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeTemperatureAlias"></a>
+**Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
+<a name="module_Temperature..removeTemperatureAlias"></a>
 
-### Onewire~removeTemperatureAlias()
+### Temperature~removeTemperatureAlias()
 remove alias from temperature sensor
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeTemperatureAliases"></a>
+**Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
+<a name="module_Temperature..removeTemperatureAliases"></a>
 
-### Onewire~removeTemperatureAliases()
+### Temperature~removeTemperatureAliases()
 remove aliases from all temperature sensors
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..onTemperatureChange"></a>
+**Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
+<a name="module_Temperature..onTemperatureChange"></a>
 
-### Onewire~onTemperatureChange()
+### Temperature~onTemperatureChange()
 monitor iButton notifications
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
+**Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
 <a name="module_Update"></a>
 
 ## Update

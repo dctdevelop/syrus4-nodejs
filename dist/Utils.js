@@ -16,8 +16,10 @@ exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getP
  */
 const child_process_1 = require("child_process");
 const os_1 = require("os");
-const USERNAME = os_1.userInfo().username;
+const path = require("path");
+let { APP_DATA_FOLDER } = process.env;
 let { SYRUS4G_REMOTE, SYRUS4G_APP_NAME } = process.env;
+const USERNAME = os_1.userInfo().username;
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
@@ -68,7 +70,7 @@ function OSExecute(...args) {
     if (command.startsWith("apx-"))
         command = `sudo ${command}`;
     if (SYRUS4G_REMOTE)
-        command = `${SYRUS4G_REMOTE} ${command}`;
+        command = `${SYRUS4G_REMOTE} '${command}'`;
     else if (USERNAME != "syrus4g")
         opts.uid = 1000;
     return new Promise((resolve, reject) => {
@@ -156,10 +158,14 @@ function getPrefix() {
     // Use environment name if available
     if (SYRUS4G_APP_NAME)
         return SYRUS4G_APP_NAME;
+    // determine from APP_DATA_FOLDER if available
+    if (APP_DATA_FOLDER === null || APP_DATA_FOLDER === void 0 ? void 0 : APP_DATA_FOLDER.length) {
+        return APP_DATA_FOLDER.split(path.sep).pop();
+    }
     // determine from current running directory
-    var arr = `${child_process_1.execSync("pwd")
+    var arr = child_process_1.execSync("pwd")
         .toString()
-        .replace("\n", "")}`
+        .replace("\n", "")
         .split("node_modules/")[0]
         .split("/");
     arr.pop();
