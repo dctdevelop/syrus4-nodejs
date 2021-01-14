@@ -15,6 +15,7 @@ import Counters from "./Counters";
 import Geofences from "./Geofences";
 import * as IButton from "./IButton"
 import * as Temperature from "./Temperature"
+import * as Serial from "./Serial"
 
 export {
 	Apps,
@@ -34,4 +35,5 @@ export {
 	Geofences,
 	IButton,
 	Temperature,
+	Serial,
 };
