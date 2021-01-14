@@ -7,8 +7,8 @@ import * as path from "path"
 
 import * as Utils from "./Utils"
 
-
-// ALLOW local development
+// Environment
+let { APP_DATA_FOLDER } = process.env
 let { SYRUS4G_APP_DATA_DIR, SYRUS4G_APP_CONF_FILE } = process.env
 
 if (!SYRUS4G_APP_DATA_DIR) SYRUS4G_APP_DATA_DIR = '/data/app_data'
@@ -135,7 +135,12 @@ function getConfiguration(app?: string) {
 	}
 	return new Promise((resolve, reject) => {
 		try {
-			let conf_path = path.join(SYRUS4G_APP_DATA_DIR, app, SYRUS4G_APP_CONF_FILE)
+			let conf_path: string
+			if (APP_DATA_FOLDER?.length){
+				conf_path = path.join(APP_DATA_FOLDER, SYRUS4G_APP_CONF_FILE)
+			} else{
+				conf_path = path.join(SYRUS4G_APP_DATA_DIR, app, SYRUS4G_APP_CONF_FILE)
+			}
 			var data = fs.readFileSync(conf_path);
 			resolve(JSON.parse(data.toString()));
 		} catch (error) {

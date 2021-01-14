@@ -7,7 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const path = require("path");
 const Utils = require("./Utils");
-// ALLOW local development
+// Environment
+let { APP_DATA_FOLDER } = process.env;
 let { SYRUS4G_APP_DATA_DIR, SYRUS4G_APP_CONF_FILE } = process.env;
 if (!SYRUS4G_APP_DATA_DIR)
     SYRUS4G_APP_DATA_DIR = '/data/app_data';
@@ -121,7 +122,13 @@ function getConfiguration(app) {
     }
     return new Promise((resolve, reject) => {
         try {
-            let conf_path = path.join(SYRUS4G_APP_DATA_DIR, app, SYRUS4G_APP_CONF_FILE);
+            let conf_path;
+            if (APP_DATA_FOLDER === null || APP_DATA_FOLDER === void 0 ? void 0 : APP_DATA_FOLDER.length) {
+                conf_path = path.join(APP_DATA_FOLDER, SYRUS4G_APP_CONF_FILE);
+            }
+            else {
+                conf_path = path.join(SYRUS4G_APP_DATA_DIR, app, SYRUS4G_APP_CONF_FILE);
+            }
             var data = fs.readFileSync(conf_path);
             resolve(JSON.parse(data.toString()));
         }

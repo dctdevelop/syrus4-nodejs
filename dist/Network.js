@@ -125,7 +125,7 @@ function getNetworkInfo(net) {
  */
 function getNetworks() {
     return __awaiter(this, void 0, void 0, function* () {
-        var nets = yield Utils.OSExecute(`ifconfig | grep 'Link encap:'`);
+        var nets = yield Utils.OSExecute(`ifconfig | grep "Link encap:"`);
         nets = nets
             .split("\n")
             .map(str => str.split(" ")[0])

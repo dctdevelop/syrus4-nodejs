@@ -5,8 +5,12 @@
 import { exec, execSync } from "child_process"
 import { userInfo } from "os"
 
-const USERNAME = userInfo().username
+import * as path from "path"
+
+let { APP_DATA_FOLDER } = process.env
 let { SYRUS4G_REMOTE, SYRUS4G_APP_NAME } = process.env
+
+const USERNAME = userInfo().username
 
 function deg2rad(deg: number) {
 	return deg * (Math.PI / 180);
@@ -58,7 +62,7 @@ export function OSExecute(...args:string[]): any {
 	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
 
 	if (command.startsWith("apx-")) command = `sudo ${command}`
-	if (SYRUS4G_REMOTE) 		command = `${SYRUS4G_REMOTE} ${command}`
+	if (SYRUS4G_REMOTE) command = `${SYRUS4G_REMOTE} '${command}'`
 	else if (USERNAME != "syrus4g") opts.uid = 1000
 
 	return new Promise((resolve, reject) => {
@@ -145,10 +149,14 @@ export function toJSONReceiver(coord, imei, siteId=1) {
 export function getPrefix(){
 	// Use environment name if available
 	if (SYRUS4G_APP_NAME) return SYRUS4G_APP_NAME
+	// determine from APP_DATA_FOLDER if available
+	if (APP_DATA_FOLDER?.length){
+		return APP_DATA_FOLDER.split(path.sep).pop()
+	}
 	// determine from current running directory
-	var arr = `${execSync("pwd")
+	var arr = execSync("pwd")
 		.toString()
-		.replace("\n", "")}`
+		.replace("\n", "")
 		.split("node_modules/")[0]
 		.split("/");
 	arr.pop();

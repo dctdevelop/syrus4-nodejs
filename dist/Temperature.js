@@ -1,7 +1,7 @@
 "use strict";
 /**
- * Onewire module get information about onewire
- * @module Onewire
+ * Temperature module get information about temperature sensors
+ * @module Temperature
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }

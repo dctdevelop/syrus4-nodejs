@@ -110,7 +110,7 @@ async function getNetworkInfo(net) {
  * get network information about all the available networks on APEX OS
  */
 async function getNetworks() {
-	var nets: any = await Utils.OSExecute(`ifconfig | grep 'Link encap:'`);
+	var nets: any = await Utils.OSExecute(`ifconfig | grep "Link encap:"`);
 	nets = nets
 		.split("\n")
 		.map(str => str.split(" ")[0])

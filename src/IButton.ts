@@ -1,6 +1,6 @@
 /**
- * Onewire module get information about onewire
- * @module Onewire
+ * IButton module get information about onewire
+ * @module IButton
  */
 
 import { SystemRedisSubscriber as subscriber } from "./Redis";
