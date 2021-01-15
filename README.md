@@ -33,8 +33,8 @@ namespace for all the optiones is defined by application is not passed</p>
 <dt><a href="#module_Hotspot">Hotspot</a></dt>
 <dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
 </dd>
-<dt><a href="#module_Onewire">Onewire</a></dt>
-<dd><p>Onewire module get information about onewire</p>
+<dt><a href="#module_IButton">IButton</a></dt>
+<dd><p>IButton module get information about onewire</p>
 </dd>
 <dt><a href="#module_IOS">IOS</a></dt>
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS</p>
@@ -626,82 +626,61 @@ Possible Values: "wpa_passphrase" | "ssid" | "max_num_sta" | "channel" | "wpa_ke
 | parameter | <code>wpa_passphrase</code> | param to edit config |
 | newValue |  | new value for the parameter |
 
-<a name="module_Onewire"></a>
+<a name="module_IButton"></a>
 
-## Onewire
-Onewire module get information about onewire
+## IButton
+IButton module get information about onewire
 
 
-* [Onewire](#module_Onewire)
-    * [~IButtonUpdate](#module_Onewire..IButtonUpdate)
-        * [new IButtonUpdate()](#new_module_Onewire..IButtonUpdate_new)
-    * [~getIButtons()](#module_Onewire..getIButtons)
-    * [~getIButton()](#module_Onewire..getIButton)
-    * [~setIButtonAlias()](#module_Onewire..setIButtonAlias)
-    * [~removeIButtonAlias()](#module_Onewire..removeIButtonAlias)
-    * [~onIButtonChange()](#module_Onewire..onIButtonChange)
-    * [~getAll()](#module_Onewire..getAll)
-    * [~get()](#module_Onewire..get)
-    * [~create()](#module_Onewire..create)
+* [IButton](#module_IButton)
+    * [~IButtonUpdate](#module_IButton..IButtonUpdate)
+        * [new IButtonUpdate()](#new_module_IButton..IButtonUpdate_new)
+    * [~getIButtons()](#module_IButton..getIButtons)
+    * [~getIButton()](#module_IButton..getIButton)
+    * [~setIButtonAlias()](#module_IButton..setIButtonAlias)
+    * [~removeIButtonAlias()](#module_IButton..removeIButtonAlias)
+    * [~onIButtonChange()](#module_IButton..onIButtonChange)
 
-<a name="module_Onewire..IButtonUpdate"></a>
+<a name="module_IButton..IButtonUpdate"></a>
 
-### Onewire~IButtonUpdate
-**Kind**: inner class of [<code>Onewire</code>](#module_Onewire)  
-<a name="new_module_Onewire..IButtonUpdate_new"></a>
+### IButton~IButtonUpdate
+**Kind**: inner class of [<code>IButton</code>](#module_IButton)  
+<a name="new_module_IButton..IButtonUpdate_new"></a>
 
 #### new IButtonUpdate()
 Event published by the sdk composed of of multiple IButtonEvent
 authorized contains events from whitelisted ibuttons
 
-<a name="module_Onewire..getIButtons"></a>
+<a name="module_IButton..getIButtons"></a>
 
-### Onewire~getIButtons()
+### IButton~getIButtons()
 allow to get al lthe state of the ibuttons connected
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getIButton"></a>
+**Kind**: inner method of [<code>IButton</code>](#module_IButton)  
+<a name="module_IButton..getIButton"></a>
 
-### Onewire~getIButton()
+### IButton~getIButton()
 allow to get al lthe state of the ibuttons connected
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..setIButtonAlias"></a>
+**Kind**: inner method of [<code>IButton</code>](#module_IButton)  
+<a name="module_IButton..setIButtonAlias"></a>
 
-### Onewire~setIButtonAlias()
+### IButton~setIButtonAlias()
 allow to get al lthe state of the ibuttons connected
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeIButtonAlias"></a>
+**Kind**: inner method of [<code>IButton</code>](#module_IButton)  
+<a name="module_IButton..removeIButtonAlias"></a>
 
-### Onewire~removeIButtonAlias()
+### IButton~removeIButtonAlias()
 remove Alias from ibutton whitelist
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..onIButtonChange"></a>
+**Kind**: inner method of [<code>IButton</code>](#module_IButton)  
+<a name="module_IButton..onIButtonChange"></a>
 
-### Onewire~onIButtonChange()
+### IButton~onIButtonChange()
 monitor iButton notifications
 
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getAll"></a>
-
-### Onewire~getAll()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..get"></a>
-
-### Onewire~get()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..create"></a>
-
-### Onewire~create()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
+**Kind**: inner method of [<code>IButton</code>](#module_IButton)  
 <a name="module_IOS"></a>
 
 ## IOS
@@ -838,57 +817,10 @@ Onewire module get information about onewire
 
 
 * [Onewire](#module_Onewire)
-    * [~IButtonUpdate](#module_Onewire..IButtonUpdate)
-        * [new IButtonUpdate()](#new_module_Onewire..IButtonUpdate_new)
-    * [~getIButtons()](#module_Onewire..getIButtons)
-    * [~getIButton()](#module_Onewire..getIButton)
-    * [~setIButtonAlias()](#module_Onewire..setIButtonAlias)
-    * [~removeIButtonAlias()](#module_Onewire..removeIButtonAlias)
-    * [~onIButtonChange()](#module_Onewire..onIButtonChange)
     * [~getAll()](#module_Onewire..getAll)
     * [~get()](#module_Onewire..get)
     * [~create()](#module_Onewire..create)
 
-<a name="module_Onewire..IButtonUpdate"></a>
-
-### Onewire~IButtonUpdate
-**Kind**: inner class of [<code>Onewire</code>](#module_Onewire)  
-<a name="new_module_Onewire..IButtonUpdate_new"></a>
-
-#### new IButtonUpdate()
-Event published by the sdk composed of of multiple IButtonEvent
-authorized contains events from whitelisted ibuttons
-
-<a name="module_Onewire..getIButtons"></a>
-
-### Onewire~getIButtons()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..getIButton"></a>
-
-### Onewire~getIButton()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..setIButtonAlias"></a>
-
-### Onewire~setIButtonAlias()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..removeIButtonAlias"></a>
-
-### Onewire~removeIButtonAlias()
-remove Alias from ibutton whitelist
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..onIButtonChange"></a>
-
-### Onewire~onIButtonChange()
-monitor iButton notifications
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
 <a name="module_Onewire..getAll"></a>
 
 ### Onewire~getAll()

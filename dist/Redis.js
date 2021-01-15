@@ -30,7 +30,17 @@ var SYSTEM_REDIS_CONF = {
     "port": parseInt(SYRUS4G_SYSTEM_REDIS_PORT),
     "password": SYRUS4G_SYSTEM_REDIS_PW,
 };
-console.log({ REDIS_CONF, SYSTEM_REDIS_CONF });
+function _obfuscate(item) {
+    var _a;
+    let copy = JSON.parse(JSON.stringify(item));
+    if ((_a = copy.password) === null || _a === void 0 ? void 0 : _a.length)
+        copy.password = "*".repeat(copy.password.length);
+    return copy;
+}
+console.log({
+    REDIS_CONF: _obfuscate(REDIS_CONF),
+    SYSTEM_REDIS_CONF: _obfuscate(SYSTEM_REDIS_CONF)
+});
 var redisClient = new Redis(REDIS_CONF);
 exports.redisClient = redisClient;
 var redisSubscriber = new Redis(REDIS_CONF);
