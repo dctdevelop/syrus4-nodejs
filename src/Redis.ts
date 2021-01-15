@@ -1,5 +1,7 @@
 import * as Redis from "ioredis";
 
+interface REDIS { host: string, port: number, password?: string }
+
 let { SYRUS4G_REMOTE } = process.env
 let { SYRUS4G_APPS_REDIS_HOST, SYRUS4G_APPS_REDIS_PORT } = process.env
 let { SYRUS4G_SYSTEM_REDIS_HOST, SYRUS4G_SYSTEM_REDIS_PORT, SYRUS4G_SYSTEM_REDIS_PW } = process.env
@@ -13,16 +15,24 @@ if (!SYRUS4G_REMOTE) {
 	SYRUS4G_SYSTEM_REDIS_PW = "BrokerCore99*-"
 }
 
-const REDIS_CONF = {
+const REDIS_CONF: REDIS = {
 	"host": SYRUS4G_APPS_REDIS_HOST,
 	"port": parseInt(SYRUS4G_APPS_REDIS_PORT),
 }
-var SYSTEM_REDIS_CONF = {
+var SYSTEM_REDIS_CONF: REDIS = {
 	"host": SYRUS4G_SYSTEM_REDIS_HOST,
 	"port": parseInt(SYRUS4G_SYSTEM_REDIS_PORT),
 	"password": SYRUS4G_SYSTEM_REDIS_PW,
 }
-console.log({ REDIS_CONF, SYSTEM_REDIS_CONF })
+function _obfuscate(item:REDIS):REDIS {
+	let copy = JSON.parse(JSON.stringify(item))
+	if (copy.password?.length) copy.password = "*".repeat(copy.password.length)
+	return copy
+}
+console.log({
+	REDIS_CONF: _obfuscate(REDIS_CONF),
+	SYSTEM_REDIS_CONF: _obfuscate(SYSTEM_REDIS_CONF)
+})
 var redisClient = new Redis(REDIS_CONF);
 var redisSubscriber = new Redis(REDIS_CONF);
 var SystemRedisClient = new Redis(SYSTEM_REDIS_CONF);
