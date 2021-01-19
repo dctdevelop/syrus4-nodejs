@@ -100,7 +100,7 @@ export function removeTemperatureAliases(): Promise<void> {
 }
 
 /**
- * monitor iButton notifications
+ * monitor temperature notifications
  */
 export async function onTemperatureChange(
   callback: (arg: TemperatureUpdate)=> void,

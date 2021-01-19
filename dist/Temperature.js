@@ -97,7 +97,7 @@ function removeTemperatureAliases() {
 }
 exports.removeTemperatureAliases = removeTemperatureAliases;
 /**
- * monitor iButton notifications
+ * monitor temperature notifications
  */
 function onTemperatureChange(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
