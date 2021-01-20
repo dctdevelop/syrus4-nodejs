@@ -70,16 +70,17 @@ function OSExecute(...args) {
     if (command.startsWith("apx-"))
         command = `sudo ${command}`;
     if (SYRUS4G_REMOTE)
-        command = `${SYRUS4G_REMOTE} '${command}'`;
+        command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`;
     else if (USERNAME != "syrus4g")
         opts.uid = 1000;
     return new Promise((resolve, reject) => {
         child_process_1.exec(command, opts, (error, stdout, stderr) => {
             if (error || stderr) {
                 reject({
-                    error: error,
+                    command,
+                    error,
                     errorText: stderr.toString(),
-                    output: stdout.toString()
+                    output: stdout.toString(),
                 });
                 return;
             }

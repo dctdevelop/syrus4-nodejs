@@ -62,16 +62,17 @@ export function OSExecute(...args:string[]): any {
 	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
 
 	if (command.startsWith("apx-")) command = `sudo ${command}`
-	if (SYRUS4G_REMOTE) command = `${SYRUS4G_REMOTE} '${command}'`
+	if (SYRUS4G_REMOTE) command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`
 	else if (USERNAME != "syrus4g") opts.uid = 1000
 
 	return new Promise((resolve, reject) => {
 		exec(command, opts, (error, stdout, stderr) => {
 			if (error || stderr) {
 				reject({
-					error: error,
+					command,
+					error,
 					errorText: stderr.toString(),
-					output: stdout.toString()
+					output: stdout.toString(),
 				});
 				return
 			}
