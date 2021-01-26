@@ -6,6 +6,7 @@ import { exec, execSync } from "child_process"
 import { userInfo } from "os"
 
 import * as path from "path"
+import { Client } from 'ssh2'
 
 let { APP_DATA_FOLDER } = process.env
 let { SYRUS4G_REMOTE, SYRUS4G_APP_NAME } = process.env
@@ -16,40 +17,40 @@ function deg2rad(deg: number) {
 	return deg * (Math.PI / 180);
 }
 
-/**
- * DEPRECATED: use OSExecute
- * Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
- * @param args arguments to pass to the function to execute
- */
-function execute(...args:string[]) {
-	if (args.length == 1) {
-		args = args[0].split(" ");
-	}
-	var command = [ ...args ].join(" ");
-	return new Promise((resolve, reject) => {
-		exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000 }, (error, stdout, stderr) => {
-			if (error) {
-				return reject({
-					error: error,
-					errorText: stderr.toString(),
-					output: stdout.toString()
-				});
-			}
-			if (stderr) {
-				return reject({
-					error: error,
-					errorText: stderr.toString(),
-					output: stdout.toString()
-				});
-			}
-			var data = stdout.toString();
-			try {
-				resolve(JSON.parse(data));
-			} catch (error) {
-				resolve(data);
-			}
-		});
-	});
+var __shell_promise : any;
+async function getShell(){
+	if(__shell_promise) return await __shell_promise
+	const { SYRUS4G_REMOTE_SSH_HOST, SYRUS4G_REMOTE_SSH_PORT,
+		SYRUS4G_REMOTE_SSH_USERNAME, SYRUS4G_REMOTE_SSH_PW } = process.env
+	console.log("setting up remote shell", {
+		SYRUS4G_REMOTE_SSH_HOST,
+		SYRUS4G_REMOTE_SSH_PORT,
+		SYRUS4G_REMOTE_SSH_USERNAME,
+		SYRUS4G_REMOTE_SSH_PW: "*".repeat(SYRUS4G_REMOTE_SSH_PW.length)
+	})
+	__shell_promise = new Promise((resolve, reject) => {
+		let conn = new Client()
+		let timeout = setTimeout(reject, 1000 * 20);
+		conn.on('ready', () => {
+			clearTimeout(timeout)
+			resolve(conn)
+		})
+		conn.on('close', () => {
+			console.error('ssh:close', arguments)
+			__shell_promise = null
+		})
+		conn.on('end', () => {
+			console.error('ssh:end', arguments)
+			__shell_promise = null
+		})
+		conn.connect({
+			host: SYRUS4G_REMOTE_SSH_HOST,
+			port: parseInt(SYRUS4G_REMOTE_SSH_PORT),
+			username: SYRUS4G_REMOTE_SSH_USERNAME,
+			password: SYRUS4G_REMOTE_SSH_PW,
+		})
+	})
+	return __shell_promise
 }
 
 // TODO: !important remove the root check and uid settings
@@ -57,15 +58,54 @@ function execute(...args:string[]) {
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
-export function OSExecute(...args:string[]): any {
+export async function OSExecute(...args:string[]): Promise<any> {
 	var command = args.map((x)=>x.trim()).join(" ");
 	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
 
 	if (command.startsWith("apx-")) command = `sudo ${command}`
-	if (SYRUS4G_REMOTE) command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`
-	else if (USERNAME != "syrus4g") opts.uid = 1000
 
+	if (SYRUS4G_REMOTE) {
+		// command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`
+		let shell = await getShell()
+		return new Promise((resolve, reject) => {
+			shell.exec(command, (error, stream) => {
+				if (error) {
+					reject({
+						command,
+						error
+					})
+				}
+				let stdout, stderr
+				stream.on('data', (data: Buffer) => {
+					stdout = data
+				})
+				stream.stderr.on('data', (data: Buffer) => {
+					stderr = data
+				})
+				stream.on('close', (code: number, signal:number) => {
+					let data
+					if(code != 0){
+						reject({
+							error,
+							code,
+							signal,
+							errorText: stderr?.toString(),
+							output: stdout?.toString(),
+							command,
+						})
+					}
+					try{
+						data = stdout.toString()
+						resolve(JSON.parse(data))
+					} catch (error){
+						resolve(data)
+					}
+				})
+			})
+		})
+	}
 	return new Promise((resolve, reject) => {
+		if (USERNAME != "syrus4g") opts.uid = 1000
 		exec(command, opts, (error, stdout, stderr) => {
 			if (error || stderr) {
 				reject({
@@ -74,7 +114,6 @@ export function OSExecute(...args:string[]): any {
 					errorText: stderr.toString(),
 					output: stdout.toString(),
 				});
-				return
 			}
 			try {
 				var data = stdout.toString();
@@ -85,6 +124,8 @@ export function OSExecute(...args:string[]): any {
 		});
 	});
 }
+
+export const execute = OSExecute
 
 /**
  * return distance in km between two coordinates points

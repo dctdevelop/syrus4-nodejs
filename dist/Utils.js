@@ -17,6 +17,7 @@ exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getP
 const child_process_1 = require("child_process");
 const os_1 = require("os");
 const path = require("path");
+const ssh2_1 = require("ssh2");
 let { APP_DATA_FOLDER } = process.env;
 let { SYRUS4G_REMOTE, SYRUS4G_APP_NAME } = process.env;
 const USERNAME = os_1.userInfo().username;
@@ -59,38 +60,109 @@ function execute(...args) {
         });
     });
 }
+var __shell_promise;
+function getShell() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (__shell_promise)
+            return yield __shell_promise;
+        const { SYRUS4G_REMOTE_SSH_HOST, SYRUS4G_REMOTE_SSH_PORT, SYRUS4G_REMOTE_SSH_USERNAME, SYRUS4G_REMOTE_SSH_PW } = process.env;
+        __shell_promise = new Promise((resolve, reject) => {
+            let conn = new ssh2_1.Client();
+            let timeout = setTimeout(reject, 1000 * 20);
+            conn.on('ready', () => {
+                clearTimeout(timeout);
+                resolve(conn);
+            });
+            conn.on('close', () => {
+                console.error('ssh:close', arguments);
+                __shell_promise = null;
+            });
+            conn.on('end', () => {
+                console.error('ssh:end', arguments);
+                __shell_promise = null;
+            });
+            conn.connect({
+                host: SYRUS4G_REMOTE_SSH_HOST,
+                port: SYRUS4G_REMOTE_SSH_PORT,
+                username: SYRUS4G_REMOTE_SSH_USERNAME,
+                password: SYRUS4G_REMOTE_SSH_PW,
+            });
+        });
+        return __shell_promise;
+    });
+}
 // TODO: !important remove the root check and uid settings
 /**
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
  * @param args arguments to pass to the function to execute
  */
 function OSExecute(...args) {
-    var command = args.map((x) => x.trim()).join(" ");
-    let opts = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
-    if (command.startsWith("apx-"))
-        command = `sudo ${command}`;
-    if (SYRUS4G_REMOTE)
-        command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`;
-    else if (USERNAME != "syrus4g")
-        opts.uid = 1000;
-    return new Promise((resolve, reject) => {
-        child_process_1.exec(command, opts, (error, stdout, stderr) => {
-            if (error || stderr) {
-                reject({
-                    command,
-                    error,
-                    errorText: stderr.toString(),
-                    output: stdout.toString(),
+    return __awaiter(this, void 0, void 0, function* () {
+        var command = args.map((x) => x.trim()).join(" ");
+        let opts = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
+        if (command.startsWith("apx-"))
+            command = `sudo ${command}`;
+        if (SYRUS4G_REMOTE) {
+            // command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`
+            let shell = yield getShell();
+            return new Promise((resolve, reject) => {
+                shell.exec(command, (error, stream) => {
+                    if (error) {
+                        reject({
+                            command,
+                            error
+                        });
+                    }
+                    let stdout, stderr;
+                    stream.on('data', (data) => {
+                        stdout = data;
+                    });
+                    stream.stderr.on('data', (data) => {
+                        stderr = data;
+                    });
+                    stream.on('close', (code, signal) => {
+                        let data;
+                        if (code != 0) {
+                            reject({
+                                error,
+                                code,
+                                signal,
+                                errorText: stderr === null || stderr === void 0 ? void 0 : stderr.toString(),
+                                output: stdout === null || stdout === void 0 ? void 0 : stdout.toString(),
+                                command,
+                            });
+                        }
+                        try {
+                            data = stdout.toString();
+                            resolve(JSON.parse(data));
+                        }
+                        catch (error) {
+                            resolve(data);
+                        }
+                    });
                 });
-                return;
-            }
-            try {
-                var data = stdout.toString();
-                resolve(JSON.parse(data));
-            }
-            catch (error) {
-                resolve(data);
-            }
+            });
+        }
+        return new Promise((resolve, reject) => {
+            if (USERNAME != "syrus4g")
+                opts.uid = 1000;
+            child_process_1.exec(command, opts, (error, stdout, stderr) => {
+                if (error || stderr) {
+                    reject({
+                        command,
+                        error,
+                        errorText: stderr.toString(),
+                        output: stdout.toString(),
+                    });
+                }
+                try {
+                    var data = stdout.toString();
+                    resolve(JSON.parse(data));
+                }
+                catch (error) {
+                    resolve(data);
+                }
+            });
         });
     });
 }

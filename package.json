@@ -17,7 +17,8 @@
 	"author": "developers@digitalcomtech.com",
 	"license": "ISC",
 	"dependencies": {
-		"ioredis": "^4.14.1"
+		"ioredis": "^4.14.1",
+		"ssh2": "^0.8.9"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.2.14",
@@ -25,6 +26,7 @@
 		"@types/mocha": "^8.2.0",
 		"@types/node": "^12.12.17",
 		"@types/redis": "^2.8.14",
+		"@types/ssh2": "^0.5.46",
 		"axios": "^0.21.0",
 		"chai": "^4.2.0",
 		"jsdoc-to-markdown": "^5.0.3",
