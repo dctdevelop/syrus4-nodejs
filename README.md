@@ -1035,7 +1035,7 @@ remove aliases from all temperature sensors
 <a name="module_Temperature..onTemperatureChange"></a>
 
 ### Temperature~onTemperatureChange()
-monitor iButton notifications
+monitor temperature notifications
 
 **Kind**: inner method of [<code>Temperature</code>](#module_Temperature)  
 <a name="module_Update"></a>
