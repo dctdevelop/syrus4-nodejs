@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getPrefix = exports.toJSONReceiver = exports.distanceBetweenCoordinates = exports.OSExecute = void 0;
+exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getPrefix = exports.toJSONReceiver = exports.distanceBetweenCoordinates = exports.execute = exports.OSExecute = void 0;
 /**
  * Utils module some utlities in ApexOS
  * @module Utils
@@ -24,48 +24,18 @@ const USERNAME = os_1.userInfo().username;
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
-/**
- * DEPRECATED: use OSExecute
- * Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
- * @param args arguments to pass to the function to execute
- */
-function execute(...args) {
-    if (args.length == 1) {
-        args = args[0].split(" ");
-    }
-    var command = [...args].join(" ");
-    return new Promise((resolve, reject) => {
-        child_process_1.exec(command, { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5, uid: 1000 }, (error, stdout, stderr) => {
-            if (error) {
-                return reject({
-                    error: error,
-                    errorText: stderr.toString(),
-                    output: stdout.toString()
-                });
-            }
-            if (stderr) {
-                return reject({
-                    error: error,
-                    errorText: stderr.toString(),
-                    output: stdout.toString()
-                });
-            }
-            var data = stdout.toString();
-            try {
-                resolve(JSON.parse(data));
-            }
-            catch (error) {
-                resolve(data);
-            }
-        });
-    });
-}
 var __shell_promise;
 function getShell() {
     return __awaiter(this, void 0, void 0, function* () {
         if (__shell_promise)
             return yield __shell_promise;
         const { SYRUS4G_REMOTE_SSH_HOST, SYRUS4G_REMOTE_SSH_PORT, SYRUS4G_REMOTE_SSH_USERNAME, SYRUS4G_REMOTE_SSH_PW } = process.env;
+        console.log("setting up remote shell", {
+            SYRUS4G_REMOTE_SSH_HOST,
+            SYRUS4G_REMOTE_SSH_PORT,
+            SYRUS4G_REMOTE_SSH_USERNAME,
+            SYRUS4G_REMOTE_SSH_PW: "*".repeat(SYRUS4G_REMOTE_SSH_PW.length)
+        });
         __shell_promise = new Promise((resolve, reject) => {
             let conn = new ssh2_1.Client();
             let timeout = setTimeout(reject, 1000 * 20);
@@ -83,7 +53,7 @@ function getShell() {
             });
             conn.connect({
                 host: SYRUS4G_REMOTE_SSH_HOST,
-                port: SYRUS4G_REMOTE_SSH_PORT,
+                port: parseInt(SYRUS4G_REMOTE_SSH_PORT),
                 username: SYRUS4G_REMOTE_SSH_USERNAME,
                 password: SYRUS4G_REMOTE_SSH_PW,
             });
@@ -167,6 +137,7 @@ function OSExecute(...args) {
     });
 }
 exports.OSExecute = OSExecute;
+exports.execute = OSExecute;
 /**
  * return distance in km between two coordinates points
  * @param coord1 first coordinate to calculate the distance
