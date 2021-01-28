@@ -21,7 +21,7 @@ if (!SYRUS4G_APP_CONF_FILE)
  * @param zipPath the zip location unde where unzip the app
  */
 function execute(action, app = null, zipPath = null) {
-    return Utils.OSExecute("apx-apps", action, app, zipPath);
+    return Utils.OSExecute("syrus-apps-manager", action, app, zipPath);
 }
 /**
  * Start an application under /data/applications folder

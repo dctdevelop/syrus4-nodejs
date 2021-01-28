@@ -23,7 +23,7 @@ type AppAction = "install" | "uninstall" | "list" | "state" | "enable" | "disabl
  * @param zipPath the zip location unde where unzip the app
  */
 function execute(action: AppAction, app: string = null, zipPath: string = null) {
-	return Utils.OSExecute("apx-apps", action, app, zipPath);
+	return Utils.OSExecute("syrus-apps-manager", action, app, zipPath);
 }
 
 /**

@@ -1117,7 +1117,6 @@ Utils module some utlities in ApexOS
 
 
 * [Utils](#module_Utils)
-    * [~execute(...args)](#module_Utils..execute)
     * [~OSExecute(...args)](#module_Utils..OSExecute)
     * [~distanceBetweenCoordinates(coord1, coord2)](#module_Utils..distanceBetweenCoordinates)
     * [~toJSONReceiver(coord, imei, siteId)](#module_Utils..toJSONReceiver)
@@ -1125,18 +1124,6 @@ Utils module some utlities in ApexOS
     * [~$trycatch(promise)](#module_Utils..$trycatch) ⇒ <code>\*</code>
     * [~$throw(error)](#module_Utils..$throw)
     * [~$sleep(ms)](#module_Utils..$sleep) ⇒ <code>\*</code>
-
-<a name="module_Utils..execute"></a>
-
-### Utils~execute(...args)
-DEPRECATED: use OSExecute
-Execute a command in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
-
-**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
-
-| Param | Description |
-| --- | --- |
-| ...args | arguments to pass to the function to execute |
 
 <a name="module_Utils..OSExecute"></a>
 
