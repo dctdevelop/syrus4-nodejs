@@ -4,8 +4,9 @@
  */
 import { exec, execSync } from "child_process"
 import { userInfo } from "os"
-
+import * as fs from "fs"
 import * as path from "path"
+
 import { Client } from 'ssh2'
 
 let { APP_DATA_FOLDER } = process.env
@@ -18,7 +19,7 @@ function deg2rad(deg: number) {
 }
 
 var __shell_promise : any;
-async function getShell(){
+export async function getShell(){
 	if(__shell_promise) return await __shell_promise
 	const { SYRUS4G_REMOTE_SSH_HOST, SYRUS4G_REMOTE_SSH_PORT,
 		SYRUS4G_REMOTE_SSH_USERNAME, SYRUS4G_REMOTE_SSH_PW } = process.env
@@ -127,6 +128,28 @@ export async function OSExecute(...args:string[]): Promise<any> {
 
 export const execute = OSExecute
 
+export async function uploadFile(path:string, content) {
+	if (!SYRUS4G_REMOTE) {
+		fs.writeFileSync(path, content)
+		return
+	}
+	let shell = await getShell()
+	return new Promise(function(resolve, reject){
+		shell.sftp(function(err, sftp){
+			if(err) {
+				console.log("shell.sftp")
+				reject(err)
+			}
+			sftp.writeFile(path, content, function(err){
+				if(err){
+					console.log("sftp.writeFile")
+					reject(err)
+				}
+				resolve({ path })
+			})
+		})
+	})
+}
 /**
  * return distance in km between two coordinates points
  * @param coord1 first coordinate to calculate the distance

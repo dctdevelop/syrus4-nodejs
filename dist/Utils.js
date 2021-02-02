@@ -9,13 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getPrefix = exports.toJSONReceiver = exports.distanceBetweenCoordinates = exports.execute = exports.OSExecute = void 0;
+exports.$sleep = exports.$throw = exports.$to = exports.$trycatch = exports.getPrefix = exports.toJSONReceiver = exports.distanceBetweenCoordinates = exports.uploadFile = exports.execute = exports.OSExecute = exports.getShell = void 0;
 /**
  * Utils module some utlities in ApexOS
  * @module Utils
  */
 const child_process_1 = require("child_process");
 const os_1 = require("os");
+const fs = require("fs");
 const path = require("path");
 const ssh2_1 = require("ssh2");
 let { APP_DATA_FOLDER } = process.env;
@@ -61,6 +62,7 @@ function getShell() {
         return __shell_promise;
     });
 }
+exports.getShell = getShell;
 // TODO: !important remove the root check and uid settings
 /**
  * Execute a command using sudo in the shell of the APEXOS and returns a promise with the stdout. Promise is rejected if status code is different than 0
@@ -138,6 +140,32 @@ function OSExecute(...args) {
 }
 exports.OSExecute = OSExecute;
 exports.execute = OSExecute;
+function uploadFile(path, content) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!SYRUS4G_REMOTE) {
+            fs.writeFileSync(path, content);
+            return;
+        }
+        let shell = yield getShell();
+        return new Promise(function (resolve, reject) {
+            shell.sftp(function (err, sftp) {
+                if (err) {
+                    console.log("shell.sftp");
+                    reject(err);
+                }
+                sftp.writeFile(path, content, function (err) {
+                    if (err) {
+                        console.log("sftp.writeFile");
+                        reject(err);
+                    }
+                    resolve({ path });
+                    // sftp.close()
+                });
+            });
+        });
+    });
+}
+exports.uploadFile = uploadFile;
 /**
  * return distance in km between two coordinates points
  * @param coord1 first coordinate to calculate the distance
