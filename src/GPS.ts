@@ -7,7 +7,7 @@ import * as Utils from "./Utils";
 
 function rawdataToCoordinates(raw: string) {
 	var gps = JSON.parse(raw);
-	var speed = parseFloat(gps.speed) * 0.277778;
+	var speed = Number(gps.speed) * 0.277778;
 	return {
 		coords: {
 			latitude: gps.lat || 0,

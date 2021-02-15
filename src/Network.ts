@@ -21,8 +21,9 @@ async function IsConnected(net){
  * @param errorCallback callback to execute in case of error
  */
 function onNetworkChange(callback, errorCallback) {
+	let handler;
 	try {
-		var handler = (channel, raw) => {
+		handler = (channel:string, raw:string) => {
 			if(channel !== "network/interface") return;
 			callback(raw);
 		};
@@ -33,7 +34,7 @@ function onNetworkChange(callback, errorCallback) {
 		errorCallback(error);
 	}
 
-	var returnable:any = {
+	const returnable: any = {
 		unsubscribe: () => {
 			subscriber.off("message", handler);
 		}
@@ -46,12 +47,12 @@ function onNetworkChange(callback, errorCallback) {
  * get the current state of the network of the APEX OS, returns a promise with the info
  */
 async function getActiveNetwork() {
-	var net = await redis.get("network_interface");
-	var data: any = {};
+	let net: any = await redis.get("network_interface").catch(Utils.$throw)
+	let data: any = {};
 	if (net == "wlan0") {
-		data = await Utils.OSExecute("apx-wifi", "state");
+		data = await Utils.OSExecute("apx-wifi", "state").catch(Utils.$throw)
 	}
-	data = Object.assign(data, await getNetworkInfo(net));
+	data = Object.assign(data, await getNetworkInfo(net).catch(Utils.$throw))
 	return { network: net, information: data };
 }
 
@@ -59,16 +60,16 @@ async function getActiveNetwork() {
  * get Network Information about specific network
  * @param net  network that want to know the information valid options are: eth0, ppp0, wlan0
  */
-async function getNetworkInfo(net) {
-	var data: any = {};
+async function getNetworkInfo(net:string) {
+	let data: any = {};
 	if (net == "none") {
 		return {
 			connected: false
 		};
 	}
-	var raw: any = await Utils.OSExecute(`ifconfig ${net}`);
+	let raw: any = await Utils.OSExecute(`ifconfig ${net}`).catch(Utils.$throw);
 	if (net == "ppp0") {
-		var modemInfo: any = await redis.hgetall("modem_information");
+		let modemInfo: any = await redis.hgetall("modem_information");
 		data.imei = modemInfo.IMEI;
 		data.operator = modemInfo.OPERATOR;
 		data.imsi = modemInfo.SIM_IMSI;
@@ -78,7 +79,7 @@ async function getNetworkInfo(net) {
 	}
 	if (net == "wlan0") {
 		try {
-			var wifiInfo = await Utils.OSExecute("apx-wifi state");
+			let wifiInfo = await Utils.OSExecute("apx-wifi state");
 			data = Object.assign(data, wifiInfo);
 			data.signal = Number(data.signal);
 			delete data.ip;
@@ -87,8 +88,8 @@ async function getNetworkInfo(net) {
 		}
 	}
 
-	var start = raw.indexOf("inet addr:") + 10;
-	var end = raw.indexOf(" ", start);
+	let start = raw.indexOf("inet addr:") + 10;
+	let end = raw.indexOf(" ", start);
 	if (start > -1) data.ip_address = raw.substring(start, end);
 
 	start = raw.indexOf("RX bytes:") + 9;
@@ -99,7 +100,7 @@ async function getNetworkInfo(net) {
 	end = raw.indexOf(" ", start);
 	if (start > -1) data["tx_bytes"] = parseInt(raw.substring(start, end));
 
-	data.connected = await IsConnected(net);
+	data.connected = await IsConnected(net).catch(Utils.$throw);
 	if (data.ip_address == "") {
 		data.ip_address = null;
 	}
@@ -110,25 +111,20 @@ async function getNetworkInfo(net) {
  * get network information about all the available networks on APEX OS
  */
 async function getNetworks() {
-	var nets: any = await Utils.OSExecute(`ifconfig | grep "Link encap:"`);
+	let nets: any = await Utils.OSExecute(`ifconfig | grep "Link encap:"`).catch(Utils.$throw);
 	nets = nets
 		.split("\n")
-		.map(str => str.split(" ")[0])
-		.filter(str => str);
-	var info = {};
-	var promises = []
-	promises = []
-	nets.forEach((net)=>{
-		var promise = getNetworkInfo(net);
-		promise.then((resp)=>{
-			info[net] = resp
-		})
-		.catch((err)=>{
-			throw err;
-		});
-		promises.push(promise);
-	})
-	await Promise.all(promises);
+		.map((str:string) => str.split(" ")[0])
+		.filter((str:string) => str);
+	let info = {};
+	for (const net of nets){
+		let [resp, err] = await Utils.$to(getNetworkInfo(net))
+		if (err) {
+			console.error({ net, err });
+			continue
+		}
+		info[net] = resp
+	}
 	return info;
 }
 

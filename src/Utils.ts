@@ -34,6 +34,7 @@ export async function getShell(){
 		let timeout = setTimeout(reject, 1000 * 20);
 		conn.on('ready', () => {
 			clearTimeout(timeout)
+			console.log('ssh:ready', arguments)
 			resolve(conn)
 		})
 		conn.on('close', () => {
@@ -43,6 +44,11 @@ export async function getShell(){
 		conn.on('end', () => {
 			console.error('ssh:end', arguments)
 			__shell_promise = null
+		})
+		conn.on('error', (error) => {
+			clearTimeout(timeout)
+			console.error('ssh:error', error)
+			reject(error)
 		})
 		conn.connect({
 			host: SYRUS4G_REMOTE_SSH_HOST,
@@ -60,23 +66,25 @@ export async function getShell(){
  * @param args arguments to pass to the function to execute
  */
 export async function OSExecute(...args:string[]): Promise<any> {
-	var command = args.map((x)=>x.trim()).join(" ");
+	let command = args.map((x)=>x.trim()).join(" ");
 	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
 
 	if (command.startsWith("apx-")) command = `sudo ${command}`
 
 	if (SYRUS4G_REMOTE) {
-		// command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`
 		let shell = await getShell()
 		return new Promise((resolve, reject) => {
+			// console.info("ssh:command", command)
 			shell.exec(command, (error, stream) => {
 				if (error) {
+					console.error("ssh:command", {command, error})
 					reject({
 						command,
 						error
 					})
+					return
 				}
-				let stdout, stderr
+				let stdout: any, stderr: any
 				stream.on('data', (data: Buffer) => {
 					stdout = data
 				})
@@ -84,16 +92,19 @@ export async function OSExecute(...args:string[]): Promise<any> {
 					stderr = data
 				})
 				stream.on('close', (code: number, signal:number) => {
-					let data
+					let data: any, response: any
 					if(code != 0){
-						reject({
+						response = {
 							error,
 							code,
 							signal,
 							errorText: stderr?.toString(),
 							output: stdout?.toString(),
 							command,
-						})
+						}
+						// console.error("ssh:command", response)
+						reject(response)
+						return
 					}
 					try{
 						data = stdout.toString()
@@ -101,6 +112,7 @@ export async function OSExecute(...args:string[]): Promise<any> {
 					} catch (error){
 						resolve(data)
 					}
+					// console.log("ssh:command", {command, response: data})
 				})
 			})
 		})

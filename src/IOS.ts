@@ -120,7 +120,7 @@ async function getAll() {
 			if (!key) {
 				key = val;
 			} else {
-				response[key] = parseFloat(val);
+				response[key] = Number(val);
 				key = null;
 			}
 		}
