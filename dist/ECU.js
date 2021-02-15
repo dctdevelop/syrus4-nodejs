@@ -9,13 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
 /**
  * ECU module get information about EcU monitor and vehicle in ApexOS
  * @module ECU
  */
+const tag_params_1 = require("tag-params");
 const Utils = require("./Utils");
 const Redis_1 = require("./Redis");
-const ECU_PARAM_LIST = require("./ECU.json");
+const ECU_PARAM_LIST = require("./ECU_fields.json");
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -32,6 +34,14 @@ function getECUInfo() {
         };
     });
 }
+exports.getECUInfo = getECUInfo;
+function template(strings, ...keys) {
+    let result = [strings[0]];
+    keys.forEach((key, i) => {
+        result.push(key, strings[i + 1]);
+    });
+    return result.join('');
+}
 /**
  *  allows to subscribe for ECU parameter changes
  * @param cb calbback to execute when new ECU data arrives
@@ -42,13 +52,50 @@ function watchECUParams(cb, errorCallback) {
         var handler = (channel, raw) => {
             if (channel != "ecumonitor/parameters")
                 return;
-            var ecu_values = {};
+            const ecu_values = {};
             raw.split("&").map(param => {
-                var [key, value] = param.split("=");
-                if (ECU_PARAM_LIST[`${key}`]) {
-                    ecu_values[ECU_PARAM_LIST[key].syruslang_param] = isNaN(parseFloat(value)) ? value : parseFloat(value);
+                const [key, value] = param.split("=");
+                const element = ECU_PARAM_LIST[key] || {};
+                const { syruslang_param, syruslang_prefix, syruslang_suffix, tokenizer, itemizer } = element;
+                // save values directly, even if broken down
+                let fvalue = isNaN(Number(value)) ? value : Number(value);
+                if (syruslang_param) {
+                    ecu_values[syruslang_param] = fvalue;
                 }
-                ecu_values[`${key}`] = isNaN(parseFloat(value)) ? value : parseFloat(value);
+                ecu_values[key] = fvalue;
+                if (!(tokenizer || itemizer))
+                    return;
+                if (!value.includes(tokenizer))
+                    return;
+                let tokens;
+                let regex = /(?<value>.*)/;
+                if (itemizer) {
+                    regex = new RegExp(itemizer);
+                }
+                tokens = [value];
+                if (tokenizer) {
+                    tokens = value.split(tokenizer);
+                }
+                for (const token of tokens) {
+                    try {
+                        let skey = syruslang_param;
+                        let { groups } = regex.exec(token);
+                        let tags;
+                        if (syruslang_prefix) {
+                            tags = tag_params_1.params(syruslang_prefix, groups);
+                            skey = `${template(...tags)}.${skey}`;
+                        }
+                        if (syruslang_suffix) {
+                            tags = tag_params_1.params(syruslang_suffix, groups);
+                            skey = `${skey}.${template(...tags)}`;
+                        }
+                        let svalue = isNaN(Number(groups.value)) ? groups.value : Number(groups.value);
+                        ecu_values[skey] = svalue;
+                    }
+                    catch (error) {
+                        console.error({ error, key, token, regex });
+                    }
+                }
             });
             cb(ecu_values);
         };
@@ -59,7 +106,7 @@ function watchECUParams(cb, errorCallback) {
         console.error(error);
         errorCallback(error);
     }
-    var returnable = {
+    const returnable = {
         unsubscribe: () => {
             Redis_1.SystemRedisSubscriber.off("message", handler);
         }
@@ -67,24 +114,27 @@ function watchECUParams(cb, errorCallback) {
     returnable.off = returnable.unsubscribe;
     return returnable;
 }
+exports.watchECUParams = watchECUParams;
 /**
  * Get all the most recent data from ECU parameters
  */
 function getECUParams() {
     return __awaiter(this, void 0, void 0, function* () {
-        var ecu_params = yield Utils.OSExecute("apx-ecu list_parameters");
-        var ecu_values = {};
+        const ecu_params = yield Utils.OSExecute("apx-ecu list_parameters");
+        const ecu_values = {};
         for (const key in ecu_params) {
             const value = ecu_params[key];
-            ecu_values[`${key}`] = isNaN(parseFloat(value)) ? value : parseFloat(value);
+            ecu_values[`${key}`] = isNaN(Number(value)) ? value : Number(value);
         }
         return ecu_values;
     });
 }
+exports.getECUParams = getECUParams;
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
 function getECUList() {
     return ECU_PARAM_LIST;
 }
+exports.getECUList = getECUList;
 exports.default = { ECU_PARAM_LIST, getECUParams, getECUList, watchECUParams, getECUInfo };

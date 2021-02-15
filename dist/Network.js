@@ -33,8 +33,9 @@ function IsConnected(net) {
  * @param errorCallback callback to execute in case of error
  */
 function onNetworkChange(callback, errorCallback) {
+    let handler;
     try {
-        var handler = (channel, raw) => {
+        handler = (channel, raw) => {
             if (channel !== "network/interface")
                 return;
             callback(raw);
@@ -46,7 +47,7 @@ function onNetworkChange(callback, errorCallback) {
         console.error(error);
         errorCallback(error);
     }
-    var returnable = {
+    const returnable = {
         unsubscribe: () => {
             Redis_1.SystemRedisSubscriber.off("message", handler);
         }
@@ -59,12 +60,12 @@ function onNetworkChange(callback, errorCallback) {
  */
 function getActiveNetwork() {
     return __awaiter(this, void 0, void 0, function* () {
-        var net = yield Redis_1.SystemRedisClient.get("network_interface");
-        var data = {};
+        let net = yield Redis_1.SystemRedisClient.get("network_interface").catch(Utils.$throw);
+        let data = {};
         if (net == "wlan0") {
-            data = yield Utils.OSExecute("apx-wifi", "state");
+            data = yield Utils.OSExecute("apx-wifi", "state").catch(Utils.$throw);
         }
-        data = Object.assign(data, yield getNetworkInfo(net));
+        data = Object.assign(data, yield getNetworkInfo(net).catch(Utils.$throw));
         return { network: net, information: data };
     });
 }
@@ -74,15 +75,15 @@ function getActiveNetwork() {
  */
 function getNetworkInfo(net) {
     return __awaiter(this, void 0, void 0, function* () {
-        var data = {};
+        let data = {};
         if (net == "none") {
             return {
                 connected: false
             };
         }
-        var raw = yield Utils.OSExecute(`ifconfig ${net}`);
+        let raw = yield Utils.OSExecute(`ifconfig ${net}`).catch(Utils.$throw);
         if (net == "ppp0") {
-            var modemInfo = yield Redis_1.SystemRedisClient.hgetall("modem_information");
+            let modemInfo = yield Redis_1.SystemRedisClient.hgetall("modem_information");
             data.imei = modemInfo.IMEI;
             data.operator = modemInfo.OPERATOR;
             data.imsi = modemInfo.SIM_IMSI;
@@ -92,7 +93,7 @@ function getNetworkInfo(net) {
         }
         if (net == "wlan0") {
             try {
-                var wifiInfo = yield Utils.OSExecute("apx-wifi state");
+                let wifiInfo = yield Utils.OSExecute("apx-wifi state");
                 data = Object.assign(data, wifiInfo);
                 data.signal = Number(data.signal);
                 delete data.ip;
@@ -101,8 +102,8 @@ function getNetworkInfo(net) {
                 console.error(error);
             }
         }
-        var start = raw.indexOf("inet addr:") + 10;
-        var end = raw.indexOf(" ", start);
+        let start = raw.indexOf("inet addr:") + 10;
+        let end = raw.indexOf(" ", start);
         if (start > -1)
             data.ip_address = raw.substring(start, end);
         start = raw.indexOf("RX bytes:") + 9;
@@ -113,7 +114,7 @@ function getNetworkInfo(net) {
         end = raw.indexOf(" ", start);
         if (start > -1)
             data["tx_bytes"] = parseInt(raw.substring(start, end));
-        data.connected = yield IsConnected(net);
+        data.connected = yield IsConnected(net).catch(Utils.$throw);
         if (data.ip_address == "") {
             data.ip_address = null;
         }
@@ -125,25 +126,20 @@ function getNetworkInfo(net) {
  */
 function getNetworks() {
     return __awaiter(this, void 0, void 0, function* () {
-        var nets = yield Utils.OSExecute(`ifconfig | grep "Link encap:"`);
+        let nets = yield Utils.OSExecute(`ifconfig | grep "Link encap:"`).catch(Utils.$throw);
         nets = nets
             .split("\n")
-            .map(str => str.split(" ")[0])
-            .filter(str => str);
-        var info = {};
-        var promises = [];
-        promises = [];
-        nets.forEach((net) => {
-            var promise = getNetworkInfo(net);
-            promise.then((resp) => {
-                info[net] = resp;
-            })
-                .catch((err) => {
-                throw err;
-            });
-            promises.push(promise);
-        });
-        yield Promise.all(promises);
+            .map((str) => str.split(" ")[0])
+            .filter((str) => str);
+        let info = {};
+        for (const net of nets) {
+            let [resp, err] = yield Utils.$to(getNetworkInfo(net));
+            if (err) {
+                console.error({ net, err });
+                continue;
+            }
+            info[net] = resp;
+        }
         return info;
     });
 }

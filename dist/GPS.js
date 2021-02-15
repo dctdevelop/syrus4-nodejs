@@ -17,7 +17,7 @@ const Redis_1 = require("./Redis");
 const Utils = require("./Utils");
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
-    var speed = parseFloat(gps.speed) * 0.277778;
+    var speed = Number(gps.speed) * 0.277778;
     return {
         coords: {
             latitude: gps.lat || 0,
