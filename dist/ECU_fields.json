@@ -937,7 +937,7 @@
     "fef4_1": {
         "id": "fef4_1",
         "syruslang_param": "tires_provisioning",
-        "param_name": "tire_location",
+        "param_name": "tires_provisioning",
         "type": "string",
         "Units": "Count",
         "Range": "0 to 255",
@@ -952,8 +952,8 @@
     },
     "fef4_2": {
         "id": "fef4_2",
-        "syruslang_param": "tires_psi",
-        "param_name": "tire_pressure",
+        "syruslang_param": "tires_pressure",
+        "param_name": "tires_pressure",
         "type": "string",
         "Units": "kPa",
         "Range": "0 to 255",
@@ -969,7 +969,7 @@
     "fef4_3-4": {
         "id": "fef4_3-4",
         "syruslang_param": "tires_tmp",
-        "param_name": "tire_temperature",
+        "param_name": "tires_temperature",
         "type": "string",
         "Units": "C",
         "Range": "-100 to 100",
