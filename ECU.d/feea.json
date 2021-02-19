@@ -1,0 +1,54 @@
+{
+    "feea_1": {
+        "id": "feea_1",
+        "param_name": "axle_location",
+        "units": "Count",
+        "range": "0 to 255",
+        "pgn": "feea",
+        "start_position": 1,
+        "taip_tag": "OZ",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "feea_2-3": {
+        "id": "feea_2-3",
+        "param_name": "weight_axle",
+        "units": "Mass, cargo",
+        "range": "kg",
+        "pgn": "feea",
+        "start_position": "2-3",
+        "taip_tag": "OZ.2",
+        "taip_units": "kg",
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 26
+    },
+    "feea_4-5": {
+        "id": "feea_4-5",
+        "param_name": "weight_trailer",
+        "units": "Mass, cargo",
+        "range": "kg",
+        "pgn": "feea",
+        "start_position": "4-5",
+        "taip_tag": "OZ.2",
+        "taip_units": "kg",
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 27
+    },
+    "feea_6-7": {
+        "id": "feea_6-7",
+        "param_name": "weight_cargo",
+        "units": "Mass, cargo",
+        "range": "kg",
+        "pgn": "feea",
+        "start_position": "6-7",
+        "taip_tag": "OZ.2",
+        "taip_units": "kg",
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 28
+    }
+}

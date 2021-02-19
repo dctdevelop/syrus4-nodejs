@@ -1,0 +1,15 @@
+{
+	"fdb4_3-4": {
+		"id": "fdb4_3-4",
+		"param_name": "aftmt_dpf_intake_gas_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fdb4",
+		"start_position": "3-4",
+		"taip_tag": "ZA.4",
+		"taip_units": "deciC",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 47
+	}
+}

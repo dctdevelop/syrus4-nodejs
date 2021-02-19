@@ -1,0 +1,28 @@
+{
+	"fedc_1-4": {
+		"id": "fedc_1-4",
+		"param_name": "fuel_idle",
+		"units": "Fuel used, liquid",
+		"range": "L",
+		"pgn": "fedc",
+		"start_position": "1-4",
+		"taip_tag": "OI",
+		"taip_units": "deciliters",
+		"multiplier": 10,
+		"xaem_group": 1,
+		"xaem_bit": 22
+	},
+	"fedc_5-8": {
+		"id": "fedc_5-8",
+		"param_name": "hours_idle",
+		"units": "Time, hr",
+		"range": "hr",
+		"pgn": "fedc",
+		"start_position": "5-8",
+		"taip_tag": "OU",
+		"taip_units": "centihours",
+		"multiplier": 100,
+		"xaem_group": 1,
+		"xaem_bit": 23
+	}
+}

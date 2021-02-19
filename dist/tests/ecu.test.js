@@ -33,7 +33,9 @@ describe('TPMS Tests', () => {
         callbacks['$callback'] = function (update) {
             let filter = {};
             for (const key in update) {
-                if (key.startsWith('fef4') || key.startsWith('tires')) {
+                if (key.startsWith('fef4') ||
+                    key.startsWith('tires_') ||
+                    key.startsWith('$tires.')) {
                     filter[key] = update[key];
                 }
             }

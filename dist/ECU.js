@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * ECU module get information about EcU monitor and vehicle in ApexOS
+ * @module ECU
+ */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,14 +14,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
-/**
- * ECU module get information about EcU monitor and vehicle in ApexOS
- * @module ECU
- */
+const fs = require("fs");
+const path = require("path");
 const tag_params_1 = require("tag-params");
 const Utils = require("./Utils");
 const Redis_1 = require("./Redis");
-const ECU_PARAM_LIST = require("./ECU_fields.json");
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -48,6 +49,7 @@ function template(strings, ...keys) {
  * @param errorCallback errorCallback when something wrong goes with the subscription
  */
 function watchECUParams(cb, errorCallback) {
+    let ECU_PARAM_LIST = getECUList();
     try {
         var handler = (channel, raw) => {
             if (channel != "ecumonitor/parameters")
@@ -56,11 +58,11 @@ function watchECUParams(cb, errorCallback) {
             raw.split("&").map(param => {
                 const [key, value] = param.split("=");
                 const element = ECU_PARAM_LIST[key] || {};
-                const { syruslang_param, syruslang_prefix, syruslang_suffix, tokenizer, itemizer } = element;
+                const { param_name, tokenizer, itemizer, item_name, } = element;
                 // save values directly, even if broken down
                 let fvalue = isNaN(Number(value)) ? value : Number(value);
-                if (syruslang_param) {
-                    ecu_values[syruslang_param] = fvalue;
+                if (param_name) {
+                    ecu_values[param_name] = fvalue;
                 }
                 ecu_values[key] = fvalue;
                 if (!(tokenizer || itemizer))
@@ -78,16 +80,12 @@ function watchECUParams(cb, errorCallback) {
                 }
                 for (const token of tokens) {
                     try {
-                        let skey = syruslang_param;
+                        let skey = param_name;
                         let { groups } = regex.exec(token);
                         let tags;
-                        if (syruslang_prefix) {
-                            tags = tag_params_1.params(syruslang_prefix, groups);
-                            skey = `${template(...tags)}.${skey}`;
-                        }
-                        if (syruslang_suffix) {
-                            tags = tag_params_1.params(syruslang_suffix, groups);
-                            skey = `${skey}.${template(...tags)}`;
+                        if (item_name) {
+                            tags = tag_params_1.params(item_name, groups);
+                            skey = `${template(...tags)}`;
                         }
                         let svalue = isNaN(Number(groups.value)) ? groups.value : Number(groups.value);
                         ecu_values[skey] = svalue;
@@ -130,11 +128,35 @@ function getECUParams() {
     });
 }
 exports.getECUParams = getECUParams;
+let __ecu_loaded = false;
+let __ecu_params = {};
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-function getECUList() {
-    return ECU_PARAM_LIST;
+function getECUList(reload = false) {
+    if (reload) {
+        __ecu_loaded = false;
+        __ecu_params = {};
+    }
+    if (__ecu_loaded)
+        return __ecu_params;
+    let ecu_dir = path.join(__dirname, '../ECU.d');
+    let filenames = [];
+    fs.readdirSync(ecu_dir).map((filename) => {
+        if (!filename.endsWith('.json'))
+            return;
+        filenames.push(filename);
+        try {
+            let data = require(path.join(ecu_dir, filename));
+            __ecu_params = Object.assign(Object.assign({}, __ecu_params), data);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    });
+    console.log("ECU loaded", filenames.join(","));
+    __ecu_loaded = true;
+    return JSON.parse(JSON.stringify(__ecu_params));
 }
 exports.getECUList = getECUList;
-exports.default = { ECU_PARAM_LIST, getECUParams, getECUList, watchECUParams, getECUInfo };
+exports.default = { getECUParams, getECUList, watchECUParams, getECUInfo };

@@ -1,0 +1,28 @@
+{
+	"fee9_1-4": {
+		"id": "fee9_1-4",
+		"param_name": "fuel_trip",
+		"units": "Fuel used, liquid",
+		"range": "L",
+		"pgn": "fee9",
+		"start_position": "1-4",
+		"taip_tag": "ZG",
+		"taip_units": "liters",
+		"multiplier": 1,
+		"xaem_group": 3,
+		"xaem_bit": 6
+	},
+	"fee9_5-8": {
+		"id": "fee9_5-8",
+		"param_name": "fuel_total",
+		"units": "Fuel used, liquid",
+		"range": "L",
+		"pgn": "fee9",
+		"start_position": "5-8",
+		"taip_tag": "OF",
+		"taip_units": "deciliters",
+		"multiplier": 10,
+		"xaem_group": 1,
+		"xaem_bit": 6
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"fef5_1": {
+		"id": "fef5_1",
+		"param_name": "barometric_pressure",
+		"units": "Count",
+		"range": "kpa",
+		"pgn": "fef5",
+		"start_position": 1,
+		"taip_tag": "YY",
+		"taip_units": "psi",
+		"multiplier": 0.5,
+		"xaem_group": 2,
+		"xaem_bit": 3
+	},
+	"fef5_4-5": {
+		"id": "fef5_4-5",
+		"param_name": "ambient_air_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fef5",
+		"start_position": "4-5",
+		"taip_tag": "YA",
+		"taip_units": "C",
+		"multiplier": 1,
+		"xaem_group": 1,
+		"xaem_bit": 57
+	}
+}

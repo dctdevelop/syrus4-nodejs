@@ -2,11 +2,13 @@
  * ECU module get information about EcU monitor and vehicle in ApexOS
  * @module ECU
  */
+
+import * as fs from "fs"
+import * as path from "path"
 import { params } from 'tag-params';
 
 import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
-import * as ECU_PARAM_LIST from "./ECU_fields.json";
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -37,6 +39,7 @@ function template(strings: string[], ...keys: string[]): string {
  * @param errorCallback errorCallback when something wrong goes with the subscription
  */
 export function watchECUParams(cb: Function, errorCallback: Function) {
+	let ECU_PARAM_LIST = getECUList()
 	try {
 		var handler = (channel:string, raw:string) => {
 			if (channel != "ecumonitor/parameters") return;
@@ -45,13 +48,13 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				const [ key, value ] = param.split("=");
 				const element = ECU_PARAM_LIST[key] || {}
 				const {
-					syruslang_param, syruslang_prefix, syruslang_suffix,
-					tokenizer, itemizer
+					param_name, tokenizer,
+					itemizer, item_name,
 				} = element
 				// save values directly, even if broken down
 				let fvalue = isNaN(Number(value)) ? value : Number(value);
-				if (syruslang_param) {
-					ecu_values[syruslang_param] = fvalue
+				if (param_name) {
+					ecu_values[param_name] = fvalue
 				}
 				ecu_values[key] = fvalue
 				if (!(tokenizer || itemizer)) return
@@ -68,16 +71,12 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				}
 				for (const token of tokens){
 					try{
-						let skey = syruslang_param
+						let skey = param_name
 						let { groups } = regex.exec(token)
 						let tags: [string[], ...string[]];
-						if (syruslang_prefix) {
-							tags = params(syruslang_prefix, groups)
-							skey = `${template(...tags)}.${skey}`
-						}
-						if (syruslang_suffix) {
-							tags = params(syruslang_suffix, groups)
-							skey = `${skey}.${template(...tags)}`
+						if (item_name) {
+							tags = params(item_name, groups)
+							skey = `${template(...tags)}`
 						}
 						let svalue = isNaN(Number(groups.value)) ? groups.value : Number(groups.value)
 						ecu_values[skey] = svalue
@@ -117,11 +116,32 @@ export async function getECUParams() {
 	return ecu_values;
 }
 
+let __ecu_loaded = false
+let __ecu_params = {}
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-export function getECUList() {
-	return ECU_PARAM_LIST;
+export function getECUList(reload: boolean = false) {
+	if (reload) {
+		__ecu_loaded = false
+		__ecu_params = {}
+	}
+	if (__ecu_loaded) return __ecu_params
+	let ecu_dir = path.join(__dirname, '../ECU.d')
+	let filenames = []
+	fs.readdirSync(ecu_dir).map((filename)=>{
+		if (!filename.endsWith('.json')) return
+		filenames.push(filename)
+		try {
+			let data = require(path.join(ecu_dir, filename))
+			__ecu_params = { ...__ecu_params, ...data }
+		}catch(error){
+			console.error(error)
+		}
+	})
+	console.log("ECU loaded\n", filenames.join(","))
+	__ecu_loaded = true
+	return JSON.parse(JSON.stringify(__ecu_params))
 }
 
-export default { ECU_PARAM_LIST, getECUParams, getECUList, watchECUParams, getECUInfo };
+export default { getECUParams, getECUList, watchECUParams, getECUInfo };

@@ -1,0 +1,15 @@
+{
+	"feb1_5-8": {
+		"id": "feb1_5-8",
+		"param_name": "total_ecu_run_time",
+		"units": "Time, hr",
+		"range": "hr",
+		"pgn": "feb1",
+		"start_position": "5-8",
+		"taip_tag": "ZR",
+		"taip_units": "hr",
+		"multiplier": 1,
+		"xaem_group": 3,
+		"xaem_bit": 3
+	}
+}

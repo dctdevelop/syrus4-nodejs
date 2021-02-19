@@ -1,0 +1,41 @@
+{
+    "f003_2": {
+        "id": "f003_2",
+        "param_name": "accel_pedal_position",
+        "units": "Percentage",
+        "range": "%",
+        "pgn": "f003",
+        "start_position": 2,
+        "taip_tag": "OA",
+        "taip_units": "%",
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "f003_3": {
+        "id": "f003_3",
+        "param_name": "engine_load",
+        "units": "Percentage",
+        "range": "%",
+        "pgn": "f003",
+        "start_position": 3,
+        "taip_tag": "ZE.1",
+        "taip_units": "%",
+        "multiplier": 1,
+        "xaem_group": 2,
+        "xaem_bit": 25
+    },
+    "f003_4": {
+        "id": "f003_4",
+        "param_name": "remote_accel_pedal_position",
+        "units": "Percentage",
+        "range": "%",
+        "pgn": "f003",
+        "start_position": 4,
+        "taip_tag": "ZS.10",
+        "taip_units": "%",
+        "multiplier": 1,
+        "xaem_group": 2,
+        "xaem_bit": 26
+    }
+}

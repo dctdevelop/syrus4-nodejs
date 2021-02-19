@@ -1,0 +1,15 @@
+{
+	"feff_1.1": {
+		"id": "feff_1.1",
+		"param_name": "water_in_fuel",
+		"units": "Count",
+		"range": "0 to 3",
+		"pgn": "feff",
+		"start_position": 1.1,
+		"taip_tag": "ZS.6",
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": 2,
+		"xaem_bit": 58
+	}
+}

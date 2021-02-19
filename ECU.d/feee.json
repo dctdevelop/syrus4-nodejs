@@ -1,0 +1,41 @@
+{
+	"feee_1": {
+		"id": "feee_1",
+		"param_name": "coolant_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "feee",
+		"start_position": 1,
+		"taip_tag": "OJ",
+		"taip_units": "C",
+		"multiplier": 1,
+		"xaem_group": 1,
+		"xaem_bit": 19
+	},
+	"feee_2": {
+		"id": "feee_2",
+		"param_name": "fuel_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "feee",
+		"start_position": 2,
+		"taip_tag": "ZE.2",
+		"taip_units": "deciC",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 27
+	},
+	"feee_3-4": {
+		"id": "feee_3-4",
+		"param_name": "oil_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "feee",
+		"start_position": "3-4",
+		"taip_tag": "YK",
+		"taip_units": "C",
+		"multiplier": 1,
+		"xaem_group": 1,
+		"xaem_bit": 38
+	}
+}

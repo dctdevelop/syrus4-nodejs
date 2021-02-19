@@ -1,0 +1,28 @@
+{
+	"f00a_1-2": {
+		"id": "f00a_1-2",
+		"param_name": "exhaust_gas_recirculation_mass_flow_rate",
+		"units": "Flow rate, gaseous",
+		"range": "kg/h",
+		"pgn": "f00a",
+		"start_position": "1-2",
+		"taip_tag": "ZX.2",
+		"taip_units": "deci (kg/h)",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 33
+	},
+	"f00a_3-4": {
+		"id": "f00a_3-4",
+		"param_name": "intake_air_mass_flow_rate",
+		"units": "Flow rate, gaseous",
+		"range": "kg/h",
+		"pgn": "f00a",
+		"start_position": "3-4",
+		"taip_tag": "ZE.5",
+		"taip_units": "deci (kg/h)",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 34
+	}
+}

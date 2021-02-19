@@ -1,0 +1,28 @@
+{
+	"fea4_5-6": {
+		"id": "fea4_5-6",
+		"param_name": "exhaust_gas_recirculation_diff_pressure",
+		"units": "Presure",
+		"range": "kPa",
+		"pgn": "fea4",
+		"start_position": "5-6",
+		"taip_tag": "ZX.4",
+		"taip_units": "centipsi",
+		"multiplier": 100,
+		"xaem_group": 2,
+		"xaem_bit": 51
+	},
+	"fea4_7-8": {
+		"id": "fea4_7-8",
+		"param_name": "exhaust_gas_recirculation_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fea4",
+		"start_position": "7-8",
+		"taip_tag": "ZX.5",
+		"taip_units": "deciC",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 52
+	}
+}

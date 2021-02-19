@@ -1,0 +1,28 @@
+{
+	"fef0_6.1": {
+		"id": "fef0_6.1",
+		"param_name": "pto_enable_switch",
+		"units": "Count",
+		"range": "0 to 3",
+		"pgn": "fef0",
+		"start_position": 6.1,
+		"taip_tag": "ZS.4",
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": 2,
+		"xaem_bit": 56
+	},
+	"fef0_6.3": {
+		"id": "fef0_6.3",
+		"param_name": "pto_speed_control_switch",
+		"units": "Count",
+		"range": "0 to 3",
+		"pgn": "fef0",
+		"start_position": 6.3,
+		"taip_tag": "ZS.5",
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": 2,
+		"xaem_bit": 57
+	}
+}

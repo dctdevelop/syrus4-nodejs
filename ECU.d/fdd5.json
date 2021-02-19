@@ -1,0 +1,41 @@
+{
+    "fdd5_5-6": {
+        "id": "fdd5_5-6",
+        "param_name": "exhaust_gas_recirculation_valve_control",
+        "units": "Percentage",
+        "range": "%",
+        "pgn": "fdd5",
+        "start_position": "5-6",
+        "taip_tag": "ZX.7",
+        "taip_units": "centi%",
+        "multiplier": 100,
+        "xaem_group": 3,
+        "xaem_bit": 0
+    },
+    "fdd5_7.3": {
+        "id": "fdd5_7.3",
+        "param_name": "vgt_control_mode",
+        "units": "Count",
+        "range": "0 to 3",
+        "pgn": "fdd5",
+        "start_position": 7.3,
+        "taip_tag": "ZS.7",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "fdd5_8": {
+        "id": "fdd5_8",
+        "param_name": "vgt_actuator_position",
+        "units": "Percentage",
+        "range": "%",
+        "pgn": "fdd5",
+        "start_position": 8,
+        "taip_tag": "ZH.2",
+        "taip_units": "%",
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    }
+}

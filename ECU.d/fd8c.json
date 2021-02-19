@@ -1,0 +1,14 @@
+{
+	"fd8c_1-2": {
+		"id": "fd8c_1-2",
+		"param_name": "dpf_intake_pressure",
+		"units": "Pressure",
+		"range": "kPa",
+		"pgn": "fd8c",
+		"start_position": "1-2",
+		"taip_tag": "ZE.9",
+		"taip_units": "decipsi",
+		"xaem_group": 2,
+		"xaem_bit": 41
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"fefc_2": {
+		"id": "fefc_2",
+		"param_name": "fuel_level",
+		"units": "Percentage",
+		"range": "%",
+		"pgn": "fefc",
+		"start_position": 2,
+		"taip_tag": "OX",
+		"taip_units": "deci%",
+		"multiplier": 10,
+		"xaem_group": null,
+		"xaem_bit": null
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"fef2_1-2": {
+		"id": "fef2_1-2",
+		"param_name": "fuel_rate",
+		"units": "Flow rate, liquid",
+		"range": "L/h",
+		"pgn": "fef2",
+		"start_position": "1-2",
+		"taip_tag": "YE",
+		"taip_units": "deci (km/liter)",
+		"multiplier": 10,
+		"xaem_group": null,
+		"xaem_bit": null
+	},
+	"fef2_3-4": {
+		"id": "fef2_3-4",
+		"param_name": "fuel_ins_economy",
+		"units": "Economy, liquid",
+		"range": "km/L",
+		"pgn": "fef2",
+		"start_position": "3-4",
+		"taip_tag": "OY",
+		"taip_units": "centi (liters/hr)",
+		"multiplier": 100,
+		"xaem_group": null,
+		"xaem_bit": null
+	}
+}

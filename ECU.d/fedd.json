@@ -1,0 +1,15 @@
+{
+	"fedd_2-3": {
+		"id": "fedd_2-3",
+		"param_name": "turbo_speed",
+		"units": "Velocity, rotational",
+		"range": "rpm",
+		"pgn": "fedd",
+		"start_position": "2-3",
+		"taip_tag": "ZH.5",
+		"taip_units": "rpm",
+		"multiplier": 1,
+		"xaem_group": 2,
+		"xaem_bit": 53
+	}
+}

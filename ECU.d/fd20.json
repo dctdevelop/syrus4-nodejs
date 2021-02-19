@@ -1,0 +1,15 @@
+{
+	"fd20_1-2": {
+		"id": "fd20_1-2",
+		"param_name": "aftmt_doc_intake_gas_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fd20",
+		"start_position": "1-2",
+		"taip_tag": "ZA.1",
+		"taip_units": "deciC",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 37
+	}
+}
