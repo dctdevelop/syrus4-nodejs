@@ -154,7 +154,7 @@ function getECUList(reload = false) {
             console.error(error);
         }
     });
-    console.log("ECU loaded", filenames.join(","));
+    console.log("ECU loaded\n", filenames.join(","));
     __ecu_loaded = true;
     return JSON.parse(JSON.stringify(__ecu_params));
 }
