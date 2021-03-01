@@ -1,0 +1,41 @@
+{
+	"fef6_2": {
+		"id": "fef6_2",
+		"param_name": "intake_manif_pressure",
+		"units": "Pressure",
+		"range": "kPa",
+		"pgn": "fef6",
+		"start_position": 2,
+		"taip_tag": "ZE.4",
+		"taip_units": "decipsi",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 32
+	},
+	"fef6_3": {
+		"id": "fef6_3",
+		"param_name": "intake_manif_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fef6",
+		"start_position": 3,
+		"taip_tag": "YM",
+		"taip_units": "C",
+		"multiplier": 1,
+		"xaem_group": null,
+		"xaem_bit": null
+	},
+	"fef6_6-7": {
+		"id": "fef6_6-7",
+		"param_name": "exhaust_gas_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fef6",
+		"start_position": "6-7",
+		"taip_tag": "ZX.1",
+		"taip_units": "deciC",
+		"multiplier": 10,
+		"xaem_group": 2,
+		"xaem_bit": 31
+	}
+}

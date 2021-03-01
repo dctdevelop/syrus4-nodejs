@@ -1,0 +1,15 @@
+{
+	"f008_1-2": {
+		"id": "f008_1-2",
+		"param_name": "hydraulic_pressure",
+		"units": "Pressure",
+		"range": "kPa",
+		"pgn": "f008",
+		"start_position": "1-2",
+		"taip_tag": "YI",
+		"taip_units": "psi",
+		"multiplier": 1,
+		"xaem_group": null,
+		"xaem_bit": null
+	}
+}

@@ -28,7 +28,7 @@ SDK is written on Typescript and its recommend to use all the features like type
 
 - the test folder can be used for unit test. right now only contains some examples and output for manual test. Ideally extend this for being automated unit test that can improve the workflow.
 
-- src/ECU.json contains a structured json with all the recognized PGN and metadata info, is hihly recommend extend with new ecu data whenever is possible this way developer can deal with the ECU in a easy way.
+- src/ECU_fields.json contains a structured json with all the recognized PGN and metadata info, is hihly recommend extend with new ecu data whenever is possible this way developer can deal with the ECU in a easy way.
 
 ## Testing using a Syrus4 device
 

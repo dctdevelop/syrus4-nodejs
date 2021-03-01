@@ -1,0 +1,15 @@
+{
+	"f000_1.5": {
+		"id": "f000_1.5",
+		"param_name": "retarder_brake_assist",
+		"units": "Count",
+		"range": "0 to 3",
+		"pgn": "f000",
+		"start_position": 1.5,
+		"taip_tag": "ZS.9",
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": 2,
+		"xaem_bit": 30
+	}
+}

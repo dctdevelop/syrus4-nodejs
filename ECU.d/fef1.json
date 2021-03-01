@@ -1,0 +1,93 @@
+{
+    "fef1_1.3": {
+        "id": "fef1_1.3",
+        "param_name": "parking_brake_switch",
+        "units": "Count",
+        "range": "0 to 3",
+        "pgn": "fef1",
+        "start_position": 1.3,
+        "taip_tag": null,
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "fef1_2-3": {
+        "id": "fef1_2-3",
+        "param_name": "speed",
+        "units": "Velocity, linear",
+        "range": "km/h",
+        "pgn": "fef1",
+        "start_position": "2-3",
+        "taip_tag": "OS",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "fef1_4.5": {
+        "id": "fef1_4.5",
+        "param_name": "brake_switch",
+        "units": "Count",
+        "range": "0 to 3",
+        "pgn": "fef1",
+        "start_position": 4.5,
+        "taip_tag": null,
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": 3,
+        "xaem_bit": 5
+    },
+    "fef1_4.7": {
+        "id": "fef1_4.7",
+        "param_name": "clutch_switch",
+        "units": "Count",
+        "range": "0 to 3",
+        "pgn": "fef1",
+        "start_position": 4.7,
+        "taip_tag": "YC",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 60
+    },
+    "fef1_6": {
+        "id": "fef1_6",
+        "param_name": "cruise_control_set_speed",
+        "units": "Velocity, linear",
+        "range": "km/h",
+        "pgn": "fef1",
+        "start_position": 6,
+        "taip_tag": "ZS.11",
+        "taip_units": "km/h",
+        "multiplier": 1,
+        "xaem_group": 2,
+        "xaem_bit": 29
+    },
+    "fef1_7.1": {
+        "id": "fef1_7.1",
+        "param_name": "pto_state",
+        "units": "Count",
+        "range": "0 to 31",
+        "pgn": "fef1",
+        "start_position": 7.1,
+        "taip_tag": "OP",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "fef1_7.6": {
+        "id": "fef1_7.6",
+        "param_name": "cruise_control_states",
+        "units": "Count",
+        "range": "0 to 7",
+        "pgn": "fef1",
+        "start_position": 7.6,
+        "taip_tag": "OQ",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 11
+    }
+}

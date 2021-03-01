@@ -18,7 +18,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"ioredis": "^4.14.1",
-		"ssh2": "^0.8.9"
+		"ssh2": "^0.8.9",
+		"tag-params": "^1.0.6"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.2.14",

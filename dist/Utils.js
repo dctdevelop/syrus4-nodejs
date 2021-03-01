@@ -42,6 +42,7 @@ function getShell() {
             let timeout = setTimeout(reject, 1000 * 20);
             conn.on('ready', () => {
                 clearTimeout(timeout);
+                console.log('ssh:ready', arguments);
                 resolve(conn);
             });
             conn.on('close', () => {
@@ -51,6 +52,11 @@ function getShell() {
             conn.on('end', () => {
                 console.error('ssh:end', arguments);
                 __shell_promise = null;
+            });
+            conn.on('error', (error) => {
+                clearTimeout(timeout);
+                console.error('ssh:error', error);
+                reject(error);
             });
             conn.connect({
                 host: SYRUS4G_REMOTE_SSH_HOST,
@@ -70,20 +76,22 @@ exports.getShell = getShell;
  */
 function OSExecute(...args) {
     return __awaiter(this, void 0, void 0, function* () {
-        var command = args.map((x) => x.trim()).join(" ");
+        let command = args.map((x) => x.trim()).join(" ");
         let opts = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
         if (command.startsWith("apx-"))
             command = `sudo ${command}`;
         if (SYRUS4G_REMOTE) {
-            // command = `${SYRUS4G_REMOTE} <<'__S4REMOTE_EOF__'\n${command}\n__S4REMOTE_EOF__`
             let shell = yield getShell();
             return new Promise((resolve, reject) => {
+                // console.info("ssh:command", command)
                 shell.exec(command, (error, stream) => {
                     if (error) {
+                        console.error("ssh:command", { command, error });
                         reject({
                             command,
                             error
                         });
+                        return;
                     }
                     let stdout, stderr;
                     stream.on('data', (data) => {
@@ -93,16 +101,19 @@ function OSExecute(...args) {
                         stderr = data;
                     });
                     stream.on('close', (code, signal) => {
-                        let data;
+                        let data, response;
                         if (code != 0) {
-                            reject({
+                            response = {
                                 error,
                                 code,
                                 signal,
                                 errorText: stderr === null || stderr === void 0 ? void 0 : stderr.toString(),
                                 output: stdout === null || stdout === void 0 ? void 0 : stdout.toString(),
                                 command,
-                            });
+                            };
+                            // console.error("ssh:command", response)
+                            reject(response);
+                            return;
                         }
                         try {
                             data = stdout.toString();
@@ -111,6 +122,7 @@ function OSExecute(...args) {
                         catch (error) {
                             resolve(data);
                         }
+                        // console.log("ssh:command", {command, response: data})
                     });
                 });
             });
@@ -159,7 +171,6 @@ function uploadFile(path, content) {
                         reject(err);
                     }
                     resolve({ path });
-                    // sftp.close()
                 });
             });
         });

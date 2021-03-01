@@ -1,0 +1,15 @@
+{
+	"fec0_2-3": {
+		"id": "fec0_2-3",
+		"param_name": "distance_service",
+		"units": "Distance, km",
+		"range": "km",
+		"pgn": "fec0",
+		"start_position": "2-3",
+		"taip_tag": "OW",
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": 1,
+		"xaem_bit": 21
+	}
+}

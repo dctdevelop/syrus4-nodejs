@@ -1,0 +1,28 @@
+{
+	"fee0_1-4": {
+		"id": "fee0_1-4",
+		"param_name": "distance_trip",
+		"units": "Distance, km",
+		"range": "km",
+		"pgn": "fee0",
+		"start_position": "1-4",
+		"taip_tag": "OT",
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": 1,
+		"xaem_bit": 4
+	},
+	"fee0_5-8": {
+		"id": "fee0_5-8",
+		"param_name": "distance_total",
+		"units": "Distance, km",
+		"range": "km",
+		"pgn": "fee0",
+		"start_position": "5-8",
+		"taip_tag": "OD",
+		"taip_units": "meters",
+		"multiplier": 1000,
+		"xaem_group": 1,
+		"xaem_bit": 5
+	}
+}

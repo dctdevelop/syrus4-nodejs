@@ -1,0 +1,15 @@
+{
+	"f00f_1-2": {
+		"id": "f00f_1-2",
+		"param_name": "aftmt_outlet_nox",
+		"units": "Parts per million",
+		"range": "ppm",
+		"pgn": "f00f",
+		"start_position": "1-2",
+		"taip_tag": "ZA.7",
+		"taip_units": "decippm",
+		"multiplier": 1,
+		"xaem_group": 2,
+		"xaem_bit": 36
+	}
+}

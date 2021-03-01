@@ -1,0 +1,28 @@
+{
+	"fef7_5-6": {
+		"id": "fef7_5-6",
+		"param_name": "battery_power",
+		"units": "Electrical voltage",
+		"range": "V",
+		"pgn": "fef7",
+		"start_position": "5-6",
+		"taip_tag": "OB",
+		"taip_units": "mV",
+		"multiplier": 1000,
+		"xaem_group": 1,
+		"xaem_bit": 13
+	},
+	"fef7_7-8": {
+		"id": "fef7_7-8",
+		"param_name": "key_switch_battery_potential",
+		"units": "Electrical voltage",
+		"range": "V",
+		"pgn": "fef7",
+		"start_position": "7-8",
+		"taip_tag": null,
+		"taip_units": "V",
+		"multiplier": 0.05,
+		"xaem_group": null,
+		"xaem_bit": null
+	}
+}

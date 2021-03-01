@@ -1,0 +1,41 @@
+{
+    "f001_1.5": {
+        "id": "f001_1.5",
+        "param_name": "abs_active",
+        "units": "Count",
+        "range": "0 to 3",
+        "pgn": "f001",
+        "start_position": 1.5,
+        "taip_tag": null,
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 48
+    },
+    "f001_2": {
+        "id": "f001_2",
+        "param_name": "brake_pedal",
+        "units": "Percentage",
+        "range": "%",
+        "pgn": "f001",
+        "start_position": 2,
+        "taip_tag": "YB",
+        "taip_units": "%",
+        "multiplier": 1,
+        "xaem_group": 1,
+        "xaem_bit": 47
+    },
+    "f001_4.7": {
+        "id": "f001_4.7",
+        "param_name": "accel_enable_switch",
+        "units": "Count",
+        "range": "0 to 3",
+        "pgn": "f001",
+        "start_position": 4.7,
+        "taip_tag": "ZS.1",
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": 2,
+        "xaem_bit": 24
+    }
+}

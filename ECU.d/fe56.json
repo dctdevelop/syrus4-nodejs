@@ -1,0 +1,41 @@
+{
+	"fe56_1": {
+		"id": "fe56_1",
+		"param_name": "aftmt_def_level",
+		"units": "Percentage",
+		"range": "%",
+		"pgn": "fe56",
+		"start_position": 1,
+		"taip_tag": "ZL",
+		"taip_units": "%",
+		"multiplier": 1,
+		"xaem_group": null,
+		"xaem_bit": null
+	},
+	"fe56_2": {
+		"id": "fe56_2",
+		"param_name": "aftmt_def_temp",
+		"units": "Temperature",
+		"range": "C",
+		"pgn": "fe56",
+		"start_position": 2,
+		"taip_tag": "ZT",
+		"taip_units": "C",
+		"multiplier": 1,
+		"xaem_group": null,
+		"xaem_bit": null
+	},
+	"fe56_5.6": {
+		"id": "fe56_5.6",
+		"param_name": "aftmt_def_low_level",
+		"units": "Count",
+		"range": "0 to 3",
+		"pgn": "fe56",
+		"start_position": 5.6,
+		"taip_tag": null,
+		"taip_units": null,
+		"multiplier": 1,
+		"xaem_group": null,
+		"xaem_bit": null
+	}
+}
