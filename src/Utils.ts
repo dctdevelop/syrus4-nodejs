@@ -84,12 +84,12 @@ export async function OSExecute(...args:string[]): Promise<any> {
 					})
 					return
 				}
-				let stdout: any, stderr: any
+				let stdouts: any[], stderrs: any[]
 				stream.on('data', (data: Buffer) => {
-					stdout = data
+					stdouts.push(data)
 				})
 				stream.stderr.on('data', (data: Buffer) => {
-					stderr = data
+					stderrs.push(data)
 				})
 				stream.on('close', (code: number, signal:number) => {
 					let data: any, response: any
@@ -98,8 +98,8 @@ export async function OSExecute(...args:string[]): Promise<any> {
 							error,
 							code,
 							signal,
-							errorText: stderr?.toString(),
-							output: stdout?.toString(),
+							errorText: Buffer.concat(stderrs).toString(),
+							output: Buffer.concat(stdouts).toString(),
 							command,
 						}
 						// console.error("ssh:command", response)
@@ -107,7 +107,7 @@ export async function OSExecute(...args:string[]): Promise<any> {
 						return
 					}
 					try{
-						data = stdout.toString()
+						data = Buffer.concat(stdouts).toString()
 						resolve(JSON.parse(data))
 					} catch (error){
 						resolve(data)

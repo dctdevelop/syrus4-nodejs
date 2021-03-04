@@ -93,12 +93,12 @@ function OSExecute(...args) {
                         });
                         return;
                     }
-                    let stdout, stderr;
+                    let stdouts, stderrs;
                     stream.on('data', (data) => {
-                        stdout = data;
+                        stdouts.push(data);
                     });
                     stream.stderr.on('data', (data) => {
-                        stderr = data;
+                        stderrs.push(data);
                     });
                     stream.on('close', (code, signal) => {
                         let data, response;
@@ -107,8 +107,8 @@ function OSExecute(...args) {
                                 error,
                                 code,
                                 signal,
-                                errorText: stderr === null || stderr === void 0 ? void 0 : stderr.toString(),
-                                output: stdout === null || stdout === void 0 ? void 0 : stdout.toString(),
+                                errorText: Buffer.concat(stderrs).toString(),
+                                output: Buffer.concat(stdouts).toString(),
                                 command,
                             };
                             // console.error("ssh:command", response)
@@ -116,7 +116,7 @@ function OSExecute(...args) {
                             return;
                         }
                         try {
-                            data = stdout.toString();
+                            data = Buffer.concat(stdouts).toString();
                             resolve(JSON.parse(data));
                         }
                         catch (error) {
