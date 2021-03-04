@@ -84,7 +84,8 @@ export async function OSExecute(...args:string[]): Promise<any> {
 					})
 					return
 				}
-				let stdouts: any[], stderrs: any[]
+				let stdouts = []
+				let stderrs = []
 				stream.on('data', (data: Buffer) => {
 					stdouts.push(data)
 				})
