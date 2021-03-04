@@ -93,7 +93,8 @@ function OSExecute(...args) {
                         });
                         return;
                     }
-                    let stdouts, stderrs;
+                    let stdouts = [];
+                    let stderrs = [];
                     stream.on('data', (data) => {
                         stdouts.push(data);
                     });
