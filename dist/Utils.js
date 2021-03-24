@@ -86,7 +86,7 @@ function OSExecute(...args) {
                 // console.info("ssh:command", command)
                 shell.exec(command, (error, stream) => {
                     if (error) {
-                        console.error("ssh:command", { command, error });
+                        // console.error("ssh:command", {command, error})
                         reject({
                             command,
                             error
