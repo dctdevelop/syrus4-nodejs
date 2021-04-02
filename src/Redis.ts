@@ -12,14 +12,14 @@ if (!SYRUS4G_REMOTE) {
 
 	SYRUS4G_SYSTEM_REDIS_HOST = "127.0.0.1"
 	SYRUS4G_SYSTEM_REDIS_PORT = "7480"
-	SYRUS4G_SYSTEM_REDIS_PW = "BrokerCore99*-"
+	SYRUS4G_SYSTEM_REDIS_PW = ""
 }
 
 const REDIS_CONF: REDIS = {
 	"host": SYRUS4G_APPS_REDIS_HOST,
 	"port": parseInt(SYRUS4G_APPS_REDIS_PORT),
 }
-var SYSTEM_REDIS_CONF: REDIS = {
+const SYSTEM_REDIS_CONF: REDIS = {
 	"host": SYRUS4G_SYSTEM_REDIS_HOST,
 	"port": parseInt(SYRUS4G_SYSTEM_REDIS_PORT),
 	"password": SYRUS4G_SYSTEM_REDIS_PW,
@@ -33,10 +33,11 @@ console.log({
 	REDIS_CONF: _obfuscate(REDIS_CONF),
 	SYSTEM_REDIS_CONF: _obfuscate(SYSTEM_REDIS_CONF)
 })
-var redisClient = new Redis(REDIS_CONF);
-var redisSubscriber = new Redis(REDIS_CONF);
-var SystemRedisClient = new Redis(SYSTEM_REDIS_CONF);
-var SystemRedisSubscriber = new Redis(SYSTEM_REDIS_CONF);
+
+const redisClient = new Redis(REDIS_CONF);
+const redisSubscriber = new Redis(REDIS_CONF);
+const SystemRedisClient = new Redis(SYSTEM_REDIS_CONF);
+const SystemRedisSubscriber = new Redis(SYSTEM_REDIS_CONF);
 
 redisSubscriber.setMaxListeners(50);
 redisClient.setMaxListeners(50);

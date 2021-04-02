@@ -11,7 +11,7 @@ import * as Utils from "./Utils"
  * @interface TemperatureEvent
  */
 interface ModemEvent {
-  type: "satcom" | "console",
+  type: "satcom" | "console" | "fatigue_sensor" | "mdt",
   id: number,
   pack: string,
   version: string,
@@ -78,6 +78,87 @@ export async function onIncomingMessage(
     var handler = (channel: string, raw: string) => {
       if (channel != topic) return
       callback(raw)
+    };
+    subscriber.subscribe(topic);
+    subscriber.on("message", handler);
+  } catch (error) {
+    console.error(error);
+    errorCallback(error);
+  }
+  let returnable = {
+    unsubscribe: () => {
+      subscriber.off("message", handler);
+      subscriber.unsubscribe(topic);
+    },
+    off: function () { this.unsubscribe() }
+  };
+  return returnable;
+}
+
+interface FatigueState {
+  state: "connected" | "disconnected",
+  max_photos: number,
+  nbr_photos: number,
+  sensitivity: number,
+  speaker_volume: number,
+  min_speed: number,
+  speeding: number,
+  auto_upload: 1 | 0,
+  latest_photo: string,
+  photos: object,
+}
+export async function onFatigueEvent(
+  callback: (arg: FatigueState) => void,
+  errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+  const state_topic = "serial/notification/fatigue_s/state"
+  const photo_topic = "serial/notification/fatigue_s/photo"
+  // subscribe to receive updates
+  try {
+    var state: FatigueState = await Utils.OSExecute('apx-serial fatigue_sensor state')
+    state.photos = {}
+    callback(state)
+    var handler = (channel: string, data: any) => {
+      if ([state_topic, photo_topic].indexOf(channel) == -1) return
+      if (channel == state_topic) state.state = data
+      if (channel == photo_topic) {
+        let photo_type = data.split('-')[1].split('.')[0]
+        state.latest_photo = data
+        state.photos[photo_type] = data
+      }
+      callback(state)
+    };
+    subscriber.subscribe(state_topic);
+    subscriber.subscribe(photo_topic);
+    subscriber.on("message", handler);
+  } catch (error) {
+    console.error(error);
+    errorCallback(error);
+  }
+  let returnable = {
+    unsubscribe: () => {
+      subscriber.off("message", handler);
+      subscriber.unsubscribe(state_topic);
+      subscriber.unsubscribe(photo_topic);
+    },
+    off: function () { this.unsubscribe() }
+  };
+  return returnable;
+}
+
+interface MDTEvent {
+  message: string | null
+}
+export async function onMDTMessage(
+  callback: (arg: MDTEvent) => void,
+  errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+  const topic = "serial/notification/mdt/pack"
+  // subscribe to receive updates
+  try {
+    var state: MDTEvent = { message: null }
+    var handler = (channel: string, data: any) => {
+      if (channel != topic) return
+      state.message = data
+      callback(state)
     };
     subscriber.subscribe(topic);
     subscriber.on("message", handler);

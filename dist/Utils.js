@@ -86,19 +86,20 @@ function OSExecute(...args) {
                 // console.info("ssh:command", command)
                 shell.exec(command, (error, stream) => {
                     if (error) {
-                        console.error("ssh:command", { command, error });
+                        // console.error("ssh:command", {command, error})
                         reject({
                             command,
                             error
                         });
                         return;
                     }
-                    let stdout, stderr;
+                    let stdouts = [];
+                    let stderrs = [];
                     stream.on('data', (data) => {
-                        stdout = data;
+                        stdouts.push(data);
                     });
                     stream.stderr.on('data', (data) => {
-                        stderr = data;
+                        stderrs.push(data);
                     });
                     stream.on('close', (code, signal) => {
                         let data, response;
@@ -107,8 +108,8 @@ function OSExecute(...args) {
                                 error,
                                 code,
                                 signal,
-                                errorText: stderr === null || stderr === void 0 ? void 0 : stderr.toString(),
-                                output: stdout === null || stdout === void 0 ? void 0 : stdout.toString(),
+                                errorText: Buffer.concat(stderrs).toString(),
+                                output: Buffer.concat(stdouts).toString(),
                                 command,
                             };
                             // console.error("ssh:command", response)
@@ -116,7 +117,7 @@ function OSExecute(...args) {
                             return;
                         }
                         try {
-                            data = stdout.toString();
+                            data = Buffer.concat(stdouts).toString();
                             resolve(JSON.parse(data));
                         }
                         catch (error) {
