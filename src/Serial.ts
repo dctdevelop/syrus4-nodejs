@@ -144,3 +144,34 @@ export async function onFatigueEvent(
   };
   return returnable;
 }
+
+interface MDTEvent {
+  message: string | null
+}
+export async function onMDTMessage(
+  callback: (arg: MDTEvent) => void,
+  errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+  const topic = "serial/notification/mdt/pack"
+  // subscribe to receive updates
+  try {
+    var state: MDTEvent = { message: null }
+    var handler = (channel: string, data: any) => {
+      if (channel != topic) return
+      state.message = data
+      callback(state)
+    };
+    subscriber.subscribe(topic);
+    subscriber.on("message", handler);
+  } catch (error) {
+    console.error(error);
+    errorCallback(error);
+  }
+  let returnable = {
+    unsubscribe: () => {
+      subscriber.off("message", handler);
+      subscriber.unsubscribe(topic);
+    },
+    off: function () { this.unsubscribe() }
+  };
+  return returnable;
+}

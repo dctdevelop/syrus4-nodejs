@@ -13,7 +13,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onFatigueEvent = exports.onIncomingMessage = exports.send = exports.setModemBufferSize = exports.getModemBufferSize = exports.getSerialModemState = exports.setSerialMode = exports.getSerialMode = void 0;
+exports.onMDTMessage = exports.onFatigueEvent = exports.onIncomingMessage = exports.send = exports.setModemBufferSize = exports.getModemBufferSize = exports.getSerialModemState = exports.setSerialMode = exports.getSerialMode = void 0;
 const Redis_1 = require("./Redis");
 const Utils = require("./Utils");
 /**
@@ -134,3 +134,33 @@ function onFatigueEvent(callback, errorCallback) {
     });
 }
 exports.onFatigueEvent = onFatigueEvent;
+function onMDTMessage(callback, errorCallback) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const topic = "serial/notification/mdt/pack";
+        // subscribe to receive updates
+        try {
+            var state = { message: null };
+            var handler = (channel, data) => {
+                if (channel != topic)
+                    return;
+                state.message = data;
+                callback(state);
+            };
+            Redis_1.SystemRedisSubscriber.subscribe(topic);
+            Redis_1.SystemRedisSubscriber.on("message", handler);
+        }
+        catch (error) {
+            console.error(error);
+            errorCallback(error);
+        }
+        let returnable = {
+            unsubscribe: () => {
+                Redis_1.SystemRedisSubscriber.off("message", handler);
+                Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+            },
+            off: function () { this.unsubscribe(); }
+        };
+        return returnable;
+    });
+}
+exports.onMDTMessage = onMDTMessage;
