@@ -2,14 +2,19 @@ import * as Utils from "./Utils";
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 
 /**
- * Geofences module get information about ApexOS
- * namespace for all the optiones is defined by application is not passed
+ * Geofences module
  * @module Geofences
  */
 
 /**
  * Add Geofence to the apx-tool
- * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence
+ * @param opts options hash
+ * name: name of the fence;
+ * lngLats: array of (lon,lat) coordinate pairs;
+ * group: group name;
+ * namespace: namespace;
+ * type: geofence type could be circular or poly;
+ * radius: radius for circular fences, in meters, must be >= 50;
  */
 function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
 	if (!namespace) {
@@ -25,7 +30,13 @@ function addGeofence({ name, lngLats, group = "", namespace, type, radius }) {
 
 /**
  * Update Geofence to the apx-tool
- * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence
+ * @param opts options hash
+ * name: name of the fence;
+ * lngLats: array of (lon,lat) coordinate pairs;
+ * group: group name;
+ * namespace: namespace;
+ * type: geofence type could be circular or poly;
+ * radius: radius for circular fences, in meters, must be >= 50;
  */
 function updateGeofence(opts) {
 	addGeofence(opts);
@@ -33,7 +44,10 @@ function updateGeofence(opts) {
 
 /**
  * Remove Geofence from the apx-tool
- * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence
+ * @param opts options hash
+ * name: name of the fence;
+ * group: group name;
+ * namespace: namespace;
  */
 function removeGeofence({ name, group = "", namespace }) {
 	if (!namespace) {
@@ -42,13 +56,19 @@ function removeGeofence({ name, group = "", namespace }) {
 	return Utils.OSExecute(`apx-geofences remove ${namespace} ${group} ${name}`);
 }
 
+/**
+ * get all available namespaces
+ * @return {*}
+ */
 async function getNamespaces() {
 	return Utils.OSExecute(`apx-geofences getns`);
 }
 
 /**
- * Get state from Geofence from the apx-tool
- * @param opts name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence
+ * Get geofence state from the apx-tool
+ * @param opts options hash
+ * name: name of the fence;
+ * namespace: namespace;
  */
 async function get({ namespace = "", name = null } = {}) {
 	if (!namespace) {
@@ -69,16 +89,18 @@ async function get({ namespace = "", name = null } = {}) {
 }
 
 /**
- * Get states from  all Geofences from the apx-tool
- * @param opts namespace: namespace that belongs of geofence
+ * Get states from all Geofences for a given namespace
+ * @param opts options hash
+ * namespace: namespace that belongs of geofence;
  */
 async function getAll(opts) {
 	return await get(opts);
 }
 
 /**
- * remove all Geofences from the apx-tool
- * @param opts namespace: namespace that belongs of geofence
+ * remove all Geofences from the namespace
+ * @param opts options hash
+ * namespace: namespace that belongs of geofence;
  */
 async function deleteAll({ namespace = null } = {}) {
 	if (!namespace) {
@@ -89,9 +111,10 @@ async function deleteAll({ namespace = null } = {}) {
 
 /**
  *
- * @param callback callback to execute when a the device entered or exited from a geofence defined in the apx-tool
- * @param errorCb error callback to execute if something fails
- * @param opts namespace: namespace to check if entered or exited from geofence
+ * @param callback callback to execute when the device enters or exits from a geofence
+ * @param errorCb error callback to execute if there is an unexpected error
+ * @param opts options hash
+ * namespace: namespace to check if entered or exited from geofence;
  */
 function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
@@ -126,9 +149,10 @@ function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 
 /**
  *
- * @param callback callback to execute when a the device entered or exited from a group of geofenc defined in the apx-tool
+ * @param callback callback to execute when the device enters or exits a geofence group
  * @param errorCb error callback to execute if something fails
- * @param opts namespace: namespace to check if entered or exited from group of geofenc
+ * @param opts
+ * namespace: namespace to check if entered or exited from group of geofence;
  */
 function watchGroups(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {

@@ -27,8 +27,7 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dd><p>GPS module get information about gps and location in ApexOS</p>
 </dd>
 <dt><a href="#module_Geofences">Geofences</a></dt>
-<dd><p>Geofences module get information about ApexOS
-namespace for all the optiones is defined by application is not passed</p>
+<dd><p>Geofences module</p>
 </dd>
 <dt><a href="#module_Hotspot">Hotspot</a></dt>
 <dd><p>Hotspot module to interacte with the enable/disable Hotspot mode  with Apex OS</p>
@@ -454,14 +453,14 @@ get options for a tracking_resolution for the apex tool apx-tracking
 <a name="module_Geofences"></a>
 
 ## Geofences
-Geofences module get information about ApexOS
-namespace for all the optiones is defined by application is not passed
+Geofences module
 
 
 * [Geofences](#module_Geofences)
     * [~addGeofence(opts)](#module_Geofences..addGeofence)
     * [~updateGeofence(opts)](#module_Geofences..updateGeofence)
     * [~removeGeofence(opts)](#module_Geofences..removeGeofence)
+    * [~getNamespaces()](#module_Geofences..getNamespaces) ⇒ <code>\*</code>
     * [~get(opts)](#module_Geofences..get)
     * [~getAll(opts)](#module_Geofences..getAll)
     * [~deleteAll(opts)](#module_Geofences..deleteAll)
@@ -477,7 +476,7 @@ Add Geofence to the apx-tool
 
 | Param | Description |
 | --- | --- |
-| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence |
+| opts | options hash name: name of the fence; lngLats: array of (lon,lat) coordinate pairs; group: group name; namespace: namespace; type: geofence type could be circular or poly; radius: radius for circular fences, in meters, must be >= 50; |
 
 <a name="module_Geofences..updateGeofence"></a>
 
@@ -488,7 +487,7 @@ Update Geofence to the apx-tool
 
 | Param | Description |
 | --- | --- |
-| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence, type; geofence type could be circular or poly; radius: if geofence is type circular radius is calculated in meters, minimum 50, lngLats, is an array with lon,lat coordinates of the geofence |
+| opts | options hash name: name of the fence; lngLats: array of (lon,lat) coordinate pairs; group: group name; namespace: namespace; type: geofence type could be circular or poly; radius: radius for circular fences, in meters, must be >= 50; |
 
 <a name="module_Geofences..removeGeofence"></a>
 
@@ -499,40 +498,46 @@ Remove Geofence from the apx-tool
 
 | Param | Description |
 | --- | --- |
-| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence |
+| opts | options hash name: name of the fence; group: group name; namespace: namespace; |
 
+<a name="module_Geofences..getNamespaces"></a>
+
+### Geofences~getNamespaces() ⇒ <code>\*</code>
+get all available namespaces
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
 <a name="module_Geofences..get"></a>
 
 ### Geofences~get(opts)
-Get state from Geofence from the apx-tool
+Get geofence state from the apx-tool
 
 **Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
 
 | Param | Description |
 | --- | --- |
-| opts | name: name of the fence, group: group that belongs the geofence, namespace: namespace that belongs of geofence |
+| opts | options hash name: name of the fence; namespace: namespace; |
 
 <a name="module_Geofences..getAll"></a>
 
 ### Geofences~getAll(opts)
-Get states from  all Geofences from the apx-tool
+Get states from all Geofences for a given namespace
 
 **Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
 
 | Param | Description |
 | --- | --- |
-| opts | namespace: namespace that belongs of geofence |
+| opts | options hash namespace: namespace that belongs of geofence; |
 
 <a name="module_Geofences..deleteAll"></a>
 
 ### Geofences~deleteAll(opts)
-remove all Geofences from the apx-tool
+remove all Geofences from the namespace
 
 **Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
 
 | Param | Description |
 | --- | --- |
-| opts | namespace: namespace that belongs of geofence |
+| opts | options hash namespace: namespace that belongs of geofence; |
 
 <a name="module_Geofences..watchGeofences"></a>
 
@@ -541,9 +546,9 @@ remove all Geofences from the apx-tool
 
 | Param | Description |
 | --- | --- |
-| callback | callback to execute when a the device entered or exited from a geofence defined in the apx-tool |
-| errorCb | error callback to execute if something fails |
-| opts | namespace: namespace to check if entered or exited from geofence |
+| callback | callback to execute when the device enters or exits from a geofence |
+| errorCb | error callback to execute if there is an unexpected error |
+| opts | options hash namespace: namespace to check if entered or exited from geofence; |
 
 <a name="module_Geofences..watchGroups"></a>
 
@@ -552,9 +557,9 @@ remove all Geofences from the apx-tool
 
 | Param | Description |
 | --- | --- |
-| callback | callback to execute when a the device entered or exited from a group of geofenc defined in the apx-tool |
+| callback | callback to execute when the device enters or exits a geofence group |
 | errorCb | error callback to execute if something fails |
-| opts | namespace: namespace to check if entered or exited from group of geofenc |
+| opts | namespace: namespace to check if entered or exited from group of geofence; |
 
 <a name="module_Hotspot"></a>
 
