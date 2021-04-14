@@ -1,0 +1,54 @@
+{
+    "84ef_1": {
+        "id": "84ef_1",
+        "multiplier": 0.4,
+        "param_name": "soc",
+        "pgn": "84ef",
+        "range": "%",
+        "start_position": 1,
+        "taip_tag": "ZQ.8",
+        "taip_units": "%",
+        "units": "Percentage",
+        "xaem_bit": 23,
+        "xaem_group": 3
+    },
+    "84ef_2": {
+        "id": "84ef_2",
+        "multiplier": 0.4,
+        "param_name": "soh",
+        "pgn": "84ef",
+        "range": "%",
+        "start_position": 2,
+        "taip_tag": "ZQ.9",
+        "taip_units": "%",
+        "units": "Percentage",
+        "xaem_bit": 24,
+        "xaem_group": 3
+    },
+    "84ef_3-4": {
+        "id": "84ef_3-4",
+        "multiplier": 0.1,
+        "param_name": "pack_current",
+        "pgn": "84ef",
+        "range": "-1000 to 1000",
+        "start_position": 3.4,
+        "taip_tag": "ZQ.10",
+        "taip_units": "A",
+        "units": "A",
+        "xaem_bit": 25,
+        "xaem_group": 3
+    },
+    "84ef_5-6": {
+        "id": "84ef_5-6",
+        "multiplier": 0.1,
+        "param_name": "pack_inside_high_voltage",
+        "pgn": "84ef",
+        "range": "0 to 1000",
+        "start_position": 5.6,
+        "taip_tag": "ZQ.11",
+        "taip_units": "V",
+        "units": "V",
+        "xaem_bit": 26,
+        "xaem_group": 3
+    }
+}
