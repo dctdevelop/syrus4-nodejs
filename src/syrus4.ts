@@ -8,7 +8,7 @@ import WIFI from "./WIFI";
 import System from "./System";
 import Update from "./Update";
 import Hotspot from "./Hotspot";
-import Mobile from "./Mobile";
+import * as Mobile from "./Mobile";
 import * as Redis from "./Redis";
 import IOS from "./IOS";
 import Counters from "./Counters";

@@ -38,9 +38,6 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_IOS">IOS</a></dt>
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS</p>
 </dd>
-<dt><a href="#module_Mobile">Mobile</a></dt>
-<dd><p>Mobile module to interacte with the Mobile Network allow to set rf configurations and read them</p>
-</dd>
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
 </dd>
@@ -70,6 +67,12 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 ## Functions
 
 <dl>
+<dt><a href="#getInfo">getInfo()</a></dt>
+<dd><p>returns a JSON with the configured values in RF</p>
+</dd>
+<dt><a href="#set">set(key, value)</a></dt>
+<dd><p>Use this option to configure the network variable for mobile networks</p>
+</dd>
 <dt><a href="#watchTrackingResolution">watchTrackingResolution(callback, opts)</a></dt>
 <dd><p>define a tracking resolution using apx-tracking tool to receive filtered data gps</p>
 </dd>
@@ -740,34 +743,6 @@ Allow to change the state of an output
 Get the current state of all inputs, outputs and analogs in the Syrus4 device
 
 **Kind**: inner method of [<code>IOS</code>](#module_IOS)  
-<a name="module_Mobile"></a>
-
-## Mobile
-Mobile module to interacte with the Mobile Network allow to set rf configurations and read them
-
-
-* [Mobile](#module_Mobile)
-    * [~getInfo()](#module_Mobile..getInfo)
-    * [~set(key, value)](#module_Mobile..set)
-
-<a name="module_Mobile..getInfo"></a>
-
-### Mobile~getInfo()
-returns a JSON with the configured values in RF
-
-**Kind**: inner method of [<code>Mobile</code>](#module_Mobile)  
-<a name="module_Mobile..set"></a>
-
-### Mobile~set(key, value)
-Use this option to configure the network variable for mobile networks
-
-**Kind**: inner method of [<code>Mobile</code>](#module_Mobile)  
-
-| Param | Description |
-| --- | --- |
-| key | the paramter to be configured, posible values are: "apn", "user", "pin", "pass" |
-| value | the new value of the parameter |
-
 <a name="module_Network"></a>
 
 ## Network
@@ -1286,6 +1261,24 @@ It removes a network from the WIFI configuration file, in this case you have to 
 | Param | Description |
 | --- | --- |
 | ssid | Name of the SSID you want to remove |
+
+<a name="getInfo"></a>
+
+## getInfo()
+returns a JSON with the configured values in RF
+
+**Kind**: global function  
+<a name="set"></a>
+
+## set(key, value)
+Use this option to configure the network variable for mobile networks
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| key | the paramter to be configured, posible values are: "apn", "user", "pin", "pass" |
+| value | the new value of the parameter |
 
 <a name="watchTrackingResolution"></a>
 
