@@ -1,24 +1,24 @@
 {
-	"ff08_1.3": {
-        "id": "ff08_1.3",
+	"ff08_1-3": {
+        "id": "ff08_1-3",
         "multiplier": 1000.0,
         "param_name": "positive_insulation_resistance",
         "pgn": "ff08",
         "range": "0 to 1677696",
-        "start_position": 1.3,
+        "start_position": "1-3",
         "taip_tag": "ZZ.4",
         "taip_units": "kohm",
         "units": "kohm",
         "xaem_bit": 34,
         "xaem_group": "3"
     },
-    "ff08_4.6": {
-        "id": "ff08_4.6",
+    "ff08_4-6": {
+        "id": "ff08_4-6",
         "multiplier": 1000.0,
         "param_name": "negative_insulation_resistance",
         "pgn": "ff08",
         "range": "0 to 1677696",
-        "start_position": 4.6,
+        "start_position": "4-6",
         "taip_tag": "ZZ.5",
         "taip_units": "kohm",
         "units": "kohm",

@@ -1,11 +1,11 @@
 {
-    "f005_4.0": {
-        "id": "f005_4.0",
+    "f005_4": {
+        "id": "f005_4",
         "multiplier": 1,
         "param_name": "transmission_current_gear",
         "pgn": "f005",
         "range": "-125 to 126",
-        "start_position": 4.0,
+        "start_position": 4,
         "taip_tag": "ZS.12",
         "taip_units": null,
         "units": "Count",
