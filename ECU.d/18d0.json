@@ -25,13 +25,13 @@
         "xaem_bit": 32,
         "xaem_group": "3"
     },
-    "18d0_5.0": {
-        "id": "18d0_5.0",
+    "18d0_5": {
+        "id": "18d0_5",
         "multiplier": 0.4,
         "param_name": "soc",
         "pgn": "18d0",
         "range": "%",
-        "start_position": 5.0,
+        "start_position": 5,
         "taip_tag": "ZZ.3",
         "taip_units": "%",
         "units": "Percentage",
