@@ -1,0 +1,54 @@
+{
+    "ff2d_1": {
+        "id": "ff2d_1",
+        "multiplier": 1,
+        "param_name": "total_batt_case",
+        "pgn": "ff2d",
+        "range": "1 to 255",
+        "start_position": "1",
+        "taip_tag": "ZZ.29",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": 31,
+        "xaem_group": "3"
+    },
+    "ff2d_2": {
+        "id": "ff2d_2",
+        "multiplier": 1,
+        "param_name": "total_cell_chain",
+        "pgn": "ff2d",
+        "range": "1 to 255",
+        "start_position": "2",
+        "taip_tag": "ZZ.30",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": 31,
+        "xaem_group": "3"
+    },
+    "ff2d_3": {
+        "id": "ff2d_3",
+        "multiplier": 1,
+        "param_name": "total_batt_temp_nodes",
+        "pgn": "ff2d",
+        "range": "1 to 255",
+        "start_position": "3",
+        "taip_tag": "ZZ.31",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": 31,
+        "xaem_group": "3"
+    },
+    "ff2d_5-6": {
+        "id": "ff2d_5-6",
+        "multiplier": 0.1,
+        "param_name": "batt_nominal_voltage",
+        "pgn": "ff2d",
+        "range": "1 to 1000",
+        "start_position": "5-6",
+        "taip_tag": "ZZ.32",
+        "taip_units": "V",
+        "units": "V",
+        "xaem_bit": 31,
+        "xaem_group": "3"
+    }
+}
