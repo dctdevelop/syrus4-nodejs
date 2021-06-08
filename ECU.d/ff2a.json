@@ -10,7 +10,7 @@
         "taip_units": null,
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "ff2a_7": {
         "id": "ff2a_7",
@@ -23,6 +23,6 @@
         "taip_units": null,
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     }
 }

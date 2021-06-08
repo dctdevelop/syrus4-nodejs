@@ -10,7 +10,7 @@
         "taip_units": "kohm",
         "units": "kohm",
         "xaem_bit": 34,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "ff08_4-6": {
         "id": "ff08_4-6",
@@ -23,6 +23,6 @@
         "taip_units": "kohm",
         "units": "kohm",
         "xaem_bit": 35,
-        "xaem_group": "3"
+        "xaem_group": 3
     }
 }

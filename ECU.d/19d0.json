@@ -10,7 +10,7 @@
         "taip_units": "V",
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "19d0_3-4": {
         "id": "19d0_3-4",
@@ -23,7 +23,7 @@
         "taip_units": "V",
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "19d0_5": {
         "id": "19d0_5",
@@ -36,7 +36,7 @@
         "taip_units": "C",
         "units": "C",
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "19d0_6": {
         "id": "19d0_6",
@@ -49,6 +49,6 @@
         "taip_units": "C",
         "units": "C",
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     }
 }

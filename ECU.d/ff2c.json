@@ -10,7 +10,7 @@
         "taip_units": "V",
         "units": "V",
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "ff2c_3-4": {
         "id": "ff2c_3-4",
@@ -23,6 +23,6 @@
         "taip_units": "V",
         "units": "V",
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     }
 }

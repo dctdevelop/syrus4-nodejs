@@ -10,7 +10,7 @@
         "taip_units": null,
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "ff2d_2": {
         "id": "ff2d_2",
@@ -23,7 +23,7 @@
         "taip_units": null,
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "ff2d_3": {
         "id": "ff2d_3",
@@ -36,7 +36,7 @@
         "taip_units": null,
         "units": null,
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     },
     "ff2d_5-6": {
         "id": "ff2d_5-6",
@@ -49,6 +49,6 @@
         "taip_units": "V",
         "units": "V",
         "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_group": 3
     }
 }
