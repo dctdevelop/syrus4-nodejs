@@ -1,0 +1,28 @@
+{
+    "ffa0_1-3": {
+        "id": "ffa0_1-3",
+        "multiplier": 0.125,
+        "param_name": "ev_odometer",
+        "pgn": "ffa0",
+        "range": "0 to 2097151",
+        "start_position": "1-3",
+        "taip_tag": "ZZ.10",
+        "taip_units": "km",
+        "units": "km",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "ffa0_4-5": {
+        "id": "ffa0_4-5",
+        "multiplier": 0.1,
+        "param_name": "ev_speed_2",
+        "pgn": "ffa0",
+        "range": "0 to 2000",
+        "start_position": "4-5",
+        "taip_tag": "ZZ.11",
+        "taip_units": "kph",
+        "units": "kph",
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}
