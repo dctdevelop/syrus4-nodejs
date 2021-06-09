@@ -9,8 +9,8 @@
         "taip_tag": "ZZ.35",
         "taip_units": "Ah",
         "units": "Ah",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f100_3-4": {
         "id": "f100_3-4",
@@ -22,8 +22,8 @@
         "taip_tag": "ZZ.36",
         "taip_units": "V",
         "units": "V",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f100_5-6": {
         "id": "f100_5-6",
@@ -35,8 +35,8 @@
         "taip_tag": "ZZ.37",
         "taip_units": "KWh",
         "units": "KWh",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f100_7-8": {
         "id": "f100_7-8",
@@ -48,7 +48,7 @@
         "taip_tag": "ZZ.38",
         "taip_units": "KWh",
         "units": "KWh",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     }
 }

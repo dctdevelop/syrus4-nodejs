@@ -5,12 +5,12 @@
         "param_name": "total_batt_case",
         "pgn": "ff2d",
         "range": "1 to 255",
-        "start_position": "1",
+        "start_position": 1,
         "taip_tag": "ZZ.29",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "ff2d_2": {
         "id": "ff2d_2",
@@ -18,12 +18,12 @@
         "param_name": "total_cell_chain",
         "pgn": "ff2d",
         "range": "1 to 255",
-        "start_position": "2",
+        "start_position": 2,
         "taip_tag": "ZZ.30",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "ff2d_3": {
         "id": "ff2d_3",
@@ -31,12 +31,12 @@
         "param_name": "total_batt_temp_nodes",
         "pgn": "ff2d",
         "range": "1 to 255",
-        "start_position": "3",
+        "start_position": 3,
         "taip_tag": "ZZ.31",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "ff2d_5-6": {
         "id": "ff2d_5-6",
@@ -48,7 +48,20 @@
         "taip_tag": "ZZ.32",
         "taip_units": "V",
         "units": "V",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "ff2d_8": {
+        "id": "ff2d_8",
+        "multiplier": 0.4,
+        "param_name": "ev_soh",
+        "pgn": "ff2d",
+        "range": "0 to 100",
+        "start_position": 8,
+        "taip_tag": "EEV.4",
+        "taip_units": "%",
+        "units": "Percentage",
+        "xaem_bit": null,
+        "xaem_group": null
     }
 }

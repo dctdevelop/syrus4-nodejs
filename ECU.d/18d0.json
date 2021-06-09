@@ -9,8 +9,8 @@
         "taip_tag": "ZZ.1",
         "taip_units": "V",
         "units": "V",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "18d0_3-4": {
         "id": "18d0_3-4",
@@ -22,8 +22,8 @@
         "taip_tag": "ZZ.2",
         "taip_units": "A",
         "units": "A",
-        "xaem_bit": 32,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "18d0_5": {
         "id": "18d0_5",
@@ -35,8 +35,8 @@
         "taip_tag": "ZZ.3",
         "taip_units": "%",
         "units": "Percentage",
-        "xaem_bit": 33,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "18d0_6.1": {
         "id": "18d0_6.1",
@@ -48,8 +48,8 @@
         "taip_tag": "ZZ.6",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "18d0_6.2": {
         "id": "18d0_6.2",
@@ -61,7 +61,7 @@
         "taip_tag": "ZZ.7",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     }
 }

@@ -9,8 +9,8 @@
         "taip_tag": "ZZ.16",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_1.2": {
         "id": "f214_1.2",
@@ -22,8 +22,8 @@
         "taip_tag": "ZZ.17",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_1.3": {
         "id": "f214_1.3",
@@ -35,8 +35,8 @@
         "taip_tag": "ZZ.18",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_1.6": {
         "id": "f214_1.6",
@@ -48,8 +48,8 @@
         "taip_tag": "ZZ.19",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_2.3": {
         "id": "f214_2.3",
@@ -61,8 +61,8 @@
         "taip_tag": "ZZ.20",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_2.6": {
         "id": "f214_2.6",
@@ -74,8 +74,8 @@
         "taip_tag": "ZZ.21",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_3.1": {
         "id": "f214_3.1",
@@ -87,8 +87,8 @@
         "taip_tag": "ZZ.22",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_3.2": {
         "id": "f214_3.2",
@@ -100,8 +100,8 @@
         "taip_tag": "ZZ.23",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "f214_6.1": {
         "id": "f214_6.1",
@@ -113,7 +113,7 @@
         "taip_tag": "ZZ.24",
         "taip_units": null,
         "units": null,
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     }
 }

@@ -9,8 +9,8 @@
         "taip_tag": "ZZ.27",
         "taip_units": "V",
         "units": "V",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     },
     "ff2c_3-4": {
         "id": "ff2c_3-4",
@@ -22,7 +22,7 @@
         "taip_tag": "ZZ.28",
         "taip_units": "V",
         "units": "V",
-        "xaem_bit": 31,
-        "xaem_group": 3
+        "xaem_bit": null,
+        "xaem_group": null
     }
 }
