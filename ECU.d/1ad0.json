@@ -8,7 +8,7 @@
         "start_position": "1-2",
         "taip_tag": "ZZ.10",
         "taip_units": "A",
-        "units": null,
+        "units": "A",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -21,7 +21,7 @@
         "start_position": "3-4",
         "taip_tag": "ZZ.11",
         "taip_units": "A",
-        "units": null,
+        "units": "A",
         "xaem_bit": null,
         "xaem_group": null
     },

@@ -21,7 +21,7 @@
         "start_position": 4.2,
         "taip_tag": "ZJ.2",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": 11,
         "xaem_group": 3
     }

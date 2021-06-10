@@ -2,7 +2,7 @@
 	"f00a_1-2": {
 		"id": "f00a_1-2",
 		"param_name": "exhaust_gas_recirculation_mass_flow_rate",
-		"units": "Flow rate, gaseous",
+		"units": "kg/h",
 		"range": "kg/h",
 		"pgn": "f00a",
 		"start_position": "1-2",
@@ -15,7 +15,7 @@
 	"f00a_3-4": {
 		"id": "f00a_3-4",
 		"param_name": "intake_air_mass_flow_rate",
-		"units": "Flow rate, gaseous",
+		"units": "kg/h",
 		"range": "kg/h",
 		"pgn": "f00a",
 		"start_position": "3-4",
