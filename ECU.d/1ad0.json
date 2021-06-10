@@ -6,6 +6,7 @@
         "pgn": "1ad0",
         "range": "-3200 to 3200",
         "start_position": "1-2",
+        "taip_float": true,
         "taip_tag": "ZZ.10",
         "taip_units": "A",
         "units": null,

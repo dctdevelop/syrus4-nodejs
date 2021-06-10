@@ -45,6 +45,7 @@
         "pgn": "ff2d",
         "range": "1 to 1000",
         "start_position": "5-6",
+        "taip_float": true,
         "taip_tag": "ZZ.32",
         "taip_units": "V",
         "units": "V",
