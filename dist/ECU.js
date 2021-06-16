@@ -50,8 +50,10 @@ function template(strings, ...keys) {
  */
 function watchECUParams(cb, errorCallback) {
     let ECU_PARAM_LIST = getECUList();
+    let errors_cache = {};
+    const error_pgn = "feca_3-6";
     try {
-        var handler = (channel, raw) => {
+        var handler = (channel, raw) => __awaiter(this, void 0, void 0, function* () {
             if (channel != "ecumonitor/parameters")
                 return;
             const ecu_values = {};
@@ -95,8 +97,25 @@ function watchECUParams(cb, errorCallback) {
                     }
                 }
             });
+            // handle error codes
+            let encoded_error = ecu_values[error_pgn];
+            let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 };
+            if (encoded_error) {
+                let cached = errors_cache[encoded_error];
+                if (!cached) {
+                    let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode ${error_pgn} ${encoded_error}`));
+                    if (decoded_error)
+                        console.error(decoded_error);
+                    if (decoded) {
+                        cached = errors_cache[encoded_error] = decoded;
+                    }
+                    console.log({ decoded, decoded_error, cached });
+                }
+                error_codes = Object.assign(Object.assign({}, error_codes), cached);
+                ecu_values['error_codes'] = error_codes;
+            }
             cb(ecu_values);
-        };
+        });
         Redis_1.SystemRedisSubscriber.subscribe("ecumonitor/parameters");
         Redis_1.SystemRedisSubscriber.on("message", handler);
     }
@@ -140,19 +159,26 @@ function getECUList(reload = false) {
     }
     if (__ecu_loaded)
         return __ecu_params;
-    let ecu_dir = path.join(__dirname, '../ECU.d');
+    let ecu_paths = [
+        '/home/syrus4g/ecumonitor/definitions',
+        path.join(__dirname, '../ECU.d'),
+    ];
     let filenames = [];
-    fs.readdirSync(ecu_dir).map((filename) => {
-        if (!filename.endsWith('.json'))
+    ecu_paths.map((ecu_path) => {
+        if (!fs.existsSync(ecu_path))
             return;
-        filenames.push(filename);
-        try {
-            let data = require(path.join(ecu_dir, filename));
-            __ecu_params = Object.assign(Object.assign({}, __ecu_params), data);
-        }
-        catch (error) {
-            console.error(error);
-        }
+        fs.readdirSync(ecu_path).map((filename) => {
+            if (filename.startsWith('_') || !filename.endsWith('.json'))
+                return;
+            filenames.push(filename);
+            try {
+                let data = require(path.join(ecu_path, filename));
+                __ecu_params = Object.assign(Object.assign({}, __ecu_params), data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
     });
     console.log("ECU loaded\n", filenames.join(","));
     __ecu_loaded = true;
