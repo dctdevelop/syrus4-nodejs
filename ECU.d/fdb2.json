@@ -9,6 +9,7 @@
 		"taip_tag": "ZA.2",
 		"taip_units": "decipsi",
 		"multiplier": 10,
+		"taip_multiplier": 0.145038,
 		"xaem_group": 2,
 		"xaem_bit": 45
 	}

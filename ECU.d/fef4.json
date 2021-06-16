@@ -27,6 +27,7 @@
 		"itemizer": "(?<axle>\\d+)\\,(?<tire>\\d+)\\,(?<value>\\-?\\d+\\.\\d+)",
 		"item_name": "$tires.axle_${axle}.tire_${tire}.pressure",
 		"taip units": "",
+		"taip_multiplier": 0.145038,
 		"multiplier": 1
 	},
 	"fef4_3-4": {

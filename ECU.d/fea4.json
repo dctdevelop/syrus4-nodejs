@@ -9,6 +9,7 @@
 		"taip_tag": "ZX.4",
 		"taip_units": "centipsi",
 		"multiplier": 100,
+		"taip_multiplier": 0.145038,
 		"xaem_group": 2,
 		"xaem_bit": 51
 	},

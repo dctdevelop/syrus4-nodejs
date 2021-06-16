@@ -9,6 +9,7 @@
 		"taip_tag": "ZE.9",
 		"taip_units": "decipsi",
 		"xaem_group": 2,
+		"taip_multiplier": 0.145038,
 		"xaem_bit": 41
 	}
 }

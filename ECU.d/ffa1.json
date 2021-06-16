@@ -48,6 +48,7 @@
         "taip_tag": "EEV.8",
         "taip_units": "kpa",
         "units": "kpa",
+        "taip_multiplier": 0.145038,
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -61,6 +62,7 @@
         "taip_tag": "EEV.9",
         "taip_units": "kpa",
         "units": "kpa",
+        "taip_multiplier": 0.145038,
         "xaem_bit": null,
         "xaem_group": null
     }

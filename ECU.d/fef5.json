@@ -9,6 +9,7 @@
 		"taip_tag": "YY",
 		"taip_units": "psi",
 		"multiplier": 0.5,
+		"taip_multiplier": 0.145038,
 		"xaem_group": 2,
 		"xaem_bit": 3
 	},
