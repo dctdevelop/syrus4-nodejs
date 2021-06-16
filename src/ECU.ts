@@ -40,10 +40,12 @@ function template(strings: string[], ...keys: string[]): string {
  */
 export function watchECUParams(cb: Function, errorCallback: Function) {
 	let ECU_PARAM_LIST = getECUList()
+	let errors_cache = {}
+	const error_pgn = "feca_3-6"
 	try {
-		var handler = (channel:string, raw:string) => {
-			if (channel != "ecumonitor/parameters") return;
-			const ecu_values = {};
+		var handler = async (channel:string, raw:string) => {
+			if (channel != "ecumonitor/parameters") return
+			const ecu_values = {}
 			raw.split("&").map(param => {
 				const [ key, value ] = param.split("=");
 				const element = ECU_PARAM_LIST[key] || {}
@@ -85,6 +87,23 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 					}
 				}
 			});
+			// handle error codes
+			let encoded_error = ecu_values[error_pgn]
+			if (encoded_error){
+				let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 }
+				let cached = errors_cache[encoded_error]
+				if (!cached) {
+					let [decoded, decoded_error] = await Utils.$to(
+						Utils.OSExecute(`apx-ecu decode ${error_pgn} ${encoded_error}`)
+					)
+					if (decoded_error) console.error(decoded_error)
+					if (decoded) {
+						cached = errors_cache[encoded_error] = decoded
+					}
+				}
+				error_codes = {...error_codes, ...cached}
+				ecu_values['error_codes'] = error_codes
+			}
 			cb(ecu_values);
 		};
 		subscriber.subscribe("ecumonitor/parameters");
@@ -127,17 +146,23 @@ export function getECUList(reload: boolean = false) {
 		__ecu_params = {}
 	}
 	if (__ecu_loaded) return __ecu_params
-	let ecu_dir = path.join(__dirname, '../ECU.d')
+	let ecu_paths = [
+		'/home/syrus4g/ecumonitor/definitions',
+		path.join(__dirname, '../ECU.d'),
+	]
 	let filenames = []
-	fs.readdirSync(ecu_dir).map((filename)=>{
-		if (!filename.endsWith('.json')) return
-		filenames.push(filename)
-		try {
-			let data = require(path.join(ecu_dir, filename))
-			__ecu_params = { ...__ecu_params, ...data }
-		}catch(error){
-			console.error(error)
-		}
+	ecu_paths.map((ecu_path)=>{
+		if(!fs.existsSync(ecu_path)) return
+		fs.readdirSync(ecu_path).map((filename)=>{
+			if (filename.startsWith('_') || !filename.endsWith('.json')) return
+			filenames.push(filename)
+			try {
+				let data = require(path.join(ecu_path, filename))
+				__ecu_params = { ...__ecu_params, ...data }
+			}catch(error){
+				console.error(error)
+			}
+		})
 	})
 	console.log("ECU loaded\n", filenames.join(","))
 	__ecu_loaded = true
