@@ -51,6 +51,19 @@
         "xaem_group": 1,
         "xaem_bit": 21
     },
+    "feca_3-6": {
+        "id": "feca_3-6",
+        "param_name": "encoded_error_codes",
+        "units": null,
+        "range": null,
+        "pgn": "feca",
+        "start_position": "3-6",
+        "taip_tag": null,
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
     "feca_5.1": {
         "id": "feca_5.1",
         "param_name": "failure_mode_identifier",
