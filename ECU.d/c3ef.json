@@ -7,8 +7,8 @@
         "range": "0 to 20000000",
         "start_position": "1-3",
         "taip_tag": "ZQ.12",
-        "taip_units": "kwh",
-        "units": "kwh",
+        "taip_units": "kWh",
+        "units": "kWh",
         "xaem_bit": 27,
         "xaem_group": 3
     },
@@ -20,8 +20,8 @@
         "range": "0 to 20000000",
         "start_position": "4-6",
         "taip_tag": "ZQ.13",
-        "taip_units": "kwh",
-        "units": "kwh",
+        "taip_units": "kWh",
+        "units": "kWh",
         "xaem_bit": 28,
         "xaem_group": 3
     },
@@ -33,8 +33,8 @@
         "range": "0 to 6554",
         "start_position": "7-8",
         "taip_tag": "ZQ.14",
-        "taip_units": "kwh",
-        "units": "kwh",
+        "taip_units": "kWh",
+        "units": "kWh",
         "xaem_bit": 29,
         "xaem_group": 3
     }

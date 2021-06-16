@@ -8,7 +8,7 @@
         "start_position": 5.8,
         "taip_tag": "EEV.5",
         "taip_units": null,
-        "units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -21,7 +21,7 @@
         "start_position": 6.4,
         "taip_tag": "EEV.6",
         "taip_units": null,
-        "units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -34,7 +34,7 @@
         "start_position": 6.5,
         "taip_tag": "EEV.7",
         "taip_units": null,
-        "units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },

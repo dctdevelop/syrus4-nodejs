@@ -8,7 +8,7 @@
         "start_position": 1,
         "taip_tag": "ZZ.29",
         "taip_units": null,
-        "units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -21,7 +21,7 @@
         "start_position": 2,
         "taip_tag": "ZZ.30",
         "taip_units": null,
-        "units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -34,7 +34,7 @@
         "start_position": 3,
         "taip_tag": "ZZ.31",
         "taip_units": null,
-        "units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -62,7 +62,7 @@
         "taip_float": true,
         "taip_tag": "EEV.4",
         "taip_units": "%",
-        "units": "Percentage",
+        "units": "%",
         "xaem_bit": null,
         "xaem_group": null
     }

@@ -2,8 +2,8 @@
 	"fd7b_1": {
 		"id": "fd7b_1",
 		"param_name": "dpf_soot_load",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fd7b",
 		"start_position": 1,
 		"taip_tag": "ZE.8",
@@ -15,12 +15,12 @@
 	"fd7b_7": {
 		"id": "fd7b_7",
 		"param_name": "aftmt_dpf_soot_load_threshold",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fd7b",
 		"start_position": 7,
 		"taip_tag": "ZA.5",
-		"taip_units": "centi%",
+		"taip_units": "%",
 		"multiplier": 100,
 		"xaem_group": null,
 		"xaem_bit": null
