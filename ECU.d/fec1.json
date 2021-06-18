@@ -2,8 +2,8 @@
 	"fec1_1-4": {
 		"id": "fec1_1-4",
 		"param_name": "distance_total_high_res",
-		"units": "Distance, km",
-		"range": "km",
+		"units": "km",
+		"range": "0 to 526,385,151.90",
 		"pgn": "fec1",
 		"start_position": "1-4",
 		"taip_tag": null,
@@ -15,8 +15,8 @@
 	"fec1_5-8": {
 		"id": "fec1_5-8",
 		"param_name": "distance_trip_high_res",
-		"units": "Distance, km",
-		"range": "km",
+		"units": "km",
+		"range": "0 to 526,385,151.90",
 		"pgn": "fec1",
 		"start_position": "5-8",
 		"taip_tag": null,

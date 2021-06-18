@@ -2,8 +2,8 @@
 	"fe70_1-2": {
 		"id": "fe70_1-2",
 		"param_name": "weight_powered_vehicle",
-		"units": "Mass, cargo",
-		"range": "kg",
+		"units": "kg",
+		"range": "0 to 642,550",
 		"pgn": "fe70",
 		"start_position": "1-2",
 		"taip_tag": null,
@@ -15,8 +15,8 @@
 	"fe70_3-4": {
 		"id": "fe70_3-4",
 		"param_name": "weight_gross_combination",
-		"units": "Mass, cargo",
-		"range": "kg",
+		"units": "kg",
+		"range": "0 to 642,550",
 		"pgn": "fe70",
 		"start_position": "3-4",
 		"taip_tag": null,

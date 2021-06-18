@@ -2,8 +2,8 @@
 	"feb1_5-8": {
 		"id": "feb1_5-8",
 		"param_name": "total_ecu_run_time",
-		"units": "Time, hr",
-		"range": "hr",
+		"units": "hr",
+		"range": "0 to 210,554,060.75",
 		"pgn": "feb1",
 		"start_position": "5-8",
 		"taip_tag": "ZR",

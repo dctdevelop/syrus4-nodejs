@@ -2,8 +2,8 @@
 	"fee3_20-21": {
 		"id": "fee3_20-21",
 		"param_name": "reference_torque",
-		"units": "Torque",
-		"range": "Nm",
+		"units": "Nm",
+		"range": "0 to 64255",
 		"pgn": "fee3",
 		"start_position": "20-21",
 		"taip_tag": "ZE.7",

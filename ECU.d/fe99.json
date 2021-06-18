@@ -2,8 +2,8 @@
 	"fe99_1-2": {
 		"id": "fe99_1-2",
 		"param_name": "turbo_compressor_intake_pressure",
-		"units": "Pressure",
-		"range": "kPa",
+		"units": "kPa",
+		"range": "0 to 321,275",
 		"pgn": "fe99",
 		"start_position": "1-2",
 		"taip_tag": "ZH.3",

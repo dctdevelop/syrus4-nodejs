@@ -2,8 +2,8 @@
 	"fe68_1": {
 		"id": "fe68_1",
 		"param_name": "hydraulic_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fe68",
 		"start_position": 1,
 		"taip_tag": "YJ",
@@ -15,8 +15,8 @@
 	"fe68_3": {
 		"id": "fe68_3",
 		"param_name": "hydraulic_oil_level",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fe68",
 		"start_position": 3,
 		"taip_tag": "YH",

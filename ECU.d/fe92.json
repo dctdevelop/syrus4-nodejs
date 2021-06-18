@@ -2,8 +2,8 @@
 	"fe92_2-3": {
 		"id": "fe92_2-3",
 		"param_name": "exhaust_gas_pressure",
-		"units": "Pressure",
-		"range": "kPa",
+		"units": "kPa",
+		"range": "0 to 321,275",
 		"pgn": "fe92",
 		"start_position": "2-3",
 		"taip_tag": "ZX.3",

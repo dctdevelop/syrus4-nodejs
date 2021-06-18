@@ -2,20 +2,20 @@
 	"fef8_2": {
 		"id": "fef8_2",
 		"param_name": "trans_oil_level",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fef8",
 		"start_position": 2,
 		"taip_tag": "OM",
 		"taip_units": "deci%",
-		"multiplier": 10,
+		"taip_multiplier": 10,
 		"xaem_group": null,
 		"xaem_bit": null
 	},
 	"fef8_4": {
 		"id": "fef8_4",
 		"param_name": "trans_oil_pressure",
-		"units": "Pressure",
+		"units": "0 to 321,275",
 		"range": "kPa",
 		"pgn": "fef8",
 		"start_position": 4,
@@ -29,13 +29,13 @@
 	"fef8_5-6": {
 		"id": "fef8_5-6",
 		"param_name": "trans_oil_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fef8",
 		"start_position": "5-6",
 		"taip_tag": "OK",
 		"taip_units": "deciC",
-		"multiplier": 10,
+		"taip_multiplier": 10,
 		"xaem_group": 1,
 		"xaem_bit": 18
 	}

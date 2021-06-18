@@ -8,8 +8,8 @@
         "start_position": "1-2",
         "taip_float": true,
         "taip_tag": "ZZ.27",
-        "taip_units": "V",
-        "units": "V",
+        "taip_units": null,
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -23,7 +23,7 @@
         "taip_float": true,
         "taip_tag": "ZZ.28",
         "taip_units": "V",
-        "units": "V",
+        "units": "Count",
         "xaem_bit": null,
         "xaem_group": null
     }

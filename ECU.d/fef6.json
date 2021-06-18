@@ -2,22 +2,22 @@
 	"fef6_2": {
 		"id": "fef6_2",
 		"param_name": "intake_manif_pressure",
-		"units": "Pressure",
-		"range": "kPa",
+		"units": "kPa",
+		"range": "0 to 321,275",
 		"pgn": "fef6",
 		"start_position": 2,
 		"taip_tag": "ZE.4",
 		"taip_units": "decipsi",
 		"multiplier": 10,
-		"taip_multiplier": 0.145038,
+		"taip_multiplier": 1.45038,
 		"xaem_group": 2,
 		"xaem_bit": 32
 	},
 	"fef6_3": {
 		"id": "fef6_3",
 		"param_name": "intake_manif_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fef6",
 		"start_position": 3,
 		"taip_tag": "YM",
@@ -35,7 +35,7 @@
 		"start_position": "6-7",
 		"taip_tag": "ZX.1",
 		"taip_units": "deciC",
-		"multiplier": 10,
+		"taip_multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 31
 	}

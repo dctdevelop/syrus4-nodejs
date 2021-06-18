@@ -15,13 +15,14 @@
     "feea_2-3": {
         "id": "feea_2-3",
         "param_name": "weight_axle",
-        "units": "Mass, cargo",
-        "range": "kg",
+        "units": "kg",
+        "range": "0 to 642,550",
         "pgn": "feea",
         "start_position": "2-3",
         "taip_tag": "OZ.2",
         "taip_units": "kg",
-        "multiplier": 1,
+        "taip_multiplier": 10,
+        "multiplier": 0.5,
         "xaem_group": 1,
         "xaem_bit": 26
     },
