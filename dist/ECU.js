@@ -99,8 +99,8 @@ function watchECUParams(cb, errorCallback) {
             });
             // handle error codes
             let encoded_error = ecu_values[error_pgn];
-            let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 };
             if (encoded_error) {
+                let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 };
                 let cached = errors_cache[encoded_error];
                 if (!cached) {
                     let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode ${error_pgn} ${encoded_error}`));
@@ -109,7 +109,6 @@ function watchECUParams(cb, errorCallback) {
                     if (decoded) {
                         cached = errors_cache[encoded_error] = decoded;
                     }
-                    console.log({ decoded, decoded_error, cached });
                 }
                 error_codes = Object.assign(Object.assign({}, error_codes), cached);
                 ecu_values['error_codes'] = error_codes;
