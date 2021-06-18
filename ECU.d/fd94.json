@@ -7,8 +7,8 @@
 		"pgn": "fd94",
 		"start_position": "1-2",
 		"taip_tag": "ZX.6",
-		"taip_units": "%",
-		"multiplier": 100,
+		"taip_units": "centi%",
+		"taip_multiplier": 100,
 		"xaem_group": 3,
 		"xaem_bit": 0
 	}

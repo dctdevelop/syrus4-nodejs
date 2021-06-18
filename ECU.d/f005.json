@@ -8,7 +8,7 @@
         "start_position": 4,
         "taip_tag": "ZS.12",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": 30,
         "xaem_group": 3
     }

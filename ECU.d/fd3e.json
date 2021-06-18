@@ -7,8 +7,8 @@
 		"pgn": "fd3e",
 		"start_position": "1-2",
 		"taip_tag": "ZA.8",
-		"taip_units": "C",
-		"multiplier": 10,
+		"taip_units": "deciC",
+		"taip_multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 38
 	},
@@ -20,8 +20,8 @@
 		"pgn": "fd3e",
 		"start_position": "4-5",
 		"taip_tag": "ZA.9",
-		"taip_units": "C",
-		"multiplier": 10,
+		"taip_units": "deciC",
+		"taip_multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 39
 	}

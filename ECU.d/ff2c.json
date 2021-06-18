@@ -9,7 +9,7 @@
         "taip_float": true,
         "taip_tag": "ZZ.27",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -23,7 +23,7 @@
         "taip_float": true,
         "taip_tag": "ZZ.28",
         "taip_units": "V",
-        "units": "Count",
+        "units": "count",
         "xaem_bit": null,
         "xaem_group": null
     }

@@ -50,7 +50,7 @@
         "start_position": "6.1",
         "taip_tag": "ZZ.6",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": null,
         "xaem_group": null
     },
@@ -63,7 +63,7 @@
         "start_position": "6.2",
         "taip_tag": "ZZ.7",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": null,
         "xaem_group": null
     }

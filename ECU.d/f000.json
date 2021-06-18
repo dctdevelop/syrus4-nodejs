@@ -2,7 +2,7 @@
 	"f000_1.5": {
 		"id": "f000_1.5",
 		"param_name": "retarder_brake_assist",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "f000",
 		"start_position": 1.5,

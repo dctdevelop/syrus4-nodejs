@@ -2,7 +2,7 @@
 	"fd7c_2.3": {
 		"id": "fd7c_2.3",
 		"param_name": "dpf_active_regen_status",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "fd7c",
 		"start_position": 2.3,

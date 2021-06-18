@@ -20,8 +20,8 @@
 		"pgn": "fd7b",
 		"start_position": 7,
 		"taip_tag": "ZA.5",
-		"taip_units": "%",
-		"multiplier": 100,
+		"taip_units": "centi%",
+		"taip_multiplier": 100,
 		"xaem_group": null,
 		"xaem_bit": null
 	}

@@ -15,7 +15,7 @@
 	"febd_2.1": {
 		"id": "febd_2.1",
 		"param_name": "fan_drive_state",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 15",
 		"pgn": "febd",
 		"start_position": 2.1,

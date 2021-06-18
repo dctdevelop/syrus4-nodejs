@@ -2,7 +2,7 @@
     "fef1_1.3": {
         "id": "fef1_1.3",
         "param_name": "parking_brake_switch",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fef1",
         "start_position": 1.3,
@@ -29,7 +29,7 @@
     "fef1_4.5": {
         "id": "fef1_4.5",
         "param_name": "brake_switch",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fef1",
         "start_position": 4.5,
@@ -42,7 +42,7 @@
     "fef1_4.7": {
         "id": "fef1_4.7",
         "param_name": "clutch_switch",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fef1",
         "start_position": 4.7,
@@ -68,7 +68,7 @@
     "fef1_7.1": {
         "id": "fef1_7.1",
         "param_name": "pto_state",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 31",
         "pgn": "fef1",
         "start_position": 7.1,
@@ -81,7 +81,7 @@
     "fef1_7.6": {
         "id": "fef1_7.6",
         "param_name": "cruise_control_states",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 7",
         "pgn": "fef1",
         "start_position": 7.6,

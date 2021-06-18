@@ -9,7 +9,6 @@
 		"taip_tag": "OI",
 		"taip_units": "deciliters",
 		"taip_multiplier": 10,
-		"multiplier": 10,
 		"xaem_group": 1,
 		"xaem_bit": 22
 	},
@@ -23,7 +22,6 @@
 		"taip_tag": "OU",
 		"taip_units": "centihours",
 		"taip_multiplier": 100,
-		"multiplier": 100,
 		"xaem_group": 1,
 		"xaem_bit": 23
 	}

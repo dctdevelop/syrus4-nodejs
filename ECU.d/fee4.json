@@ -2,7 +2,7 @@
     "fee4_3.1": {
         "id": "fee4_3.1",
         "param_name": "ac_high_pressure_fan_switch",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fee4",
         "start_position": 3.1,
@@ -15,7 +15,7 @@
     "fee4_4.1": {
         "id": "fee4_4.1",
         "param_name": "engine_wait_to_start_lamp",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fee4",
         "start_position": 4.1,
@@ -28,7 +28,7 @@
     "fee4_5.1": {
         "id": "fee4_5.1",
         "param_name": "engine_protection_system_has_shutdown_engine",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fee4",
         "start_position": 5.1,
@@ -41,7 +41,7 @@
     "fee4_5.3": {
         "id": "fee4_5.3",
         "param_name": "engine_protection_system_has_approaching_shutdown",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "fee4",
         "start_position": 5.3,

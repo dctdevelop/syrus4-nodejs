@@ -2,7 +2,7 @@
     "f004_1.1": {
         "id": "f004_1.1",
         "param_name": "engine_torque_mode",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 15",
         "pgn": "f004",
         "start_position": 1.1,
@@ -54,7 +54,7 @@
     "f004_6": {
         "id": "f004_6",
         "param_name": "source_address_controling_device",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 253",
         "pgn": "f004",
         "start_position": 6,

@@ -28,7 +28,7 @@
 	"fe56_5.6": {
 		"id": "fe56_5.6",
 		"param_name": "aftmt_def_low_level",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "fe56",
 		"start_position": 5.6,

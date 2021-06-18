@@ -28,7 +28,7 @@
     "fedf_4": {
         "id": "fedf_4",
         "param_name": "engines_desired_operating_speed_asymmetry_adjustment",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 250",
         "pgn": "fedf",
         "start_position": 4,

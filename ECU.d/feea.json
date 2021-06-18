@@ -2,7 +2,7 @@
     "feea_1": {
         "id": "feea_1",
         "param_name": "axle_location",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 255",
         "pgn": "feea",
         "start_position": 1,
