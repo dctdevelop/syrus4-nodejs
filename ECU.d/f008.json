@@ -3,7 +3,7 @@
 		"id": "f008_1-2",
 		"param_name": "hydraulic_pressure",
 		"units": "kPa",
-		"range": "0 to 321,275",
+		"range": "0 to 321275",
 		"pgn": "f008",
 		"start_position": "1-2",
 		"taip_tag": "YI",

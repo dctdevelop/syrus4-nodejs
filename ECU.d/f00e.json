@@ -2,12 +2,12 @@
 	"f00e_1-2": {
 		"id": "f00e_1-2",
 		"param_name": "aftmt_intake_nox",
-		"units": "Parts per million",
-		"range": "ppm",
+		"units": "ppm",
+		"range": "-200 to 3012.75",
 		"pgn": "f00e",
 		"start_position": "1-2",
 		"taip_tag": "ZA.6",
-		"taip_units": "decippm",
+		"taip_units": "ppm",
 		"multiplier": 10,
 		"xaem_group": null,
 		"xaem_bit": null

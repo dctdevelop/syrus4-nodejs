@@ -2,12 +2,12 @@
 	"fdb3_3-4": {
 		"id": "fdb3_3-4",
 		"param_name": "aftmt_dpf_outlet_gas_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fdb3",
 		"start_position": "3-4",
 		"taip_tag": "ZA.3",
-		"taip_units": "deciC",
+		"taip_units": "C",
 		"multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 46

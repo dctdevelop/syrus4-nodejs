@@ -2,12 +2,12 @@
 	"fd94_1-2": {
 		"id": "fd94_1-2",
 		"param_name": "exhaust_gas_recirculation_valve_position",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fd94",
 		"start_position": "1-2",
 		"taip_tag": "ZX.6",
-		"taip_units": "centi%",
+		"taip_units": "%",
 		"multiplier": 100,
 		"xaem_group": 3,
 		"xaem_bit": 0
