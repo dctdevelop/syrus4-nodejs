@@ -52,11 +52,15 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				const {
 					param_name, tokenizer,
 					itemizer, item_name,
+					signals
 				} = element
 				// save values directly, even if broken down
 				let fvalue = isNaN(Number(value)) ? value : Number(value);
 				if (param_name) {
 					ecu_values[param_name] = fvalue
+				}
+				if (Array.isArray(signals)) {
+					signals.map((signal) => ecu_values[`@${signal}`] = true)
 				}
 				ecu_values[key] = fvalue
 				if (!(tokenizer || itemizer)) return
