@@ -59,7 +59,7 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				if (param_name) {
 					ecu_values[param_name] = fvalue
 				}
-				if (Array.isArray(signals)) {
+				if (fvalue && Array.isArray(signals)) {
 					signals.map((signal) => ecu_values[`@${signal}`] = true)
 				}
 				ecu_values[key] = fvalue
