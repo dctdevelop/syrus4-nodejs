@@ -1,0 +1,28 @@
+{
+    "ff2a_5": {
+        "id": "ff2a_5",
+        "multiplier": 0.1,
+        "param_name": "highest_temp_batt_pack",
+        "pgn": "ff2a",
+        "range": "1 to 250",
+        "start_position": "5",
+        "taip_tag": "ZZ.33",
+        "taip_units": null,
+        "units": "count",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "ff2a_7": {
+        "id": "ff2a_7",
+        "multiplier": 1,
+        "param_name": "lowest_temp_batt_pack",
+        "pgn": "ff2a",
+        "range": "1 to 250",
+        "start_position": "7",
+        "taip_tag": "ZZ.34",
+        "taip_units": null,
+        "units": "count",
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}

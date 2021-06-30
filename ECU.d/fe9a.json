@@ -2,13 +2,13 @@
 	"fe9a_1-2": {
 		"id": "fe9a_1-2",
 		"param_name": "turbo_compressor_intake_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fe9a",
 		"start_position": "1-2",
 		"taip_tag": "ZH.4",
 		"taip_units": "deciC",
-		"multiplier": 10,
+		"taip_multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 50
 	}

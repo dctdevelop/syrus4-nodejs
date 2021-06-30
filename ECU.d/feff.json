@@ -2,7 +2,7 @@
 	"feff_1.1": {
 		"id": "feff_1.1",
 		"param_name": "water_in_fuel",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "feff",
 		"start_position": 1.1,

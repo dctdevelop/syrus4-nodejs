@@ -8,7 +8,7 @@
         "start_position": 1.1,
         "taip_tag": "ZK.1",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": 12,
         "xaem_group": 3
     },
@@ -21,7 +21,7 @@
         "start_position": 1.4,
         "taip_tag": "ZK.2",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": 13,
         "xaem_group": 3
     },
@@ -31,10 +31,10 @@
         "param_name": "positive_insulation_value",
         "pgn": "03f3",
         "range": "0 to 60000",
-        "start_position": 2.3,
+        "start_position": "2-3",
         "taip_tag": "ZK.3",
         "taip_units": "kohm",
-        "units": "kohm",
+        "units": "Mohm*m",
         "xaem_bit": 14,
         "xaem_group": 3
     },
@@ -44,10 +44,10 @@
         "param_name": "negative_insulation_value",
         "pgn": "03f3",
         "range": "0 to 60000",
-        "start_position": 4.5,
+        "start_position": "4-5",
         "taip_tag": "ZK.4",
         "taip_units": "kohm",
-        "units": "kohm",
+        "units": "Mohm*m",
         "xaem_bit": 15,
         "xaem_group": 3
     }

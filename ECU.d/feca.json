@@ -2,7 +2,7 @@
     "feca_1.1": {
         "id": "feca_1.1",
         "param_name": "protect_lamp",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "feca",
         "start_position": 1.1,
@@ -15,7 +15,7 @@
     "feca_1.3": {
         "id": "feca_1.3",
         "param_name": "amber_warning_lamp",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "feca",
         "start_position": 1.3,
@@ -28,7 +28,7 @@
     "feca_1.5": {
         "id": "feca_1.5",
         "param_name": "red_stop_lamp",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "feca",
         "start_position": 1.5,
@@ -41,7 +41,7 @@
     "feca_1.7": {
         "id": "feca_1.7",
         "param_name": "malfunction_indicator_lamp",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 3",
         "pgn": "feca",
         "start_position": 1.7,
@@ -51,10 +51,23 @@
         "xaem_group": 1,
         "xaem_bit": 21
     },
+    "feca_3-6": {
+        "id": "feca_3-6",
+        "param_name": "encoded_error_codes",
+        "units": null,
+        "range": null,
+        "pgn": "feca",
+        "start_position": "3-6",
+        "taip_tag": null,
+        "taip_units": null,
+        "multiplier": 1,
+        "xaem_group": null,
+        "xaem_bit": null
+    },
     "feca_5.1": {
         "id": "feca_5.1",
         "param_name": "failure_mode_identifier",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 31",
         "pgn": "feca",
         "start_position": 5.1,
@@ -67,7 +80,7 @@
     "feca_6.1": {
         "id": "feca_6.1",
         "param_name": "occurrence_count",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 127",
         "pgn": "feca",
         "start_position": 6.1,
@@ -80,7 +93,7 @@
     "feca_6.8": {
         "id": "feca_6.8",
         "param_name": "spn_conversion_method",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 1",
         "pgn": "feca",
         "start_position": 6.8,

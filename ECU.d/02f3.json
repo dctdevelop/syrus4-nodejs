@@ -2,12 +2,12 @@
     "02f3_3.1": {
         "id": "02f3_3.1",
         "multiplier": 1,
-        "param_name": "vehicle_speed",
+        "param_name": "speed",
         "pgn": "02f3",
         "range": "0 to 255",
         "start_position": 3.1,
-        "taip_tag": "ZJ.1",
-        "taip_units": "kph",
+        "taip_tag": "OS",
+        "taip_units": "km/h",
         "units": "km/h",
         "xaem_bit": 10,
         "xaem_group": 3
@@ -21,7 +21,7 @@
         "start_position": 4.2,
         "taip_tag": "ZJ.2",
         "taip_units": null,
-        "units": "Count",
+        "units": "count",
         "xaem_bit": 11,
         "xaem_group": 3
     }

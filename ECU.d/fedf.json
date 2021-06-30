@@ -2,8 +2,8 @@
     "fedf_1": {
         "id": "fedf_1",
         "param_name": "nominal_friction_torque",
-        "units": "Percentage",
-        "range": "%",
+        "units": "%",
+        "range": "0 to 100",
         "pgn": "fedf",
         "start_position": 1,
         "taip_tag": "ZE.6",
@@ -15,12 +15,12 @@
     "fedf_2-3": {
         "id": "fedf_2-3",
         "param_name": "engines_desired_operating_speed",
-        "units": "Velocity, rotational",
-        "range": "rpm",
+        "units": "rpm",
+        "range": "0 to 257,020",
         "pgn": "fedf",
         "start_position": "2-3",
         "taip_tag": null,
-        "taip_units": "rpm",
+        "taip_units": null,
         "multiplier": 0.125,
         "xaem_group": null,
         "xaem_bit": null
@@ -41,12 +41,12 @@
     "fedf_5": {
         "id": "fedf_5",
         "param_name": "estimated_engine_parasitic_losses",
-        "units": "Percentage",
-        "range": "%",
+        "units": "%",
+        "range": "0 to 100",
         "pgn": "fedf",
         "start_position": 5,
         "taip_tag": null,
-        "taip_units": "%",
+        "taip_units": null,
         "multiplier": 1,
         "xaem_group": null,
         "xaem_bit": null

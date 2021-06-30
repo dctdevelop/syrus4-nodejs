@@ -2,7 +2,7 @@
 	"e000_4.7": {
 		"id": "e000_4.7",
 		"param_name": "seat_belt",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "e000",
 		"start_position": 4.7,

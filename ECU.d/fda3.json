@@ -2,8 +2,8 @@
 	"fda3_3": {
 		"id": "fda3_3",
 		"param_name": "vgt_actuator",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fda3",
 		"start_position": 3,
 		"taip_tag": "ZH.1",

@@ -1,0 +1,15 @@
+{
+    "ffed_1-2": {
+        "id": "ffed_1-2",
+        "multiplier": 1,
+        "param_name": "rpm",
+        "pgn": "ffed",
+        "range": "-2000 to 2000",
+        "start_position": "1-2",
+        "taip_tag": "OE",
+        "taip_units": "rpm",
+        "units": "rpm",
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}

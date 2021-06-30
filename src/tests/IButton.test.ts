@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { AssertionError, expect } from 'chai';
 
 import { disconnectAll } from '../Redis'
 import { onIButtonChange, IButtonUpdate } from '../IButton'

@@ -1,0 +1,56 @@
+{
+    "19d0_1-2": {
+        "id": "19d0_1-2",
+        "multiplier": 0.01,
+        "param_name": "lower_voltage_cell",
+        "pgn": "19d0",
+        "range": "0 to 15",
+        "start_position": "1-2",
+        "taip_float": true,
+        "taip_tag": "ZZ.8",
+        "taip_units": "V",
+        "units": "V",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "19d0_3-4": {
+        "id": "19d0_3-4",
+        "multiplier": 0.01,
+        "param_name": "higher_voltage_cell",
+        "pgn": "19d0",
+        "range": "0 to 15",
+        "start_position": "3-4",
+        "taip_float": true,
+        "taip_tag": "ZZ.9",
+        "taip_units": "V",
+        "units": "V",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "19d0_5": {
+        "id": "19d0_5",
+        "multiplier": 1,
+        "param_name": "batt_min_temp",
+        "pgn": "19d0",
+        "range": "-40 to 210",
+        "start_position": "5",
+        "taip_tag": "ZZ.14",
+        "taip_units": "C",
+        "units": "C",
+        "xaem_bit": "C",
+        "xaem_group": null
+    },
+    "19d0_6": {
+        "id": "19d0_6",
+        "multiplier": 1,
+        "param_name": "batt_max_temp",
+        "pgn": "19d0",
+        "range": "-40 to 210",
+        "start_position": "6",
+        "taip_tag": "ZZ.15",
+        "taip_units": "C",
+        "units": "C",
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}

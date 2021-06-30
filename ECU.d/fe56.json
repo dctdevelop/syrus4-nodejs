@@ -2,8 +2,8 @@
 	"fe56_1": {
 		"id": "fe56_1",
 		"param_name": "aftmt_def_level",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "fe56",
 		"start_position": 1,
 		"taip_tag": "ZL",
@@ -15,8 +15,8 @@
 	"fe56_2": {
 		"id": "fe56_2",
 		"param_name": "aftmt_def_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fe56",
 		"start_position": 2,
 		"taip_tag": "ZT",
@@ -28,7 +28,7 @@
 	"fe56_5.6": {
 		"id": "fe56_5.6",
 		"param_name": "aftmt_def_low_level",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "fe56",
 		"start_position": 5.6,

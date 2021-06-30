@@ -2,7 +2,7 @@
 	"fd9f_8.5": {
 		"id": "fd9f_8.5",
 		"param_name": "aftmt_purge_air_actuator",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 3",
 		"pgn": "fd9f",
 		"start_position": 8.5,

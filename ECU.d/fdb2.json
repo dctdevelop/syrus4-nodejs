@@ -2,13 +2,14 @@
 	"fdb2_5-6": {
 		"id": "fdb2_5-6",
 		"param_name": "aftmt_dpf_diff_pressure",
-		"units": "Pressure",
-		"range": "kPa",
+		"units": "kPa",
+		"range": "0 to 321275",
 		"pgn": "fdb2",
 		"start_position": "5-6",
 		"taip_tag": "ZA.2",
 		"taip_units": "decipsi",
 		"multiplier": 10,
+		"taip_multiplier": 1.45038,
 		"xaem_group": 2,
 		"xaem_bit": 45
 	}

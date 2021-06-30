@@ -8,7 +8,7 @@
 		"start_position": "5-6",
 		"taip_tag": "OB",
 		"taip_units": "mV",
-		"multiplier": 1000,
+		"taip_multiplier": 1000,
 		"xaem_group": 1,
 		"xaem_bit": 13
 	},

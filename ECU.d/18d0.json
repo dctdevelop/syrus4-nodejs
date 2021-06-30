@@ -1,41 +1,70 @@
 {
-    "18d0_1.2": {
-        "id": "18d0_1.2",
+    "18d0_1-2": {
+        "id": "18d0_1-2",
         "multiplier": 0.1,
         "param_name": "total_voltage",
         "pgn": "18d0",
         "range": "0 to 1000",
-        "start_position": 1.2,
+        "start_position": "1-2",
+        "taip_float": true,
         "taip_tag": "ZZ.1",
         "taip_units": "V",
         "units": "V",
-        "xaem_bit": 31,
-        "xaem_group": "3"
+        "xaem_bit": null,
+        "xaem_group": null
     },
-    "18d0_3.4": {
-        "id": "18d0_3.4",
+    "18d0_3-4": {
+        "id": "18d0_3-4",
         "multiplier": 0.1,
         "param_name": "total_amps",
         "pgn": "18d0",
         "range": "-3200 to 3352",
-        "start_position": 3.4,
+        "start_position": "3-4",
+        "taip_float": true,
         "taip_tag": "ZZ.2",
         "taip_units": "A",
         "units": "A",
-        "xaem_bit": 32,
-        "xaem_group": "3"
+        "xaem_bit": null,
+        "xaem_group": null
     },
-    "18d0_5.0": {
-        "id": "18d0_5.0",
+    "18d0_5": {
+        "id": "18d0_5",
         "multiplier": 0.4,
         "param_name": "soc",
         "pgn": "18d0",
-        "range": "%",
-        "start_position": 5.0,
-        "taip_tag": "ZZ.3",
+        "range": "0 to 100",
+        "start_position": 5,
+        "taip_float": true,
+        "taip_tag": "ZQ.8",
         "taip_units": "%",
-        "units": "Percentage",
-        "xaem_bit": 33,
-        "xaem_group": "3"
+        "units": "%",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "18d0_6.1": {
+        "id": "18d0_6.1",
+        "multiplier": 1,
+        "param_name": "high_voltage_alarm",
+        "pgn": "18d0",
+        "range": "0 to 1",
+        "start_position": "6.1",
+        "taip_tag": "ZZ.6",
+        "taip_units": null,
+        "units": "count",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "18d0_6.2": {
+        "id": "18d0_6.2",
+        "multiplier": 1,
+        "param_name": "low_voltage_alarm",
+        "pgn": "18d0",
+        "range": "0 to 1",
+        "start_position": "6.2",
+        "taip_tag": "ZZ.7",
+        "taip_units": null,
+        "units": "count",
+        "xaem_bit": null,
+        "xaem_group": null
     }
 }

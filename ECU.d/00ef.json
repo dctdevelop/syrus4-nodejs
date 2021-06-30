@@ -1,0 +1,15 @@
+{
+    "00ef_1": {
+        "id": "00ef_1",
+        "multiplier": 0.4,
+        "param_name": "throttle",
+        "pgn": "00ef",
+        "range": "0 to 100",
+        "start_position": 1,
+        "taip_tag": "OA",
+        "taip_units": "%",
+        "units": "%",
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "f100_1-2": {
+        "id": "f100_1-2",
+        "multiplier": 0.1,
+        "param_name": "nominal_current_capacity",
+        "pgn": "f100",
+        "range": "0 to 6554",
+        "start_position": "1-2",
+        "taip_float": true,
+        "taip_tag": "ZZ.35",
+        "taip_units": "Ah",
+        "units": "Ah",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "f100_3-4": {
+        "id": "f100_3-4",
+        "multiplier": 0.1,
+        "param_name": "total_nominal_voltage",
+        "pgn": "f100",
+        "range": "0 to 1000",
+        "start_position": "3-4",
+        "taip_float": true,
+        "taip_tag": "ZZ.36",
+        "taip_units": "V",
+        "units": "V",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "f100_5-6": {
+        "id": "f100_5-6",
+        "multiplier": 0.1,
+        "param_name": "nominal_power",
+        "pgn": "f100",
+        "range": "0 to 6554",
+        "start_position": "5-6",
+        "taip_float": true,
+        "taip_tag": "ZZ.37",
+        "taip_units": "KWh",
+        "units": "KWh",
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "f100_7-8": {
+        "id": "f100_7-8",
+        "multiplier": 0.1,
+        "param_name": "remaining_power",
+        "pgn": "f100",
+        "range": "0 to 6554",
+        "start_position": "7-8",
+        "taip_float": true,
+        "taip_tag": "ZZ.38",
+        "taip_units": "KWh",
+        "units": "KWh",
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}

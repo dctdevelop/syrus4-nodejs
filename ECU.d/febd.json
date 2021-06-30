@@ -2,8 +2,8 @@
 	"febd_1": {
 		"id": "febd_1",
 		"param_name": "engine_fan_1_estimated_percent_speed",
-		"units": "Percentage",
-		"range": "%",
+		"units": "%",
+		"range": "0 to 100",
 		"pgn": "febd",
 		"start_position": 1,
 		"taip_tag": null,
@@ -15,7 +15,7 @@
 	"febd_2.1": {
 		"id": "febd_2.1",
 		"param_name": "fan_drive_state",
-		"units": "Count",
+		"units": "count",
 		"range": "0 to 15",
 		"pgn": "febd",
 		"start_position": 2.1,

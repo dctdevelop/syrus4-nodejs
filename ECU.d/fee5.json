@@ -2,14 +2,15 @@
 	"fee5_1-4": {
 		"id": "fee5_1-4",
 		"param_name": "hours_total",
-		"units": "Time, hr",
-		"range": "hr",
+		"units": "hr",
+		"range": "0 to 210,554,060.75",
 		"pgn": "fee5",
 		"start_position": "1-4",
 		"taip_tag": "OH",
 		"taip_units": "centihours",
-		"multiplier": 100,
-		"xaem_group": null,
-		"xaem_bit": null
+		"taip_multiplier": 100,
+		"multiplier": 0.05,
+		"xaem_group": 1,
+		"xaem_bit": 20
 	}
 }

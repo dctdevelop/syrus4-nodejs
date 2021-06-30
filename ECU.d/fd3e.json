@@ -2,26 +2,26 @@
 	"fd3e_1-2": {
 		"id": "fd3e_1-2",
 		"param_name": "aftmt_catalyst_intake_gas_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fd3e",
 		"start_position": "1-2",
 		"taip_tag": "ZA.8",
 		"taip_units": "deciC",
-		"multiplier": 10,
+		"taip_multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 38
 	},
 	"fd3e_4-5": {
 		"id": "fd3e_4-5",
 		"param_name": "aftmt_catalyst_outlet_gas_temp",
-		"units": "Temperature",
-		"range": "C",
+		"units": "C",
+		"range": "-273 to 1735",
 		"pgn": "fd3e",
 		"start_position": "4-5",
 		"taip_tag": "ZA.9",
 		"taip_units": "deciC",
-		"multiplier": 10,
+		"taip_multiplier": 10,
 		"xaem_group": 2,
 		"xaem_bit": 39
 	}

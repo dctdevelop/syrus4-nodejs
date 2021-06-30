@@ -2,7 +2,7 @@
     "f004_1.1": {
         "id": "f004_1.1",
         "param_name": "engine_torque_mode",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 15",
         "pgn": "f004",
         "start_position": 1.1,
@@ -15,8 +15,8 @@
     "f004_2": {
         "id": "f004_2",
         "param_name": "demand_engine_torque",
-        "units": "Percentage",
-        "range": "%",
+        "units": "%",
+        "range": "0 to 100",
         "pgn": "f004",
         "start_position": 2,
         "taip_tag": "YU",
@@ -28,8 +28,8 @@
     "f004_3": {
         "id": "f004_3",
         "param_name": "actual_engine_torque",
-        "units": "Percentage",
-        "range": "%",
+        "units": "%",
+        "range": "0 to 100",
         "pgn": "f004",
         "start_position": 3,
         "taip_tag": "YL",
@@ -41,7 +41,7 @@
     "f004_4-5": {
         "id": "f004_4-5",
         "param_name": "rpm",
-        "units": "Velocity, rotational",
+        "units": "rpm",
         "range": "rpm",
         "pgn": "f004",
         "start_position": "4-5",
@@ -54,7 +54,7 @@
     "f004_6": {
         "id": "f004_6",
         "param_name": "source_address_controling_device",
-        "units": "Count",
+        "units": "count",
         "range": "0 to 253",
         "pgn": "f004",
         "start_position": 6,
@@ -67,8 +67,8 @@
     "f004_8": {
         "id": "f004_8",
         "param_name": "engine_demand_percent_torque",
-        "units": "Percentage",
-        "range": "%",
+        "units": "%",
+        "range": "0 to 100",
         "pgn": "f004",
         "start_position": 8,
         "taip_tag": null,

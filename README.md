@@ -369,6 +369,7 @@ GPS module get information about gps and location in ApexOS
 
 
 * [GPS](#module_GPS)
+    * [~distanceBetweenCoordinates(coord1, coord2)](#module_GPS..distanceBetweenCoordinates)
     * [~getCurrentPosition()](#module_GPS..getCurrentPosition)
     * [~watchPosition(callback, errorCallback, config)](#module_GPS..watchPosition)
     * [~watchGPS(callback, errorCallback)](#module_GPS..watchGPS)
@@ -376,6 +377,18 @@ GPS module get information about gps and location in ApexOS
     * [~getActiveTrackingsResolutions(prefixed)](#module_GPS..getActiveTrackingsResolutions)
     * [~setTrackingResolution(opts)](#module_GPS..setTrackingResolution)
     * [~getTrackingResolution(opts)](#module_GPS..getTrackingResolution)
+
+<a name="module_GPS..distanceBetweenCoordinates"></a>
+
+### GPS~distanceBetweenCoordinates(coord1, coord2)
+return distance in km between two coordinates points
+
+**Kind**: inner method of [<code>GPS</code>](#module_GPS)  
+
+| Param | Description |
+| --- | --- |
+| coord1 | first coordinate to calculate the distance |
+| coord2 | second coordinate to calculate the distance |
 
 <a name="module_GPS..getCurrentPosition"></a>
 
@@ -1098,8 +1111,6 @@ Utils module some utlities in ApexOS
 
 * [Utils](#module_Utils)
     * [~OSExecute(...args)](#module_Utils..OSExecute)
-    * [~distanceBetweenCoordinates(coord1, coord2)](#module_Utils..distanceBetweenCoordinates)
-    * [~toJSONReceiver(coord, imei, siteId)](#module_Utils..toJSONReceiver)
     * [~getPrefix()](#module_Utils..getPrefix) ⇒ <code>\*</code>
     * [~$trycatch(promise)](#module_Utils..$trycatch) ⇒ <code>\*</code>
     * [~$throw(error)](#module_Utils..$throw)
@@ -1115,31 +1126,6 @@ Execute a command using sudo in the shell of the APEXOS and returns a promise wi
 | Param | Description |
 | --- | --- |
 | ...args | arguments to pass to the function to execute |
-
-<a name="module_Utils..distanceBetweenCoordinates"></a>
-
-### Utils~distanceBetweenCoordinates(coord1, coord2)
-return distance in km between two coordinates points
-
-**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
-
-| Param | Description |
-| --- | --- |
-| coord1 | first coordinate to calculate the distance |
-| coord2 | second coordinate to calculate the distance |
-
-<a name="module_Utils..toJSONReceiver"></a>
-
-### Utils~toJSONReceiver(coord, imei, siteId)
-convert coord and imei to JSON receiver format for JSON listener
-
-**Kind**: inner method of [<code>Utils</code>](#module_Utils)  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| coord |  | coordinates of the gps |
-| imei |  | imei of the device |
-| siteId | <code>1</code> | the site that the command should be transmitted |
 
 <a name="module_Utils..getPrefix"></a>
 
