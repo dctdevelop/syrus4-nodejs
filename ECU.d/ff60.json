@@ -1,0 +1,54 @@
+{
+    "ff60_1": {
+        "id": "ff60_1",
+        "multiplier": 1,
+        "param_name": "first_level_fault_code",
+        "pgn": "ff60",
+        "range": "0,255",
+        "start_position": 1,
+        "taip_tag": "EEV.25",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "ff60_2": {
+        "id": "ff60_2",
+        "multiplier": 1,
+        "param_name": "second_level_fault_code",
+        "pgn": "ff60",
+        "range": "0,255",
+        "start_position": 2,
+        "taip_tag": "EEV.26",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "ff60_3": {
+        "id": "ff60_3",
+        "multiplier": 1,
+        "param_name": "third_level_fault_code",
+        "pgn": "ff60",
+        "range": "0,255",
+        "start_position": 3,
+        "taip_tag": "EEV.27",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": null,
+        "xaem_group": null
+    },
+    "ff60_4": {
+        "id": "ff60_4",
+        "multiplier": 1,
+        "param_name": "fourth_level_fault_code",
+        "pgn": "ff60",
+        "range": "0,255",
+        "start_position": 4,
+        "taip_tag": "EEV.28",
+        "taip_units": null,
+        "units": null,
+        "xaem_bit": null,
+        "xaem_group": null
+    }
+}
