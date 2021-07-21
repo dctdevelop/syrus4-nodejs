@@ -15,6 +15,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Redis_1 = require("./Redis");
 const Utils = require("./Utils");
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+/**
+ * return distance in km between two coordinates points
+ * @param coord1 first coordinate to calculate the distance
+ * @param coord2 second coordinate to calculate the distance
+ */
+function distanceBetweenCoordinates(coord1, coord2) {
+    if (!coord1 || !coord2)
+        return null;
+    var lat1 = coord1.coords.latitude;
+    var lon1 = coord1.coords.longitude;
+    var lat2 = coord2.coords.latitude;
+    var lon2 = coord2.coords.longitude;
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+}
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
     var speed = Number(gps.speed) * 0.277778;
@@ -48,7 +71,7 @@ function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0,
     if (!last)
         return "signal";
     var criteria = config.distance == 0 && config.time == 0 && config.heading == 0 ? "accuracy" : false;
-    var distance = Utils.distanceBetweenCoordinates(last, current) * 1000;
+    var distance = distanceBetweenCoordinates(last, current) * 1000;
     var secs = Math.abs(new Date(current.timestamp).getTime() - new Date(last.timestamp).getTime()) / 1000;
     var heading = Math.abs(last.coords.heading - current.coords.heading);
     if (config.distance > 0 && distance >= config.distance)
@@ -276,6 +299,8 @@ function getTrackingResolution({ namespace, prefix }) {
     });
 }
 exports.default = {
+    deg2rad,
+    distanceBetweenCoordinates,
     getCurrentPosition,
     watchPosition,
     watchGPS,
