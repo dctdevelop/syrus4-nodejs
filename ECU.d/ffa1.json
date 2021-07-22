@@ -46,8 +46,8 @@
         "range": "0 to 1000",
         "start_position": 2,
         "taip_tag": "EEV.8",
-        "taip_units": "kpa",
-        "units": "kpa",
+        "taip_units": "kPa",
+        "units": "psi",
         "taip_multiplier": 0.145038,
         "xaem_bit": null,
         "xaem_group": null
@@ -60,8 +60,8 @@
         "range": "0 to 1000",
         "start_position": 1,
         "taip_tag": "EEV.9",
-        "taip_units": "kpa",
-        "units": "kpa",
+        "taip_units": "kPa",
+        "units": "psi",
         "taip_multiplier": 0.145038,
         "xaem_bit": null,
         "xaem_group": null
