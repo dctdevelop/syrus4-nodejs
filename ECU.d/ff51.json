@@ -4,10 +4,11 @@
         "multiplier": 1,
         "param_name": "charging_current",
         "pgn": "ff51",
-        "range": "3200,3353.5",
+        "range": "3200 to 3353.5",
         "start_position": "7-8",
         "taip_tag": "EEV.18",
         "taip_units": "A",
+        "taip_float": true,
         "units": "A",
         "xaem_bit": null,
         "xaem_group": null
