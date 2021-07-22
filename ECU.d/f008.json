@@ -7,7 +7,7 @@
 		"pgn": "f008",
 		"start_position": "1-2",
 		"taip_tag": "YI",
-		"taip_units": "kPa",
+		"taip_units": "psi",
 		"multiplier": 1,
 		"taip_multiplier": 0.145038,
 		"xaem_group": null,
