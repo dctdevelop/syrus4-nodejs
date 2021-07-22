@@ -55,7 +55,7 @@
 	"ffa1_1": {
         "id": "ffa1_1",
         "multiplier": 10,
-        "param_name": "ev_front_air_pressure",
+        "param_name": "front_air_pressure",
         "pgn": "ffa1",
         "range": "0 to 1000",
         "start_position": 1,
