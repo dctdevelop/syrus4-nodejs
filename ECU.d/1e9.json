@@ -14,7 +14,7 @@
         "xaem_bit": null
     },
     "1e9_4_64": {
-        "id": "1e9_1_64",
+        "id": "1e9_4_64",
         "param_name": "stability_control_level",
         "units": "count",
         "range": "0 to 255",
