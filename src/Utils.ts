@@ -62,6 +62,10 @@ export async function getShell(){
  * @param args arguments to pass to the function to execute
  */
 export async function OSExecute(...args:string[]): Promise<any> {
+	let retry = null
+	if (args[0].startsWith('$retry')){
+		retry = args.shift()
+	}
 	let command = args.map((x)=>x.trim()).join(" ");
 	let opts: any = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
 
@@ -73,6 +77,12 @@ export async function OSExecute(...args:string[]): Promise<any> {
 			// console.info("ssh:command", command)
 			shell.exec(command, (error, stream) => {
 				if (error) {
+					if (error.reason == 'CONNECT_FAILED' && !retry){
+						$sleep(2*1000).then(() => {
+							OSExecute("$retry", command).then(resolve).catch(reject)
+						})
+						return
+					}
 					// console.error("ssh:command", {command, error})
 					reject({
 						command,
