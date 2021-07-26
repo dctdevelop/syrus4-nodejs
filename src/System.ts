@@ -23,7 +23,7 @@ async function modem() {
 
 
 /**
- * hanlder to detect power save mode and execute callback 15 seconds before the device goes to sleep
+ * handler to detect power save mode and execute callback 15 seconds before the device goes to sleep
  * @param callback callback to execute when power save mode is on and device is about to turn off
  * @param errorCallback callbac to execute in case of any error
  */
