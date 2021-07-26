@@ -1,0 +1,16 @@
+{
+    "6f2_2_64": {
+        "id": "6f2_2_64",
+        "param_name": "soc",
+        "units": "%",
+        "range": "0 to 100",
+        "can_id": "6f2",
+        "start_position": "2",
+        "taip_tag": "MAX.8",
+        "taip_units": "%",
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    }
+}

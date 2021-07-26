@@ -1,0 +1,30 @@
+{
+    "1f5_4.1_64": {
+        "id": "1f5_4.1_64",
+        "param_name": "neutral",
+        "units": "count",
+        "range": "0 to 1",
+        "can_id": "1f5",
+        "start_position": "4.1",
+        "taip_tag": "MAX.9",
+        "taip_units": null,
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "1f5_4.3_64": {
+        "id": "1f5_4.3_64",
+        "param_name": "drive",
+        "units": "count",
+        "range": "0 to 1",
+        "can_id": "1f5",
+        "start_position": "4.3",
+        "taip_tag": "MAX.10",
+        "taip_units": null,
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "6f0_1-2_64": {
+        "id": "6f0_1-2_64",
+        "param_name": "remaining_distance",
+        "units": "m",
+        "range": "0 to 526385151900",
+        "can_id": "6f0",
+        "start_position": "1-2",
+        "taip_tag": "MAX.18",
+        "taip_units": null,
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    },
+    "6f0_5_64": {
+        "id": "6f0_5_64",
+        "param_name": "speed",
+        "units": "km/h",
+        "range": "0 to 255",
+        "can_id": "6F0",
+        "start_position": "5",
+        "taip_tag": "MAX.3",
+        "taip_units": "km/h",
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    }
+}

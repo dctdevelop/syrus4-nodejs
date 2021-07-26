@@ -1,0 +1,16 @@
+{
+    "540_2-3_64": {
+        "id": "540_2-3_64",
+        "param_name": "odometer",
+        "units": "m",
+        "range": "0 to 526385151900",
+        "can_id": "540",
+        "start_position": "2-3",
+        "taip_tag": "MAX.7",
+        "taip_units": "m",
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    }
+}

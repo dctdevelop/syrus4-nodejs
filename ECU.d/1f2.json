@@ -1,0 +1,16 @@
+{
+	"1f2_1.8_64": {
+        "id": "1f2_1.8_64",
+        "param_name": "handbrake",
+        "units": "Count",
+        "range": "0 to 1",
+        "can_id": "1F2",
+        "start_position": "1.8",
+        "taip_tag": "MAX.2",
+        "taip_units": null,
+        "multiplier": 1,
+        "signals": [],
+        "xaem_group": null,
+        "xaem_bit": null
+    }
+}
