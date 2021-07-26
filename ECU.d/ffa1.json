@@ -46,8 +46,8 @@
         "range": "0 to 1000",
         "start_position": 2,
         "taip_tag": "EEV.8",
-        "taip_units": "kpa",
-        "units": "kpa",
+        "taip_units": "kPa",
+        "units": "psi",
         "taip_multiplier": 0.145038,
         "xaem_bit": null,
         "xaem_group": null
@@ -55,13 +55,13 @@
 	"ffa1_1": {
         "id": "ffa1_1",
         "multiplier": 10,
-        "param_name": "ev_front_air_pressure",
+        "param_name": "front_air_pressure",
         "pgn": "ffa1",
         "range": "0 to 1000",
         "start_position": 1,
         "taip_tag": "EEV.9",
-        "taip_units": "kpa",
-        "units": "kpa",
+        "taip_units": "kPa",
+        "units": "psi",
         "taip_multiplier": 0.145038,
         "xaem_bit": null,
         "xaem_group": null
