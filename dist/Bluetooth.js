@@ -13,9 +13,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onBTDoubleTap = void 0;
+exports.onAppConsoleMessage = exports.onCallButtonTap = void 0;
 const Redis_1 = require("./Redis");
-function onBTDoubleTap(callback, errorCallback) {
+// import * as Utils from "./Utils"
+function onCallButtonTap(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
         const topic = "bluetooth/notification/CALL_BUTTON";
         // subscribe to receive updates
@@ -42,4 +43,32 @@ function onBTDoubleTap(callback, errorCallback) {
         return returnable;
     });
 }
-exports.onBTDoubleTap = onBTDoubleTap;
+exports.onCallButtonTap = onCallButtonTap;
+function onAppConsoleMessage(callback, errorCallback) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const topic = "bluetooth/user_apps_console/MESSAGE";
+        // subscribe to receive updates
+        try {
+            var handler = (channel, data) => {
+                if (channel != topic)
+                    return;
+                callback(data);
+            };
+            Redis_1.SystemRedisSubscriber.subscribe(topic);
+            Redis_1.SystemRedisSubscriber.on("message", handler);
+        }
+        catch (error) {
+            console.error(error);
+            errorCallback(error);
+        }
+        let returnable = {
+            unsubscribe: () => {
+                Redis_1.SystemRedisSubscriber.off("message", handler);
+                Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+            },
+            off: function () { this.unsubscribe(); }
+        };
+        return returnable;
+    });
+}
+exports.onAppConsoleMessage = onAppConsoleMessage;
