@@ -40,7 +40,7 @@ function template(strings: string[], ...keys: string[]): string {
  */
 export function watchECUParams(cb: Function, errorCallback: Function) {
 	let ECU_PARAM_LIST = getECUList()
-	let errors_cache = {}
+	const errors_cache = {}
 	const error_pgn = "feca_3-6"
 	try {
 		var handler = async (channel:string, raw:string) => {
@@ -50,38 +50,38 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				const [ key, value ] = param.split("=");
 				const element = ECU_PARAM_LIST[key] || {}
 				const {
-					param_name, tokenizer,
-					itemizer, item_name,
-					signals
+					$name, $tokenizer,
+					$itemizer, $item_name,
+					$signals
 				} = element
 				// save values directly, even if broken down
 				let fvalue = isNaN(Number(value)) ? value : Number(value);
-				if (param_name) {
-					ecu_values[param_name] = fvalue
+				if ($name) {
+					ecu_values[$name] = fvalue
 				}
-				if (fvalue && Array.isArray(signals)) {
-					signals.map((signal) => ecu_values[`@${signal}`] = true)
+				if (fvalue && Array.isArray($signals)) {
+					$signals.map((signal) => ecu_values[`@${signal}`] = true)
 				}
 				ecu_values[key] = fvalue
-				if (!(tokenizer || itemizer)) return
-				if (!value.includes(tokenizer)) return
+				if (!($tokenizer || $itemizer)) return
+				if (!value.includes($tokenizer)) return
 
-				let tokens: string[];
+				let tokens: string[]
 				let regex = /(?<value>.*)/
-				if (itemizer){
-					regex = new RegExp(itemizer)
+				if ($itemizer){
+					regex = new RegExp($itemizer)
 				}
 				tokens = [ value ]
-				if (tokenizer) {
-					tokens = value.split(tokenizer)
+				if ($tokenizer) {
+					tokens = value.split($tokenizer)
 				}
 				for (const token of tokens){
 					try{
-						let skey = param_name
+						let skey = $name
 						let { groups } = regex.exec(token)
-						let tags: [string[], ...string[]];
-						if (item_name) {
-							tags = params(item_name, groups)
+						let tags: [string[], ...string[]]
+						if ($item_name) {
+							tags = params($item_name, groups)
 							skey = `${template(...tags)}`
 						}
 						let svalue = isNaN(Number(groups.value)) ? groups.value : Number(groups.value)
@@ -92,7 +92,7 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				}
 			});
 			// handle error codes
-			let encoded_error = ecu_values[error_pgn]
+			const encoded_error = ecu_values[error_pgn]
 			if (encoded_error){
 				let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 }
 				let cached = errors_cache[encoded_error]
@@ -151,7 +151,7 @@ export function getECUList(reload: boolean = false) {
 	}
 	if (__ecu_loaded) return __ecu_params
 	let ecu_paths = [
-		'/home/syrus4g/ecumonitor/definitions',
+		// '/home/syrus4g/ecumonitor/definitions',
 		path.join(__dirname, '../ECU.d'),
 	]
 	let filenames = []
