@@ -1,0 +1,30 @@
+{
+    "fd09_5-8": {
+        "param_name": "HRLFC - ENGINE TOTAL FUEL USED (HIGH RESOLUTION)",
+        "pgn": "fd09",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "5-8",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.001,
+        "source_interface": "J1939",
+        "$id": "fd09_5-8",
+        "$name": "engine_total_fuel_used_high_resolution"
+    },
+    "fd09_1-4": {
+        "param_name": "HRLFC - ENGINE TRIP FUEL (HIGH RESOLUTION)",
+        "pgn": "fd09",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "1-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.001,
+        "source_interface": "J1939",
+        "$id": "fd09_1-4",
+        "$name": "engine_trip_fuel_high_resolution"
+    }
+}

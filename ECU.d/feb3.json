@@ -1,0 +1,16 @@
+{
+    "feb3_1-4": {
+        "param_name": "LFI1 - TOTAL ENGINE PTO GOVERNOR FUEL USED",
+        "pgn": "feb3",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 7,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "1-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.5,
+        "source_interface": "J1939",
+        "$id": "feb3_1-4",
+        "$name": "total_engine_pto_governor_fuel_used"
+    }
+}

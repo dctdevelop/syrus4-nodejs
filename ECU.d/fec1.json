@@ -1,28 +1,34 @@
 {
-	"fec1_1-4": {
-		"id": "fec1_1-4",
-		"param_name": "distance_total_high_res",
-		"units": "km",
-		"range": "0 to 526,385,151.90",
-		"pgn": "fec1",
-		"start_position": "1-4",
-		"taip_tag": null,
-		"taip_units": null,
-		"multiplier": 1,
-		"xaem_group": null,
-		"xaem_bit": null
-	},
-	"fec1_5-8": {
-		"id": "fec1_5-8",
-		"param_name": "distance_trip_high_res",
-		"units": "km",
-		"range": "0 to 526,385,151.90",
-		"pgn": "fec1",
-		"start_position": "5-8",
-		"taip_tag": null,
-		"taip_units": null,
-		"multiplier": 1,
-		"xaem_group": null,
-		"xaem_bit": null
-	}
+    "fec1_1-4": {
+        "param_name": "VDHR - TOTAL VEHICLE DISTANCE (HIGH RESOLUTION)",
+        "pgn": "fec1",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "1-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 5,
+        "source_interface": "J1939",
+        "$id": "fec1_1-4",
+        "$name": "distance_total_high_res",
+        "$units": "km",
+        "$range": "0 to 526,385,151.90"
+    },
+    "fec1_5-8": {
+        "param_name": "VDHR - TRIP DISTANCE (HIGH RESOLUTION)",
+        "pgn": "fec1",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "5-8",
+        "group": "NUMBER_VALUE",
+        "multiplier": 5,
+        "source_interface": "J1939",
+        "$id": "fec1_5-8",
+        "$name": "distance_trip_high_res",
+        "$units": "km",
+        "$range": "0 to 526,385,151.90"
+    }
 }
