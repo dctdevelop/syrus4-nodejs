@@ -88,7 +88,7 @@ function OSExecute(...args) {
                 shell.exec(command, (error, stream) => {
                     if (error) {
                         if (error.reason == 'CONNECT_FAILED' && !retry) {
-                            $sleep(5 * 1000).then(() => {
+                            $sleep(2 * 1000).then(() => {
                                 OSExecute("$retry", command).then(resolve).catch(reject);
                             });
                             return;
