@@ -13,8 +13,7 @@
         "$id": "feea_1",
         "$name": "axle_location",
         "$units": "count",
-        "$range": "0 to 255",
-        "$taip_tag": "OZ"
+        "$range": "0 to 255"
     },
     "feea_2-3": {
         "param_name": "VW - AXLE WEIGHT",
@@ -31,8 +30,6 @@
         "$name": "weight_axle",
         "$units": "kg",
         "$range": "0 to 642,550",
-        "$taip_tag": "OZ.2",
-        "$taip_units": "kg",
         "$taip_multiplier": 10,
         "$taip_xaem_group": 1,
         "$taip_xaem_bit": 26
@@ -52,8 +49,6 @@
         "$name": "weight_cargo",
         "$units": "Mass, cargo",
         "$range": "kg",
-        "$taip_tag": "OZ.2",
-        "$taip_units": "kg",
         "$taip_xaem_group": 1,
         "$taip_xaem_bit": 28
     },
@@ -72,8 +67,6 @@
         "$name": "weight_trailer",
         "$units": "Mass, cargo",
         "$range": "kg",
-        "$taip_tag": "OZ.2",
-        "$taip_units": "kg",
         "$taip_xaem_group": 1,
         "$taip_xaem_bit": 27
     }
