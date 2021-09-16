@@ -391,6 +391,10 @@
         "$name": "phone",
         "$range": "0 to 1",
         "$units": "Count",
+        "$signals": [
+            "fatigue_sensor.phone",
+            "fatigue_sensor.signal"
+        ],
         "accessory_type": "MOVON",
         "can_id": "630",
         "dlc": 8,
@@ -407,6 +411,10 @@
         "$name": "smoking",
         "$range": "0 to 1",
         "$units": "Count",
+        "$signals": [
+            "fatigue_sensor.smoking",
+            "fatigue_sensor.signal"
+        ],
         "accessory_type": "MOVON",
         "can_id": "630",
         "dlc": 8,
@@ -443,6 +451,10 @@
         "$name": "camera_blocked",
         "$range": "0 to 1",
         "$units": "Count",
+        "$signals": [
+            "fatigue_sensor.camera_blocked",
+            "fatigue_sensor.signal"
+        ],
         "accessory_type": "MOVON",
         "can_id": "630",
         "dlc": 8,
