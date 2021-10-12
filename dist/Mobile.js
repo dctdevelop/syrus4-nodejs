@@ -49,8 +49,8 @@ function onModemChange(callback, errorCallback) {
                 state[key] = data;
                 callback(state);
             };
-            Redis_1.SystemRedisSubscriber.psubscribe(topic);
             Redis_1.SystemRedisSubscriber.on("pmessage", handler);
+            Redis_1.SystemRedisSubscriber.psubscribe(topic);
         }
         catch (error) {
             console.error(error);
@@ -59,7 +59,7 @@ function onModemChange(callback, errorCallback) {
         let returnable = {
             unsubscribe: () => {
                 Redis_1.SystemRedisSubscriber.off("pmessage", handler);
-                Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+                Redis_1.SystemRedisSubscriber.punsubscribe(topic);
             },
             off: function () { this.unsubscribe(); }
         };

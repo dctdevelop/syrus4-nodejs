@@ -13,21 +13,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onAppConsoleMessage = exports.onCallButtonTap = void 0;
+exports.onAppConsoleMessage = exports.onBluetoothUpdate = void 0;
 const Redis_1 = require("./Redis");
 // import * as Utils from "./Utils"
-function onCallButtonTap(callback, errorCallback) {
+function onBluetoothUpdate(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
-        const topic = "bluetooth/notification/CALL_BUTTON";
-        // subscribe to receive updates
+        const topic = "bluetooth/notification/*";
         try {
-            var handler = (channel, data) => {
-                if (channel != topic)
+            var handler = (pattern, channel, data) => {
+                if (!channel.startsWith('bluetooth/notification'))
                     return;
-                callback(data);
+                callback(channel, JSON.parse(data));
             };
-            Redis_1.SystemRedisSubscriber.subscribe(topic);
-            Redis_1.SystemRedisSubscriber.on("message", handler);
+            Redis_1.SystemRedisSubscriber.on("pmessage", handler);
+            Redis_1.SystemRedisSubscriber.psubscribe(topic);
         }
         catch (error) {
             console.error(error);
@@ -35,18 +34,19 @@ function onCallButtonTap(callback, errorCallback) {
         }
         let returnable = {
             unsubscribe: () => {
-                Redis_1.SystemRedisSubscriber.off("message", handler);
-                Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+                Redis_1.SystemRedisSubscriber.off("pmessage", handler);
+                Redis_1.SystemRedisSubscriber.punsubscribe(topic);
             },
             off: function () { this.unsubscribe(); }
         };
         return returnable;
     });
 }
-exports.onCallButtonTap = onCallButtonTap;
+exports.onBluetoothUpdate = onBluetoothUpdate;
 function onAppConsoleMessage(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
-        const topic = "bluetooth/user_apps_console/MESSAGE";
+        const topic = "bluetooth/messages/user_apps_console";
+        // const topic = "bluetooth/user_apps_console/MESSAGE"
         // subscribe to receive updates
         try {
             var handler = (channel, data) => {
