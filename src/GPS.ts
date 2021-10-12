@@ -226,7 +226,29 @@ async function getActiveTrackingsResolutions(prefixed = "") {
  * set options for a tracking_resolution for the apex tool apx-tracking
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+const tracking_resolutions = {
+	initialized: false,
+	names: []
+}
+function __initExitHandlers() {
+	if (tracking_resolutions.initialized) return
+	function exitHandler() {
+		process.stdin.resume();
+		for (let name of tracking_resolutions.names) {
+			Utils.OSExecute(`apx-tracking delete "${name}"`);
+		}
+		setTimeout(() => {
+			process.exit();
+		}, 10);
+	}
+	process.on("exit", exitHandler) // self terminate
+	process.on("SIGINT", exitHandler) // ctrl+c
+	process.on("SIGUSR1", exitHandler) // "kill pid"
+	process.on("SIGUSR2", exitHandler) // "kill pid"
+	process.on("uncaughtException", exitHandler);
+	tracking_resolutions.initialized = true
+}
+async function setTrackingResolution({ distance=0, heading=0, time=0, namespace, prefix, deleteOnExit=true }) {
 	if (!prefix) {
 		prefix = Utils.getPrefix();
 	}
@@ -236,22 +258,8 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
 	var name = `${prefix}_${namespace}`;
 	await Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
 	if (deleteOnExit) {
-		function exitHandler() {
-			process.stdin.resume();
-			Utils.OSExecute(`apx-tracking delete "${name}"`);
-			setTimeout(() => {
-				process.exit();
-			}, 10);
-		}
-		//do something when app is closing
-		process.on("exit", exitHandler);
-		//catches ctrl+c event
-		process.on("SIGINT", exitHandler);
-		// catches "kill pid" (for example: nodemon restart)
-		process.on("SIGUSR1", exitHandler);
-		process.on("SIGUSR2", exitHandler);
-		//catches uncaught exceptions
-		process.on("uncaughtException", exitHandler);
+		tracking_resolutions.names.push(name)
+		__initExitHandlers()
 	}
 	return true;
 }
