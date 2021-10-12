@@ -6,6 +6,9 @@
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import * as Utils from "./Utils"
 
+// backwards compatability
+export { onFatigueEvent } from './Fatigue'
+
 /**
  * TemperatureEvent published via the broker from the core tools
  * @interface TemperatureEvent
@@ -89,56 +92,6 @@ export async function onIncomingMessage(
     unsubscribe: () => {
       subscriber.off("message", handler);
       subscriber.unsubscribe(topic);
-    },
-    off: function () { this.unsubscribe() }
-  };
-  return returnable;
-}
-
-interface FatigueState {
-  state: "connected" | "disconnected",
-  max_photos: number,
-  nbr_photos: number,
-  sensitivity: number,
-  speaker_volume: number,
-  min_speed: number,
-  speeding: number,
-  auto_upload: 1 | 0,
-  latest_photo: string,
-  photos: object,
-}
-export async function onFatigueEvent(
-  callback: (arg: FatigueState) => void,
-  errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
-  const state_topic = "serial/notification/fatigue_s/state"
-  const photo_topic = "serial/notification/fatigue_s/photo"
-  // subscribe to receive updates
-  try {
-    var state: FatigueState = await Utils.OSExecute('apx-serial fatigue_sensor state')
-    state.photos = {}
-    callback(state)
-    var handler = (channel: string, data: any) => {
-      if ([state_topic, photo_topic].indexOf(channel) == -1) return
-      if (channel == state_topic) state.state = data
-      if (channel == photo_topic) {
-        let photo_type = data.split('-')[1].split('.')[0]
-        state.latest_photo = data
-        state.photos[photo_type] = data
-      }
-      callback(state)
-    };
-    subscriber.subscribe(state_topic);
-    subscriber.subscribe(photo_topic);
-    subscriber.on("message", handler);
-  } catch (error) {
-    console.error(error);
-    errorCallback(error);
-  }
-  let returnable = {
-    unsubscribe: () => {
-      subscriber.off("message", handler);
-      subscriber.unsubscribe(state_topic);
-      subscriber.unsubscribe(photo_topic);
     },
     off: function () { this.unsubscribe() }
   };

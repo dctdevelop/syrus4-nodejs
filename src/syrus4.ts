@@ -3,6 +3,7 @@ import Apps from "./Apps"
 import * as Bluetooth from "./Bluetooth"
 import Counters from "./Counters"
 import ECU from "./ECU"
+import * as Fatigue from "./Fatigue"
 import Geofences from "./Geofences"
 import GPS from "./GPS"
 import Hotspot from "./Hotspot"
@@ -24,6 +25,7 @@ export {
 	Bluetooth,
 	Counters,
 	ECU,
+	Fatigue,
 	Geofences,
 	GPS,
 	Hotspot,
