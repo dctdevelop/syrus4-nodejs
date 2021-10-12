@@ -222,10 +222,6 @@ async function getActiveTrackingsResolutions(prefixed = "") {
 	return response;
 }
 
-/**
- * set options for a tracking_resolution for the apex tool apx-tracking
- * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
- */
 const tracking_resolutions = {
 	initialized: false,
 	names: []
@@ -248,6 +244,11 @@ function __initExitHandlers() {
 	process.on("uncaughtException", exitHandler);
 	tracking_resolutions.initialized = true
 }
+
+/**
+ * set options for a tracking_resolution for the apex tool apx-tracking
+ * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
+ */
 async function setTrackingResolution({ distance=0, heading=0, time=0, namespace, prefix, deleteOnExit=true }) {
 	if (!prefix) {
 		prefix = Utils.getPrefix();
