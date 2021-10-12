@@ -98,7 +98,7 @@ export function watchECUParams(cb: Function, errorCallback: Function) {
 				let cached = errors_cache[encoded_error]
 				if (!cached) {
 					let [decoded, decoded_error] = await Utils.$to(
-						Utils.OSExecute(`apx-ecu decode ${error_pgn} ${encoded_error}`)
+						Utils.OSExecute(`apx-ecu decode --unique_id=${error_pgn} --value=${encoded_error}`)
 					)
 					if (decoded_error) console.error(decoded_error)
 					if (decoded) {
