@@ -19,7 +19,7 @@
         "$taip_units": "kg",
         "$taip_multiplier": 1,
         "$taip_xaem_group": 3,
-        "$taip_xaem_bit": 31
+        "$taip_xaem_bit": 43
     },
     "feaf_5-8": {
         "param_name": "GFC - TOTAL FUEL USED (GASEOUS)",
@@ -41,6 +41,6 @@
         "$taip_units": "kg",
         "$taip_multiplier": 1,
         "$taip_xaem_group": 3,
-        "$taip_xaem_bit": 32
+        "$taip_xaem_bit": 44
     }
 }
