@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.System = exports.Serial = exports.Redis = exports.Network = exports.Mobile = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.ECU = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
+exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.System = exports.Serial = exports.Redis = exports.Network = exports.Mobile = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
 const Accelerometer_1 = require("./Accelerometer");
 exports.Accelerometer = Accelerometer_1.default;
 const Apps_1 = require("./Apps");
@@ -11,6 +11,8 @@ const Counters_1 = require("./Counters");
 exports.Counters = Counters_1.default;
 const ECU_1 = require("./ECU");
 exports.ECU = ECU_1.default;
+const Fatigue = require("./Fatigue");
+exports.Fatigue = Fatigue;
 const Geofences_1 = require("./Geofences");
 exports.Geofences = Geofences_1.default;
 const GPS_1 = require("./GPS");

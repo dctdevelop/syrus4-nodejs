@@ -26,6 +26,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_ECU">ECU</a></dt>
 <dd><p>ECU module get information about EcU monitor and vehicle in ApexOS</p>
 </dd>
+<dt><a href="#module_Fatigue">Fatigue</a></dt>
+<dd><p>Fatigue module, get fatigue sensor information and events</p>
+</dd>
 <dt><a href="#module_GPS">GPS</a></dt>
 <dd><p>GPS module get information about gps and location in ApexOS</p>
 </dd>
@@ -422,6 +425,11 @@ Get all the most recent data from ECU parameters
 get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
 
 **Kind**: inner method of [<code>ECU</code>](#module_ECU)  
+<a name="module_Fatigue"></a>
+
+## Fatigue
+Fatigue module, get fatigue sensor information and events
+
 <a name="module_GPS"></a>
 
 ## GPS

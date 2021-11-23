@@ -106,7 +106,7 @@ function watchECUParams(cb, errorCallback) {
                 let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 };
                 let cached = errors_cache[encoded_error];
                 if (!cached) {
-                    let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode ${error_pgn} ${encoded_error}`));
+                    let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode --unique_id=${error_pgn} --value=${encoded_error}`));
                     if (decoded_error)
                         console.error(decoded_error);
                     if (decoded) {

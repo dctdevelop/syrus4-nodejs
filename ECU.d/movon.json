@@ -47,7 +47,9 @@
         "param_name": "HEADWAY MEASUREMENT",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "3.2",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "600_4.1_movon": {
         "$id": "600_4.1_movon",
@@ -208,7 +210,9 @@
         "param_name": "BRAKES ENABLED",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "1.1",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "620_1.2_movon": {
         "$id": "620_1.2_movon",
@@ -273,7 +277,9 @@
         "param_name": "SPEED",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "3",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "620_4_movon": {
         "$id": "620_4_movon",
@@ -290,7 +296,9 @@
         "param_name": "SPEED LIMIT RECOGNITION STATE",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "4",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "620_5_movon": {
         "$id": "620_5_movon",
@@ -307,7 +315,9 @@
         "param_name": "SPEED LIMIT RECOGNITION VALUE",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "5",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "620_6_movon": {
         "$id": "620_6_movon",
@@ -324,7 +334,9 @@
         "param_name": "SPEED LIMIT RECOGNITION SENSITIVITY",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "6",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "630_1.1_movon": {
         "$id": "630_1.1_movon",
@@ -497,7 +509,9 @@
         "param_name": "DISTANCE FROM FRONT VEHICLE",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "1",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     },
     "699_2_movon": {
         "$id": "699_2_movon",
@@ -514,6 +528,8 @@
         "param_name": "RELATIVE SPEED FROM FRONT VEHICLE",
         "source_interface": "ACCESSORIES_500KHZ",
         "start_position": "2",
-        "transmission_rate": "100MS"
+        "transmission_rate": "100MS",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 41
     }
 }
