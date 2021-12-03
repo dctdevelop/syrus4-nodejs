@@ -27,6 +27,15 @@ export async function onFatigueEvent(
   const serial_state_topic = "serial/notification/fatigue_s/state"
   const serial_photo_topic = "serial/notification/fatigue_s/photo"
   const mdsm7_topic = "fatigue/notification/mdsm7"
+  const mdsm7_topic_update = "ndm/notification/mdsm7/update"
+  const mdsm7_topic_event = "ndm/notification/mdsm7/event"
+  const cipia_topic_update = "ndm/notification/cipia/update"
+  const cipia_topic_event = "ndm/notification/cipia/event"
+  const all_topics = [
+    serial_state_topic, serial_photo_topic,
+    mdsm7_topic, mdsm7_topic_event, mdsm7_topic_update,
+    cipia_topic_event, cipia_topic_update,
+  ]
   // subscribe to receive updates
   try {
     var state: FatigueState = await Utils.OSExecute('apx-serial fatigue_sensor state')
@@ -38,7 +47,7 @@ export async function onFatigueEvent(
     }
     callback(state)
     var handler = (channel: string, data: any) => {
-      if ([serial_state_topic, serial_photo_topic, mdsm7_topic].indexOf(channel) == -1) return
+      if (!all_topics.includes(channel)) return
       if (channel == serial_state_topic) state.state = data
       if (channel == serial_photo_topic) {
         let photo_type = data.split('-')[1].split('.')[0]
@@ -50,17 +59,31 @@ export async function onFatigueEvent(
         state.epoch = Number(state.latest_photo.split('-')[0])
         state.event = state.latest_photo.split('-')[1].split('.')[0]
       }
-      if (channel == mdsm7_topic) {
+      if ([mdsm7_topic, mdsm7_topic_event].includes(channel)) {
         data = JSON.parse(data)
         state.channel = 'mdsm7'
         state.epoch = data.system_epoch
         state.event = data.event
       }
+      if (channel == mdsm7_topic_update) {
+        data = JSON.parse(data)
+        state.channel = 'mdsm7'
+        state = {...state, ...data}
+      }
+      if (channel == cipia_topic_event) {
+        data = JSON.parse(data)
+        state.channel = 'cipia'
+        state.epoch = data.system_epoch
+        state.event = data.event
+      }
+      if (channel == cipia_topic_update) {
+        data = JSON.parse(data)
+        state.channel = 'cipia'
+        state = { ...state, ...data }
+      }
       callback(state)
     };
-    subscriber.subscribe(serial_state_topic);
-    subscriber.subscribe(serial_photo_topic);
-    subscriber.subscribe(mdsm7_topic);
+    all_topics.map((t)=>subscriber.subscribe(t))
     subscriber.on("message", handler);
   } catch (error) {
     console.error(error);
@@ -68,10 +91,8 @@ export async function onFatigueEvent(
   }
   let returnable = {
     unsubscribe: () => {
-      subscriber.off("message", handler);
-      subscriber.unsubscribe(serial_state_topic);
-      subscriber.unsubscribe(serial_photo_topic);
-      subscriber.unsubscribe(mdsm7_topic);
+      subscriber.off("message", handler)
+      all_topics.map((t) => subscriber.unsubscribe(t))
     },
     off: function () { this.unsubscribe() }
   };
