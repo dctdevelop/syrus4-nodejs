@@ -1,0 +1,22 @@
+{
+    "2ba_2_jac": {
+        "param_name": "DID_B2V_SOC",
+        "transmission_rate": "100MS",
+        "dlc": 8,
+        "length": "10_BITS",
+        "start_position": "2",
+        "group": "PERCENT",
+        "multiplier": 0.1,
+        "source_interface": "ACCESSORIES_500KHZ",
+        "can_id": "2ba",
+        "reversed": 1,
+        "accessory_type": "jac",
+        "$id": "2ba_2_jac",
+        "$name": "soc",
+        "$units": "%",
+        "$range": "0 to 100",
+        "$taip_tag": "ZQ.8",
+        "$taip_float": true,
+        "$taip_units": "%"
+    }
+}
