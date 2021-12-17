@@ -21,6 +21,15 @@ function onFatigueEvent(callback, errorCallback) {
         const serial_state_topic = "serial/notification/fatigue_s/state";
         const serial_photo_topic = "serial/notification/fatigue_s/photo";
         const mdsm7_topic = "fatigue/notification/mdsm7";
+        const mdsm7_topic_update = "ndm/notification/mdsm7/update";
+        const mdsm7_topic_event = "ndm/notification/mdsm7/event";
+        const cipia_topic_update = "ndm/notification/cipia/update";
+        const cipia_topic_event = "ndm/notification/cipia/event";
+        const all_topics = [
+            serial_state_topic, serial_photo_topic,
+            mdsm7_topic, mdsm7_topic_event, mdsm7_topic_update,
+            cipia_topic_event, cipia_topic_update,
+        ];
         // subscribe to receive updates
         try {
             var state = yield Utils.OSExecute('apx-serial fatigue_sensor state');
@@ -32,7 +41,7 @@ function onFatigueEvent(callback, errorCallback) {
             }
             callback(state);
             var handler = (channel, data) => {
-                if ([serial_state_topic, serial_photo_topic, mdsm7_topic].indexOf(channel) == -1)
+                if (!all_topics.includes(channel))
                     return;
                 if (channel == serial_state_topic)
                     state.state = data;
@@ -46,17 +55,31 @@ function onFatigueEvent(callback, errorCallback) {
                     state.epoch = Number(state.latest_photo.split('-')[0]);
                     state.event = state.latest_photo.split('-')[1].split('.')[0];
                 }
-                if (channel == mdsm7_topic) {
+                if ([mdsm7_topic, mdsm7_topic_event].includes(channel)) {
                     data = JSON.parse(data);
                     state.channel = 'mdsm7';
                     state.epoch = data.system_epoch;
                     state.event = data.event;
                 }
+                if (channel == mdsm7_topic_update) {
+                    data = JSON.parse(data);
+                    state.channel = 'mdsm7';
+                    state = Object.assign(Object.assign({}, state), data);
+                }
+                if (channel == cipia_topic_event) {
+                    data = JSON.parse(data);
+                    state.channel = 'cipia';
+                    state.epoch = data.system_epoch;
+                    state.event = data.event;
+                }
+                if (channel == cipia_topic_update) {
+                    data = JSON.parse(data);
+                    state.channel = 'cipia';
+                    state = Object.assign(Object.assign({}, state), data);
+                }
                 callback(state);
             };
-            Redis_1.SystemRedisSubscriber.subscribe(serial_state_topic);
-            Redis_1.SystemRedisSubscriber.subscribe(serial_photo_topic);
-            Redis_1.SystemRedisSubscriber.subscribe(mdsm7_topic);
+            all_topics.map((t) => Redis_1.SystemRedisSubscriber.subscribe(t));
             Redis_1.SystemRedisSubscriber.on("message", handler);
         }
         catch (error) {
@@ -66,9 +89,7 @@ function onFatigueEvent(callback, errorCallback) {
         let returnable = {
             unsubscribe: () => {
                 Redis_1.SystemRedisSubscriber.off("message", handler);
-                Redis_1.SystemRedisSubscriber.unsubscribe(serial_state_topic);
-                Redis_1.SystemRedisSubscriber.unsubscribe(serial_photo_topic);
-                Redis_1.SystemRedisSubscriber.unsubscribe(mdsm7_topic);
+                all_topics.map((t) => Redis_1.SystemRedisSubscriber.unsubscribe(t));
             },
             off: function () { this.unsubscribe(); }
         };
