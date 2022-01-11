@@ -288,59 +288,24 @@
         "$id": "ff32_1_maxus",
         "$taip_tag": "MAX.29"
     },
-	"6f1_1": {
+	"6f1_1_maxus": {
         "$private": true,
         "$id": "6f1_1",
         "$taip_tag": "MAX.28"
     },
-	"0b4_1-2": {
+	"0b4_1-2_maxus": {
         "$private": true,
         "$id": "0b4_1-2",
         "$taip_tag": "MAX.26"
     },
-    "1f6_1": {
+    "1f6_1_maxus": {
         "$private": true,
         "$id": "1f6_1",
         "$taip_tag": "MAX.29"
     },
-    "269_1-2": {
-        "$private": true,
-        "$id": "269_1-2",
-        "$taip_tag": "MAX.3"
-    },
-    "362_1-2": {
-        "$private": true,
-        "$id": "362_1-2",
-        "$taip_tag": "MAX.7"
-    },
-    "3ba_1.2": {
-        "$private": true,
-        "$id": "3ba_1.2",
-        "$taip_tag": "MAX.27"
-    },
-    "3ba_3": {
-        "$private": true,
-        "$id": "3ba_3",
-        "$taip_tag": "MAX.1"
-    },
-    "3d7_1-2": {
-        "$private": true,
-        "$id": "3d7_1-2",
-        "$taip_tag": "MAX.21"
-    },
-    "501_3-4": {
-        "$private": true,
-        "$id": "501_3-4",
-        "$taip_tag": "MAX.20"
-    },
-    "501_5-6": {
+    "501_5-6_maxus": {
         "$private": true,
         "$id": "501_5-6",
         "$taip_tag": "MAX.8"
-    },
-    "6f0_1": {
-        "$private": true,
-        "$id": "6f0_1",
-        "$taip_tag": "MAX.18"
     }
 }
