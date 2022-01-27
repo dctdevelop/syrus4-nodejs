@@ -290,22 +290,22 @@
     },
 	"6f1_1_maxus": {
         "$private": true,
-        "$id": "6f1_1",
+        "$id": "6f1_1_maxus",
         "$taip_tag": "MAX.28"
     },
 	"0b4_1-2_maxus": {
         "$private": true,
-        "$id": "0b4_1-2",
+        "$id": "0b4_1-2_maxus",
         "$taip_tag": "MAX.26"
     },
     "1f6_1_maxus": {
         "$private": true,
-        "$id": "1f6_1",
+        "$id": "1f6_1_maxus",
         "$taip_tag": "MAX.29"
     },
     "501_5-6_maxus": {
         "$private": true,
-        "$id": "501_5-6",
+        "$id": "501_5-6_maxus",
         "$taip_tag": "MAX.8"
     }
 }
