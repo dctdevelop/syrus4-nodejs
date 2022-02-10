@@ -1282,5 +1282,46 @@
         "$units": "m",
         "$taip_units": "m",
         "$taip_tag": "MAX.18"
+    },
+    "ff00_1_maxus": {
+        "$private": true,
+        "$id": "ff00_1",
+        "$taip_tag": "MAX.1"
+    },
+    "ff81_1.5_maxus": {
+        "$private": true,
+        "$id": "ff81_1.5",
+        "$taip_tag": "MAX.27"
+    },
+    "f004_4-5_maxus": {
+        "$private": true,
+        "$id": "f004_4-5",
+        "$taip_tag": "MAX.26"
+    },
+    "fec1_1-4_maxus": {
+        "$private": true,
+        "$id": "fec1_1-4",
+        "$taip_tag": "MAX.7"
+    },
+    "fa66_2_maxus": {
+        "$private": true,
+        "$id": "fa66_2",
+        "$taip_tag": "MAX.18"
+    },
+    "82d0_1_maxus": {
+        "$private": true,
+        "$id": "82d0_1",
+        "$taip_tag": "MAX.8"
+    },
+    "82d0_3-4_maxus": {
+        "$mutable": [],
+        "$private": true,
+        "$id": "82d0_3-4",
+        "$taip_tag": "MAX.20"
+    },
+    "fef1_2-3_maxus": {
+        "$private": true,
+        "$id": "fef1_2-3",
+        "$taip_tag": "MAX.3"
     }
 }
