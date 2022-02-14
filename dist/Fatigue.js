@@ -77,6 +77,7 @@ function onFatigueEvent(callback, errorCallback) {
                     state.channel = 'cipia';
                     state = Object.assign(Object.assign({}, state), data);
                 }
+                state.media = data.media || null;
                 callback(state);
             };
             all_topics.map((t) => Redis_1.SystemRedisSubscriber.subscribe(t));

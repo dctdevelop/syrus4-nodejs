@@ -20,6 +20,7 @@ interface FatigueState {
   epoch: number,
   event: string,
   channel: string,
+  media: object | null,
 }
 export async function onFatigueEvent(
   callback: (arg: FatigueState) => void,
@@ -81,6 +82,7 @@ export async function onFatigueEvent(
         state.channel = 'cipia'
         state = { ...state, ...data }
       }
+      state.media = data.media || null
       callback(state)
     };
     all_topics.map((t)=>subscriber.subscribe(t))
