@@ -32,10 +32,12 @@ function watchInputState(inputName = "*", cb, errorCallback) {
     else if (inputName[0] == "A") {
         chn = `interface/analog/${inputName}`;
     }
-    let callback = function (pattern, _channel, raw) {
+    let callback = function (pattern, channel, raw) {
         if (pattern != chn)
             return;
-        let input = _channel.split("/")[2];
+        if (channel.includes('/desired'))
+            return;
+        let input = channel.split("/")[2];
         if (inputName == "*" || input == inputName) {
             let returnable = raw;
             if (raw == "true")
