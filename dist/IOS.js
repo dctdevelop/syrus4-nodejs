@@ -22,7 +22,7 @@ const Utils = require("./Utils");
  * @param errorCallback
  */
 function watchInputState(inputName = "*", cb, errorCallback) {
-    var chn = `interface/input/${inputName}`;
+    let chn = `interface/input/${inputName}`;
     if (inputName == "*") {
         chn = `interface/*`;
     }
@@ -32,17 +32,19 @@ function watchInputState(inputName = "*", cb, errorCallback) {
     else if (inputName[0] == "A") {
         chn = `interface/analog/${inputName}`;
     }
-    var callback = function (pattern, _channel, raw) {
+    let callback = function (pattern, channel, raw) {
         if (pattern != chn)
             return;
-        var input = _channel.split("/")[2];
+        if (channel.includes('/desired'))
+            return;
+        let input = channel.split("/")[2];
         if (inputName == "*" || input == inputName) {
-            var returnable = raw;
+            let returnable = raw;
             if (raw == "true")
                 returnable = true;
             if (raw == "false")
                 returnable = false;
-            var response = {};
+            let response = {};
             response[input] = returnable;
             cb(response);
         }
@@ -81,65 +83,22 @@ function setOutputState(inputName = "OUT1", state = true) {
  */
 function getAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        var response = {};
-        var key = null;
-        var text = yield Utils.OSExecute(`apx-io getall inputs`);
-        if (typeof text == "object") {
-            for (const key in text) {
-                response[key] = text[key];
-            }
+        let [inputs, ierr] = yield Utils.$to(Utils.OSExecute(`apx-io getall inputs`));
+        let [outputs, oerr] = yield Utils.$to(Utils.OSExecute(`apx-io getall outputs`));
+        let [analogs, anerror] = yield Utils.$to(Utils.OSExecute(`apx-io getall analogs`));
+        if (ierr) {
+            inputs = {};
+            console.error(ierr);
         }
-        else {
-            text = text.split("\n");
-            for (const val of text) {
-                if (!key) {
-                    key = val;
-                }
-                else {
-                    response[key] = val == "true";
-                    key = null;
-                }
-            }
+        if (oerr) {
+            outputs = {};
+            console.error(oerr);
         }
-        key = null;
-        text = yield Utils.OSExecute(`apx-io getall outputs`);
-        if (typeof text == "object") {
-            for (const key in text) {
-                response[key] = text[key];
-            }
+        if (anerror) {
+            analogs = {};
+            console.error(anerror);
         }
-        else {
-            text = text.split("\n");
-            for (const val of text) {
-                if (!key) {
-                    key = val;
-                }
-                else {
-                    response[key] = val == "true";
-                    key = null;
-                }
-            }
-        }
-        key = null;
-        text = yield Utils.OSExecute(`apx-io getall analogs`);
-        if (typeof text == "object") {
-            for (const key in text) {
-                response[key] = text[key];
-            }
-        }
-        else {
-            text = text.split("\n");
-            for (const val of text) {
-                if (!key) {
-                    key = val;
-                }
-                else {
-                    response[key] = Number(val);
-                    key = null;
-                }
-            }
-        }
-        return response;
+        return Object.assign(Object.assign(Object.assign({}, inputs), outputs), analogs);
     });
 }
 exports.default = {

@@ -98,7 +98,7 @@ export function removeIButtonAlias(aliasName: string): Promise<void>{
 export async function onIButtonChange(
   callback: (arg: IButtonUpdate)=> void,
   errorCallback: (arg: Error)=> void ): Promise<{unsubscribe: ()=>void, off: ()=> void}>{
-  let topic = "onewire/notification/ibutton/state"
+  const topic = "onewire/notification/ibutton/state"
   // execute callback with last data
   let ib_update = new IButtonUpdate()
   let last_ib_event = await getLast().catch(console.error)

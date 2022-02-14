@@ -1,16 +1,37 @@
 {
-	"fee5_1-4": {
-		"id": "fee5_1-4",
-		"param_name": "hours_total",
-		"units": "hr",
-		"range": "0 to 210,554,060.75",
-		"pgn": "fee5",
-		"start_position": "1-4",
-		"taip_tag": "OH",
-		"taip_units": "centihours",
-		"taip_multiplier": 100,
-		"multiplier": 0.05,
-		"xaem_group": 1,
-		"xaem_bit": 20
-	}
+    "fee5_1-4": {
+        "param_name": "HOURS - ENGINE TOTAL HOURS OF OPERATION",
+        "pgn": "fee5",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "1-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.05,
+        "source_interface": "J1939",
+        "$id": "fee5_1-4",
+        "$name": "hours_total",
+        "$units": "hr",
+        "$range": "0 to 210,554,060.75",
+        "$taip_tag": "OH",
+        "$taip_units": "centihours",
+        "$taip_multiplier": 100,
+        "$taip_xaem_group": 1,
+        "$taip_xaem_bit": 20
+    },
+    "fee5_5-8": {
+        "param_name": "HOURS - ENGINE TOTAL REVOLUTIONS",
+        "pgn": "fee5",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "5-8",
+        "group": "NUMBER_VALUE",
+        "multiplier": 1000,
+        "source_interface": "J1939",
+        "$id": "fee5_5-8",
+        "$name": "engine_total_revolutions"
+    }
 }

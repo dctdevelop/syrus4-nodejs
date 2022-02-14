@@ -68,8 +68,8 @@ export async function onModemChange(
 			state[key] = data
 			callback(state)
 		};
-		subscriber.psubscribe(topic);
 		subscriber.on("pmessage", handler);
+		subscriber.psubscribe(topic);
 	} catch (error) {
 		console.error(error);
 		errorCallback(error);
@@ -77,7 +77,7 @@ export async function onModemChange(
 	let returnable = {
 		unsubscribe: () => {
 			subscriber.off("pmessage", handler);
-			subscriber.unsubscribe(topic);
+			subscriber.punsubscribe(topic);
 		},
 		off: function () { this.unsubscribe() }
 	};

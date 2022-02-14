@@ -4,11 +4,11 @@
  */
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import * as Utils from "./Utils"
+
 type Inputs = "MOT" | "IGN" | "IN1" | "IN2" | "IN3" | "IN4" | "IN5" | "IN6" | "IN7" | "PWR" | "SO1" | "SO2" | "SO3" | "SO4" | "TIG";
 type Outputs = "OUT1" | "OUT2" | "OUT3" | "OUT4";
 type Analogs = "AN1" | "AN2" | "AN3" | "AN4";
 type AllInputs = "*" | Inputs | Outputs | Analogs;
-
 
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
@@ -17,34 +17,34 @@ type AllInputs = "*" | Inputs | Outputs | Analogs;
  * @param errorCallback
  */
 function watchInputState(inputName: AllInputs = "*", cb: (response: any) => void, errorCallback?: Function) {
-	var chn = `interface/input/${inputName}`;
+	let chn = `interface/input/${inputName}`
 	if (inputName == "*") {
-		chn = `interface/*`;
+		chn = `interface/*`
 	} else if (inputName[0] == "O") {
-		chn = `interface/output/${inputName}`;
+		chn = `interface/output/${inputName}`
 	} else if (inputName[0] == "A") {
-		chn = `interface/analog/${inputName}`;
+		chn = `interface/analog/${inputName}`
 	}
-	var callback = function (pattern, _channel, raw) {
-		if (pattern != chn) return;
-		var input = _channel.split("/")[2];
+	let callback = function (pattern: string, channel: string, raw: string) {
+		if (pattern != chn) return
+		if (channel.includes('/desired')) return
+		let input = channel.split("/")[2]
 		if (inputName == "*" || input == inputName) {
-			var returnable = raw;
-			if (raw == "true") returnable = true;
-			if (raw == "false") returnable = false;
-			var response = {};
-			response[input] = returnable;
-			cb(response);
+			let returnable : string|boolean = raw
+			if (raw == "true") returnable = true
+			if (raw == "false") returnable = false
+			let response = {}
+			response[input] = returnable
+			cb(response)
 		}
-	};
-	subscriber.psubscribe(chn);
-	subscriber.on("pmessage", callback);
-
+	}
+	subscriber.psubscribe(chn)
+	subscriber.on("pmessage", callback)
 	return {
 		unsubscribe: () => {
-			subscriber.off("pmessage", callback);
+			subscriber.off("pmessage", callback)
 		}
-	};
+	}
 }
 
 /**
@@ -70,63 +70,22 @@ async function setOutputState(inputName: Outputs = "OUT1", state = true): Promis
  * Get the current state of all inputs, outputs and analogs in the Syrus4 device
  */
 async function getAll() {
-	var response = {};
-
-	var key = null;
-	var text: any = await Utils.OSExecute(`apx-io getall inputs`);
-	if (typeof text == "object") {
-		for (const key in text) {
-			response[key] = text[key];
-		}
-	} else {
-		text = text.split("\n");
-		for (const val of text) {
-			if (!key) {
-				key = val;
-			} else {
-				response[key] = val == "true";
-				key = null;
-			}
-		}
+	let [inputs, ierr] = await Utils.$to(Utils.OSExecute(`apx-io getall inputs`))
+	let [outputs, oerr] = await Utils.$to(Utils.OSExecute(`apx-io getall outputs`))
+	let [analogs, anerror] = await Utils.$to(Utils.OSExecute(`apx-io getall analogs`))
+	if(ierr){
+		inputs = {}
+		console.error(ierr)
 	}
-
-	key = null;
-	text = await Utils.OSExecute(`apx-io getall outputs`);
-	if (typeof text == "object") {
-		for (const key in text) {
-			response[key] = text[key];
-		}
-	} else {
-		text = text.split("\n");
-		for (const val of text) {
-			if (!key) {
-				key = val;
-			} else {
-				response[key] = val == "true";
-				key = null;
-			}
-		}
+	if (oerr) {
+		outputs = {}
+		console.error(oerr)
 	}
-
-	key = null;
-	text = await Utils.OSExecute(`apx-io getall analogs`);
-	if (typeof text == "object") {
-		for (const key in text) {
-			response[key] = text[key];
-		}
-	} else {
-		text = text.split("\n");
-		for (const val of text) {
-			if (!key) {
-				key = val;
-			} else {
-				response[key] = Number(val);
-				key = null;
-			}
-		}
+	if (anerror) {
+		analogs = {}
+		console.error(anerror)
 	}
-
-	return response;
+	return { ...inputs, ...outputs, ...analogs }
 }
 
 export default {

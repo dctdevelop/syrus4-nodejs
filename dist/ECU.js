@@ -50,7 +50,7 @@ function template(strings, ...keys) {
  */
 function watchECUParams(cb, errorCallback) {
     let ECU_PARAM_LIST = getECUList();
-    let errors_cache = {};
+    const errors_cache = {};
     const error_pgn = "feca_3-6";
     try {
         var handler = (channel, raw) => __awaiter(this, void 0, void 0, function* () {
@@ -60,36 +60,36 @@ function watchECUParams(cb, errorCallback) {
             raw.split("&").map(param => {
                 const [key, value] = param.split("=");
                 const element = ECU_PARAM_LIST[key] || {};
-                const { param_name, tokenizer, itemizer, item_name, signals } = element;
+                const { $name, $tokenizer, $itemizer, $item_name, $signals } = element;
                 // save values directly, even if broken down
                 let fvalue = isNaN(Number(value)) ? value : Number(value);
-                if (param_name) {
-                    ecu_values[param_name] = fvalue;
+                if ($name) {
+                    ecu_values[$name] = fvalue;
                 }
-                if (fvalue && Array.isArray(signals)) {
-                    signals.map((signal) => ecu_values[`@${signal}`] = true);
+                if (fvalue && Array.isArray($signals)) {
+                    $signals.map((signal) => ecu_values[`@${signal}`] = true);
                 }
                 ecu_values[key] = fvalue;
-                if (!(tokenizer || itemizer))
+                if (!($tokenizer || $itemizer))
                     return;
-                if (!value.includes(tokenizer))
+                if (!value.includes($tokenizer))
                     return;
                 let tokens;
                 let regex = /(?<value>.*)/;
-                if (itemizer) {
-                    regex = new RegExp(itemizer);
+                if ($itemizer) {
+                    regex = new RegExp($itemizer);
                 }
                 tokens = [value];
-                if (tokenizer) {
-                    tokens = value.split(tokenizer);
+                if ($tokenizer) {
+                    tokens = value.split($tokenizer);
                 }
                 for (const token of tokens) {
                     try {
-                        let skey = param_name;
+                        let skey = $name;
                         let { groups } = regex.exec(token);
                         let tags;
-                        if (item_name) {
-                            tags = tag_params_1.params(item_name, groups);
+                        if ($item_name) {
+                            tags = tag_params_1.params($item_name, groups);
                             skey = `${template(...tags)}`;
                         }
                         let svalue = isNaN(Number(groups.value)) ? groups.value : Number(groups.value);
@@ -101,12 +101,12 @@ function watchECUParams(cb, errorCallback) {
                 }
             });
             // handle error codes
-            let encoded_error = ecu_values[error_pgn];
+            const encoded_error = ecu_values[error_pgn];
             if (encoded_error) {
                 let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 };
                 let cached = errors_cache[encoded_error];
                 if (!cached) {
-                    let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode ${error_pgn} ${encoded_error}`));
+                    let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode --unique_id=${error_pgn} --value=${encoded_error}`));
                     if (decoded_error)
                         console.error(decoded_error);
                     if (decoded) {
@@ -162,7 +162,7 @@ function getECUList(reload = false) {
     if (__ecu_loaded)
         return __ecu_params;
     let ecu_paths = [
-        '/home/syrus4g/ecumonitor/definitions',
+        // '/home/syrus4g/ecumonitor/definitions',
         path.join(__dirname, '../ECU.d'),
     ];
     let filenames = [];

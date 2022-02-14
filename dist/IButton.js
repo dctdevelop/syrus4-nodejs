@@ -92,7 +92,7 @@ exports.removeIButtonAlias = removeIButtonAlias;
  */
 function onIButtonChange(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
-        let topic = "onewire/notification/ibutton/state";
+        const topic = "onewire/notification/ibutton/state";
         // execute callback with last data
         let ib_update = new IButtonUpdate();
         let last_ib_event = yield getLast().catch(console.error);

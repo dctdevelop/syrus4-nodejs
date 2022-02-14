@@ -1,0 +1,30 @@
+{
+    "85ff_6": {
+        "param_name": "CM2 - PREDICTIVE CRUISE CONTROL MAXIMUM NEGATIVE OFFSET",
+        "pgn": "85ff",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "1_BYTE",
+        "start_position": "6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.125,
+        "source_interface": "J1939",
+        "$id": "85ff_6",
+        "$name": "predictive_cruise_control_maximum_negative_offset"
+    },
+    "85ff_5": {
+        "param_name": "CM2 - PREDICTIVE CRUISE CONTROL MAXIMUM POSITIVE OFFSET",
+        "pgn": "85ff",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "1_BYTE",
+        "start_position": "5",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.125,
+        "source_interface": "J1939",
+        "$id": "85ff_5",
+        "$name": "predictive_cruise_control_maximum_positive_offset"
+    }
+}

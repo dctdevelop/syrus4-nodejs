@@ -73,6 +73,10 @@ exports.getShell = getShell;
  */
 function OSExecute(...args) {
     return __awaiter(this, void 0, void 0, function* () {
+        let retry = null;
+        if (args[0].startsWith('$retry')) {
+            retry = args.shift();
+        }
         let command = args.map((x) => x.trim()).join(" ");
         let opts = { timeout: 60000 * 10, maxBuffer: 1024 * 1024 * 5 };
         if (command.startsWith("apx-"))
@@ -83,6 +87,12 @@ function OSExecute(...args) {
                 // console.info("ssh:command", command)
                 shell.exec(command, (error, stream) => {
                     if (error) {
+                        if (error.reason == 'CONNECT_FAILED' && !retry) {
+                            $sleep(2 * 1000).then(() => {
+                                OSExecute("$retry", command).then(resolve).catch(reject);
+                            });
+                            return;
+                        }
                         // console.error("ssh:command", {command, error})
                         reject({
                             command,

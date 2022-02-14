@@ -1,15 +1,22 @@
 {
     "f005_4": {
-        "id": "f005_4",
-        "multiplier": 1,
-        "param_name": "transmission_current_gear",
+        "param_name": "ETC2 - TRANSMISSION CURRENT GEAR",
         "pgn": "f005",
-        "range": "-125 to 126",
-        "start_position": 4,
-        "taip_tag": "ZS.12",
-        "taip_units": null,
-        "units": "count",
-        "xaem_bit": 30,
-        "xaem_group": 3
+        "transmission_rate": "100MS",
+        "priority": 6,
+        "dlc": 8,
+        "length": "1_BYTE",
+        "start_position": "4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 1,
+        "offset": -125,
+        "source_interface": "J1939",
+        "$id": "f005_4",
+        "$name": "transmission_current_gear",
+        "$units": "count",
+        "$range": "-125 to 126",
+        "$taip_tag": "ZS.12",
+        "$taip_xaem_group": 3,
+        "$taip_xaem_bit": 30
     }
 }

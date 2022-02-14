@@ -1,16 +1,23 @@
 {
-	"fdb2_5-6": {
-		"id": "fdb2_5-6",
-		"param_name": "aftmt_dpf_diff_pressure",
-		"units": "kPa",
-		"range": "0 to 321275",
-		"pgn": "fdb2",
-		"start_position": "5-6",
-		"taip_tag": "ZA.2",
-		"taip_units": "decipsi",
-		"multiplier": 10,
-		"taip_multiplier": 1.45038,
-		"xaem_group": 2,
-		"xaem_bit": 45
-	}
+    "fdb2_5-6": {
+        "param_name": "AT1IMG - AFTERTREATMENT 1 DIESEL PARTICULATE FILTER DIFFERENTIAL",
+        "pgn": "fdb2",
+        "transmission_rate": "500MS",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "5-6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.1,
+        "source_interface": "J1939",
+        "$id": "fdb2_5-6",
+        "$name": "aftmt_dpf_diff_pressure",
+        "$units": "kPa",
+        "$range": "0 to 321275",
+        "$taip_tag": "ZA.2",
+        "$taip_units": "decipsi",
+        "$taip_multiplier": 1.45038,
+        "$taip_xaem_group": 2,
+        "$taip_xaem_bit": 45
+    }
 }

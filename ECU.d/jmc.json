@@ -1,0 +1,53 @@
+{
+    "525_7-8_jmc": {
+        "$private": true,
+        "$id": "525_7-8_jmc",
+        "$taip_tag": "JMC.1"
+    },
+    "245_2_jmc": {
+        "$private": true,
+        "$id": "245_2_jmc",
+        "$taip_tag": "JMC.2"
+    },
+    "322_4.4_jmc": {
+        "$private": true,
+        "$id": "322_4.4_jmc",
+        "$taip_tag": "JMC.3"
+    },
+    "281_2.2_jmc": {
+        "$private": true,
+        "$id": "281_2.2_jmc",
+        "$taip_tag": "JMC.4"
+    },
+    "525_3_jmc": {
+        "$private": true,
+        "$id": "525_3_jmc",
+        "$taip_tag": "JMC.5"
+    },
+    "323_3_jmc": {
+        "$private": true,
+        "$id": "323_3_jmc",
+        "$taip_float": true,
+        "$taip_tag": "JMC.6"
+    },
+    "211_1_jmc": {
+        "$private": true,
+        "$id": "211_1_jmc",
+        "$taip_tag": "JMC.7"
+    },
+    "230_1.4_jmc": {
+        "$private": true,
+        "$id": "230_1.4_jmc",
+        "$taip_tag": "JMC.8"
+    },
+    "245_3_jmc": {
+        "$private": true,
+        "$id": "245_3_jmc",
+        "$taip_tag": "JMC.9"
+    },
+    "311_1.6_jmc": {
+        "$private": true,
+        "$id": "311_1.6_jmc",
+        "$taip_tag": "JMC.10"
+    }
+}

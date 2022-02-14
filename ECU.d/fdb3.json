@@ -1,15 +1,24 @@
 {
-	"fdb3_3-4": {
-		"id": "fdb3_3-4",
-		"param_name": "aftmt_dpf_outlet_gas_temp",
-		"units": "C",
-		"range": "-273 to 1735",
-		"pgn": "fdb3",
-		"start_position": "3-4",
-		"taip_tag": "ZA.3",
-		"taip_units": "deciC",
-		"taip_multiplier": 10,
-		"xaem_group": 2,
-		"xaem_bit": 46
-	}
+    "fdb3_3-4": {
+        "param_name": "AT1OG2 - AFTERTREATMENT 1 DIESEL PARTICULATE FILTER OUTLET",
+        "pgn": "fdb3",
+        "transmission_rate": "500MS",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "3-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.03125,
+        "offset": -273,
+        "source_interface": "J1939",
+        "$id": "fdb3_3-4",
+        "$name": "aftmt_dpf_outlet_gas_temp",
+        "$units": "C",
+        "$range": "-273 to 1735",
+        "$taip_tag": "ZA.3",
+        "$taip_units": "deciC",
+        "$taip_multiplier": 10,
+        "$taip_xaem_group": 2,
+        "$taip_xaem_bit": 46
+    }
 }

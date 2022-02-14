@@ -1,28 +1,34 @@
 {
-	"fe70_1-2": {
-		"id": "fe70_1-2",
-		"param_name": "weight_powered_vehicle",
-		"units": "kg",
-		"range": "0 to 642,550",
-		"pgn": "fe70",
-		"start_position": "1-2",
-		"taip_tag": null,
-		"taip_units": null,
-		"multiplier": 1,
-		"xaem_group": null,
-		"xaem_bit": null
-	},
-	"fe70_3-4": {
-		"id": "fe70_3-4",
-		"param_name": "weight_gross_combination",
-		"units": "kg",
-		"range": "0 to 642,550",
-		"pgn": "fe70",
-		"start_position": "3-4",
-		"taip_tag": null,
-		"taip_units": null,
-		"multiplier": 1,
-		"xaem_group": null,
-		"xaem_bit": null
-	}
+    "fe70_3-4": {
+        "param_name": "CVW - GROSS COMBINATION VEHICLE WEIGHT",
+        "pgn": "fe70",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": "VARIABLE",
+        "length": "2_BYTES",
+        "start_position": "3-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 10,
+        "source_interface": "J1939",
+        "$id": "fe70_3-4",
+        "$name": "weight_gross_combination",
+        "$units": "kg",
+        "$range": "0 to 642,550"
+    },
+    "fe70_1-2": {
+        "param_name": "CVW - POWERED VEHICLE WEIGHT",
+        "pgn": "fe70",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": "VARIABLE",
+        "length": "2_BYTES",
+        "start_position": "1-2",
+        "group": "NUMBER_VALUE",
+        "multiplier": 10,
+        "source_interface": "J1939",
+        "$id": "fe70_1-2",
+        "$name": "weight_powered_vehicle",
+        "$units": "kg",
+        "$range": "0 to 642,550"
+    }
 }
