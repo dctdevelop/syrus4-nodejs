@@ -20,19 +20,25 @@ function exists(name) {
         return !!counters[`${name}`] || !!counters[`counter_${name}`];
     });
 }
+const COUNTER_KEYS = [
+    "odometer", "ignition_time", "idle_time",
+    "over_speed", "over_rpm", "hard_brakes",
+    "harsh_fwd_acceleration", "rpm_threshold",
+    "speed_threshold", "begin_idle_time"
+];
 function startCounters(config) {
     return __awaiter(this, void 0, void 0, function* () {
-        var name = config.name;
+        const name = config.name;
         if (!name)
             throw "name is required";
-        var shouldSet = config.forceSet || !(yield exists(name));
-        Utils.OSExecute(`apx-counter start ${name}`);
-        var keys = ["odometer", "ignition_time", "idle_time", "over_speed", "over_rpm", "hard_brakes", "harsh_fwd_acceleration", "rpm_threshold", "speed_threshold", "begin_idle_time"];
-        if (shouldSet) {
-            for (const key of keys) {
-                if (config.key != undefined)
-                    Utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`);
-            }
+        const shouldSet = config.forceSet || !(yield exists(name));
+        yield Utils.OSExecute(`apx-counter start ${name}`);
+        if (!shouldSet)
+            return;
+        for (const key of COUNTER_KEYS) {
+            if (config.key == undefined)
+                continue;
+            Utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`);
         }
     });
 }
