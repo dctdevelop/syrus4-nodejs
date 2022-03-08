@@ -4,7 +4,7 @@
  */
 import * as Utils from "./Utils"
 
-async function exists(name) {
+async function exists(name:string) {
 	var counters = await Utils.OSExecute(`apx-counter list`);
 	return !!counters[`${name}`] || !!counters[`counter_${name}`];
 }
@@ -27,7 +27,7 @@ async function startCounters(config:any) {
 	}
 }
 
-async function getCounters(name) {
+async function getCounters(name:string) {
 	if (!name) throw "name is required";
 	return await Utils.OSExecute(`apx-counter getall ${name}`);
 }
