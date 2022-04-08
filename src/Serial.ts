@@ -128,3 +128,36 @@ export async function onMDTMessage(
   };
   return returnable;
 }
+
+/* Monitor Serial RFID redis messages */
+interface RFIDEvent {
+  id: string | undefined,
+  alias: string | undefined,
+  whitelisted: boolean | false,
+  conn_epoch: number,
+}
+export async function onRFIDMessage( callback:(arg: RFIDEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
+  const topic = "serial/notification/rfid/state";
+    try {
+    var state: RFIDEvent;
+    var handler = (channel: string, data: any) => {
+      if (channel != topic) return
+      state = data;
+      callback(state)
+    };
+    subscriber.subscribe(topic);
+    subscriber.on("message", handler);
+  } catch (error) {
+    console.error('onRFIDMessage error:', error);
+    errorCallback(error);
+  }
+  let returnable = {
+    unsubscribe: () => {
+      subscriber.off("message", handler);
+      subscriber.unsubscribe(topic);
+    },
+    off: function () { this.unsubscribe() }
+  };
+
+  return returnable;
+}
