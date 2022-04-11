@@ -41,3 +41,8 @@ export {
 	Utils,
 	WIFI,
 };
+
+/** */
+Serial.onRFIDEvent(event => {
+	console.log('onRFIDEvent callback:', event);
+}, console.error);
