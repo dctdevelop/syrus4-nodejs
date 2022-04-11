@@ -1013,7 +1013,7 @@
         "length": "1_BYTE",
         "start_position": "3.1",
         "group": "NUMBER_VALUE",
-        "multiplier": 1,
+        "multiplier": 0.00390625,
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "02f3_3.1_dongf",
