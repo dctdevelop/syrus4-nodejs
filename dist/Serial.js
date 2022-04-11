@@ -13,7 +13,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onRFIDMessage = exports.onMDTMessage = exports.onIncomingMessage = exports.send = exports.setModemBufferSize = exports.getModemBufferSize = exports.getSerialModemState = exports.setSerialMode = exports.getSerialMode = exports.onFatigueEvent = void 0;
+exports.onRFIDEvent = exports.onMDTMessage = exports.onIncomingMessage = exports.send = exports.setModemBufferSize = exports.getModemBufferSize = exports.getSerialModemState = exports.setSerialMode = exports.getSerialMode = exports.onFatigueEvent = void 0;
 const Redis_1 = require("./Redis");
 const Utils = require("./Utils");
 // backwards compatability
@@ -126,7 +126,7 @@ function onMDTMessage(callback, errorCallback) {
     });
 }
 exports.onMDTMessage = onMDTMessage;
-function onRFIDMessage(callback, errorCallback) {
+function onRFIDEvent(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
         const topic = "serial/notification/rfid/state";
         try {
@@ -141,7 +141,7 @@ function onRFIDMessage(callback, errorCallback) {
             Redis_1.SystemRedisSubscriber.on("message", handler);
         }
         catch (error) {
-            console.error('onRFIDMessage error:', error);
+            console.error('onRFIDEvent error:', error);
             errorCallback(error);
         }
         let returnable = {
@@ -154,4 +154,4 @@ function onRFIDMessage(callback, errorCallback) {
         return returnable;
     });
 }
-exports.onRFIDMessage = onRFIDMessage;
+exports.onRFIDEvent = onRFIDEvent;

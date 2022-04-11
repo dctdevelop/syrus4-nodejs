@@ -136,19 +136,19 @@ interface RFIDEvent {
   whitelisted: boolean | false,
   conn_epoch: number,
 }
-export async function onRFIDMessage( callback:(arg: RFIDEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
+export async function onRFIDEvent( callback:(arg: RFIDEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
   const topic = "serial/notification/rfid/state";
     try {
     var state: RFIDEvent;
     var handler = (channel: string, data: any) => {
       if (channel != topic) return
-      state = data;
+      state = JSON.parse(data);
       callback(state)
     };
     subscriber.subscribe(topic);
     subscriber.on("message", handler);
   } catch (error) {
-    console.error('onRFIDMessage error:', error);
+    console.error('onRFIDEvent error:', error);
     errorCallback(error);
   }
   let returnable = {
