@@ -41,3 +41,7 @@ const Utils = require("./Utils");
 exports.Utils = Utils;
 const WIFI_1 = require("./WIFI");
 exports.WIFI = WIFI_1.default;
+/** */
+Serial.onRFIDEvent(event => {
+    console.log('onRFIDEvent callback:', event);
+}, console.error);

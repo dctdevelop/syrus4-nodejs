@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-//import { describe } from 'mocha';
 
 import { disconnectAll } from '../Redis'
 import { onFatigueEvent, onRFIDEvent } from '../Serial'
@@ -71,8 +70,8 @@ describe('RFID Tests', () => {
 		callbacks['$callback'] = function (update) {
 			console.log(update)
 			// expect(update[""]).to.exist
-			// delete callbacks['$callback']
-			// done()
+			delete callbacks['$callback']
+			done()
 		}
 	});
 

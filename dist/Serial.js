@@ -134,7 +134,7 @@ function onRFIDEvent(callback, errorCallback) {
             var handler = (channel, data) => {
                 if (channel != topic)
                     return;
-                state = data;
+                state = JSON.parse(data);
                 callback(state);
             };
             Redis_1.SystemRedisSubscriber.subscribe(topic);
