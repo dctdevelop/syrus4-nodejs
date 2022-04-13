@@ -73,8 +73,8 @@ describe('RFID Tests', () => {
         callbacks['$callback'] = function (update) {
             console.log(update);
             // expect(update[""]).to.exist
-            // delete callbacks['$callback']
-            // done()
+            delete callbacks['$callback'];
+            done();
         };
     });
     // cleanup
