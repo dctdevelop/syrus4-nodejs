@@ -348,5 +348,15 @@
         "$private": true,
         "$id": "fef1_2-3_maxus",
         "$taip_tag": "MAX.3"
+    },
+    "510_6.8_maxus": {
+        "$private": true,
+        "$id": "510_6.8",
+        "$taip_tag": "MAX.16"
+    },
+    "510_6.6_maxus": {
+        "$private": true,
+        "$id": "510_6.6",
+        "$taip_tag": "MAX.15"
     }
 }
