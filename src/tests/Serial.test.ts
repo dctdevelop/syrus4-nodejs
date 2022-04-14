@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 
 import { disconnectAll } from '../Redis'
-import { onFatigueEvent, onRFIDEvent } from '../Serial'
+import { onFatigueEvent } from '../Serial'
+import { onRFIDEvent } from '../RFID'
 
 console.log("Begin unit testing")
 

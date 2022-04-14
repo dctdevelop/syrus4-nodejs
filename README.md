@@ -50,6 +50,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Onewire">Onewire</a></dt>
 <dd><p>Onewire module get information about onewire</p>
 </dd>
+<dt><a href="#module_RFID">RFID</a></dt>
+<dd><p>RFID module get information about RFID states</p>
+</dd>
 <dt><a href="#module_Serial">Serial</a></dt>
 <dd><p>Serial module, get information about serial state</p>
 </dd>
@@ -900,6 +903,26 @@ allow to get al lthe state of the ibuttons connected
 allow to get al lthe state of the ibuttons connected
 
 **Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
+<a name="module_RFID"></a>
+
+## RFID
+RFID module get information about RFID states
+
+
+* [RFID](#module_RFID)
+    * [~RFIDUpdate](#module_RFID..RFIDUpdate)
+        * [new RFIDUpdate()](#new_module_RFID..RFIDUpdate_new)
+
+<a name="module_RFID..RFIDUpdate"></a>
+
+### RFID~RFIDUpdate
+**Kind**: inner class of [<code>RFID</code>](#module_RFID)  
+<a name="new_module_RFID..RFIDUpdate_new"></a>
+
+#### new RFIDUpdate()
+Event published by the sdk composed of of multiple RFID
+authorized contains events from RFID
+
 <a name="module_Serial"></a>
 
 ## Serial
