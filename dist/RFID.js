@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onRFIDEvent = exports.removeAll = exports.remove = exports.changeAlias = exports.add = exports.clearLast = exports.getLast = exports.getAll = exports.RFIDUpdate = void 0;
+exports.onRFIDEvent = exports.removeAll = exports.removeAlias = exports.setRFIDAlias = exports.clearLast = exports.getLast = exports.getAll = exports.RFIDUpdate = void 0;
 /**
  * RFID module get information about RFID states
  * @module RFID
@@ -48,28 +48,20 @@ function clearLast() {
     return Utils.OSExecute(`apx-serial-rfid clear --last`);
 }
 exports.clearLast = clearLast;
-function add(id, alias) {
+function setRFIDAlias(id, alias) {
     if (alias == "")
         throw "Alias Name is required";
     if (id == "")
         throw "RFID id is required";
     return Utils.OSExecute(`apx-serial set --id=${id} --alias=${alias}`);
 }
-exports.add = add;
-function changeAlias(id, alias) {
-    if (alias == "")
-        throw "Alias Name is required";
-    if (id == "")
-        throw "RFID id is required";
-    return Utils.OSExecute(`apx-serial set --id=${id} --alias=${alias}`);
-}
-exports.changeAlias = changeAlias;
-function remove(id) {
+exports.setRFIDAlias = setRFIDAlias;
+function removeAlias(id) {
     if (id == "")
         throw "Id is required";
     return Utils.OSExecute(`apx-serial-rfid remove --id=${id}`);
 }
-exports.remove = remove;
+exports.removeAlias = removeAlias;
 function removeAll() {
     return Utils.OSExecute('apx-serial-rfid remove --all');
 }
