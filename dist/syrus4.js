@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.System = exports.Serial = exports.Redis = exports.Network = exports.Mobile = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
+exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.System = exports.Serial = exports.Redis = exports.Network = exports.Mobile = exports.IOS = exports.RFID = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
 const Accelerometer_1 = require("./Accelerometer");
 exports.Accelerometer = Accelerometer_1.default;
 const Apps_1 = require("./Apps");
@@ -21,6 +21,8 @@ const Hotspot_1 = require("./Hotspot");
 exports.Hotspot = Hotspot_1.default;
 const IButton = require("./IButton");
 exports.IButton = IButton;
+const RFID = require("./RFID");
+exports.RFID = RFID;
 const IOS_1 = require("./IOS");
 exports.IOS = IOS_1.default;
 const Mobile = require("./Mobile");
@@ -41,7 +43,3 @@ const Utils = require("./Utils");
 exports.Utils = Utils;
 const WIFI_1 = require("./WIFI");
 exports.WIFI = WIFI_1.default;
-/** */
-Serial.onRFIDEvent(event => {
-    console.log('onRFIDEvent callback:', event);
-}, console.error);
