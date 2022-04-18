@@ -740,8 +740,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_4.7_dongf",
-        "$name": "direction_indicator",
-        "$taip_tag": "JMC.26"
+        "$name": "direction_indicator"
     },
     "fe6c_2.1_dongf": {
         "param_name": "TCO1 - DRIVER 1 TIME RELATED STATES",
@@ -816,8 +815,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_2.5_dongf",
-        "$name": "driver_card_driver_1",
-        "$taip_tag": "JMC.22"
+        "$name": "driver_card_driver_1"
     },
     "fe6c_3.5_dongf": {
         "param_name": "TCO1 - DRIVER CARD DRIVER 2",
@@ -847,8 +845,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_4.3_dongf",
-        "$name": "handling_information",
-        "$taip_tag": "JMC.24"
+        "$name": "handling_information"
     },
     "fe6c_4.1_dongf": {
         "param_name": "TCO1 - SYSTEM EVENT",
@@ -878,8 +875,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_5-6_dongf",
-        "$name": "tachograph_output_shaft_speed",
-        "$taip_tag": "JMC.27"
+        "$name": "tachograph_output_shaft_speed"
     },
     "fe6c_4.5_dongf": {
         "param_name": "TCO1 - TACHOGRAPH PERFORMANCE",
@@ -894,8 +890,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_4.5_dongf",
-        "$name": "tachograph_performance",
-        "$taip_tag": "JMC.25"
+        "$name": "tachograph_performance"
     },
     "fe6c_7-8_dongf": {
         "param_name": "TCO1 - TACHOGRAPH VEHICLE SPEED",
@@ -910,8 +905,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_7-8_dongf",
-        "$name": "tachograph_vehicle_speed",
-        "$taip_tag": "JMC.28"
+        "$name": "tachograph_vehicle_speed"
     },
     "fe6c_1.7_dongf": {
         "param_name": "TCO1 - VEHICLE MOTION",
@@ -926,8 +920,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_1.7_dongf",
-        "$name": "vehicle_motion",
-        "$taip_tag": "JMC.21"
+        "$name": "vehicle_motion"
     },
     "fe6c_2.7_dongf": {
         "param_name": "TCO1 - VEHICLE OVERSPEED",
@@ -942,8 +935,7 @@
         "source_interface": "J1939",
         "accessory_type": "DONGF",
         "$id": "fe6c_2.7_dongf",
-        "$name": "vehicle_overspeed",
-        "$taip_tag": "JMC.23"
+        "$name": "vehicle_overspeed"
     },
     "ffc1_3_dongf": {
         "param_name": "TM2B_INFO - TMS FLOODING WATER TEMPERATURE",
