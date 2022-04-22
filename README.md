@@ -59,6 +59,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_System-Info">System-Info</a></dt>
 <dd><p>System module get information about ApexOS</p>
 </dd>
+<dt><a href="#module_Technoton">Technoton</a></dt>
+<dd><p>Technoton module get information about Technoton fuel level</p>
+</dd>
 <dt><a href="#module_Temperature">Temperature</a></dt>
 <dd><p>Temperature module get information about temperature sensors</p>
 </dd>
@@ -1060,6 +1063,42 @@ remove a callback from stack to execute when app signal termination
 | --- | --- |
 | callback | callback to remove from listener |
 
+<a name="module_Technoton"></a>
+
+## Technoton
+Technoton module get information about Technoton fuel level
+
+<a name="module_Technoton..onFuelEvent"></a>
+
+### Technoton~onFuelEvent()
+export function getAll(): Promise<FuelEvent[]> {
+  return Utils.OSExecute(`apx-serial-rfid list`);
+}
+
+export function getLast(): Promise<FuelEvent>{
+  return Utils.OSExecute(`apx-serial-rfid get --last`);
+}
+
+export function clearLast(): Promise<FuelEvent>{
+  return Utils.OSExecute(`apx-serial-rfid clear --last`);
+}
+
+export function setRFIDAlias(id: string, alias: string): Promise<void>{
+  if(alias == "") throw "Alias Name is required";
+  if(id == "") throw "RFID id is required";
+  return Utils.OSExecute(`apx-serial set --id=${id} --alias=${alias}`);
+}
+
+export function removeAlias(id: string): Promise<void>{
+  if(id == "") throw "Id is required";
+  return Utils.OSExecute(`apx-serial-rfid remove --id=${id}`);
+}
+
+export function removeAll(): Promise<void>{
+  return Utils.OSExecute('apx-serial-rfid remove --all');
+}
+
+**Kind**: inner method of [<code>Technoton</code>](#module_Technoton)  
 <a name="module_Temperature"></a>
 
 ## Temperature

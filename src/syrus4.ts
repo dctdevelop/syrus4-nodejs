@@ -13,8 +13,10 @@ import IOS from "./IOS";
 import * as Mobile from "./Mobile"
 import Network from "./Network"
 import * as Redis from "./Redis"
+import * as RFID from "./RFID"
 import * as Serial from "./Serial"
 import System from "./System"
+import * as Technoton from "./Technoton"
 import * as Temperature from "./Temperature"
 import Update from "./Update"
 import * as Utils from "./Utils"
@@ -36,8 +38,10 @@ export {
 	Mobile,
 	Network,
 	Redis,
+	RFID,
 	Serial,
 	System,
+	Technoton,
 	Temperature,
 	Update,
 	Utils,
