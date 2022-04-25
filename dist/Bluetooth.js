@@ -23,7 +23,14 @@ function onBluetoothUpdate(callback, errorCallback) {
             var handler = (pattern, channel, data) => {
                 if (!channel.startsWith('bluetooth/notification'))
                     return;
-                callback(channel, JSON.parse(data));
+                if (channel == 'bluetooth/notification/MODE') {
+                    const enabled = (data == 'ENABLED') ? true : false;
+                    const json_string = `{"mode":${enabled}}`;
+                    callback(channel, JSON.parse(json_string));
+                }
+                else {
+                    callback(channel, JSON.parse(data));
+                }
             };
             Redis_1.SystemRedisSubscriber.on("pmessage", handler);
             Redis_1.SystemRedisSubscriber.psubscribe(topic);

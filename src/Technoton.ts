@@ -13,10 +13,9 @@ import * as Utils from "./Utils"
 export interface FuelEvent {
   connected: boolean,
   frequency: number,
-  temp: number,
+  temperature: number,
   level: number,
-  conn_epoch: number,
-  disc_epoch: number  
+  timestamp: number,  
 }
 
 /**
@@ -30,39 +29,68 @@ export interface WarningEvent {
   threshold: number,
   level_i: number,
   level_e: number,
-  epoch: number,             
+  timestamp: number,             
 }
 
-/** 
-export function getAll(): Promise<FuelEvent[]> {
-  return Utils.OSExecute(`apx-serial-rfid list`);
+/**
+ * Status published via the broker from the core tool
+ * show the sensor status and configurations
+ *   
+ * @interface StatusEvent
+ */
+export interface StatusEvent {
+  state: string, 
+  temperature: number,
+  frequency: number,
+  level: number,
+  timestamp: number,
+  consumption_threshold: number,
+  consumption_window: number,
+  fuelling_threshold: number
 }
 
-export function getLast(): Promise<FuelEvent>{
-  return Utils.OSExecute(`apx-serial-rfid get --last`);
+ 
+export function getStatus(): Promise<StatusEvent>{
+  return Utils.OSExecute(`apx-serial-fs status`);
 }
 
-export function clearLast(): Promise<FuelEvent>{
-  return Utils.OSExecute(`apx-serial-rfid clear --last`);
+export function setConsumption(threshold: number, window: number): Promise<void> {
+  if (threshold == undefined) throw "Consumption threshold required";
+  if (window == undefined) throw "Consumption window required";
+  return Utils.OSExecute(`apx-serial-fs set --consumption-threshold=${threshold} --consumption-window=${window}`);
 }
 
-export function setRFIDAlias(id: string, alias: string): Promise<void>{
-  if(alias == "") throw "Alias Name is required";
-  if(id == "") throw "RFID id is required";
-  return Utils.OSExecute(`apx-serial set --id=${id} --alias=${alias}`);
+export function setFuelling(threshold: number): Promise<void> {
+  if (threshold == undefined) throw "Fuelling threshold required";
+  return Utils.OSExecute(`apx-serial-fs set --fuelling-threshold=${threshold}`);
 }
-
-export function removeAlias(id: string): Promise<void>{
-  if(id == "") throw "Id is required";
-  return Utils.OSExecute(`apx-serial-rfid remove --id=${id}`);
-}
-
-export function removeAll(): Promise<void>{
-  return Utils.OSExecute('apx-serial-rfid remove --all');
-}*/
 
 export async function onFuelEvent( callback:(arg: FuelEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
-  const topic = "serial/notification/technoton/state";
+  const topic = "serial/notification/fuel_sensor/state";
+  // Get last Fuel data
+  //let last_data = await getStatus().catch(console.error);
+  let last_data = null;
+  if(last_data) {
+    // Response not void
+    let fuel_event: FuelEvent;
+    fuel_event.connected = (last_data.state == "connected") ? true : false;
+    fuel_event.frequency = last_data.frequency;
+    fuel_event.level = last_data.level;
+    fuel_event.temperature = last_data.temperature;
+    fuel_event.timestamp = last_data.timestamp;
+    callback(fuel_event);
+
+  } else {
+    // Response void
+    let fuel_event: FuelEvent;
+    fuel_event.connected = false;
+    fuel_event.frequency = 0;
+    fuel_event.level = 0;
+    fuel_event.temperature = 0;
+    fuel_event.timestamp = 0;
+    callback(fuel_event);
+  }
+
   // Subscribe to receive redis updates
   try {
     var state: FuelEvent;
@@ -89,12 +117,13 @@ export async function onFuelEvent( callback:(arg: FuelEvent) => void, errorCallb
 }
 
 export async function onWarningEvent( callback:(arg: WarningEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
-  const topic = "serial/notification/technoton/warning";
+  const topic = "serial/notification/fuel_sensor/warning";
   // Subscribe to receive redis updates
   try {
     var state: WarningEvent;
     var handler = (channel: string, data: any) => {
     if (channel != topic) return
+      if(data == undefined) return
       state = JSON.parse(data);
       callback(state);
     };

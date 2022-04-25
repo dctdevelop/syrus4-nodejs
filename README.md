@@ -1068,37 +1068,6 @@ remove a callback from stack to execute when app signal termination
 ## Technoton
 Technoton module get information about Technoton fuel level
 
-<a name="module_Technoton..onFuelEvent"></a>
-
-### Technoton~onFuelEvent()
-export function getAll(): Promise<FuelEvent[]> {
-  return Utils.OSExecute(`apx-serial-rfid list`);
-}
-
-export function getLast(): Promise<FuelEvent>{
-  return Utils.OSExecute(`apx-serial-rfid get --last`);
-}
-
-export function clearLast(): Promise<FuelEvent>{
-  return Utils.OSExecute(`apx-serial-rfid clear --last`);
-}
-
-export function setRFIDAlias(id: string, alias: string): Promise<void>{
-  if(alias == "") throw "Alias Name is required";
-  if(id == "") throw "RFID id is required";
-  return Utils.OSExecute(`apx-serial set --id=${id} --alias=${alias}`);
-}
-
-export function removeAlias(id: string): Promise<void>{
-  if(id == "") throw "Id is required";
-  return Utils.OSExecute(`apx-serial-rfid remove --id=${id}`);
-}
-
-export function removeAll(): Promise<void>{
-  return Utils.OSExecute('apx-serial-rfid remove --all');
-}
-
-**Kind**: inner method of [<code>Technoton</code>](#module_Technoton)  
 <a name="module_Temperature"></a>
 
 ## Temperature

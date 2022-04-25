@@ -9,42 +9,57 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onWarningEvent = exports.onFuelEvent = void 0;
+exports.onWarningEvent = exports.onFuelEvent = exports.setFuelling = exports.setConsumption = exports.getStatus = void 0;
 /**
  * Technoton module get information about Technoton fuel level
  * @module Technoton
  */
 const Redis_1 = require("./Redis");
-/**
-export function getAll(): Promise<FuelEvent[]> {
-  return Utils.OSExecute(`apx-serial-rfid list`);
+const Utils = require("./Utils");
+function getStatus() {
+    return Utils.OSExecute(`apx-serial-fs status`);
 }
-
-export function getLast(): Promise<FuelEvent>{
-  return Utils.OSExecute(`apx-serial-rfid get --last`);
+exports.getStatus = getStatus;
+function setConsumption(threshold, window) {
+    if (threshold == undefined)
+        throw "Consumption threshold required";
+    if (window == undefined)
+        throw "Consumption window required";
+    return Utils.OSExecute(`apx-serial-fs set --consumption-threshold=${threshold} --consumption-window=${window}`);
 }
-
-export function clearLast(): Promise<FuelEvent>{
-  return Utils.OSExecute(`apx-serial-rfid clear --last`);
+exports.setConsumption = setConsumption;
+function setFuelling(threshold) {
+    if (threshold == undefined)
+        throw "Fuelling threshold required";
+    return Utils.OSExecute(`apx-serial-fs set --fuelling-threshold=${threshold}`);
 }
-
-export function setRFIDAlias(id: string, alias: string): Promise<void>{
-  if(alias == "") throw "Alias Name is required";
-  if(id == "") throw "RFID id is required";
-  return Utils.OSExecute(`apx-serial set --id=${id} --alias=${alias}`);
-}
-
-export function removeAlias(id: string): Promise<void>{
-  if(id == "") throw "Id is required";
-  return Utils.OSExecute(`apx-serial-rfid remove --id=${id}`);
-}
-
-export function removeAll(): Promise<void>{
-  return Utils.OSExecute('apx-serial-rfid remove --all');
-}*/
+exports.setFuelling = setFuelling;
 function onFuelEvent(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
-        const topic = "serial/notification/technoton/state";
+        const topic = "serial/notification/fuel_sensor/state";
+        // Get last Fuel data
+        //let last_data = await getStatus().catch(console.error);
+        let last_data = null;
+        if (last_data) {
+            // Response not void
+            let fuel_event;
+            fuel_event.connected = (last_data.state == "connected") ? true : false;
+            fuel_event.frequency = last_data.frequency;
+            fuel_event.level = last_data.level;
+            fuel_event.temperature = last_data.temperature;
+            fuel_event.timestamp = last_data.timestamp;
+            callback(fuel_event);
+        }
+        else {
+            // Response void
+            let fuel_event;
+            fuel_event.connected = false;
+            fuel_event.frequency = 0;
+            fuel_event.level = 0;
+            fuel_event.temperature = 0;
+            fuel_event.timestamp = 0;
+            callback(fuel_event);
+        }
         // Subscribe to receive redis updates
         try {
             var state;
@@ -74,12 +89,14 @@ function onFuelEvent(callback, errorCallback) {
 exports.onFuelEvent = onFuelEvent;
 function onWarningEvent(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
-        const topic = "serial/notification/technoton/warning";
+        const topic = "serial/notification/fuel_sensor/warning";
         // Subscribe to receive redis updates
         try {
             var state;
             var handler = (channel, data) => {
                 if (channel != topic)
+                    return;
+                if (data == undefined)
                     return;
                 state = JSON.parse(data);
                 callback(state);
