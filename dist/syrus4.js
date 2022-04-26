@@ -45,12 +45,3 @@ const Utils = require("./Utils");
 exports.Utils = Utils;
 const WIFI_1 = require("./WIFI");
 exports.WIFI = WIFI_1.default;
-Bluetooth.onBluetoothUpdate((channel, payload) => {
-    console.log('onBluetoothUpdate:', channel, payload);
-}, console.error);
-Technoton.onFuelEvent(event => {
-    console.log('onFuelEvent:', event);
-}, console.error);
-Technoton.onWarningEvent(event => {
-    console.log('onWarningEvent:', event);
-}, console.error);

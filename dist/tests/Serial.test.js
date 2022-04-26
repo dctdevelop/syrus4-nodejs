@@ -1,4 +1,5 @@
 "use strict";
+//import { expect } from 'chai';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -97,39 +98,6 @@ describe('fuel-event-test', () => {
         });
     });
     it('Detect Fuel event', function (done) {
-        this.timeout(TIMEOUT);
-        // register callback
-        callbacks['$callback'] = function (update) {
-            console.log(update);
-            // expect(update[""]).to.exist
-            delete callbacks['$callback'];
-            done();
-        };
-    });
-    // cleanup
-    after(function () {
-        console.log('deregistering watcher');
-        watcher.off();
-        Redis_1.disconnectAll();
-    });
-});
-describe('fuel-warning-test', () => {
-    const TIMEOUT = 60000;
-    let watcher;
-    let callbacks = {};
-    // set up watcher
-    before(function () {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log("setting up watcher");
-            watcher = yield Technoton_1.onWarningEvent((update) => {
-                console.log("Fuel Warning update:", update);
-                for (let key in callbacks) {
-                    callbacks[key](update);
-                }
-            }, (error) => { throw error; });
-        });
-    });
-    it('Detect warning event', function (done) {
         this.timeout(TIMEOUT);
         // register callback
         callbacks['$callback'] = function (update) {

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onWarningEvent = exports.onFuelEvent = exports.setFuelling = exports.setConsumption = exports.getStatus = void 0;
+exports.onFuelEvent = exports.setFuelling = exports.setConsumption = exports.getStatus = void 0;
 /**
  * Technoton module get information about Technoton fuel level
  * @module Technoton
@@ -38,26 +38,29 @@ function onFuelEvent(callback, errorCallback) {
     return __awaiter(this, void 0, void 0, function* () {
         const topic = "serial/notification/fuel_sensor/state";
         // Get last Fuel data
-        //let last_data = await getStatus().catch(console.error);
-        let last_data = null;
-        if (last_data) {
-            // Response not void
-            let fuel_event;
-            fuel_event.connected = (last_data.state == "connected") ? true : false;
-            fuel_event.frequency = last_data.frequency;
-            fuel_event.level = last_data.level;
-            fuel_event.temperature = last_data.temperature;
-            fuel_event.timestamp = last_data.timestamp;
+        let last_data = yield getStatus().catch(console.error);
+        if (last_data && (last_data.level != undefined)) {
+            // Response not void 
+            const fuel_event = {
+                connected: (last_data.state == "connected") ? true : false,
+                frequency: last_data.frequency,
+                level: last_data.level,
+                temperature: last_data.temperature,
+                timestamp: last_data.timestamp,
+                event: null
+            };
             callback(fuel_event);
         }
         else {
-            // Response void
-            let fuel_event;
-            fuel_event.connected = false;
-            fuel_event.frequency = 0;
-            fuel_event.level = 0;
-            fuel_event.temperature = 0;
-            fuel_event.timestamp = 0;
+            // Response not there
+            const fuel_event = {
+                connected: false,
+                frequency: 0,
+                level: 0,
+                temperature: 0,
+                timestamp: 0,
+                event: null
+            };
             callback(fuel_event);
         }
         // Subscribe to receive redis updates
@@ -87,35 +90,3 @@ function onFuelEvent(callback, errorCallback) {
     });
 }
 exports.onFuelEvent = onFuelEvent;
-function onWarningEvent(callback, errorCallback) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const topic = "serial/notification/fuel_sensor/warning";
-        // Subscribe to receive redis updates
-        try {
-            var state;
-            var handler = (channel, data) => {
-                if (channel != topic)
-                    return;
-                if (data == undefined)
-                    return;
-                state = JSON.parse(data);
-                callback(state);
-            };
-            Redis_1.SystemRedisSubscriber.subscribe(topic);
-            Redis_1.SystemRedisSubscriber.on("message", handler);
-        }
-        catch (error) {
-            console.error('onWarningEvent error:', error);
-            errorCallback(error);
-        }
-        let returnable = {
-            unsubscribe: () => {
-                Redis_1.SystemRedisSubscriber.off("message", handler);
-                Redis_1.SystemRedisSubscriber.unsubscribe(topic);
-            },
-            off: function () { this.unsubscribe(); }
-        };
-        return returnable;
-    });
-}
-exports.onWarningEvent = onWarningEvent;
