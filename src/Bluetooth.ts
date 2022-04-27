@@ -13,7 +13,15 @@ export async function onBluetoothUpdate(
 	try {
 		var handler = (pattern:string, channel: string, data: any) => {
 			if (!channel.startsWith('bluetooth/notification')) return
-			callback(channel, JSON.parse(data))
+
+			if ( channel == 'bluetooth/notification/MODE') {
+				const enabled: boolean = (data == 'ENABLED') ? true : false;
+				const json_string = `{"mode":${enabled}}`;	
+				callback(channel, JSON.parse(json_string))
+			} else {
+				callback(channel, JSON.parse(data))
+			}
+			
 		};
 		subscriber.on("pmessage", handler);
 		subscriber.psubscribe(topic);

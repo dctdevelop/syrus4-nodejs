@@ -8,7 +8,6 @@ import Geofences from "./Geofences"
 import GPS from "./GPS"
 import Hotspot from "./Hotspot"
 import * as IButton from "./IButton"
-import * as RFID from "./RFID"
 import IOS from "./IOS";
 import * as Mobile from "./Mobile"
 import Network from "./Network"
@@ -33,7 +32,6 @@ export {
 	GPS,
 	Hotspot,
 	IButton,
-	RFID,
 	IOS,
 	Mobile,
 	Network,

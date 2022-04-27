@@ -1,9 +1,9 @@
-import { expect } from 'chai';
+//import { expect } from 'chai';
 
 import { disconnectAll } from '../Redis'
 import { onFatigueEvent } from '../Serial'
 import { onRFIDEvent } from '../RFID'
-import { onFuelEvent, onWarningEvent } from '../Technoton' 
+import { onFuelEvent } from '../Technoton' 
 
 console.log("Begin unit testing")
 
@@ -106,45 +106,6 @@ describe('fuel-event-test', () => {
 	})
 
 	it('Detect Fuel event', function (done) {
-		this.timeout(TIMEOUT)
-		// register callback
-		callbacks['$callback'] = function (update) {
-			console.log(update)
-			// expect(update[""]).to.exist
-			delete callbacks['$callback']
-			done()
-		}
-	});
-
-	// cleanup
-	after(function(){
-		console.log('deregistering watcher')
-		watcher.off()
-		disconnectAll()
-	})
-});
-
-describe('fuel-warning-test', () => {
-	const TIMEOUT = 60000
-
-	let watcher: any
-	let callbacks = {}
-
-	// set up watcher
-	before(async function (){
-		console.log("setting up watcher")
-		watcher = await onWarningEvent(
-			(update) => {
-				console.log("Fuel Warning update:", update)
-				for( let key in callbacks ){
-					callbacks[key](update)
-				}
-			},
-			(error) => { throw error }
-		)
-	})
-
-	it('Detect warning event', function (done) {
 		this.timeout(TIMEOUT)
 		// register callback
 		callbacks['$callback'] = function (update) {
