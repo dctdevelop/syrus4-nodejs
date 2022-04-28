@@ -34,7 +34,7 @@
         "$mutable": [],
         "$id": "f005_1",
         "$name": "transmission_selected_gear",
-        "$taip_tag": "JMC.12"
+        "$taip_tag": "JMC.17"
     },
     "f005_2-3": {
         "param_name": "ETC2 - TRANSMISSION ACTUAL GEAR RATIO",
@@ -51,7 +51,7 @@
         "$mutable": [],
         "$id": "f005_2-3",
         "$name": "transmission_actual_gear_ratio",
-        "$taip_tag": "JMC.13"
+        "$taip_tag": "JMC.18"
     },
     "f005_5-6": {
         "param_name": "ETC2 - TRANSMISSION REQUESTED RANGE",
@@ -67,7 +67,7 @@
         "$mutable": [],
         "$id": "f005_5-6",
         "$name": "transmission_requested_range",
-        "$taip_tag": "JMC.14"
+        "$taip_tag": "JMC.19"
     },
     "f005_7-8": {
         "param_name": "ETC2 - TRANSMISSION CURRENT RANGE",
@@ -83,6 +83,6 @@
         "$mutable": [],
         "$id": "f005_7-8",
         "$name": "transmission_current_range",
-        "$taip_tag": "JMC.15"
+        "$taip_tag": "JMC.20"
     }
 }

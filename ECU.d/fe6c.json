@@ -13,7 +13,7 @@
         "$mutable": [],
         "$id": "fe6c_1.7",
         "$name": "vehicle_motion",
-        "$taip_tag": "JMC.21"
+        "$taip_tag": "JMC.26"
     },
     "fe6c_2.5": {
         "param_name": "TCO1 - DRIVER CARD DRIVER 1",
@@ -29,7 +29,7 @@
         "$mutable": [],
         "$id": "fe6c_2.5",
         "$name": "driver_card_driver_1",
-        "$taip_tag": "JMC.22"
+        "$taip_tag": "JMC.27"
     },
     "fe6c_2.7": {
         "param_name": "TCO1 - VEHICLE OVERSPEED",
@@ -45,7 +45,7 @@
         "$mutable": [],
         "$id": "fe6c_2.7",
         "$name": "vehicle_overspeed",
-        "$taip_tag": "JMC.23"
+        "$taip_tag": "JMC.28"
     },
     "fe6c_4.3": {
         "param_name": "TCO1 - HANDLING INFORMATION",
@@ -61,7 +61,7 @@
         "$mutable": [],
         "$id": "fe6c_4.3",
         "$name": "handling_information",
-        "$taip_tag": "JMC.24"
+        "$taip_tag": "JMC.29"
     },
     "fe6c_4.5": {
         "param_name": "TCO1 - TACHOGRAPH PERFORMANCE",
@@ -77,7 +77,7 @@
         "$mutable": [],
         "$id": "fe6c_4.5",
         "$name": "tachograph_performance",
-        "$taip_tag": "JMC.25"
+        "$taip_tag": "JMC.30"
     },
     "fe6c_4.7": {
         "param_name": "TCO1 - DIRECTION INDICATOR",
@@ -93,7 +93,7 @@
         "$mutable": [],
         "$id": "fe6c_4.7",
         "$name": "direction_indicator",
-        "$taip_tag": "JMC.26"
+        "$taip_tag": "JMC.31"
     },
     "fe6c_5-6": {
         "param_name": "TCO1 - TACHOGRAPH OUTPUT SHAFT SPEED",
@@ -110,7 +110,7 @@
         "$mutable": [],
         "$id": "fe6c_5-6",
         "$name": "tachograph_output_shaft_speed",
-        "$taip_tag": "JMC.27"
+        "$taip_tag": "JMC.32"
     },
     "fe6c_7-8": {
         "param_name": "TCO1 - TACHOGRAPH VEHICLE SPEED",
@@ -127,6 +127,6 @@
         "$mutable": [],
         "$id": "fe6c_7-8",
         "$name": "tachograph_vehicle_speed",
-        "$taip_tag": "JMC.28"
+        "$taip_tag": "JMC.33"
     }
 }

@@ -12,7 +12,7 @@
         "source_interface": "J1939",
         "$id": "f001_6.1",
         "$name": "abs_fully_operational",
-        "$taip_tag": "JMC.11"
+        "$taip_tag": "JMC.16"
     },
     "f001_6.5": {
         "param_name": "EBC1 - ABS/EBS AMBER WARNING SIGNAL (POWERED VEHICLE)",

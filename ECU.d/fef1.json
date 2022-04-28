@@ -239,7 +239,7 @@
         "$mutable": [],
         "$id": "fef1_1.5",
         "$name": "cruise_control_pause_switch",
-        "$taip_tag": "JMC.35"
+        "$taip_tag": "JMC.40"
     },
     "fef1_5.3": {
         "param_name": "CCVS1 - CRUISE CONTROL COAST (DECELERATE) SWITCH",
@@ -255,7 +255,7 @@
         "$mutable": [],
         "$id": "fef1_5.3",
         "$name": "cruise_control_coast_decelerate_switch",
-        "$taip_tag": "JMC.36"
+        "$taip_tag": "JMC.41"
     },
     "fef1_5.7": {
         "param_name": "CCVS1 - CRUISE CONTROL ACCELERATE SWITCH",
@@ -271,6 +271,6 @@
         "$mutable": [],
         "$id": "fef1_5.7",
         "$name": "cruise_control_accelerate_switch",
-        "$taip_tag": "JMC.37"
+        "$taip_tag": "JMC.42"
     }
 }

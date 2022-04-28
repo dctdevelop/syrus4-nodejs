@@ -13,7 +13,7 @@
         "$mutable": [],
         "$id": "feae_1",
         "$name": "pneumatic_supply_pressure",
-        "$taip_tag": "JMC.29"
+        "$taip_tag": "JMC.34"
     },
     "feae_2": {
         "param_name": "AIR1 - PARKING AND OR TRAILER AIR PRESSURE",
@@ -29,7 +29,7 @@
         "$mutable": [],
         "$id": "feae_2",
         "$name": "parking_and_or_trailer_air_pressure",
-        "$taip_tag": "JMC.30"
+        "$taip_tag": "JMC.35"
     },
     "feae_3": {
         "param_name": "AIR1 - SERVICE BRAKE CIRCUIT 1 AIR PRESSURE",
@@ -45,7 +45,7 @@
         "$mutable": [],
         "$id": "feae_3",
         "$name": "service_brake_circuit_1_air_pressure",
-        "$taip_tag": "JMC.31"
+        "$taip_tag": "JMC.36"
     },
     "feae_4": {
         "param_name": "AIR1 - SERVICE BRAKE CIRCUIT 2 AIR PRESSURE",
@@ -61,7 +61,7 @@
         "$mutable": [],
         "$id": "feae_4",
         "$name": "service_brake_circuit_2_air_pressure",
-        "$taip_tag": "JMC.32"
+        "$taip_tag": "JMC.37"
     },
     "feae_7.1": {
         "param_name": "AIR1 - AIR COMPRESSOR STATUS",
@@ -77,7 +77,7 @@
         "$mutable": [],
         "$id": "feae_7.1",
         "$name": "air_compressor_status",
-        "$taip_tag": "JMC.33"
+        "$taip_tag": "JMC.38"
     },
     "feae_8": {
         "param_name": "AIR1 - POWERTRAIN CIRCUIT AIR SUPPLY PRESSURE",
@@ -93,6 +93,6 @@
         "$mutable": [],
         "$id": "feae_8",
         "$name": "powertrain_circuit_air_supply_pressure",
-        "$taip_tag": "JMC.34"
+        "$taip_tag": "JMC.39"
     }
 }

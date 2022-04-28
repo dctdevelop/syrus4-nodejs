@@ -13,7 +13,7 @@
         "$mutable": [],
         "$id": "fdd1_1.1",
         "$name": "fms_standard_diagnostics_supported",
-        "$taip_tag": "JMC.19"
+        "$taip_tag": "JMC.24"
     },
     "fdd1_1.3": {
         "param_name": "FMS - FMS-STANDARD REQUESTS SUPPORTED",
@@ -29,6 +29,6 @@
         "$mutable": [],
         "$id": "fdd1_1.3",
         "$name": "fms_standard_requests_supported",
-        "$taip_tag": "JMC.20"
+        "$taip_tag": "JMC.25"
     }
 }

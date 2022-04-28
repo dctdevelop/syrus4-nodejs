@@ -15,7 +15,7 @@
         "$mutable": [],
         "$id": "f009_1-2",
         "$name": "steering_wheel_angle",
-        "$taip_tag": "JMC.16"
+        "$taip_tag": "JMC.21"
     },
     "f009_3.1": {
         "param_name": "VDC2 - STEERING WHEEL TURN COUNTER",
@@ -32,6 +32,6 @@
         "$mutable": [],
         "$id": "f009_3.1",
         "$name": "steering_wheel_turn_counter",
-        "$taip_tag": "JMC.17"
+        "$taip_tag": "JMC.22"
     }
 }
