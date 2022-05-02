@@ -39,8 +39,8 @@ function onFuelEvent(callback, errorCallback) {
         const topic = "serial/notification/fuel_sensor/state";
         // Get last Fuel data
         let last_data = yield getStatus().catch(console.error);
+        // Response not void and valid
         if (last_data && (last_data.level != undefined)) {
-            // Response not void 
             const fuel_event = {
                 connected: (last_data.state == "connected") ? true : false,
                 frequency: last_data.frequency,
