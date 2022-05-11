@@ -3,770 +3,660 @@
         "$private": true,
         "$taip_float": true,
         "$id": "0028_1-2_foton",
-        "$taip_tag": "VLT.1",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0028_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0028_3-4_foton",
-        "$taip_tag": "VLT.2",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0028_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0028_5-6_foton",
-        "$taip_tag": "VLT.3",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0028_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0028_7-8_foton",
-        "$taip_tag": "VLT.4",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0128_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0128_1-2_foton",
-        "$taip_tag": "VLT.5",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0128_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0128_3-4_foton",
-        "$taip_tag": "VLT.6",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0128_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0128_5-6_foton",
-        "$taip_tag": "VLT.7",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0128_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0128_7-8_foton",
-        "$taip_tag": "VLT.8",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0228_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0228_1-2_foton",
-        "$taip_tag": "VLT.9",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0228_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0228_3-4_foton",
-        "$taip_tag": "VLT.10",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0228_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0228_5-6_foton",
-        "$taip_tag": "VLT.11",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0228_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0228_7-8_foton",
-        "$taip_tag": "VLT.12",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0328_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0328_1-2_foton",
-        "$taip_tag": "VLT.13",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0328_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0328_3-4_foton",
-        "$taip_tag": "VLT.14",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0328_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0328_5-6_foton",
-        "$taip_tag": "VLT.15",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0328_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0328_7-8_foton",
-        "$taip_tag": "VLT.16",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0428_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0428_1-2_foton",
-        "$taip_tag": "VLT.17",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0428_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0428_3-4_foton",
-        "$taip_tag": "VLT.18",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0428_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0428_5-6_foton",
-        "$taip_tag": "VLT.19",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0428_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0428_7-8_foton",
-        "$taip_tag": "VLT.20",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0528_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0528_1-2_foton",
-        "$taip_tag": "VLT.21",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0528_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0528_3-4_foton",
-        "$taip_tag": "VLT.22",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0528_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0528_5-6_foton",
-        "$taip_tag": "VLT.23",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0528_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0528_7-8_foton",
-        "$taip_tag": "VLT.24",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0628_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0628_1-2_foton",
-        "$taip_tag": "VLT.25",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0628_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0628_3-4_foton",
-        "$taip_tag": "VLT.26",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0628_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0628_5-6_foton",
-        "$taip_tag": "VLT.27",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0628_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0628_7-8_foton",
-        "$taip_tag": "VLT.28",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0728_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0728_1-2_foton",
-        "$taip_tag": "VLT.29",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0728_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0728_3-4_foton",
-        "$taip_tag": "VLT.30",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0728_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0728_5-6_foton",
-        "$taip_tag": "VLT.31",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0728_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0728_7-8_foton",
-        "$taip_tag": "VLT.32",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0828_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0828_1-2_foton",
-        "$taip_tag": "VLT.33",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0828_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0828_3-4_foton",
-        "$taip_tag": "VLT.34",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0828_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0828_5-6_foton",
-        "$taip_tag": "VLT.35",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0828_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0828_7-8_foton",
-        "$taip_tag": "VLT.36",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0928_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0928_1-2_foton",
-        "$taip_tag": "VLT.37",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0928_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0928_3-4_foton",
-        "$taip_tag": "VLT.38",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0928_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0928_5-6_foton",
-        "$taip_tag": "VLT.39",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "0928_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "0928_7-8_foton",
-        "$taip_tag": "VLT.40",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1028_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1028_1-2_foton",
-        "$taip_tag": "VLT.41",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1028_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1028_3-4_foton",
-        "$taip_tag": "VLT.42",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1028_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1028_5-6_foton",
-        "$taip_tag": "VLT.43",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1028_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1028_7-8_foton",
-        "$taip_tag": "VLT.44",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1128_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1128_1-2_foton",
-        "$taip_tag": "VLT.45",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1128_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1128_3-4_foton",
-        "$taip_tag": "VLT.46",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1128_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1128_5-6_foton",
-        "$taip_tag": "VLT.47",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1128_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1128_7-8_foton",
-        "$taip_tag": "VLT.48",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1228_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1228_1-2_foton",
-        "$taip_tag": "VLT.49",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1228_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1228_3-4_foton",
-        "$taip_tag": "VLT.50",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1228_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1228_5-6_foton",
-        "$taip_tag": "VLT.51",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1228_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1228_7-8_foton",
-        "$taip_tag": "VLT.52",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1328_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1328_1-2_foton",
-        "$taip_tag": "VLT.53",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1328_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1328_3-4_foton",
-        "$taip_tag": "VLT.54",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1328_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1328_5-6_foton",
-        "$taip_tag": "VLT.55",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1328_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1328_7-8_foton",
-        "$taip_tag": "VLT.56",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1428_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1428_1-2_foton",
-        "$taip_tag": "VLT.57",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1428_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1428_3-4_foton",
-        "$taip_tag": "VLT.58",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1428_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1428_5-6_foton",
-        "$taip_tag": "VLT.59",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1428_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1428_7-8_foton",
-        "$taip_tag": "VLT.60",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1528_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1528_1-2_foton",
-        "$taip_tag": "VLT.61",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1528_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1528_3-4_foton",
-        "$taip_tag": "VLT.62",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1528_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1528_5-6_foton",
-        "$taip_tag": "VLT.63",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1528_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1528_7-8_foton",
-        "$taip_tag": "VLT.64",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1628_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1628_1-2_foton",
-        "$taip_tag": "VLT.65",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1628_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1628_3-4_foton",
-        "$taip_tag": "VLT.66",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1628_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1628_5-6_foton",
-        "$taip_tag": "VLT.67",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1628_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1628_7-8_foton",
-        "$taip_tag": "VLT.68",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1728_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1728_1-2_foton",
-        "$taip_tag": "VLT.69",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1728_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1728_3-4_foton",
-        "$taip_tag": "VLT.70",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1728_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1728_5-6_foton",
-        "$taip_tag": "VLT.71",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1728_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1728_7-8_foton",
-        "$taip_tag": "VLT.72",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1828_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1828_1-2_foton",
-        "$taip_tag": "VLT.73",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1828_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1828_3-4_foton",
-        "$taip_tag": "VLT.74",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1828_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1828_5-6_foton",
-        "$taip_tag": "VLT.75",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1828_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1828_7-8_foton",
-        "$taip_tag": "VLT.76",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1928_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1928_1-2_foton",
-        "$taip_tag": "VLT.77",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1928_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1928_3-4_foton",
-        "$taip_tag": "VLT.78",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1928_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1928_5-6_foton",
-        "$taip_tag": "VLT.79",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "1928_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "1928_7-8_foton",
-        "$taip_tag": "VLT.80",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2028_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2028_1-2_foton",
-        "$taip_tag": "VLT.81",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2028_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2028_3-4_foton",
-        "$taip_tag": "VLT.82",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2028_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2028_5-6_foton",
-        "$taip_tag": "VLT.83",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2028_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2028_7-8_foton",
-        "$taip_tag": "VLT.84",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2128_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2128_1-2_foton",
-        "$taip_tag": "VLT.85",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2128_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2128_3-4_foton",
-        "$taip_tag": "VLT.86",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2128_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2128_5-6_foton",
-        "$taip_tag": "VLT.87",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2128_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2128_7-8_foton",
-        "$taip_tag": "VLT.88",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2228_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2228_1-2_foton",
-        "$taip_tag": "VLT.89",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2228_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2228_3-4_foton",
-        "$taip_tag": "VLT.90",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2228_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2228_5-6_foton",
-        "$taip_tag": "VLT.91",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2228_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2228_7-8_foton",
-        "$taip_tag": "VLT.92",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2328_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2328_1-2_foton",
-        "$taip_tag": "VLT.93",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2328_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2328_3-4_foton",
-        "$taip_tag": "VLT.94",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2328_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2328_5-6_foton",
-        "$taip_tag": "VLT.95",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2328_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2328_7-8_foton",
-        "$taip_tag": "VLT.96",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2428_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2428_1-2_foton",
-        "$taip_tag": "VLT.97",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2428_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2428_3-4_foton",
-        "$taip_tag": "VLT.98",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2428_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2428_5-6_foton",
-        "$taip_tag": "VLT.99",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2428_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2428_7-8_foton",
-        "$taip_tag": "VLT.100",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2528_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2528_1-2_foton",
-        "$taip_tag": "VLT.101",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2528_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2528_3-4_foton",
-        "$taip_tag": "VLT.102",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2528_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2528_5-6_foton",
-        "$taip_tag": "VLT.103",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2528_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2528_7-8_foton",
-        "$taip_tag": "VLT.104",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2628_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2628_1-2_foton",
-        "$taip_tag": "VLT.105",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2628_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2628_3-4_foton",
-        "$taip_tag": "VLT.106",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2628_5-6_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2628_5-6_foton",
-        "$taip_tag": "VLT.107",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2628_7-8_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2628_7-8_foton",
-        "$taip_tag": "VLT.108",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2728_1-2_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2728_1-2_foton",
-        "$taip_tag": "VLT.109",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     },
     "2728_3-4_foton": {
         "$private": true,
         "$taip_float": true,
         "$id": "2728_3-4_foton",
-        "$taip_tag": "VLT.110",
-        "multiplier": 0.01
+        "$taip_tag": "BTV"
     }
 }
