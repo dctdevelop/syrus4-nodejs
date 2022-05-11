@@ -1,97 +1,81 @@
 {
     "0029_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_1_foton"
     },
     "0029_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_2_foton"
     },
     "0029_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_3_foton"
     },
     "0029_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_4_foton"
     },
     "0029_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_5_foton"
     },
     "0029_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_6_foton"
     },
     "0029_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_7_foton"
     },
     "0029_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "0029_8_foton"
     },
     "2029_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_1_foton"
     },
     "2029_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_2_foton"
     },
     "2029_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_3_foton"
     },
     "2029_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_4_foton"
     },
     "2029_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_5_foton"
     },
     "2029_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_6_foton"
     },
     "2029_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_7_foton"
     },
     "2029_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTT",
         "$id": "2029_8_foton"
     }

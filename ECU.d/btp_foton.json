@@ -1,289 +1,241 @@
 {
     "ff2e_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_1_foton"
     },
     "ff2e_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_2_foton"
     },
     "ff2e_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_3_foton"
     },
     "ff2e_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_4_foton"
     },
     "ff2e_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_5_foton"
     },
     "ff2e_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_6_foton"
     },
     "ff2e_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_7_foton"
     },
     "ff2e_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2e_8_foton"
     },
     "ff2f_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_1_foton"
     },
     "ff2f_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_2_foton"
     },
     "ff2f_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_3_foton"
     },
     "ff2f_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_4_foton"
     },
     "ff2f_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_5_foton"
     },
     "ff2f_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_6_foton"
     },
     "ff2f_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_7_foton"
     },
     "ff2f_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff2f_8_foton"
     },
     "ff33_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_1_foton"
     },
     "ff33_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_2_foton"
     },
     "ff33_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_3_foton"
     },
     "ff33_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_4_foton"
     },
     "ff33_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_5_foton"
     },
     "ff33_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_6_foton"
     },
     "ff33_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_7_foton"
     },
     "ff33_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff33_8_foton"
     },
     "ff34_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_1_foton"
     },
     "ff34_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_2_foton"
     },
     "ff34_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_3_foton"
     },
     "ff34_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_4_foton"
     },
     "ff34_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_5_foton"
     },
     "ff34_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_6_foton"
     },
     "ff34_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_7_foton"
     },
     "ff34_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff34_8_foton"
     },
     "ff35_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_1_foton"
     },
     "ff35_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_2_foton"
     },
     "ff35_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_3_foton"
     },
     "ff35_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_4_foton"
     },
     "ff35_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_5_foton"
     },
     "ff35_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_6_foton"
     },
     "ff35_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_7_foton"
     },
     "ff35_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff35_8_foton"
     },
     "ff36_1_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_1_foton"
     },
     "ff36_2_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_2_foton"
     },
     "ff36_3_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_3_foton"
     },
     "ff36_4_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_4_foton"
     },
     "ff36_5_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_5_foton"
     },
     "ff36_6_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_6_foton"
     },
     "ff36_7_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_7_foton"
     },
     "ff36_8_foton": {
         "$private": true,
-        "$taip_float": true,
         "$taip_tag": "BTP",
         "$id": "ff36_8_foton"
     }
