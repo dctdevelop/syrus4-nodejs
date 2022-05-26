@@ -1,242 +1,242 @@
 {
     "ff2e_1_foton": {
         "$private": true,
-        "$taip_tag": "BTP.1",
+        "$taip_tag": "BTP-1",
         "$id": "ff2e_1_foton"
     },
     "ff2e_2_foton": {
         "$private": true,
-        "$taip_tag": "BTP.4",
+        "$taip_tag": "BTP-4",
         "$id": "ff2e_2_foton"
     },
     "ff2e_3_foton": {
         "$private": true,
-        "$taip_tag": "BTP.7",
+        "$taip_tag": "BTP-7",
         "$id": "ff2e_3_foton"
     },
     "ff2e_4_foton": {
         "$private": true,
-        "$taip_tag": "BTP.10",
+        "$taip_tag": "BTP-10",
         "$id": "ff2e_4_foton"
     },
     "ff2e_5_foton": {
         "$private": true,
-        "$taip_tag": "BTP.13",
+        "$taip_tag": "BTP-13",
         "$id": "ff2e_5_foton"
     },
     "ff2e_6_foton": {
         "$private": true,
-        "$taip_tag": "BTP.16",
+        "$taip_tag": "BTP-16",
         "$id": "ff2e_6_foton"
     },
     "ff2e_7_foton": {
         "$private": true,
-        "$taip_tag": "BTP.19",
+        "$taip_tag": "BTP-19",
         "$id": "ff2e_7_foton"
     },
     "ff2e_8_foton": {
         "$private": true,
-        "$taip_tag": "BTP.22",
+        "$taip_tag": "BTP-22",
         "$id": "ff2e_8_foton"
     },
     "ff2f_1_foton": {
         "$private": true,
-        "$taip_tag": "BTP.25",
+        "$taip_tag": "BTP-25",
         "$id": "ff2f_1_foton"
     },
     "ff2f_2_foton": {
         "$private": true,
-        "$taip_tag": "BTP.28",
+        "$taip_tag": "BTP-28",
         "$id": "ff2f_2_foton"
     },
     "ff2f_3_foton": {
         "$private": true,
-        "$taip_tag": "BTP.31",
+        "$taip_tag": "BTP-31",
         "$id": "ff2f_3_foton"
     },
     "ff2f_4_foton": {
         "$private": true,
-        "$taip_tag": "BTP.34",
+        "$taip_tag": "BTP-34",
         "$id": "ff2f_4_foton"
     },
     "ff2f_5_foton": {
         "$private": true,
-        "$taip_tag": "BTP.37",
+        "$taip_tag": "BTP-37",
         "$id": "ff2f_5_foton"
     },
     "ff2f_6_foton": {
         "$private": true,
-        "$taip_tag": "BTP.40",
+        "$taip_tag": "BTP-40",
         "$id": "ff2f_6_foton"
     },
     "ff2f_7_foton": {
         "$private": true,
-        "$taip_tag": "BTP.43",
+        "$taip_tag": "BTP-43",
         "$id": "ff2f_7_foton"
     },
     "ff2f_8_foton": {
         "$private": true,
-        "$taip_tag": "BTP.46",
+        "$taip_tag": "BTP-46",
         "$id": "ff2f_8_foton"
     },
     "ff33_1_foton": {
         "$private": true,
-        "$taip_tag": "BTP.2",
+        "$taip_tag": "BTP-2",
         "$id": "ff33_1_foton"
     },
     "ff33_2_foton": {
         "$private": true,
-        "$taip_tag": "BTP.3",
+        "$taip_tag": "BTP-3",
         "$id": "ff33_2_foton"
     },
     "ff33_3_foton": {
         "$private": true,
-        "$taip_tag": "BTP.5",
+        "$taip_tag": "BTP-5",
         "$id": "ff33_3_foton"
     },
     "ff33_4_foton": {
         "$private": true,
-        "$taip_tag": "BTP.6",
+        "$taip_tag": "BTP-6",
         "$id": "ff33_4_foton"
     },
     "ff33_5_foton": {
         "$private": true,
-        "$taip_tag": "BTP.8",
+        "$taip_tag": "BTP-8",
         "$id": "ff33_5_foton"
     },
     "ff33_6_foton": {
         "$private": true,
-        "$taip_tag": "BTP.9",
+        "$taip_tag": "BTP-9",
         "$id": "ff33_6_foton"
     },
     "ff33_7_foton": {
         "$private": true,
-        "$taip_tag": "BTP.11",
+        "$taip_tag": "BTP-11",
         "$id": "ff33_7_foton"
     },
     "ff33_8_foton": {
         "$private": true,
-        "$taip_tag": "BTP.12",
+        "$taip_tag": "BTP-12",
         "$id": "ff33_8_foton"
     },
     "ff34_1_foton": {
         "$private": true,
-        "$taip_tag": "BTP.14",
+        "$taip_tag": "BTP-14",
         "$id": "ff34_1_foton"
     },
     "ff34_2_foton": {
         "$private": true,
-        "$taip_tag": "BTP.15",
+        "$taip_tag": "BTP-15",
         "$id": "ff34_2_foton"
     },
     "ff34_3_foton": {
         "$private": true,
-        "$taip_tag": "BTP.17",
+        "$taip_tag": "BTP-17",
         "$id": "ff34_3_foton"
     },
     "ff34_4_foton": {
         "$private": true,
-        "$taip_tag": "BTP.18",
+        "$taip_tag": "BTP-18",
         "$id": "ff34_4_foton"
     },
     "ff34_5_foton": {
         "$private": true,
-        "$taip_tag": "BTP.20",
+        "$taip_tag": "BTP-20",
         "$id": "ff34_5_foton"
     },
     "ff34_6_foton": {
         "$private": true,
-        "$taip_tag": "BTP.21",
+        "$taip_tag": "BTP-21",
         "$id": "ff34_6_foton"
     },
     "ff34_7_foton": {
         "$private": true,
-        "$taip_tag": "BTP.23",
+        "$taip_tag": "BTP-23",
         "$id": "ff34_7_foton"
     },
     "ff34_8_foton": {
         "$private": true,
-        "$taip_tag": "BTP.24",
+        "$taip_tag": "BTP-24",
         "$id": "ff34_8_foton"
     },
     "ff35_1_foton": {
         "$private": true,
-        "$taip_tag": "BTP.26",
+        "$taip_tag": "BTP-26",
         "$id": "ff35_1_foton"
     },
     "ff35_2_foton": {
         "$private": true,
-        "$taip_tag": "BTP.27",
+        "$taip_tag": "BTP-27",
         "$id": "ff35_2_foton"
     },
     "ff35_3_foton": {
         "$private": true,
-        "$taip_tag": "BTP.29",
+        "$taip_tag": "BTP-29",
         "$id": "ff35_3_foton"
     },
     "ff35_4_foton": {
         "$private": true,
-        "$taip_tag": "BTP.30",
+        "$taip_tag": "BTP-30",
         "$id": "ff35_4_foton"
     },
     "ff35_5_foton": {
         "$private": true,
-        "$taip_tag": "BTP.32",
+        "$taip_tag": "BTP-32",
         "$id": "ff35_5_foton"
     },
     "ff35_6_foton": {
         "$private": true,
-        "$taip_tag": "BTP.33",
+        "$taip_tag": "BTP-33",
         "$id": "ff35_6_foton"
     },
     "ff35_7_foton": {
         "$private": true,
-        "$taip_tag": "BTP.35",
+        "$taip_tag": "BTP-35",
         "$id": "ff35_7_foton"
     },
     "ff35_8_foton": {
         "$private": true,
-        "$taip_tag": "BTP.36",
+        "$taip_tag": "BTP-36",
         "$id": "ff35_8_foton"
     },
     "ff36_1_foton": {
         "$private": true,
-        "$taip_tag": "BTP.38",
+        "$taip_tag": "BTP-38",
         "$id": "ff36_1_foton"
     },
     "ff36_2_foton": {
         "$private": true,
-        "$taip_tag": "BTP.39",
+        "$taip_tag": "BTP-39",
         "$id": "ff36_2_foton"
     },
     "ff36_3_foton": {
         "$private": true,
-        "$taip_tag": "BTP.41",
+        "$taip_tag": "BTP-41",
         "$id": "ff36_3_foton"
     },
     "ff36_4_foton": {
         "$private": true,
-        "$taip_tag": "BTP.42",
+        "$taip_tag": "BTP-42",
         "$id": "ff36_4_foton"
     },
     "ff36_5_foton": {
         "$private": true,
-        "$taip_tag": "BTP.44",
+        "$taip_tag": "BTP-44",
         "$id": "ff36_5_foton"
     },
     "ff36_6_foton": {
         "$private": true,
-        "$taip_tag": "BTP.45",
+        "$taip_tag": "BTP-45",
         "$id": "ff36_6_foton"
     },
     "ff36_7_foton": {
         "$private": true,
-        "$taip_tag": "BTP.47",
+        "$taip_tag": "BTP-47",
         "$id": "ff36_7_foton"
     },
     "ff36_8_foton": {
         "$private": true,
-        "$taip_tag": "BTP.48",
+        "$taip_tag": "BTP-48",
         "$id": "ff36_8_foton"
     }
 }
