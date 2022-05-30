@@ -69,8 +69,17 @@ function onFuelEvent(callback, errorCallback) {
             var handler = (channel, data) => {
                 if (channel != topic)
                     return;
-                state = JSON.parse(data);
-                callback(state);
+                let clearToSend = true;
+                try {
+                    state = JSON.parse(data);
+                }
+                catch (error) {
+                    clearToSend = false;
+                    console.log('onFuelEvent syntax error:', error);
+                }
+                if (clearToSend) {
+                    callback(state);
+                }
             };
             Redis_1.SystemRedisSubscriber.subscribe(topic);
             Redis_1.SystemRedisSubscriber.on("message", handler);

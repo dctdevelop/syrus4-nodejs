@@ -88,8 +88,18 @@ export async function onFuelEvent( callback:(arg: FuelEvent) => void, errorCallb
     var state: FuelEvent;
     var handler = (channel: string, data: any) => {
     if (channel != topic) return
-      state = JSON.parse(data);
-      callback(state);
+      let clearToSend = true;
+      try {
+        state = JSON.parse(data);
+      } catch (error) {
+        clearToSend = false;
+        console.log('onFuelEvent syntax error:', error);
+      }
+
+      if(clearToSend) {
+        callback(state);
+      }
+
     };
     subscriber.subscribe(topic);
     subscriber.on("message", handler);

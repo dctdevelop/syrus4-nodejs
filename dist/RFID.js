@@ -28,7 +28,7 @@ class RFIDUpdate {
     }
     digest(event) {
         this.last = event;
-        if (event.whitelisted) {
+        if (event.whitelisted == true && event != undefined) {
             this.authorized.last = event;
         }
         return this;
@@ -81,8 +81,17 @@ function onRFIDEvent(callback, errorCallback) {
             var handler = (channel, data) => {
                 if (channel != topic)
                     return;
-                state = JSON.parse(data);
-                callback(rfid_update.digest(state));
+                let clearToSend = true;
+                try {
+                    state = JSON.parse(data);
+                }
+                catch (error) {
+                    clearToSend = false;
+                    console.log('onRFIDevent syntax error:', error);
+                }
+                if (clearToSend) {
+                    callback(rfid_update.digest(state));
+                }
             };
             Redis_1.SystemRedisSubscriber.subscribe(topic);
             Redis_1.SystemRedisSubscriber.on("message", handler);

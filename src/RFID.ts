@@ -38,7 +38,7 @@ export class RFIDUpdate{
     public digest( event: RFIDEvent ) {
         this.last = event;
 
-        if ( event.whitelisted ) {
+        if ( event.whitelisted == true && event != undefined ) {
             this.authorized.last = event;
         }
         return this
@@ -87,8 +87,19 @@ export async function onRFIDEvent( callback:(arg: RFIDUpdate) => void, errorCall
     var state: RFIDEvent;
     var handler = (channel: string, data: any) => {
     if (channel != topic) return
-      state = JSON.parse(data);
-      callback(rfid_update.digest(state))
+      let clearToSend = true;
+
+      try {
+        state = JSON.parse(data);
+      } catch (error) {
+        clearToSend = false;
+        console.log('onRFIDevent syntax error:', error);  
+      }
+      
+      if(clearToSend) {
+        callback(rfid_update.digest(state))
+      }
+      
     };
     subscriber.subscribe(topic);
     subscriber.on("message", handler);

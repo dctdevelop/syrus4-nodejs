@@ -13,13 +13,25 @@ export async function onBluetoothUpdate(
 	try {
 		var handler = (pattern:string, channel: string, data: any) => {
 			if (!channel.startsWith('bluetooth/notification')) return
+			let clearToSend = true;
+			let json_string = '{}';
+			let json_object = {};
 
-			if ( channel == 'bluetooth/notification/MODE') {
+			try {
+				json_object = JSON.parse(data);
+			} catch (error) {
+				clearToSend = false;
+				console.log('onBluetoothUpdate error:', error);	
+			}
+
+			if (clearToSend) {
+				callback(channel, json_object)
+				
+			} else if ( channel == 'bluetooth/notification/MODE' ) {
 				const enabled: boolean = (data == 'ENABLED') ? true : false;
-				const json_string = `{"mode":${enabled}}`;	
-				callback(channel, JSON.parse(json_string))
-			} else {
-				callback(channel, JSON.parse(data))
+				json_string = `{"enabled":${enabled}}`;	
+				json_object = JSON.parse(json_string);
+				callback(channel, json_object);
 			}
 			
 		};
