@@ -9,6 +9,7 @@ import GPS from "./GPS"
 import Hotspot from "./Hotspot"
 import * as IButton from "./IButton"
 import IOS from "./IOS";
+import * as Logrotate from "./Logrotate"
 import * as Mobile from "./Mobile"
 import Network from "./Network"
 import * as Redis from "./Redis"
@@ -33,6 +34,7 @@ export {
 	Hotspot,
 	IButton,
 	IOS,
+	Logrotate,
 	Mobile,
 	Network,
 	Redis,

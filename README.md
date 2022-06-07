@@ -44,6 +44,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_IOS">IOS</a></dt>
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS</p>
 </dd>
+<dt><a href="#module_Logrotate">Logrotate</a></dt>
+<dd><p>Counters module setup get and set counters from APEX OS</p>
+</dd>
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
 </dd>
@@ -830,6 +833,11 @@ Allow to change the state of an output
 Get the current state of all inputs, outputs and analogs in the Syrus4 device
 
 **Kind**: inner method of [<code>IOS</code>](#module_IOS)  
+<a name="module_Logrotate"></a>
+
+## Logrotate
+Counters module setup get and set counters from APEX OS
+
 <a name="module_Network"></a>
 
 ## Network
