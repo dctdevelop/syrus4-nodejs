@@ -3,6 +3,7 @@
  * @module Serial
  */
 
+import _isObjectLike from 'lodash.isobjectlike'
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 // import * as Utils from "./Utils"
 
@@ -13,27 +14,19 @@ export async function onBluetoothUpdate(
 	try {
 		var handler = (pattern:string, channel: string, data: any) => {
 			if (!channel.startsWith('bluetooth/notification')) return
-			let clearToSend = true;
-			let json_string = '{}';
-			let json_object = {};
-
+			// TODO: remove eventually
+			if (channel == 'bluetooth/notification/MODE') {
+				const enabled: boolean = (data == 'ENABLED') ? true : false
+				callback(channel, { enabled })
+				return
+			}
 			try {
-				json_object = JSON.parse(data);
+				const state = JSON.parse(data)
+				if (!_isObjectLike(state)) throw 'not objectLike'
+				callback(channel, state)
 			} catch (error) {
-				clearToSend = false;
-				console.log('onBluetoothUpdate error:', error);	
+				console.log('onBluetoothUpdate error:', error)
 			}
-
-			if (clearToSend) {
-				callback(channel, json_object)
-				
-			} else if ( channel == 'bluetooth/notification/MODE' ) {
-				const enabled: boolean = (data == 'ENABLED') ? true : false;
-				json_string = `{"enabled":${enabled}}`;	
-				json_object = JSON.parse(json_string);
-				callback(channel, json_object);
-			}
-			
 		};
 		subscriber.on("pmessage", handler);
 		subscriber.psubscribe(topic);

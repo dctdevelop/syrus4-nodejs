@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * RFID module get information about RFID states
+ * @module RFID
+ */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,10 +14,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.onRFIDEvent = exports.removeAll = exports.removeAlias = exports.setRFIDAlias = exports.clearLast = exports.getLast = exports.getAll = exports.RFIDUpdate = void 0;
-/**
- * RFID module get information about RFID states
- * @module RFID
- */
+const lodash_isobjectlike_1 = require("lodash.isobjectlike");
 const Redis_1 = require("./Redis");
 const Utils = require("./Utils");
 /**
@@ -28,7 +29,7 @@ class RFIDUpdate {
     }
     digest(event) {
         this.last = event;
-        if (event.whitelisted == true && event != undefined) {
+        if (event === null || event === void 0 ? void 0 : event.whitelisted) {
             this.authorized.last = event;
         }
         return this;
@@ -81,16 +82,14 @@ function onRFIDEvent(callback, errorCallback) {
             var handler = (channel, data) => {
                 if (channel != topic)
                     return;
-                let clearToSend = true;
                 try {
                     state = JSON.parse(data);
+                    if (!lodash_isobjectlike_1.default(state))
+                        throw 'not objectLike';
+                    callback(rfid_update.digest(state));
                 }
                 catch (error) {
-                    clearToSend = false;
                     console.log('onRFIDevent syntax error:', error);
-                }
-                if (clearToSend) {
-                    callback(rfid_update.digest(state));
                 }
             };
             Redis_1.SystemRedisSubscriber.subscribe(topic);

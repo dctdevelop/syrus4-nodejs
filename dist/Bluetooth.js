@@ -14,6 +14,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.onAppConsoleMessage = exports.onBluetoothUpdate = void 0;
+const lodash_isobjectlike_1 = require("lodash.isobjectlike");
 const Redis_1 = require("./Redis");
 // import * as Utils from "./Utils"
 function onBluetoothUpdate(callback, errorCallback) {
@@ -23,24 +24,20 @@ function onBluetoothUpdate(callback, errorCallback) {
             var handler = (pattern, channel, data) => {
                 if (!channel.startsWith('bluetooth/notification'))
                     return;
-                let clearToSend = true;
-                let json_string = '{}';
-                let json_object = {};
+                // TODO: remove eventually
+                if (channel == 'bluetooth/notification/MODE') {
+                    const enabled = (data == 'ENABLED') ? true : false;
+                    callback(channel, { enabled });
+                    return;
+                }
                 try {
-                    json_object = JSON.parse(data);
+                    const state = JSON.parse(data);
+                    if (!lodash_isobjectlike_1.default(state))
+                        throw 'not objectLike';
+                    callback(channel, state);
                 }
                 catch (error) {
-                    clearToSend = false;
                     console.log('onBluetoothUpdate error:', error);
-                }
-                if (clearToSend) {
-                    callback(channel, json_object);
-                }
-                else if (channel == 'bluetooth/notification/MODE') {
-                    const enabled = (data == 'ENABLED') ? true : false;
-                    json_string = `{"enabled":${enabled}}`;
-                    json_object = JSON.parse(json_string);
-                    callback(channel, json_object);
                 }
             };
             Redis_1.SystemRedisSubscriber.on("pmessage", handler);

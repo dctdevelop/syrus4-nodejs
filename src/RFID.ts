@@ -1,8 +1,9 @@
-
 /**
  * RFID module get information about RFID states
  * @module RFID
  */
+
+import _isObjectLike from 'lodash.isobjectlike'
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import * as Utils from "./Utils"
 
@@ -37,8 +38,7 @@ export class RFIDUpdate{
 
     public digest( event: RFIDEvent ) {
         this.last = event;
-
-        if ( event.whitelisted == true && event != undefined ) {
+        if ( event?.whitelisted ) {
             this.authorized.last = event;
         }
         return this
@@ -87,19 +87,13 @@ export async function onRFIDEvent( callback:(arg: RFIDUpdate) => void, errorCall
     var state: RFIDEvent;
     var handler = (channel: string, data: any) => {
     if (channel != topic) return
-      let clearToSend = true;
-
       try {
         state = JSON.parse(data);
-      } catch (error) {
-        clearToSend = false;
-        console.log('onRFIDevent syntax error:', error);  
-      }
-      
-      if(clearToSend) {
+        if (!_isObjectLike(state)) throw 'not objectLike'
         callback(rfid_update.digest(state))
+      } catch (error) {
+        console.log('onRFIDevent syntax error:', error);
       }
-      
     };
     subscriber.subscribe(topic);
     subscriber.on("message", handler);
