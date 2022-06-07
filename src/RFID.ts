@@ -86,7 +86,7 @@ export async function onRFIDEvent( callback:(arg: RFIDUpdate) => void, errorCall
   try {
     var state: RFIDEvent;
     var handler = (channel: string, data: any) => {
-    if (channel != topic) return
+      if (channel != topic) return
       try {
         state = JSON.parse(data);
         if (!_isObjectLike(state)) throw 'not objectLike'
