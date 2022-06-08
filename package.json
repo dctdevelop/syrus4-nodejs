@@ -29,6 +29,7 @@
 	"devDependencies": {
 		"@types/chai": "^4.2.14",
 		"@types/ioredis": "^4.14.1",
+		"@types/lodash.isobjectlike": "^4.0.7",
 		"@types/mocha": "^8.2.0",
 		"@types/node": "^12.12.17",
 		"@types/redis": "^2.8.14",
