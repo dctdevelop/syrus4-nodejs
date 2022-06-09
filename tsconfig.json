@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
+		"target": "es2019",
+		"module": "commonjs",
+		"lib": ["es2020"],
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"target": "ES2019",
-		"module": "commonjs",
+		"resolveJsonModule": true,
 		"outDir": "dist",
 		"rootDir": "src",
-		"resolveJsonModule": true
 	},
 	"include": ["src/**/*"],
 	"exclude": [
