@@ -50,9 +50,6 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
 </dd>
-<dt><a href="#module_Onewire">Onewire</a></dt>
-<dd><p>Onewire module get information about onewire</p>
-</dd>
 <dt><a href="#module_RFID">RFID</a></dt>
 <dd><p>RFID module get information about RFID states</p>
 </dd>
@@ -87,15 +84,6 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 </dd>
 <dt><a href="#set">set(key, value)</a></dt>
 <dd><p>Use this option to configure the network variable for mobile networks</p>
-</dd>
-<dt><a href="#watchTrackingResolution">watchTrackingResolution(callback, opts)</a></dt>
-<dd><p>define a tracking resolution using apx-tracking tool to receive filtered data gps</p>
-</dd>
-<dt><a href="#getActiveTrackingsResolutions">getActiveTrackingsResolutions(prefixed)</a></dt>
-<dd><p>get all the active tracking resolutions`in the apex tol apx-tracking</p>
-</dd>
-<dt><a href="#setTrackingResolution">setTrackingResolution(opts)</a></dt>
-<dd><p>set options for a tracking_resolution for the apex tool apx-tracking</p>
 </dd>
 </dl>
 
@@ -885,35 +873,6 @@ get Network Information about specific network
 get network information about all the available networks on APEX OS
 
 **Kind**: inner method of [<code>Network</code>](#module_Network)  
-<a name="module_Onewire"></a>
-
-## Onewire
-Onewire module get information about onewire
-
-
-* [Onewire](#module_Onewire)
-    * [~getAll()](#module_Onewire..getAll)
-    * [~get()](#module_Onewire..get)
-    * [~create()](#module_Onewire..create)
-
-<a name="module_Onewire..getAll"></a>
-
-### Onewire~getAll()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..get"></a>
-
-### Onewire~get()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
-<a name="module_Onewire..create"></a>
-
-### Onewire~create()
-allow to get al lthe state of the ibuttons connected
-
-**Kind**: inner method of [<code>Onewire</code>](#module_Onewire)  
 <a name="module_RFID"></a>
 
 ## RFID
@@ -1372,40 +1331,6 @@ Use this option to configure the network variable for mobile networks
 | --- | --- |
 | key | the paramter to be configured, posible values are: "apn", "user", "pin", "pass" |
 | value | the new value of the parameter |
-
-<a name="watchTrackingResolution"></a>
-
-## watchTrackingResolution(callback, opts)
-define a tracking resolution using apx-tracking tool to receive filtered data gps
-
-**Kind**: global function  
-
-| Param | Description |
-| --- | --- |
-| callback | callback to execute when new data arrive from tracking resolution |
-| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
-
-<a name="getActiveTrackingsResolutions"></a>
-
-## getActiveTrackingsResolutions(prefixed)
-get all the active tracking resolutions`in the apex tol apx-tracking
-
-**Kind**: global function  
-
-| Param | Description |
-| --- | --- |
-| prefixed | prefix to lookup tracking_resolution |
-
-<a name="setTrackingResolution"></a>
-
-## setTrackingResolution(opts)
-set options for a tracking_resolution for the apex tool apx-tracking
-
-**Kind**: global function  
-
-| Param | Description |
-| --- | --- |
-| opts | tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000) |
 
 
 * * *
