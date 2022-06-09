@@ -1,16 +1,10 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SystemRedisSubscriber = exports.SystemRedisClient = exports.redisSubscriber = exports.redisClient = exports.disconnectAll = void 0;
-const Redis = require("ioredis");
+const ioredis_1 = __importDefault(require("ioredis"));
 let { SYRUS4G_REMOTE } = process.env;
 let { SYRUS4G_APPS_REDIS_HOST, SYRUS4G_APPS_REDIS_PORT } = process.env;
 let { SYRUS4G_SYSTEM_REDIS_HOST, SYRUS4G_SYSTEM_REDIS_PORT, SYRUS4G_SYSTEM_REDIS_PW } = process.env;
@@ -41,24 +35,22 @@ console.log({
     REDIS_CONF: _obfuscate(REDIS_CONF),
     SYSTEM_REDIS_CONF: _obfuscate(SYSTEM_REDIS_CONF)
 });
-const redisClient = new Redis(REDIS_CONF);
+const redisClient = new ioredis_1.default(REDIS_CONF);
 exports.redisClient = redisClient;
-const redisSubscriber = new Redis(REDIS_CONF);
+const redisSubscriber = new ioredis_1.default(REDIS_CONF);
 exports.redisSubscriber = redisSubscriber;
-const SystemRedisClient = new Redis(SYSTEM_REDIS_CONF);
+const SystemRedisClient = new ioredis_1.default(SYSTEM_REDIS_CONF);
 exports.SystemRedisClient = SystemRedisClient;
-const SystemRedisSubscriber = new Redis(SYSTEM_REDIS_CONF);
+const SystemRedisSubscriber = new ioredis_1.default(SYSTEM_REDIS_CONF);
 exports.SystemRedisSubscriber = SystemRedisSubscriber;
 redisSubscriber.setMaxListeners(50);
 redisClient.setMaxListeners(50);
 SystemRedisClient.setMaxListeners(50);
 SystemRedisSubscriber.setMaxListeners(50);
-function disconnectAll() {
-    return __awaiter(this, void 0, void 0, function* () {
-        redisClient.disconnect();
-        redisSubscriber.disconnect();
-        SystemRedisClient.disconnect();
-        SystemRedisSubscriber.disconnect();
-    });
+async function disconnectAll() {
+    redisClient.disconnect();
+    redisSubscriber.disconnect();
+    SystemRedisClient.disconnect();
+    SystemRedisSubscriber.disconnect();
 }
 exports.disconnectAll = disconnectAll;

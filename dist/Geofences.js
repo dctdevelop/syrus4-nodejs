@@ -1,15 +1,25 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Utils = require("./Utils");
+const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
 /**
  * Geofences module
@@ -67,10 +77,8 @@ function removeGeofence({ name, group = "", namespace }) {
  * get all available namespaces
  * @return {*}
  */
-function getNamespaces() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return Utils.OSExecute(`apx-geofences getns`);
-    });
+async function getNamespaces() {
+    return Utils.OSExecute(`apx-geofences getns`);
 }
 /**
  * Get geofence state from the apx-tool
@@ -78,46 +86,40 @@ function getNamespaces() {
  * name: name of the fence;
  * namespace: namespace;
  */
-function get({ namespace = "", name = null } = {}) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!namespace) {
-            namespace = Utils.getPrefix();
-        }
-        var results = yield Utils.OSExecute(`apx-geofences getstatus ${namespace}`);
-        results = results.map(fence => {
-            if (!fence.name)
-                fence.name = fence.geo_name;
-            fence.time = new Date(parseInt(fence.time) * 1000);
-            return fence;
-        });
-        if (name) {
-            return results.find(fence => fence.name == name);
-        }
-        return results;
+async function get({ namespace = "", name = null } = {}) {
+    if (!namespace) {
+        namespace = Utils.getPrefix();
+    }
+    var results = await Utils.OSExecute(`apx-geofences getstatus ${namespace}`);
+    results = results.map(fence => {
+        if (!fence.name)
+            fence.name = fence.geo_name;
+        fence.time = new Date(parseInt(fence.time) * 1000);
+        return fence;
     });
+    if (name) {
+        return results.find(fence => fence.name == name);
+    }
+    return results;
 }
 /**
  * Get states from all Geofences for a given namespace
  * @param opts options hash
  * namespace: namespace that belongs of geofence;
  */
-function getAll(opts) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield get(opts);
-    });
+async function getAll(opts) {
+    return await get(opts);
 }
 /**
  * remove all Geofences from the namespace
  * @param opts options hash
  * namespace: namespace that belongs of geofence;
  */
-function deleteAll({ namespace = null } = {}) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!namespace) {
-            namespace = Utils.getPrefix();
-        }
-        return Utils.OSExecute(`apx-geofences remove ${namespace}`);
-    });
+async function deleteAll({ namespace = null } = {}) {
+    if (!namespace) {
+        namespace = Utils.getPrefix();
+    }
+    return Utils.OSExecute(`apx-geofences remove ${namespace}`);
 }
 /**
  *

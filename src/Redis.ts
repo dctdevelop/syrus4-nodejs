@@ -1,4 +1,4 @@
-import * as Redis from "ioredis";
+import Redis from "ioredis";
 
 interface REDIS { host: string, port: number, password?: string }
 

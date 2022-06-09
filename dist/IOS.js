@@ -1,12 +1,22 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
@@ -14,7 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module IOS
  */
 const Redis_1 = require("./Redis");
-const Utils = require("./Utils");
+const Utils = __importStar(require("./Utils"));
 /**
  * Allow to subcribe to changes in a input or output accepts sub patterns
  * @param inputName input or patter to subscribe
@@ -61,45 +71,39 @@ function watchInputState(inputName = "*", cb, errorCallback) {
  * get a promise that resolve the current input or output state
  * @param inputName the input/output requested
  */
-function getInputState(inputName = "IGN") {
-    return __awaiter(this, void 0, void 0, function* () {
-        var response = yield Utils.OSExecute(`apx-io get ${inputName}`);
-        return response == "true";
-    });
+async function getInputState(inputName = "IGN") {
+    var response = await Utils.OSExecute(`apx-io get ${inputName}`);
+    return response == "true";
 }
 /**
  * Allow to change the state of an output
  * @param inputName the output to change state
  * @param state the new state  of the output
  */
-function setOutputState(inputName = "OUT1", state = true) {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield Utils.OSExecute(`apx-io set ${inputName} ${state}`);
-        return `${state}` == "true";
-    });
+async function setOutputState(inputName = "OUT1", state = true) {
+    await Utils.OSExecute(`apx-io set ${inputName} ${state}`);
+    return `${state}` == "true";
 }
 /**
  * Get the current state of all inputs, outputs and analogs in the Syrus4 device
  */
-function getAll() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let [inputs, ierr] = yield Utils.$to(Utils.OSExecute(`apx-io getall inputs`));
-        let [outputs, oerr] = yield Utils.$to(Utils.OSExecute(`apx-io getall outputs`));
-        let [analogs, anerror] = yield Utils.$to(Utils.OSExecute(`apx-io getall analogs`));
-        if (ierr) {
-            inputs = {};
-            console.error(ierr);
-        }
-        if (oerr) {
-            outputs = {};
-            console.error(oerr);
-        }
-        if (anerror) {
-            analogs = {};
-            console.error(anerror);
-        }
-        return Object.assign(Object.assign(Object.assign({}, inputs), outputs), analogs);
-    });
+async function getAll() {
+    let [inputs, ierr] = await Utils.$to(Utils.OSExecute(`apx-io getall inputs`));
+    let [outputs, oerr] = await Utils.$to(Utils.OSExecute(`apx-io getall outputs`));
+    let [analogs, anerror] = await Utils.$to(Utils.OSExecute(`apx-io getall analogs`));
+    if (ierr) {
+        inputs = {};
+        console.error(ierr);
+    }
+    if (oerr) {
+        outputs = {};
+        console.error(oerr);
+    }
+    if (anerror) {
+        analogs = {};
+        console.error(anerror);
+    }
+    return { ...inputs, ...outputs, ...analogs };
 }
 exports.default = {
     watchInputState,

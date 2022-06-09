@@ -1,12 +1,22 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
@@ -14,7 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module GPS
  */
 const Redis_1 = require("./Redis");
-const Utils = require("./Utils");
+const Utils = __importStar(require("./Utils"));
 function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
@@ -86,7 +96,7 @@ function evaluateCriteria(current, last = null, config = { hdop: 3, distance: 0,
  * Get last current location from GPS
  */
 function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, heading: 0 }) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+    return new Promise(async (resolve, reject) => {
         try {
             var timeoutToTransmit;
             var handler = function (channel, gps) {
@@ -118,7 +128,7 @@ function getCurrentPosition(config = { hdop: 0, distance: 0, time: 0, heading: 0
         catch (error) {
             reject(error);
         }
-    }));
+    });
 }
 /**
  * allows to subscribe to position events in GPS module
@@ -227,18 +237,16 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
  *  get all the active tracking resolutions`in the apex tol apx-tracking
  * @param prefixed prefix to lookup tracking_resolution
  */
-function getActiveTrackingsResolutions(prefixed = "") {
-    return __awaiter(this, void 0, void 0, function* () {
-        var tracks = yield Utils.OSExecute(`apx-tracking getall`);
-        var response = {};
-        for (const key in tracks) {
-            if (!key.startsWith(prefixed))
-                continue;
-            const track = tracks[key];
-            response[key] = { heading: track[0], time: track[1], distance: track[2] };
-        }
-        return response;
-    });
+async function getActiveTrackingsResolutions(prefixed = "") {
+    var tracks = await Utils.OSExecute(`apx-tracking getall`);
+    var response = {};
+    for (const key in tracks) {
+        if (!key.startsWith(prefixed))
+            continue;
+        const track = tracks[key];
+        response[key] = { heading: track[0], time: track[1], distance: track[2] };
+    }
+    return response;
 }
 const tracking_resolutions = {
     initialized: false,
@@ -267,45 +275,41 @@ function __initExitHandlers() {
  * set options for a tracking_resolution for the apex tool apx-tracking
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!prefix) {
-            prefix = Utils.getPrefix();
-        }
-        if (!namespace) {
-            throw "Namespace is required";
-        }
-        var name = `${prefix}_${namespace}`;
-        yield Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
-        if (deleteOnExit) {
-            tracking_resolutions.names.push(name);
-            __initExitHandlers();
-        }
-        return true;
-    });
+async function setTrackingResolution({ distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+    if (!prefix) {
+        prefix = Utils.getPrefix();
+    }
+    if (!namespace) {
+        throw "Namespace is required";
+    }
+    var name = `${prefix}_${namespace}`;
+    await Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+    if (deleteOnExit) {
+        tracking_resolutions.names.push(name);
+        __initExitHandlers();
+    }
+    return true;
 }
 /**
  * get options for a tracking_resolution for the apex tool apx-tracking
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.
  */
-function getTrackingResolution({ namespace, prefix }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!prefix) {
-            prefix = Utils.getPrefix();
-        }
-        if (!namespace) {
-            throw "Namespace is required";
-        }
-        var name = `${prefix}_${namespace}`;
-        var resp = yield Utils.OSExecute(`apx-tracking get "${name}"`);
-        if (!resp[name] || resp[name].length == 0)
-            return null;
-        return {
-            heading: resp[name][0],
-            time: resp[name][1],
-            distance: resp[name][2]
-        };
-    });
+async function getTrackingResolution({ namespace, prefix }) {
+    if (!prefix) {
+        prefix = Utils.getPrefix();
+    }
+    if (!namespace) {
+        throw "Namespace is required";
+    }
+    var name = `${prefix}_${namespace}`;
+    var resp = await Utils.OSExecute(`apx-tracking get "${name}"`);
+    if (!resp[name] || resp[name].length == 0)
+        return null;
+    return {
+        heading: resp[name][0],
+        time: resp[name][1],
+        distance: resp[name][2]
+    };
 }
 exports.default = {
     deg2rad,

@@ -1,12 +1,22 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.onLogEvent = exports.deleteConfiguration = exports.setConfiguration = exports.getStatus = exports.getConfiguration = exports.listConfigurations = void 0;
@@ -14,62 +24,54 @@ exports.onLogEvent = exports.deleteConfiguration = exports.setConfiguration = ex
  * Counters module setup get and set counters from APEX OS
  * @module Logrotate
  */
-const Utils = require("./Utils");
+const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
-function listConfigurations() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return JSON.parse(yield Utils.OSExecute(`apx-logrotate read --name=all`));
-    });
+async function listConfigurations() {
+    return JSON.parse(await Utils.OSExecute(`apx-logrotate read --name=all`));
 }
 exports.listConfigurations = listConfigurations;
-function getConfiguration(name) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "Name is required";
-        return JSON.parse(yield Utils.OSExecute(`apx-logrotate read --name=${name}`));
-    });
+async function getConfiguration(name) {
+    if (!name)
+        throw "Name is required";
+    return JSON.parse(await Utils.OSExecute(`apx-logrotate read --name=${name}`));
 }
 exports.getConfiguration = getConfiguration;
-function getStatus(name = 'all') {
-    return __awaiter(this, void 0, void 0, function* () {
-        return JSON.parse(yield Utils.OSExecute(`apx-logrotate status --name=${name}`));
-    });
+async function getStatus(name = 'all') {
+    return JSON.parse(await Utils.OSExecute(`apx-logrotate status --name=${name}`));
 }
 exports.getStatus = getStatus;
-function setConfiguration(name, path, rotate = '1D', size = '100MB', compress = true) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "Name is required";
-        if (!path)
-            throw "Path is required";
-        const rotation = rotate.slice(0, -1);
-        const rotate_size = size.slice(0, -1);
-        let period = rotate.slice(1);
-        switch (period) {
-            case 'H':
-                period = 'hourly';
-                break;
-            case 'D':
-                period = 'daily';
-                break;
-            case 'W':
-                period = 'weekly';
-                break;
-            case 'Y':
-                period = 'yearly';
-                break;
-            default:
-                break;
-        }
-        let response = undefined;
-        try {
-            response = yield Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress}`);
-        }
-        catch (error) {
-            console.log('setConfiguration error:', error);
-        }
-        return response;
-    });
+async function setConfiguration(name, path, rotate = '1D', size = '100MB', compress = true) {
+    if (!name)
+        throw "Name is required";
+    if (!path)
+        throw "Path is required";
+    const rotation = rotate.slice(0, -1);
+    const rotate_size = size.slice(0, -1);
+    let period = rotate.slice(1);
+    switch (period) {
+        case 'H':
+            period = 'hourly';
+            break;
+        case 'D':
+            period = 'daily';
+            break;
+        case 'W':
+            period = 'weekly';
+            break;
+        case 'Y':
+            period = 'yearly';
+            break;
+        default:
+            break;
+    }
+    let response = undefined;
+    try {
+        response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress}`);
+    }
+    catch (error) {
+        console.log('setConfiguration error:', error);
+    }
+    return response;
 }
 exports.setConfiguration = setConfiguration;
 function deleteConfiguration(name) {
@@ -78,42 +80,40 @@ function deleteConfiguration(name) {
     return Utils.OSExecute(`apx-logrotate remove --name=${name}`);
 }
 exports.deleteConfiguration = deleteConfiguration;
-function onLogEvent(callback, errorCallback) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const topic = "logrotate/notification/state";
-        // Subscribe to receive redis updates
-        try {
-            var state;
-            var handler = (channel, data) => {
-                if (channel != topic)
-                    return;
-                let clearToSend = true;
-                try {
-                    state = JSON.parse(data);
-                }
-                catch (error) {
-                    clearToSend = false;
-                    console.log('onLogEvent syntax error:', error);
-                }
-                if (clearToSend) {
-                    callback(state);
-                }
-            };
-            Redis_1.SystemRedisSubscriber.subscribe(topic);
-            Redis_1.SystemRedisSubscriber.on("message", handler);
-        }
-        catch (error) {
-            console.error('onLogEvent error:', error);
-            errorCallback(error);
-        }
-        let returnable = {
-            unsubscribe: () => {
-                Redis_1.SystemRedisSubscriber.off("message", handler);
-                Redis_1.SystemRedisSubscriber.unsubscribe(topic);
-            },
-            off: function () { this.unsubscribe(); }
+async function onLogEvent(callback, errorCallback) {
+    const topic = "logrotate/notification/state";
+    // Subscribe to receive redis updates
+    try {
+        var state;
+        var handler = (channel, data) => {
+            if (channel != topic)
+                return;
+            let clearToSend = true;
+            try {
+                state = JSON.parse(data);
+            }
+            catch (error) {
+                clearToSend = false;
+                console.log('onLogEvent syntax error:', error);
+            }
+            if (clearToSend) {
+                callback(state);
+            }
         };
-        return returnable;
-    });
+        Redis_1.SystemRedisSubscriber.subscribe(topic);
+        Redis_1.SystemRedisSubscriber.on("message", handler);
+    }
+    catch (error) {
+        console.error('onLogEvent error:', error);
+        errorCallback(error);
+    }
+    let returnable = {
+        unsubscribe: () => {
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+        },
+        off: function () { this.unsubscribe(); }
+    };
+    return returnable;
 }
 exports.onLogEvent = onLogEvent;

@@ -1,24 +1,32 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Counters module setup get and set counters from APEX OS
  * @module Counters
  */
-const Utils = require("./Utils");
-function exists(name) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var counters = yield Utils.OSExecute(`apx-counter list`);
-        return !!counters[`${name}`] || !!counters[`counter_${name}`];
-    });
+const Utils = __importStar(require("./Utils"));
+async function exists(name) {
+    var counters = await Utils.OSExecute(`apx-counter list`);
+    return !!counters[`${name}`] || !!counters[`counter_${name}`];
 }
 const COUNTER_KEYS = [
     "odometer", "ignition_time", "idle_time",
@@ -26,83 +34,69 @@ const COUNTER_KEYS = [
     "harsh_fwd_acceleration", "rpm_threshold",
     "speed_threshold", "begin_idle_time"
 ];
-function startCounters(config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const name = config.name;
-        if (!name)
-            throw "name is required";
-        const shouldSet = config.forceSet || !(yield exists(name));
-        yield Utils.OSExecute(`apx-counter start ${name}`);
-        if (!shouldSet)
-            return;
-        for (const key of COUNTER_KEYS) {
-            if (config.key == undefined)
-                continue;
-            Utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`);
+async function startCounters(config) {
+    const name = config.name;
+    if (!name)
+        throw "name is required";
+    const shouldSet = config.forceSet || !(await exists(name));
+    await Utils.OSExecute(`apx-counter start ${name}`);
+    if (!shouldSet)
+        return;
+    for (const key of COUNTER_KEYS) {
+        if (config.key == undefined)
+            continue;
+        Utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`);
+    }
+}
+async function getCounters(name) {
+    if (!name)
+        throw "name is required";
+    return await Utils.OSExecute(`apx-counter getall ${name}`);
+}
+async function watchCounters(name, cb, cbError, interval = 15) {
+    if (!name)
+        throw "name is required";
+    if (!(await exists(name)))
+        throw "counter does not exists";
+    try {
+        var intervalHandler = setInterval(async () => {
+            var results = (await getCounters(name));
+            cb(results);
+        }, interval * 1000);
+    }
+    catch (error) {
+        cbError(error);
+    }
+    return {
+        off() {
+            clearInterval(intervalHandler);
+        },
+        unsubscribe() {
+            clearInterval(intervalHandler);
         }
-    });
+    };
 }
-function getCounters(name) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "name is required";
-        return yield Utils.OSExecute(`apx-counter getall ${name}`);
-    });
+async function stopCounters(name) {
+    if (!name)
+        throw "name is required";
+    await Utils.OSExecute(`apx-counter start ${name}`);
 }
-function watchCounters(name, cb, cbError, interval = 15) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "name is required";
-        if (!(yield exists(name)))
-            throw "counter does not exists";
-        try {
-            var intervalHandler = setInterval(() => __awaiter(this, void 0, void 0, function* () {
-                var results = (yield getCounters(name));
-                cb(results);
-            }), interval * 1000);
-        }
-        catch (error) {
-            cbError(error);
-        }
-        return {
-            off() {
-                clearInterval(intervalHandler);
-            },
-            unsubscribe() {
-                clearInterval(intervalHandler);
-            }
-        };
-    });
+async function resetCounters(name) {
+    if (!name)
+        throw "name is required";
+    await Utils.OSExecute(`apx-counter reset ${name}`);
 }
-function stopCounters(name) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "name is required";
-        yield Utils.OSExecute(`apx-counter start ${name}`);
-    });
+async function deleteCounters(name) {
+    if (!name)
+        throw "name is required";
+    await Utils.OSExecute(`apx-counter delete ${name}`);
 }
-function resetCounters(name) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "name is required";
-        yield Utils.OSExecute(`apx-counter reset ${name}`);
-    });
-}
-function deleteCounters(name) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!name)
-            throw "name is required";
-        yield Utils.OSExecute(`apx-counter delete ${name}`);
-    });
-}
-function listCounters() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _counters = yield Utils.OSExecute(`apx-counter list`);
-        var counters = {};
-        for (const key in _counters) {
-            counters[`${key.replace("counter_", "")}`];
-        }
-        return counters;
-    });
+async function listCounters() {
+    var _counters = await Utils.OSExecute(`apx-counter list`);
+    var counters = {};
+    for (const key in _counters) {
+        counters[`${key.replace("counter_", "")}`];
+    }
+    return counters;
 }
 exports.default = { startCounters, stopCounters, resetCounters, watchCounters, listCounters, deleteCounters };

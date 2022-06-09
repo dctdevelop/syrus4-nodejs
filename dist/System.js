@@ -1,15 +1,25 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Utils = require("./Utils");
+const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
 /**
  * System module get information about ApexOS
@@ -24,11 +34,9 @@ function info() {
 /**
  * Get Modem about the system like RAM,CPU,uptime, etc
  */
-function modem() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var response = yield Redis_1.SystemRedisClient.hgetall("modem_information");
-        return response;
-    });
+async function modem() {
+    var response = await Redis_1.SystemRedisClient.hgetall("modem_information");
+    return response;
 }
 /**
  * handler to detect power save mode and execute callback 15 seconds before the device goes to sleep
@@ -60,77 +68,71 @@ function onSleepOn(callback, errorCallback) {
 /**
  * Get the latest wakeup reason and timestamp from sleep on from APEX OS
  */
-function getLastWakeUp() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var data = yield Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
-        if (data.length === 0)
-            return false;
-        for (const entry of data) {
-            if (entry.indexOf("PSM_ACTIVATED,") == -1) {
-                var parts = entry.split(",");
-                var unix = parts.pop();
-                return {
-                    wakeup_reason: parts[0],
-                    reasons: parts,
-                    timestamp: new Date(parseInt(unix) * 1000)
-                };
-            }
-        }
+async function getLastWakeUp() {
+    var data = await Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
+    if (data.length === 0)
         return false;
-    });
+    for (const entry of data) {
+        if (entry.indexOf("PSM_ACTIVATED,") == -1) {
+            var parts = entry.split(",");
+            var unix = parts.pop();
+            return {
+                wakeup_reason: parts[0],
+                reasons: parts,
+                timestamp: new Date(parseInt(unix) * 1000)
+            };
+        }
+    }
+    return false;
 }
 /**
  * Get the latest time from  sleep on event from APEX OS
  */
-function getlastSleepOn() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var data = yield Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
-        if (data.length === 0)
-            return false;
-        for (const entry of data) {
-            if (entry.indexOf("PSM_ACTIVATED,") != -1) {
-                var parts = entry.split(",");
-                var unix = parts.pop();
-                return {
-                    event: "wakeup",
-                    timestamp: new Date(parseInt(unix) * 1000)
-                };
-            }
-        }
+async function getlastSleepOn() {
+    var data = await Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
+    if (data.length === 0)
         return false;
-    });
+    for (const entry of data) {
+        if (entry.indexOf("PSM_ACTIVATED,") != -1) {
+            var parts = entry.split(",");
+            var unix = parts.pop();
+            return {
+                event: "wakeup",
+                timestamp: new Date(parseInt(unix) * 1000)
+            };
+        }
+    }
+    return false;
 }
 /**
  * Get the list of latets sleep on and wakeup events with reason and timestamp
  */
-function getWakeUpList() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var list = [];
-        var data = yield Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
-        if (data.length === 0)
-            return [];
-        for (const entry of data) {
-            if (entry.indexOf("PSM_ACTIVATED,") == -1) {
-                let parts = entry.split(",");
-                let unix = parts.pop();
-                list.push({
-                    wakeup_reason: parts[0],
-                    reasons: parts,
-                    timestamp: new Date(parseInt(unix) * 1000),
-                    event: "wakeup"
-                });
-            }
-            else {
-                let parts = entry.split(",");
-                let unix = parts.pop();
-                list.push({
-                    timestamp: new Date(parseInt(unix) * 1000),
-                    event: "sleep"
-                });
-            }
+async function getWakeUpList() {
+    var list = [];
+    var data = await Redis_1.SystemRedisClient.lrange("psm_events", 0, 5);
+    if (data.length === 0)
+        return [];
+    for (const entry of data) {
+        if (entry.indexOf("PSM_ACTIVATED,") == -1) {
+            let parts = entry.split(",");
+            let unix = parts.pop();
+            list.push({
+                wakeup_reason: parts[0],
+                reasons: parts,
+                timestamp: new Date(parseInt(unix) * 1000),
+                event: "wakeup"
+            });
         }
-        return list;
-    });
+        else {
+            let parts = entry.split(",");
+            let unix = parts.pop();
+            list.push({
+                timestamp: new Date(parseInt(unix) * 1000),
+                event: "sleep"
+            });
+        }
+    }
+    return list;
 }
 var defined = false;
 var handlers = [];

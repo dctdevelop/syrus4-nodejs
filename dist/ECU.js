@@ -3,37 +3,45 @@
  * ECU module get information about EcU monitor and vehicle in ApexOS
  * @module ECU
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
-const fs = require("fs");
-const path = require("path");
+const fs = __importStar(require("fs"));
+const path = __importStar(require("path"));
 const tag_params_1 = require("tag-params");
-const Utils = require("./Utils");
+const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
 /**
  * ECU PARAM LIST from the ecu monitor
  */
-function getECUInfo() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var resp = yield Utils.OSExecute(`apx-ecu configure`);
-        var resp2 = yield Redis_1.SystemRedisClient.hgetall(`ecumonitor_current_state`);
-        return {
-            primary_can: resp.PRIMARY_CAN,
-            secondary_can: resp.SECONDARY_CAN,
-            J1708: resp.J1708,
-            listen_only_mode: resp.LISTEN_ONLY_MODE,
-            version: resp2.ECUMONITOR_VERSION
-        };
-    });
+async function getECUInfo() {
+    var resp = await Utils.OSExecute(`apx-ecu configure`);
+    var resp2 = await Redis_1.SystemRedisClient.hgetall(`ecumonitor_current_state`);
+    return {
+        primary_can: resp.PRIMARY_CAN,
+        secondary_can: resp.SECONDARY_CAN,
+        J1708: resp.J1708,
+        listen_only_mode: resp.LISTEN_ONLY_MODE,
+        version: resp2.ECUMONITOR_VERSION
+    };
 }
 exports.getECUInfo = getECUInfo;
 function template(strings, ...keys) {
@@ -53,7 +61,7 @@ function watchECUParams(cb, errorCallback) {
     const errors_cache = {};
     const error_pgn = "feca_3-6";
     try {
-        var handler = (channel, raw) => __awaiter(this, void 0, void 0, function* () {
+        var handler = async (channel, raw) => {
             if (channel != "ecumonitor/parameters")
                 return;
             const ecu_values = {};
@@ -106,18 +114,18 @@ function watchECUParams(cb, errorCallback) {
                 let error_codes = { spn: 0, fmi: 0, cm: 0, oc: 0 };
                 let cached = errors_cache[encoded_error];
                 if (!cached) {
-                    let [decoded, decoded_error] = yield Utils.$to(Utils.OSExecute(`apx-ecu decode --unique_id=${error_pgn} --value=${encoded_error}`));
+                    let [decoded, decoded_error] = await Utils.$to(Utils.OSExecute(`apx-ecu decode --unique_id=${error_pgn} --value=${encoded_error}`));
                     if (decoded_error)
                         console.error(decoded_error);
                     if (decoded) {
                         cached = errors_cache[encoded_error] = decoded;
                     }
                 }
-                error_codes = Object.assign(Object.assign({}, error_codes), cached);
+                error_codes = { ...error_codes, ...cached };
                 ecu_values['error_codes'] = error_codes;
             }
             cb(ecu_values);
-        });
+        };
         Redis_1.SystemRedisSubscriber.subscribe("ecumonitor/parameters");
         Redis_1.SystemRedisSubscriber.on("message", handler);
     }
@@ -137,16 +145,14 @@ exports.watchECUParams = watchECUParams;
 /**
  * Get all the most recent data from ECU parameters
  */
-function getECUParams() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const ecu_params = yield Utils.OSExecute("apx-ecu list_parameters");
-        const ecu_values = {};
-        for (const key in ecu_params) {
-            const value = ecu_params[key];
-            ecu_values[`${key}`] = isNaN(Number(value)) ? value : Number(value);
-        }
-        return ecu_values;
-    });
+async function getECUParams() {
+    const ecu_params = await Utils.OSExecute("apx-ecu list_parameters");
+    const ecu_values = {};
+    for (const key in ecu_params) {
+        const value = ecu_params[key];
+        ecu_values[`${key}`] = isNaN(Number(value)) ? value : Number(value);
+    }
+    return ecu_values;
 }
 exports.getECUParams = getECUParams;
 let __ecu_loaded = false;
@@ -175,7 +181,7 @@ function getECUList(reload = false) {
             filenames.push(filename);
             try {
                 let data = require(path.join(ecu_path, filename));
-                __ecu_params = Object.assign(Object.assign({}, __ecu_params), data);
+                __ecu_params = { ...__ecu_params, ...data };
             }
             catch (error) {
                 console.error(error);
