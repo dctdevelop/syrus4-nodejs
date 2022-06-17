@@ -69,3 +69,6 @@ const Utils = __importStar(require("./Utils"));
 exports.Utils = Utils;
 const WIFI_1 = __importDefault(require("./WIFI"));
 exports.WIFI = WIFI_1.default;
+GPS_1.default.watchTrackingResolution(event => {
+    console.log('WatchTrackingResolution', event);
+}, { namespace: 'somename', time: 60, prefix: 'syrus' });

@@ -51,7 +51,8 @@ function rawdataToCoordinates(raw: string) {
 			fix: gps.fix,
 			satsActive: gps.satused,
 			satsVisible: gps.satview,
-			criteria: gps.type
+			criteria: gps.type,
+			acceleration: gps.kphs || 0 	 
 		}
 	};
 }
@@ -163,7 +164,7 @@ function watchGPS(callback, errorCallback: Function) {
  * @param callback callback to execute when new data arrive from tracking resolution
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true }) {
+function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true, highPosAcc = 0, lowPosAcc = 0, highNegAcc = 0, lowNegAcc = 0}) {
 	if (!prefix) {
 		prefix = Utils.getPrefix();
 	}
@@ -171,7 +172,7 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-	if (!(!heading && !time && !distance)) Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	if (!(!heading && !time && !distance)) Utils.OSExecute(`apx-tracking set  --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --acc-thresholds=${highPosAcc},${lowPosAcc},${highNegAcc},${lowNegAcc}`); // Adde accel variables
 	var handler = function (channel, gps) {
 		if (channel !== `tracking/notification/${name}`) return;
 		var position = rawdataToCoordinates(gps);
@@ -249,7 +250,7 @@ function __initExitHandlers() {
  * set options for a tracking_resolution for the apex tool apx-tracking
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-async function setTrackingResolution({ distance=0, heading=0, time=0, namespace, prefix, deleteOnExit=true }) {
+async function setTrackingResolution({ distance=0, heading=0, time=0, namespace, prefix, deleteOnExit=true, highPosAcc = 0, lowPosAcc = 0, highNegAcc = 0, lowNegAcc = 0 }) {
 	if (!prefix) {
 		prefix = Utils.getPrefix();
 	}
@@ -257,7 +258,7 @@ async function setTrackingResolution({ distance=0, heading=0, time=0, namespace,
 		throw "Namespace is required";
 	}
 	var name = `${prefix}_${namespace}`;
-	await Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance}`);
+	await Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance} --acc-thresholds=${highPosAcc},${lowPosAcc},${highNegAcc},${lowNegAcc}`); //TODO: Add accel params
 	if (deleteOnExit) {
 		tracking_resolutions.names.push(name)
 		__initExitHandlers()
