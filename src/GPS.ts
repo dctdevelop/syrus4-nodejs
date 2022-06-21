@@ -164,7 +164,7 @@ function watchGPS(callback, errorCallback: Function) {
  * @param callback callback to execute when new data arrive from tracking resolution
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true, highPosAcc = 0, lowPosAcc = 0, posAcc = 0, negAcc = 0}) {
+function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true, posAcc = 0, negAcc = 0}) {
 	if (!prefix) {
 		prefix = Utils.getPrefix();
 	}
