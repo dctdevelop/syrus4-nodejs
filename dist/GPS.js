@@ -70,7 +70,7 @@ function rawdataToCoordinates(raw) {
             fix: gps.fix,
             satsActive: gps.satused,
             satsVisible: gps.satview,
-            criteria: gps.type,
+            criteria: gps.type || null,
             acceleration: gps.kphs || 0
         }
     };
