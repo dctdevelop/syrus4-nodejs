@@ -284,7 +284,7 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
         throw "Namespace is required";
     }
     var name = `${prefix}_${namespace}`;
-    await Utils.OSExecute(`apx-tracking set "${name}" ${heading} ${time} ${distance} --pacc=${posAcc} --nacc=${negAcc}`);
+    await Utils.OSExecute(`apx-tracking set --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc} --nacc=${negAcc}`); // "${name}" ${heading} ${time} ${distance} --pacc=${posAcc} --nacc=${negAcc}
     if (deleteOnExit) {
         tracking_resolutions.names.push(name);
         __initExitHandlers();
