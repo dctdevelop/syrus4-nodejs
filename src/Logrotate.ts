@@ -1,5 +1,5 @@
 /**
- * Counters module setup get and set counters from APEX OS
+ * Logrotate module setup get and set counters from APEX OS
  * @module Logrotate
  */
 import * as Utils from "./Utils"
