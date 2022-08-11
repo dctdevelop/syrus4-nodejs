@@ -13,7 +13,7 @@ const COUNTER_KEYS = [
 	"odometer", "ignition_time", "idle_time",
 	"over_speed", "over_rpm", "hard_brakes",
 	"harsh_fwd_acceleration", "rpm_threshold",
-	"speed_threshold", "begin_idle_time"
+	"speed_threshold", "begin_idle_time", "distance"
 ]
 async function startCounters(config:any) {
 	const name = config.name
@@ -22,8 +22,9 @@ async function startCounters(config:any) {
 	await Utils.OSExecute(`apx-counter start ${name}`)
 	if (!shouldSet) return
 	for (const key of COUNTER_KEYS) {
-		if (config.key == undefined) continue
-		Utils.OSExecute(`apx-counter set ${name} ${key.toLowerCase()} ${config[key]}`)
+		if (config[key] == undefined) continue
+		console.log('SDK setCounter:', `apx-counter set ${name} ${key.toUpperCase()} ${config[key]}`);
+		Utils.OSExecute(`apx-counter set ${name} ${key.toUpperCase()} ${config[key]}`)
 	}
 }
 
@@ -56,7 +57,7 @@ async function watchCounters(name, cb, cbError, interval=15){
 
 async function stopCounters(name:string) {
 	if (!name) throw "name is required";
-	await Utils.OSExecute(`apx-counter start ${name}`);
+	await Utils.OSExecute(`apx-counter stop ${name}`);
 }
 
 async function resetCounters(name:string) {
