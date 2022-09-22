@@ -47,3 +47,7 @@ export {
 	Utils,
 	WIFI,
 };
+
+Fatigue.onFatigueEvent( event => {
+	console.log('onFatigueEvent:', event);
+}, console.error);

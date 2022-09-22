@@ -19,69 +19,38 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onLogEvent = exports.deleteConfiguration = exports.setConfiguration = exports.getStatus = exports.getConfiguration = exports.listConfigurations = void 0;
+exports.onWindowEvent = exports.deleteWindow = exports.getStatus = exports.setWindow = void 0;
 /**
- * Logrotate module setup get and set counters from APEX OS
- * @module Logrotate
+ * Time Windows module setup get and set counters from APEX OS
+ * @module Windows
  */
 const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
-async function listConfigurations() {
-    return JSON.parse(await Utils.OSExecute(`apx-logrotate read --name=all`));
-}
-exports.listConfigurations = listConfigurations;
-async function getConfiguration(name) {
+async function setWindow(name, type, from, to, dayOfWeek, timezone) {
     if (!name)
-        throw "Name is required";
-    return JSON.parse(await Utils.OSExecute(`apx-logrotate read --name=${name}`));
-}
-exports.getConfiguration = getConfiguration;
-async function getStatus(name = 'all') {
-    return JSON.parse(await Utils.OSExecute(`apx-logrotate status --name=${name}`));
-}
-exports.getStatus = getStatus;
-async function setConfiguration(name, path, rotate = '1D', size = '100MB', compress = true) {
-    if (!name)
-        throw "Name is required";
-    if (!path)
-        throw "Path is required";
-    const rotation = rotate.slice(0, -1);
-    const rotate_size = size.slice(0, -1);
-    let period = rotate.slice(1);
-    switch (period) {
-        case 'H':
-            period = 'hourly';
-            break;
-        case 'D':
-            period = 'daily';
-            break;
-        case 'W':
-            period = 'weekly';
-            break;
-        case 'Y':
-            period = 'yearly';
-            break;
-        default:
-            break;
-    }
+        throw "name property is required!";
     let response = undefined;
     try {
-        response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress}`);
+        response = await Utils.OSExecute(`apx-time-window create --name=${name} --type=${type} --from=${from} --to=${to} --dow=${dayOfWeek} --tz=${timezone}`);
     }
     catch (error) {
         console.log('setConfiguration error:', error);
     }
     return response;
 }
-exports.setConfiguration = setConfiguration;
-function deleteConfiguration(name) {
+exports.setWindow = setWindow;
+async function getStatus(name = 'all') {
+    return JSON.parse(await Utils.OSExecute(`apx-time-window status --name=${name}`));
+}
+exports.getStatus = getStatus;
+function deleteWindow(name) {
     if (!name)
         throw "Name is required";
-    return Utils.OSExecute(`apx-logrotate remove --name=${name}`);
+    return Utils.OSExecute(`apx-time-window remove --name=${name}`);
 }
-exports.deleteConfiguration = deleteConfiguration;
-async function onLogEvent(callback, errorCallback) {
-    const topic = "logrotate/notification/state";
+exports.deleteWindow = deleteWindow;
+async function onWindowEvent(callback, errorCallback) {
+    const topic = "window/notification/state";
     // Subscribe to receive redis updates
     try {
         var state;
@@ -94,7 +63,7 @@ async function onLogEvent(callback, errorCallback) {
             }
             catch (error) {
                 clearToSend = false;
-                console.log('onLogEvent syntax error:', error);
+                console.log('onWindowEvent syntax error:', error);
             }
             if (clearToSend) {
                 callback(state);
@@ -104,7 +73,7 @@ async function onLogEvent(callback, errorCallback) {
         Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
-        console.error('onLogEvent error:', error);
+        console.error('onWindowEvent error:', error);
         errorCallback(error);
     }
     let returnable = {
@@ -116,4 +85,4 @@ async function onLogEvent(callback, errorCallback) {
     };
     return returnable;
 }
-exports.onLogEvent = onLogEvent;
+exports.onWindowEvent = onWindowEvent;
