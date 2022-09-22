@@ -69,3 +69,6 @@ const Utils = __importStar(require("./Utils"));
 exports.Utils = Utils;
 const WIFI_1 = __importDefault(require("./WIFI"));
 exports.WIFI = WIFI_1.default;
+Fatigue.onFatigueEvent(event => {
+    console.log('onFatigueEvent:', event);
+}, console.error);
