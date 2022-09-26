@@ -49,11 +49,3 @@ export {
 	WIFI,
 	Windows,
 };
-
-Windows.getStatus('all').then(event => {
-	console.log('getStatus:', event);
-}).catch(error => console.log('getStatus error:', error))
-
-Windows.onWindowEvent(event => {
-	console.log('onWindowEvent syrusJs:', event);
-}, console.error);

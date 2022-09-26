@@ -60,27 +60,6 @@ async function onWindowEvent(callback, errorCallback) {
             callback(element);
         });
     }
-    // Response not void and valid
-    /**
-    if(windows_status[0].name != undefined) {
-      const window_config: WindowEvent = {
-        name: windows_status[0].name,
-        enabled: windows_status[0].enabled,
-        state: windows_status[0].state,
-        start: windows_status[0].start,
-        end: windows_status[0].end,
-        from: windows_status[0].from,
-        to: windows_status[0].to,
-        type: windows_status[0].type,
-        timezone: windows_status[0].timezone,
-        days: windows_status[0].days
-      }
-  
-      windows_status.forEach(element => {
-        
-      });
-      callback(window_config);
-    }*/
     // Subscribe to receive redis updates
     try {
         var state;
