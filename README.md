@@ -45,7 +45,7 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS</p>
 </dd>
 <dt><a href="#module_Logrotate">Logrotate</a></dt>
-<dd><p>Counters module setup get and set counters from APEX OS</p>
+<dd><p>Logrotate module setup get and set counters from APEX OS</p>
 </dd>
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
@@ -73,6 +73,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 </dd>
 <dt><a href="#module_WIFI">WIFI</a></dt>
 <dd><p>WIFI module to interacte with the enable/disable WIFI mode  with Apex OS</p>
+</dd>
+<dt><a href="#module_Windows">Windows</a></dt>
+<dd><p>Time Windows module setup get and set counters from APEX OS</p>
 </dd>
 </dl>
 
@@ -824,7 +827,7 @@ Get the current state of all inputs, outputs and analogs in the Syrus4 device
 <a name="module_Logrotate"></a>
 
 ## Logrotate
-Counters module setup get and set counters from APEX OS
+Logrotate module setup get and set counters from APEX OS
 
 <a name="module_Network"></a>
 
@@ -1313,6 +1316,11 @@ It removes a network from the WIFI configuration file, in this case you have to 
 | Param | Description |
 | --- | --- |
 | ssid | Name of the SSID you want to remove |
+
+<a name="module_Windows"></a>
+
+## Windows
+Time Windows module setup get and set counters from APEX OS
 
 <a name="getInfo"></a>
 

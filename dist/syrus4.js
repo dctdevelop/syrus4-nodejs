@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.Technoton = exports.System = exports.Serial = exports.RFID = exports.Redis = exports.Network = exports.Mobile = exports.Logrotate = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
+exports.Windows = exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.Technoton = exports.System = exports.Serial = exports.RFID = exports.Redis = exports.Network = exports.Mobile = exports.Logrotate = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
 const Accelerometer_1 = __importDefault(require("./Accelerometer"));
 exports.Accelerometer = Accelerometer_1.default;
 const Apps_1 = __importDefault(require("./Apps"));
@@ -69,3 +69,11 @@ const Utils = __importStar(require("./Utils"));
 exports.Utils = Utils;
 const WIFI_1 = __importDefault(require("./WIFI"));
 exports.WIFI = WIFI_1.default;
+const Windows = __importStar(require("./Windows"));
+exports.Windows = Windows;
+Windows.getStatus('all').then(event => {
+    console.log('getStatus:', event);
+}).catch(error => console.log('getStatus error:', error));
+Windows.onWindowEvent(event => {
+    console.log('onWindowEvent:', event);
+}, console.error);
