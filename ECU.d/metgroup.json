@@ -1,0 +1,442 @@
+{
+    "d000_1": {
+        "$private": true,
+        "$taip_tag": "ME1-1",
+        "$taip_float": true,
+        "$id": "d000_1_met"
+    },
+    "d200_1.3": {
+        "$private": true,
+        "$taip_tag": "ME2-2",
+        "$id": "d200_1.3_met"
+    },
+    "d200_1.5": {
+        "$private": true,
+        "$taip_tag": "ME2-3",
+        "$id": "d200_1.5_met"
+    },
+    "d200_1.7": {
+        "$private": true,
+        "$taip_tag": "ME2-4",
+        "$id": "d200_1.7_met"
+    },
+    "e000_4.7": {
+        "$private": true,
+        "$taip_tag": "MET.1",
+        "$id": "e000_4.7_met"
+    },
+    "e000_6.5": {
+        "$private": true,
+        "$taip_tag": "MET.2",
+        "$id": "e000_6.5_met"
+    },
+    "f006_1": {
+        "$private": true,
+        "$taip_tag": "MET.3",
+        "$id": "f006_1_met"
+    },
+    "fdcd_1.5": {
+        "$private": true,
+        "$taip_tag": "ME10-1",
+        "$id": "fdcd_1.5_met"
+    },
+    "fde4_1": {
+        "$private": true,
+        "$taip_tag": "MET.4",
+        "$id": "fde4_1_met"
+    },
+    "fe40_1.1": {
+        "$private": true,
+        "$taip_tag": "ME1-2",
+        "$id": "fe40_1.1_met"
+    },
+    "fe40_2.5": {
+        "$private": true,
+        "$taip_tag": "ME1-3",
+        "$id": "fe40_2.5_met"
+    },
+    "fe40_2.7": {
+        "$private": true,
+        "$taip_tag": "ME1-4",
+        "$id": "fe40_2.7_met"
+    },
+    "fe40_3.3": {
+        "$private": true,
+        "$taip_tag": "ME1-5",
+        "$id": "fe40_3.3_met"
+    },
+    "fe40_3.5": {
+        "$private": true,
+        "$taip_tag": "ME1-6",
+        "$id": "fe40_3.5_met"
+    },
+    "fe40_3.7": {
+        "$private": true,
+        "$taip_tag": "ME1-7",
+        "$id": "fe40_3.7_met"
+    },
+    "fe41_1.1": {
+        "$private": true,
+        "$taip_tag": "ME1-8",
+        "$id": "fe41_1.1_met"
+    },
+    "fe41_2.5": {
+        "$private": true,
+        "$taip_tag": "ME1-9",
+        "$id": "fe41_2.5_met"
+    },
+    "fe41_2.7": {
+        "$private": true,
+        "$taip_tag": "ME1-10",
+        "$id": "fe41_2.7_met"
+    },
+    "fe41_3.3": {
+        "$private": true,
+        "$taip_tag": "ME1-11",
+        "$id": "fe41_3.3_met"
+    },
+    "fe41_3.5": {
+        "$private": true,
+        "$taip_tag": "ME1-12",
+        "$id": "fe41_3.5_met"
+    },
+    "fe41_3.7": {
+        "$private": true,
+        "$taip_tag": "ME1-13",
+        "$id": "fe41_3.7_met"
+    },
+    "fe4d_1-2": {
+        "$private": true,
+        "$taip_tag": "MET.5",
+        "$taip_float": true,
+        "$id": "fe4d_1-2_met"
+    },
+    "fe4d_3-4": {
+        "$private": true,
+        "$taip_tag": "ME7-4",
+        "$taip_float": true,
+        "$id": "fe4d_3-4_met"
+    },
+    "fe4e_1.1": {
+        "$private": true,
+        "$taip_tag": "MET.6",
+        "$id": "fe4e_1.1_met"
+    },
+    "fe4e_1.5": {
+        "$private": true,
+        "$taip_tag": "MET.7",
+        "$id": "fe4e_1.5_met"
+    },
+    "fe52_1-2": {
+        "$private": true,
+        "$taip_tag": "ME5-1",
+        "$taip_float": true,
+        "$id": "fe52_1-2_met"
+    },
+    "fe58_1-2": {
+        "$private": true,
+        "$taip_tag": "ME6-1",
+        "$taip_float": true,
+        "$id": "fe58_1-2_met"
+    },
+    "fe58_3-4": {
+        "$private": true,
+        "$taip_tag": "ME6-2",
+        "$taip_float": true,
+        "$id": "fe58_3-4_met"
+    },
+    "fe58_5-6": {
+        "$private": true,
+        "$taip_tag": "ME6-3",
+        "$taip_float": true,
+        "$id": "fe58_5-6_met"
+    },
+    "fe58_7-8": {
+        "$private": true,
+        "$taip_tag": "ME6-4",
+        "$taip_float": true,
+        "$id": "fe58_7-8_met"
+    },
+    "fe5a_4.1": {
+        "$private": true,
+        "$taip_tag": "ME2-1",
+        "$id": "fe5a_4.1_met"
+    },
+    "fe5a_5.1": {
+        "$private": true,
+        "$taip_tag": "ME2-5",
+        "$id": "fe5a_5.1_met"
+    },
+    "fe5a_5.3": {
+        "$private": true,
+        "$taip_tag": "ME2-6",
+        "$id": "fe5a_5.3_met"
+    },
+    "fe69_3-4": {
+        "$private": true,
+        "$taip_tag": "MET.8",
+        "$taip_float": true,
+        "$id": "fe69_3-4_met"
+    },
+    "fe6d_5.3": {
+        "$private": true,
+        "$taip_tag": "MET.9",
+        "$id": "fe6d_5.3_met"
+    },
+    "fe92_5-6": {
+        "$private": true,
+        "$taip_tag": "MET.10",
+        "$taip_float": true,
+        "$id": "fe92_5-6_met"
+    },
+    "feac_1": {
+        "$private": true,
+        "$taip_tag": "ME3-1",
+        "$taip_float": true,
+        "$id": "feac_1_met"
+    },
+    "feac_2": {
+        "$private": true,
+        "$taip_tag": "ME3-2",
+        "$taip_float": true,
+        "$id": "feac_2_met"
+    },
+    "feac_3": {
+        "$private": true,
+        "$taip_tag": "ME3-3",
+        "$taip_float": true,
+        "$id": "feac_3_met"
+    },
+    "feac_4": {
+        "$private": true,
+        "$taip_tag": "ME3-4",
+        "$taip_float": true,
+        "$id": "feac_4_met"
+    },
+    "feac_5": {
+        "$private": true,
+        "$taip_tag": "ME3-5",
+        "$taip_float": true,
+        "$id": "feac_5_met"
+    },
+    "feac_6": {
+        "$private": true,
+        "$taip_tag": "ME3-6",
+        "$taip_float": true,
+        "$id": "feac_6_met"
+    },
+    "feac_7": {
+        "$private": true,
+        "$taip_tag": "ME3-7",
+        "$taip_float": true,
+        "$id": "feac_7_met"
+    },
+    "feac_8": {
+        "$private": true,
+        "$taip_tag": "ME3-8",
+        "$taip_float": true,
+        "$id": "feac_8_met"
+    },
+    "feae_5": {
+        "$private": true,
+        "$taip_tag": "MET.11",
+        "$id": "feae_5_met"
+    },
+    "feb2_5-6": {
+        "$private": true,
+        "$taip_tag": "ME7-1",
+        "$taip_float": true,
+        "$id": "feb2_5-6_met"
+    },
+    "feb3_5-6": {
+        "$private": true,
+        "$taip_tag": "ME7-2",
+        "$taip_float": true,
+        "$id": "feb3_5-6_met"
+    },
+    "feb6_1-2": {
+        "$private": true,
+        "$taip_tag": "ME7-3",
+        "$id": "feb6_1-2_met"
+    },
+    "febd_3-4": {
+        "$private": true,
+        "$taip_tag": "MET.12",
+        "$id": "febd_3-4_met"
+    },
+    "febe_3-4": {
+        "$private": true,
+        "$taip_tag": "MET.13",
+        "$id": "febe_3-4_met"
+    },
+    "fec3_2.1": {
+        "$private": true,
+        "$taip_tag": "MET.14",
+        "$id": "fec3_2.1_met"
+    },
+    "fec3_2.3": {
+        "$private": true,
+        "$taip_tag": "MET.15",
+        "$id": "fec3_2.3_met"
+    },
+    "fed5_1-2": {
+        "$private": true,
+        "$taip_tag": "ME5-2",
+        "$taip_float": true,
+        "$id": "fed5_1-2_met"
+    },
+    "fee2_3-4": {
+        "$private": true,
+        "$taip_tag": "MET.16",
+        "$id": "fee2_3-4_met"
+    },
+    "fee6_1": {
+        "$private": true,
+        "$taip_tag": "ME4-1",
+        "$id": "fee6_1_met"
+    },
+    "fee6_2": {
+        "$private": true,
+        "$taip_tag": "ME4-2",
+        "$id": "fee6_2_met"
+    },
+    "fee6_3": {
+        "$private": true,
+        "$taip_tag": "ME4-3",
+        "$id": "fee6_3_met"
+    },
+    "fee6_4": {
+        "$private": true,
+        "$taip_tag": "ME4-4",
+        "$id": "fee6_4_met"
+    },
+    "fee6_5": {
+        "$private": true,
+        "$taip_tag": "ME4-5",
+        "$id": "fee6_5_met"
+    },
+    "fee6_6": {
+        "$private": true,
+        "$taip_tag": "ME4-6",
+        "$id": "fee6_6_met"
+    },
+    "fee7_1-4": {
+        "$private": true,
+        "$taip_tag": "MET.17",
+        "$taip_float": true,
+        "$id": "fee7_1-4_met"
+    },
+    "fee8_7-8": {
+        "$private": true,
+        "$taip_tag": "MET.18",
+        "$id": "fee8_7-8_met"
+    },
+    "feea_1": {
+        "$private": true,
+        "$taip_tag": "ME8-1",
+        "$id": "feea_1_met"
+    },
+    "feea_2-3": {
+        "$private": true,
+        "$taip_tag": "ME8-2",
+        "$taip_float": true,
+        "$id": "feea_2-3_met"
+    },
+    "feea_4-5": {
+        "$private": true,
+        "$taip_tag": "ME8-3",
+        "$id": "feea_4-5_met"
+    },
+    "feea_6-7": {
+        "$private": true,
+        "$taip_tag": "ME8-4",
+        "$id": "feea_6-7_met"
+    },
+    "feee_5-6": {
+        "$private": true,
+        "$taip_tag": "MET.19",
+        "$id": "feee_5-6_met"
+    },
+    "fef1_1.3": {
+        "$private": true,
+        "$taip_tag": "ME9-1",
+        "$id": "fef1_1.3_met"
+    },
+    "fef1_4.5": {
+        "$private": true,
+        "$taip_tag": "MET.20",
+        "$id": "fef1_4.5_met"
+    },
+    "fef2_5-6": {
+        "$private": true,
+        "$taip_tag": "MET.21",
+        "$taip_float": true,
+        "$id": "fef2_5-6_met"
+    },
+    "fef3_1-4": {
+        "$private": true,
+        "$taip_tag": "MET.22",
+        "$taip_float": true,
+        "$id": "fef3_1-4_met"
+    },
+    "fef3_5-8": {
+        "$private": true,
+        "$taip_tag": "MET.23",
+        "$id": "fef3_5-8_met"
+    },
+    "fef5_2-3": {
+        "$private": true,
+        "$taip_tag": "MET.24",
+        "$taip_float": true,
+        "$id": "fef5_2-3_met"
+    },
+    "fef7_2": {
+        "$private": true,
+        "$taip_tag": "ME5-3",
+        "$id": "fef7_2_met"
+    },
+    "fef7_3-4": {
+        "$private": true,
+        "$taip_tag": "ME5-4",
+        "$taip_float": true,
+        "$id": "fef7_3-4_met"
+    },
+    "fef7_7-8": {
+        "$private": true,
+        "$taip_tag": "MET.25",
+        "$taip_float": true,
+        "$id": "fef7_7-8_met"
+    },
+    "fef8_1": {
+        "$private": true,
+        "$taip_tag": "MET.26",
+        "$id": "fef8_1_met"
+    },
+    "fefa_2": {
+        "$private": true,
+        "$taip_tag": "MET.27",
+        "$id": "fefa_2_met"
+    },
+    "fefa_3": {
+        "$private": true,
+        "$taip_tag": "MET.28",
+        "$id": "fefa_3_met"
+    },
+    "fefa_4.1": {
+        "$private": true,
+        "$taip_tag": "ME9-2",
+        "$id": "fefa_4.1_met"
+    },
+    "fefc_1": {
+        "$private": true,
+        "$taip_tag": "ME10-2",
+        "$taip_float": true,
+        "$id": "fefc_1_met"
+    },
+    "fefd_2-3": {
+        "$private": true,
+        "$taip_tag": "MET.29",
+        "$taip_float": true,
+        "$id": "fefd_2-3_met"
+    }
+}
