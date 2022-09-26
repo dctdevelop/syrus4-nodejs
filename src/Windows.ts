@@ -8,28 +8,31 @@ import { SystemRedisSubscriber as subscriber } from "./Redis";
 interface WindowEvent {
     name: string, 
     enabled: boolean,
+    state: boolean 
+    start: string,
+    end: string,
     from: string,
     to: string,
     type: string,
-    state: boolean 
     timezone: string,
-    daysOfWeek: string,
+    days: string,
 }
 
-export async function setWindow( name: string,  type: string, from: string, to: string, dayOfWeek: string, timezone: string) {
-	if (!name) throw "name property is required!"
+export async function setWindow(config) {
+    console.log('setWindow:', config)
+	if (!config.name) throw "name property is required!"
 
     let response = undefined
     try {
-        response = await Utils.OSExecute(`apx-time-window create --name=${name} --type=${type} --from=${from} --to=${to} --dow=${dayOfWeek} --tz=${timezone}`) 
+        response = await Utils.OSExecute(`apx-time-window set --name=${config.name} --type=${config.type} --start=${config.start} --end=${config.end} --from=${config.from} --to=${config.to} --days=${config.days} --timezone=${config.timezone} --enabled=${config.enabled}`) 
     } catch (error) {
         console.log('setConfiguration error:', error);
     }
     return response;
 }
 
-export async function getStatus(name:string = 'all') : Promise<WindowEvent> {
-    return JSON.parse(await Utils.OSExecute(`apx-time-window status --name=${name}`))
+export async function getStatus(name:string = 'all') : Promise<WindowEvent[]> {
+    return await Utils.OSExecute(`apx-time-window status --name=${name}`);
 } 
 
 export function deleteWindow(name:string): Promise<void> {
@@ -40,6 +43,16 @@ export function deleteWindow(name:string): Promise<void> {
 export async function onWindowEvent( callback:(arg: WindowEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
   const topic = "window/notification/state";
 
+  // Get last Fuel data
+  const windows_status = await getStatus('all').catch(console.error);
+  const window_object = JSON.parse(JSON.stringify(windows_status));
+
+  if (windows_status != undefined) {
+      window_object.forEach(element => {
+          callback(element);
+      });
+  }
+  
   // Subscribe to receive redis updates
   try {
     var state: any;
