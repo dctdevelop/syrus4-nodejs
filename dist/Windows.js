@@ -26,12 +26,13 @@ exports.onWindowEvent = exports.deleteWindow = exports.getStatus = exports.setWi
  */
 const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
-async function setWindow(name, type, from, to, dayOfWeek, timezone) {
-    if (!name)
+async function setWindow(config) {
+    console.log('setWindow:', config);
+    if (!config.name)
         throw "name property is required!";
     let response = undefined;
     try {
-        response = await Utils.OSExecute(`apx-time-window create --name=${name} --type=${type} --from=${from} --to=${to} --dow=${dayOfWeek} --tz=${timezone}`);
+        response = await Utils.OSExecute(`apx-time-window set --name=${config.name} --type=${config.type} --start=${config.start} --end=${config.end} --from=${config.from} --to=${config.to} --days=${config.days} --timezone=${config.timezone} --enabled=${config.enabled}`);
     }
     catch (error) {
         console.log('setConfiguration error:', error);
@@ -40,7 +41,7 @@ async function setWindow(name, type, from, to, dayOfWeek, timezone) {
 }
 exports.setWindow = setWindow;
 async function getStatus(name = 'all') {
-    return JSON.parse(await Utils.OSExecute(`apx-time-window status --name=${name}`));
+    return await Utils.OSExecute(`apx-time-window status --name=${name}`);
 }
 exports.getStatus = getStatus;
 function deleteWindow(name) {
@@ -51,6 +52,35 @@ function deleteWindow(name) {
 exports.deleteWindow = deleteWindow;
 async function onWindowEvent(callback, errorCallback) {
     const topic = "window/notification/state";
+    // Get last Fuel data
+    const windows_status = await getStatus('all').catch(console.error);
+    const window_object = JSON.parse(JSON.stringify(windows_status));
+    if (windows_status != undefined) {
+        window_object.forEach(element => {
+            callback(element);
+        });
+    }
+    // Response not void and valid
+    /**
+    if(windows_status[0].name != undefined) {
+      const window_config: WindowEvent = {
+        name: windows_status[0].name,
+        enabled: windows_status[0].enabled,
+        state: windows_status[0].state,
+        start: windows_status[0].start,
+        end: windows_status[0].end,
+        from: windows_status[0].from,
+        to: windows_status[0].to,
+        type: windows_status[0].type,
+        timezone: windows_status[0].timezone,
+        days: windows_status[0].days
+      }
+  
+      windows_status.forEach(element => {
+        
+      });
+      callback(window_config);
+    }*/
     // Subscribe to receive redis updates
     try {
         var state;

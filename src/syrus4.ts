@@ -21,6 +21,7 @@ import * as Temperature from "./Temperature"
 import Update from "./Update"
 import * as Utils from "./Utils"
 import WIFI from "./WIFI"
+import * as Windows from "./Windows"
 
 export {
 	Accelerometer,
@@ -46,8 +47,13 @@ export {
 	Update,
 	Utils,
 	WIFI,
+	Windows,
 };
 
-Fatigue.onFatigueEvent( event => {
-	console.log('onFatigueEvent:', event);
+Windows.getStatus('all').then(event => {
+	console.log('getStatus:', event);
+}).catch(error => console.log('getStatus error:', error))
+
+Windows.onWindowEvent(event => {
+	console.log('onWindowEvent syrusJs:', event);
 }, console.error);
