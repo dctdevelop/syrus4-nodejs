@@ -71,9 +71,3 @@ const WIFI_1 = __importDefault(require("./WIFI"));
 exports.WIFI = WIFI_1.default;
 const Windows = __importStar(require("./Windows"));
 exports.Windows = Windows;
-Windows.getStatus('all').then(event => {
-    console.log('getStatus:', event);
-}).catch(error => console.log('getStatus error:', error));
-Windows.onWindowEvent(event => {
-    console.log('onWindowEvent:', event);
-}, console.error);

@@ -1,0 +1,59 @@
+{
+    "ff0c_5-6": {
+        "$private": true,
+        "$taip_tag": "ANK.1",
+        "$taip_float": true,
+        "$id": "ff0c_5-6_ankai"
+    },
+    "ff0c_7": {
+        "$private": true,
+        "$taip_tag": "ANK.2",
+        "$id": "ff0c_7_ankai"
+    },
+    "ff10_6": {
+        "$private": true,
+        "$taip_tag": "ANK.3",
+        "$taip_float": true,
+        "$id": "ff10_6_ankai"
+    },
+    "ff29_5": {
+        "$private": true,
+        "$taip_tag": "ANK.4",
+        "$id": "ff29_5_ankai"
+    },
+    "ff2a_7-8": {
+        "$private": true,
+        "$taip_tag": "ANK.5",
+        "$taip_float": true,
+        "$id": "ff2a_7-8_ankai"
+    },
+    "ff2b_2-3": {
+        "$private": true,
+        "$taip_tag": "ANK.6",
+        "$taip_float": true,
+        "$id": "ff2b_2-3_ankai"
+    },
+    "ff2b_4": {
+        "$private": true,
+        "$taip_tag": "ANK.7",
+        "$id": "ff2b_4_ankai"
+    },
+    "ff2d_2": {
+        "$private": true,
+        "$taip_tag": "ANK.8",
+        "$taip_float": true,
+        "$id": "ff2d_2_ankai"
+    },
+    "ff2d_3-4": {
+        "$private": true,
+        "$taip_tag": "ANK.9",
+        "$taip_float": true,
+        "$id": "ff2d_3-4_ankai"
+    },
+    "ff30_1-4": {
+        "$private": true,
+        "$taip_tag": "ANK.10",
+        "$taip_float": true,
+        "$id": "ff30_1-4_ankai"
+    }
+}
