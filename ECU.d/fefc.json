@@ -100,6 +100,7 @@
         "multiplier": 0.4,
         "source_interface": "J1939",
         "$id": "fefc_1",
+        "$taip_tag": "DA0-2",
         "$name": "washer_fluid_level"
     }
 }

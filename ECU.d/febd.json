@@ -45,6 +45,7 @@
         "multiplier": 0.125,
         "source_interface": "J1939",
         "$id": "febd_3-4",
+        "$taip_tag": "DAI.12",
         "$name": "fan_speed"
     }
 }

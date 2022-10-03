@@ -15,6 +15,7 @@
         "$units": "count",
         "$range": "0 to 3",
         "$taip_xaem_group": 1,
-        "$taip_xaem_bit": 50
+        "$taip_xaem_bit": 50,
+        "$taip_tag": "DAI.1"
     }
 }
