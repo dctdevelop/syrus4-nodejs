@@ -13,7 +13,7 @@
 		"$mutable": [],
 		"$id": "fe4e_1.1",
 		"$name": "doors_state",
-		"$taip_tag": "MET.6"
+		"$taip_tag": "DAI.6"
 	},
 	"fe4e_1.5": {
 		"param_name": "RAMP POSITION",
@@ -29,6 +29,6 @@
 		"$mutable": [],
 		"$id": "fe4e_1.5",
 		"$name": "ramp_position",
-		"$taip_tag": "MET.7"
+		"$taip_tag": "DAI.7"
 	}
 }

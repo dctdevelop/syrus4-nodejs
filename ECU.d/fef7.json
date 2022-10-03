@@ -52,7 +52,7 @@
         "$mutable": [],
         "$id": "fef7_2",
         "$taip_tag": "DA5-3",
-        "$name": "mg_-_alternator_current"
+        "$name": "alternator_current"
     },
     "fef7_3-4": {
         "param_name": "ALTERNATOR POTENTIAL (VOLTAGE)",
@@ -68,6 +68,6 @@
         "$mutable": [],
         "$id": "fef7_3-4",
         "$taip_tag": "DA5-4",
-        "$name": "mg_-_alternator_potential_(voltage)"
+        "$name": "alternator_potential_voltage"
     }
 }
