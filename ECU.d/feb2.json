@@ -27,6 +27,7 @@
         "source_interface": "J1939",
         "$id": "feb2_5-6",
         "$taip_tag": "DA7-1",
+        "$taip_float": true,
         "$name": "trip_average_fuel_rate_gaseous"
     }
 }
