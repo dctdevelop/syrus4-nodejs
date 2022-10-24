@@ -53,14 +53,3 @@ export {
 	WIFI,
 	Windows,
 };
-
-
-SafeEngine.getStatus().then( status => console.log('getStatus:', status));
-
-SafeEngine.onSafeEngineEvent( event => {
-	console.log('onSafeEngineEvent:', event);
-}, console.error);
-
-PeopleCounter.onPeopleCountingEvent( event => {
-	console.log('onPeopleCountingEvent:', event);
-}, console.error);

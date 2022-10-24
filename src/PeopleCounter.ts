@@ -38,9 +38,7 @@ export async function onPeopleCountingEvent(callback: (arg: PeopleCountEvent) =>
     const handler = (channel: string, data: any) => {
         if (channel != topic) return
 
-        console.log('OnlyData:', data);
         const obj = JSON.parse(data);
-        console.log('onPeople:', obj);
         const event : PeopleCountEvent = obj;
         callback(event);
     }
