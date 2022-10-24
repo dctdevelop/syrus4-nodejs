@@ -22,6 +22,8 @@ import Update from "./Update"
 import * as Utils from "./Utils"
 import WIFI from "./WIFI"
 import * as Windows from "./Windows"
+import * as SafeEngine from "./SafeEngine"
+import * as PeopleCounter from "./PeopleCounter"
 
 export {
 	Accelerometer,
@@ -42,6 +44,8 @@ export {
 	RFID,
 	Serial,
 	System,
+	SafeEngine,
+	PeopleCounter,
 	Technoton,
 	Temperature,
 	Update,
@@ -49,3 +53,14 @@ export {
 	WIFI,
 	Windows,
 };
+
+
+SafeEngine.getStatus().then( status => console.log('getStatus:', status));
+
+SafeEngine.onSafeEngineEvent( event => {
+	console.log('onSafeEngineEvent:', event);
+}, console.error);
+
+PeopleCounter.onPeopleCountingEvent( event => {
+	console.log('onPeopleCountingEvent:', event);
+}, console.error);

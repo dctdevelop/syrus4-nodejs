@@ -50,8 +50,14 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Network">Network</a></dt>
 <dd><p>Network module get information about networks and events in ApexOS</p>
 </dd>
+<dt><a href="#module_PeopleCounter">PeopleCounter</a></dt>
+<dd><p>PeopleCounter module setup get and set Safe engine cut of from APEX OS</p>
+</dd>
 <dt><a href="#module_RFID">RFID</a></dt>
 <dd><p>RFID module get information about RFID states</p>
+</dd>
+<dt><a href="#module_SafeEngine">SafeEngine</a></dt>
+<dd><p>SafeEngine module setup get and set Safe engine cut of from APEX OS</p>
 </dd>
 <dt><a href="#module_Serial">Serial</a></dt>
 <dd><p>Serial module, get information about serial state</p>
@@ -876,6 +882,11 @@ get Network Information about specific network
 get network information about all the available networks on APEX OS
 
 **Kind**: inner method of [<code>Network</code>](#module_Network)  
+<a name="module_PeopleCounter"></a>
+
+## PeopleCounter
+PeopleCounter module setup get and set Safe engine cut of from APEX OS
+
 <a name="module_RFID"></a>
 
 ## RFID
@@ -895,6 +906,11 @@ RFID module get information about RFID states
 #### new RFIDUpdate()
 Event published by the sdk composed of of multiple RFID
 authorized contains events from RFID
+
+<a name="module_SafeEngine"></a>
+
+## SafeEngine
+SafeEngine module setup get and set Safe engine cut of from APEX OS
 
 <a name="module_Serial"></a>
 
