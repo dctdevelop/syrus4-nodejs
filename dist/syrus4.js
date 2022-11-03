@@ -75,10 +75,3 @@ const SafeEngine = __importStar(require("./SafeEngine"));
 exports.SafeEngine = SafeEngine;
 const PeopleCounter = __importStar(require("./PeopleCounter"));
 exports.PeopleCounter = PeopleCounter;
-SafeEngine.getStatus().then(status => console.log('getStatus:', status));
-SafeEngine.onSafeEngineEvent(event => {
-    console.log('onSafeEngineEvent:', event);
-}, console.error);
-PeopleCounter.onPeopleCountingEvent(event => {
-    console.log('onPeopleCountingEvent:', event);
-}, console.error);
