@@ -43,15 +43,14 @@ export function deleteWindow(name:string): Promise<void> {
 export async function onWindowEvent( callback:(arg: WindowEvent) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
   const topic = "window/notification/state";
 
-  // Get last Fuel data
+  /** 
   const windows_status = await getStatus('all').catch(console.error);
   const window_object = JSON.parse(JSON.stringify(windows_status));
-
   if (windows_status != undefined) {
       window_object.forEach(element => {
           callback(element);
       });
-  }
+  }*/
   
   // Subscribe to receive redis updates
   try {
