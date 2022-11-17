@@ -86,7 +86,6 @@ async function getNetworkInfo(net) {
             connected: false
         };
     }
-    let raw = await Utils.OSExecute(`ifconfig ${net}`).catch(Utils.$throw);
     if (net == "ppp0") {
         let modemInfo = await Redis_1.SystemRedisClient.hgetall("modem_information");
         data.imei = modemInfo.IMEI;
@@ -95,6 +94,7 @@ async function getNetworkInfo(net) {
         data.iccid = modemInfo.SIM_ID;
         data.mcc = modemInfo.MCC_MNC.substring(0, 3);
         data.mnc = modemInfo.MCC_MNC.substring(3);
+        data.connected = IsConnected('ppp0');
     }
     if (net == "wlan0") {
         try {
@@ -107,18 +107,21 @@ async function getNetworkInfo(net) {
             console.error(error);
         }
     }
-    let start = raw.indexOf("inet addr:") + 10;
-    let end = raw.indexOf(" ", start);
-    if (start > -1)
-        data.ip_address = raw.substring(start, end);
-    start = raw.indexOf("RX bytes:") + 9;
-    end = raw.indexOf(" ", start);
-    if (start > -1)
-        data["rx_bytes"] = parseInt(raw.substring(start, end));
-    start = raw.indexOf("TX bytes:") + 9;
-    end = raw.indexOf(" ", start);
-    if (start > -1)
-        data["tx_bytes"] = parseInt(raw.substring(start, end));
+    if (await IsConnected(net) == true) {
+        let raw = await Utils.OSExecute(`ifconfig ${net}`).catch(Utils.$throw);
+        let start = raw.indexOf("inet addr:") + 10;
+        let end = raw.indexOf(" ", start);
+        if (start > -1)
+            data.ip_address = raw.substring(start, end);
+        start = raw.indexOf("RX bytes:") + 9;
+        end = raw.indexOf(" ", start);
+        if (start > -1)
+            data["rx_bytes"] = parseInt(raw.substring(start, end));
+        start = raw.indexOf("TX bytes:") + 9;
+        end = raw.indexOf(" ", start);
+        if (start > -1)
+            data["tx_bytes"] = parseInt(raw.substring(start, end));
+    }
     data.connected = await IsConnected(net).catch(Utils.$throw);
     if (data.ip_address == "") {
         data.ip_address = null;
@@ -135,6 +138,12 @@ async function getNetworks() {
         .map((str) => str.split(" ")[0])
         .filter((str) => str);
     let info = {};
+    if (!nets.includes('ppp0'))
+        nets.push('ppp0');
+    if (!nets.includes('wlan0'))
+        nets.push('wlan0');
+    if (!nets.includes('eth0'))
+        nets.push('eth0');
     for (const net of nets) {
         let [resp, err] = await Utils.$to(getNetworkInfo(net));
         if (err) {

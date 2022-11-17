@@ -75,3 +75,10 @@ const SafeEngine = __importStar(require("./SafeEngine"));
 exports.SafeEngine = SafeEngine;
 const PeopleCounter = __importStar(require("./PeopleCounter"));
 exports.PeopleCounter = PeopleCounter;
+setInterval(() => {
+    Network_1.default.getNetworks().then(networks => {
+        console.log("getNetworks event:", networks);
+    }).catch(error => {
+        console.log('getNetworks event Error', error);
+    });
+}, 10000);
