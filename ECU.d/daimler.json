@@ -352,5 +352,25 @@
         "$taip_tag": "DAI.29",
         "$taip_float": true,
         "$id": "fefd_2-3_daiml"
+    },
+    "ff40_5.1_daiml": {
+        "$private": true,
+        "$id": "ff40_5.1_daiml",
+        "$taip_tag": "DAI.48"
+    },
+    "ff40_6.1_daiml": {
+        "$private": true,
+        "$id": "ff40_6.1_daiml",
+        "$taip_tag": "DAI.49"
+    },
+    "ff40_7.1_daiml": {
+        "$private": true,
+        "$id": "ff40_7.1_daiml",
+        "$taip_tag": "DAI.50"
+    },
+    "ff40_8.1_daiml": {
+        "$private": true,
+        "$id": "ff40_8.1_daiml",
+        "$taip_tag": "DAI.51"
     }
 }
