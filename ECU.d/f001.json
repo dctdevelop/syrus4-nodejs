@@ -26,7 +26,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "f001_6.5",
-        "$taip_tag": "DAI.32",
+        "$taip_tag": "DAI.14",
         "$name": "abs_ebs_amber_warning_signal_powered_vehicle"
     },
     "f001_3.1": {
@@ -55,7 +55,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "f001_3.3",
-        "$taip_tag": "DAI.30",
+        "$taip_tag": "DAI.12",
         "$name": "asr_off_road_switch"
     },
     "f001_6.7": {
@@ -70,7 +70,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "f001_6.7",
-        "$taip_tag": "DAI.33",
+        "$taip_tag": "DAI.15",
         "$name": "atc_acr_information_signal"
     },
     "f001_2": {
@@ -105,7 +105,7 @@
         "multiplier": 0.4,
         "source_interface": "J1939",
         "$id": "f001_5",
-        "$taip_tag": "DAI.31",
+        "$taip_tag": "DAI.13",
         "$name": "engine_retarder_selection"
     },
     "f001_4.7": {

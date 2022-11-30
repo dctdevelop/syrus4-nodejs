@@ -11,7 +11,7 @@
         "multiplier": 0.03125,
         "source_interface": "J1939",
         "$id": "fefc_5-6",
-        "$taip_tag": "DAI.45",
+        "$taip_tag": "DAI.26",
         "$name": "cargo_ambient_temperature"
     },
     "fefc_3": {
@@ -26,7 +26,7 @@
         "multiplier": 2,
         "source_interface": "J1939",
         "$id": "fefc_3",
-        "$taip_tag": "DAI.43",
+        "$taip_tag": "DAI.23",
         "$name": "engine_fuel_filter_differential_pressure"
     },
     "fefc_8": {
@@ -41,7 +41,7 @@
         "multiplier": 5,
         "source_interface": "J1939",
         "$id": "fefc_8",
-        "$taip_tag": "DAI.47",
+        "$taip_tag": "DAI.25",
         "$name": "engine_oil_filter_differential_pressure_extended_range"
     },
     "fefc_4": {
@@ -56,7 +56,7 @@
         "multiplier": 0.5,
         "source_interface": "J1939",
         "$id": "fefc_4",
-        "$taip_tag": "DAI.44",
+        "$taip_tag": "DAI.24",
         "$name": "engine_oil_filter_differential_pressure"
     },
     "fefc_2": {
@@ -90,7 +90,7 @@
         "multiplier": 0.4,
         "source_interface": "J1939",
         "$id": "fefc_7",
-        "$taip_tag": "DAI.46",
+        "$taip_tag": "DAI.27",
         "$name": "fuel_level_2"
     },
     "fefc_1": {

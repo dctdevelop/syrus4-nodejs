@@ -11,7 +11,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "f003_1.1",
-        "$taip_tag": "DAI.34",
+        "$taip_tag": "DAI.16",
         "$name": "accelerator_pedal_1_low_idle_switch"
     },
     "f003_1.3": {
@@ -58,7 +58,7 @@
         "multiplier": 0.4,
         "source_interface": "J1939",
         "$id": "f003_7",
-        "$taip_tag": "DAI.35",
+        "$taip_tag": "DAI.17",
         "$name": "actual_maximum_available_engine_percent_torque"
     },
     "f003_8": {
@@ -74,7 +74,7 @@
         "offset": -125,
         "source_interface": "J1939",
         "$id": "f003_8",
-        "$taip_tag": "DAI.36",
+        "$taip_tag": "DAI.18",
         "$name": "estimated_pumping_percent_torque"
     },
     "f003_3": {

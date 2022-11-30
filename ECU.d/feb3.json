@@ -12,5 +12,12 @@
         "source_interface": "J1939",
         "$id": "feb3_1-4",
         "$name": "total_engine_pto_governor_fuel_used"
+    },
+    "feb3_5-6": {
+        "pgn": "feb3",
+        "$private": true,
+        "$taip_tag": "DA7-2",
+        "$taip_float": true,
+        "$id": "feb3_5-6"
     }
 }

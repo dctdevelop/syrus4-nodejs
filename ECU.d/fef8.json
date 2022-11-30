@@ -58,5 +58,11 @@
         "$taip_multiplier": 10,
         "$taip_xaem_group": 1,
         "$taip_xaem_bit": 18
+    },
+    "fef8_1": {
+        "pgn": "fef8",
+        "$private": true,
+        "$taip_tag": "DAI.11",
+        "$id": "fef8_1"
     }
 }

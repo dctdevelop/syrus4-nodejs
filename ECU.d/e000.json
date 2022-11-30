@@ -17,5 +17,11 @@
         "$taip_xaem_group": 1,
         "$taip_xaem_bit": 50,
         "$taip_tag": "DAI.1"
+    },
+    "e000_6.5": {
+        "pgn": "e000",
+        "$private": true,
+        "$taip_tag": "DAI.2",
+        "$id": "e000_6.5"
     }
 }

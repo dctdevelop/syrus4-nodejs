@@ -32,7 +32,7 @@
         "multiplier": 0.05,
         "source_interface": "J1939",
         "$id": "fef7_7-8",
-        "$taip_tag": "DAI.25",
+        "$taip_tag": "ZQ.1",
         "$name": "key_switch_battery_potential",
         "$units": "Electrical voltage",
         "$range": "V",

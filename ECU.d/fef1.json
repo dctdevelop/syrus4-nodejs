@@ -11,7 +11,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "fef1_4.5",
-        "$taip_tag": "DAI.20",
+        "$taip_tag": "YB",
         "$name": "brake_switch",
         "$units": "count",
         "$range": "0 to 3",

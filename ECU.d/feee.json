@@ -63,5 +63,11 @@
         "$taip_multiplier": 1,
         "$taip_xaem_group": 1,
         "$taip_xaem_bit": 38
+    },
+    "feee_5-6": {
+        "pgn": "feee",
+        "$private": true,
+        "$taip_tag": "DAI.8",
+        "$id": "feee_5-6"
     }
 }

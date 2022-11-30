@@ -94,5 +94,11 @@
         "$id": "feae_8",
         "$name": "powertrain_circuit_air_supply_pressure",
         "$taip_tag": "JMC.39"
+    },
+    "feae_5": {
+        "pgn": "feae",
+        "$private": true,
+        "$taip_tag": "DAI.37",
+        "$id": "feae_5"
     }
 }

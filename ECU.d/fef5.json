@@ -40,5 +40,12 @@
         "$taip_multiplier": 0.145038,
         "$taip_xaem_group": 2,
         "$taip_xaem_bit": 3
+    },
+    "fef5_2-3": {
+        "pgn": "fef5",
+        "$private": true,
+        "$taip_tag": "YA",
+        "$taip_float": true,
+        "$id": "fef5_2-3"
     }
 }
