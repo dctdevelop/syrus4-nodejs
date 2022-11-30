@@ -1,0 +1,30 @@
+{
+    "fe58_1-2": {
+        "pgn": "fe58",
+        "$private": true,
+        "$taip_tag": "DA6-1",
+        "$taip_float": true,
+        "$id": "fe58_1-2"
+    },
+    "fe58_3-4": {
+        "pgn": "fe58",
+        "$private": true,
+        "$taip_tag": "DA6-2",
+        "$taip_float": true,
+        "$id": "fe58_3-4"
+    },
+    "fe58_5-6": {
+        "pgn": "fe58",
+        "$private": true,
+        "$taip_tag": "DA6-3",
+        "$taip_float": true,
+        "$id": "fe58_5-6"
+    },
+    "fe58_7-8": {
+        "pgn": "fe58",
+        "$private": true,
+        "$taip_tag": "DA6-4",
+        "$taip_float": true,
+        "$id": "fe58_7-8"
+    }
+}

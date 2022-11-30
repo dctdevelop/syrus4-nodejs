@@ -1,0 +1,58 @@
+{
+    "feac_1": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-1",
+        "$taip_float": true,
+        "$id": "feac_1"
+    },
+    "feac_2": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-2",
+        "$taip_float": true,
+        "$id": "feac_2"
+    },
+    "feac_3": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-3",
+        "$taip_float": true,
+        "$id": "feac_3"
+    },
+    "feac_4": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-4",
+        "$taip_float": true,
+        "$id": "feac_4"
+    },
+    "feac_5": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-5",
+        "$taip_float": true,
+        "$id": "feac_5"
+    },
+    "feac_6": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-6",
+        "$taip_float": true,
+        "$id": "feac_6"
+    },
+    "feac_7": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-7",
+        "$taip_float": true,
+        "$id": "feac_7"
+    },
+    "feac_8": {
+        "pgn": "feac",
+        "$private": true,
+        "$taip_tag": "DA3-8",
+        "$taip_float": true,
+        "$id": "feac_8"
+    }
+}

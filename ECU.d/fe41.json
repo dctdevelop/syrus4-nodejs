@@ -1,0 +1,38 @@
+{
+    "fe41_1.1": {
+        "pgn": "fe41",
+        "$private": true,
+        "$taip_tag": "DA1-8",
+        "$id": "fe41_1.1"
+    },
+    "fe41_2.5": {
+        "pgn": "fe41",
+        "$private": true,
+        "$taip_tag": "DA1-9",
+        "$id": "fe41_2.5"
+    },
+    "fe41_2.7": {
+        "pgn": "fe41",
+        "$private": true,
+        "$taip_tag": "DA1-10",
+        "$id": "fe41_2.7"
+    },
+    "fe41_3.3": {
+        "pgn": "fe41",
+        "$private": true,
+        "$taip_tag": "DA1-11",
+        "$id": "fe41_3.3"
+    },
+    "fe41_3.5": {
+        "pgn": "fe41",
+        "$private": true,
+        "$taip_tag": "DA1-12",
+        "$id": "fe41_3.5"
+    },
+    "fe41_3.7": {
+        "pgn": "fe41",
+        "$private": true,
+        "$taip_tag": "DA1-13",
+        "$id": "fe41_3.7"
+    }
+}

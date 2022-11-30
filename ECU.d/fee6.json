@@ -1,0 +1,38 @@
+{
+    "fee6_1": {
+        "pgn": "fee6",
+        "$private": true,
+        "$taip_tag": "DA4-1",
+        "$id": "fee6_1"
+    },
+    "fee6_2": {
+        "pgn": "fee6",
+        "$private": true,
+        "$taip_tag": "DA4-2",
+        "$id": "fee6_2"
+    },
+    "fee6_3": {
+        "pgn": "fee6",
+        "$private": true,
+        "$taip_tag": "DA4-3",
+        "$id": "fee6_3"
+    },
+    "fee6_4": {
+        "pgn": "fee6",
+        "$private": true,
+        "$taip_tag": "DA4-4",
+        "$id": "fee6_4"
+    },
+    "fee6_5": {
+        "pgn": "fee6",
+        "$private": true,
+        "$taip_tag": "DA4-5",
+        "$id": "fee6_5"
+    },
+    "fee6_6": {
+        "pgn": "fee6",
+        "$private": true,
+        "$taip_tag": "DA4-6",
+        "$id": "fee6_6"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "fefa_2": {
+        "pgn": "fefa",
+        "$private": true,
+        "$taip_tag": "DAI.32",
+        "$id": "fefa_2"
+    },
+    "fefa_3": {
+        "pgn": "fefa",
+        "$private": true,
+        "$taip_tag": "DAI.33",
+        "$id": "fefa_3"
+    },
+    "fefa_4.1": {
+        "pgn": "fefa",
+        "$private": true,
+        "$taip_tag": "DA9-2",
+        "$id": "fefa_4.1"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "d200_1.3": {
+        "pgn": "d200",
+        "$private": true,
+        "$taip_tag": "DA2-2",
+        "$id": "d200_1.3"
+    },
+    "d200_1.5": {
+        "pgn": "d200",
+        "$private": true,
+        "$taip_tag": "DA2-3",
+        "$id": "d200_1.5"
+    },
+    "d200_1.7": {
+        "pgn": "d200",
+        "$private": true,
+        "$taip_tag": "DA2-4",
+        "$id": "d200_1.7"
+    }
+}

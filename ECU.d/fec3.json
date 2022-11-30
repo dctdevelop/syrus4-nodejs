@@ -1,0 +1,14 @@
+{
+    "fec3_2.1": {
+        "pgn": "fec3",
+        "$private": true,
+        "$taip_tag": "DAI.35",
+        "$id": "fec3_2.1"
+    },
+    "fec3_2.3": {
+        "pgn": "fec3",
+        "$private": true,
+        "$taip_tag": "DAI.36",
+        "$id": "fec3_2.3"
+    }
+}
