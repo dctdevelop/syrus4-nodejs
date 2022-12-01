@@ -20,5 +20,12 @@
         "$taip_multiplier": 14.5038,
         "$taip_xaem_group": 2,
         "$taip_xaem_bit": 48
+    },
+    "fe92_5-6": {
+        "pgn": "fe92",
+        "$private": true,
+        "$taip_tag": "ZX.2",
+        "$taip_float": true,
+        "$id": "fe92_5-6"
     }
 }
