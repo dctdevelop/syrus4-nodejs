@@ -14,10 +14,20 @@
         "$name": "total_engine_pto_governor_fuel_used"
     },
     "feb3_5-6": {
+        "param_name": "AVERAGE TRIP FUEL RATE (LIQUID)",
         "pgn": "feb3",
-        "$private": true,
-        "$taip_tag": "DA7-2",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 7,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "5-6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.05,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "feb3_5-6",
+        "$name": "average_trip_fuel_rate_liquid",
         "$taip_float": true,
-        "$id": "feb3_5-6"
+        "$taip_tag": "DA7-2"
     }
 }

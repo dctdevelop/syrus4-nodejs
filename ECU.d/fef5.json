@@ -42,10 +42,21 @@
         "$taip_xaem_bit": 3
     },
     "fef5_2-3": {
+        "param_name": "CABIN TEMPERATURE",
         "pgn": "fef5",
-        "$private": true,
-        "$taip_tag": "YA",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "2-3",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.03125,
+        "offset": -273.0,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fef5_2-3",
+        "$name": "cabin_temperature",
         "$taip_float": true,
-        "$id": "fef5_2-3"
+        "$taip_tag": "YA"
     }
 }

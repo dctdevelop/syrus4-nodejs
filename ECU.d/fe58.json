@@ -1,30 +1,70 @@
 {
     "fe58_1-2": {
+        "param_name": "FRONT LEFT AXLE BELLOW",
         "pgn": "fe58",
-        "$private": true,
-        "$taip_tag": "DA6-1",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "1-2",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe58_1-2",
+        "$name": "front_left_axle_bellow",
         "$taip_float": true,
-        "$id": "fe58_1-2"
+        "$taip_tag": "DA6-1"
     },
     "fe58_3-4": {
+        "param_name": "FRONT RIGHT AXLE BELLOW",
         "pgn": "fe58",
-        "$private": true,
-        "$taip_tag": "DA6-2",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "3-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe58_3-4",
+        "$name": "front_right_axle_bellow",
         "$taip_float": true,
-        "$id": "fe58_3-4"
+        "$taip_tag": "DA6-2"
     },
     "fe58_5-6": {
+        "param_name": "REAR LEFT AXLE BELLOW",
         "pgn": "fe58",
-        "$private": true,
-        "$taip_tag": "DA6-3",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "5-6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe58_5-6",
+        "$name": "rear_left_axle_bellow",
         "$taip_float": true,
-        "$id": "fe58_5-6"
+        "$taip_tag": "DA6-3"
     },
     "fe58_7-8": {
+        "param_name": "REAR RIGHT AXLE BELLOW",
         "pgn": "fe58",
-        "$private": true,
-        "$taip_tag": "DA6-4",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "7-8",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe58_7-8",
+        "$name": "rear_right_axle_bellow",
         "$taip_float": true,
-        "$id": "fe58_7-8"
+        "$taip_tag": "DA6-4"
     }
 }

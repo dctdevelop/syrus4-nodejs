@@ -19,9 +19,19 @@
         "$taip_tag": "DAI.1"
     },
     "e000_6.5": {
+        "param_name": "AUTOMATIC GEARSHIFT ACTIVATION SWITCH",
         "pgn": "e000",
-        "$private": true,
-        "$taip_tag": "DAI.2",
-        "$id": "e000_6.5"
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BITS",
+        "start_position": "6.5",
+        "group": "SIGNAL",
+        "multiplier": 1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "e000_6.5",
+        "$name": "automatic_gearshift_activation_switch",
+        "$taip_tag": "DAI.2"
     }
 }

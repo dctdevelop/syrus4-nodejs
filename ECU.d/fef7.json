@@ -47,7 +47,7 @@
         "length": "1_BYTE",
         "start_position": "2",
         "group": "NUMBER_VALUE",
-        "multiplier": 1.0,
+        "multiplier": 1,
         "source_interface": "PRIMARY",
         "$mutable": [],
         "$id": "fef7_2",

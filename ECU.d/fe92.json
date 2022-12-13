@@ -22,10 +22,20 @@
         "$taip_xaem_bit": 48
     },
     "fe92_5-6": {
+        "param_name": "MASS FLOW (GASEOUS)",
         "pgn": "fe92",
-        "$private": true,
-        "$taip_tag": "ZX.2",
+        "transmission_rate": "",
+        "priority": 7,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "5-6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.05,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe92_5-6",
+        "$name": "mass_flow_gaseous",
         "$taip_float": true,
-        "$id": "fe92_5-6"
+        "$taip_tag": "ZX.2"
     }
 }

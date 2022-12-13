@@ -1,9 +1,19 @@
 {
     "fed5_1-2": {
+        "param_name": "ALTERNATOR SPEED",
         "pgn": "fed5",
-        "$private": true,
-        "$taip_tag": "DA5-2",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "1-2",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.5,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fed5_1-2",
+        "$name": "alternator_speed",
         "$taip_float": true,
-        "$id": "fed5_1-2"
+        "$taip_tag": "DA5-2"
     }
 }

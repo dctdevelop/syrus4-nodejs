@@ -1,8 +1,18 @@
 {
     "fdcd_1.5": {
+        "param_name": "WINDSHIELD WIPE STATUS",
         "pgn": "fdcd",
-        "$private": true,
-        "$taip_tag": "DA0-1",
-        "$id": "fdcd_1.5"
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BITS",
+        "start_position": "1.5",
+        "group": "SIGNAL",
+        "multiplier": 1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fdcd_1.5",
+        "$name": "windshield_wipe_status",
+        "$taip_tag": "DA0-1"
     }
 }

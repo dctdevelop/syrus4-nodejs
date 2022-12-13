@@ -60,9 +60,19 @@
         "$taip_xaem_bit": 18
     },
     "fef8_1": {
+        "param_name": "CLUTCH PRESSURE",
         "pgn": "fef8",
-        "$private": true,
-        "$taip_tag": "DAI.11",
-        "$id": "fef8_1"
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "1_BYTE",
+        "start_position": "1",
+        "group": "NUMBER_VALUE",
+        "multiplier": 16,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fef8_1",
+        "$name": "clutch_pressure",
+        "$taip_tag": "DAI.11"
     }
 }

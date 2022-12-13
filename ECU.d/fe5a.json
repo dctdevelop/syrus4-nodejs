@@ -1,20 +1,50 @@
 {
     "fe5a_4.1": {
+        "param_name": "KNEELING INFORMATION",
         "pgn": "fe5a",
-        "$private": true,
-        "$taip_tag": "DA2-1",
-        "$id": "fe5a_4.1"
+        "transmission_rate": "",
+        "priority": 3,
+        "dlc": 8,
+        "length": "4_BITS",
+        "start_position": "4.1",
+        "group": "SIGNAL",
+        "multiplier": 1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe5a_4.1",
+        "$name": "kneeling_information",
+        "$taip_tag": "DA2-1"
     },
     "fe5a_5.1": {
+        "param_name": "SAFETY DEVICE",
         "pgn": "fe5a",
-        "$private": true,
-        "$taip_tag": "DA2-5",
-        "$id": "fe5a_5.1"
+        "transmission_rate": "",
+        "priority": 3,
+        "dlc": 8,
+        "length": "2_BITS",
+        "start_position": "5.1",
+        "group": "SIGNAL",
+        "multiplier": 1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe5a_5.1",
+        "$name": "safety_device",
+        "$taip_tag": "DA2-5"
     },
     "fe5a_5.3": {
+        "param_name": "VEHICLE MOVEMENT INHIBITION",
         "pgn": "fe5a",
-        "$private": true,
-        "$taip_tag": "DA2-6",
-        "$id": "fe5a_5.3"
+        "transmission_rate": "",
+        "priority": 3,
+        "dlc": 8,
+        "length": "2_BITS",
+        "start_position": "5.3",
+        "group": "SIGNAL",
+        "multiplier": 1,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fe5a_5.3",
+        "$name": "vehicle_movement_inhibition",
+        "$taip_tag": "DA2-6"
     }
 }

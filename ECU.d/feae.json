@@ -96,9 +96,19 @@
         "$taip_tag": "JMC.39"
     },
     "feae_5": {
+        "param_name": "AUXILIARY EQUIPMENT SUPPLY PRESSURE",
         "pgn": "feae",
-        "$private": true,
-        "$taip_tag": "DAI.37",
-        "$id": "feae_5"
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "8_BITS",
+        "start_position": "5",
+        "group": "NUMBER_VALUE",
+        "multiplier": 8,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "feae_5",
+        "$name": "auxiliary_equipment_supply_pressure",
+        "$taip_tag": "DAI.37"
     }
 }

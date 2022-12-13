@@ -65,9 +65,21 @@
         "$taip_xaem_bit": 38
     },
     "feee_5-6": {
+        "param_name": "TURBO OIL TEMPERATURE",
         "pgn": "feee",
-        "$private": true,
-        "$taip_tag": "DAI.8",
-        "$id": "feee_5-6"
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "5-6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.03125,
+        "offset": -273.0,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "feee_5-6",
+        "$name": "turbo_oil_temperature",
+        "$taip_float": true,
+        "$taip_tag": "DAI.8"
     }
 }

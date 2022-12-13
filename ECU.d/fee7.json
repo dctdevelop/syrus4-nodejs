@@ -1,9 +1,19 @@
 {
     "fee7_1-4": {
+        "param_name": "TOTAL VEHICLE HOURS",
         "pgn": "fee7",
-        "$private": true,
-        "$taip_tag": "OH",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "4_BYTES",
+        "start_position": "1-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.05,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fee7_1-4",
+        "$name": "total_vehicle_hours",
         "$taip_float": true,
-        "$id": "fee7_1-4"
+        "$taip_tag": "OH"
     }
 }
