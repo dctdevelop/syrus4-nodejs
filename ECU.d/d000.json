@@ -4,7 +4,7 @@
         "pgn": "d000",
         "transmission_rate": "",
         "priority": 6,
-        "dlc": 6,
+        "dlc": 8,
         "length": "8_BITS",
         "start_position": "1",
         "group": "PERCENT",
