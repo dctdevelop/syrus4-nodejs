@@ -70,3 +70,39 @@ export async function onAppConsoleMessage(
 	};
 	return returnable;
 }
+
+export async function onBleUpdate(
+	callback: (channel:string, payload: any) => void,
+	errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+
+	const topic = "ble/notification/*"
+
+	try {
+		var handler = (pattern:string, channel: string, data: any) => {
+			if (!channel.startsWith('ble/notification')) return
+			try {
+				const state = JSON.parse(data)
+				if (!_isObjectLike(state)) throw 'not objectLike'
+				callback(channel, state)
+			} catch (error) {
+				console.log('onBluetoothUpdate error:', error)
+			}
+		};
+        subscriber.subscribe(topic);
+        subscriber.on("message", handler);    
+    } catch (error) {
+        console.log("onSafeEngineEvent error:", error );
+        errorCallback(error);
+    }
+
+    return {
+      unsubscribe: () => {
+        subscriber.off("message", handler);
+        subscriber.unsubscribe(topic);  
+      },
+      off: () => {
+          this.unsubscribe();
+      }  
+    }
+
+}
