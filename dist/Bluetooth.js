@@ -78,16 +78,16 @@ async function onAppConsoleMessage(callback, errorCallback) {
 }
 exports.onAppConsoleMessage = onAppConsoleMessage;
 async function onBleUpdate(callback, errorCallback) {
-    const topic = "ble/notification/*";
+    const topic = "ble/notification/scan";
     try {
-        var handler = (pattern, channel, data) => {
-            if (!channel.startsWith('ble/notification'))
+        var handler = (channel, data) => {
+            if (!channel.startsWith('ble/notification/scan'))
                 return;
             try {
                 const state = JSON.parse(data);
                 if (!lodash_isobjectlike_1.default(state))
                     throw 'not objectLike';
-                callback(channel, state);
+                callback(state);
             }
             catch (error) {
                 console.log('onBluetoothUpdate error:', error);
@@ -97,7 +97,7 @@ async function onBleUpdate(callback, errorCallback) {
         Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
-        console.log("onSafeEngineEvent error:", error);
+        console.log("onBleUpdate error:", error);
         errorCallback(error);
     }
     return {
