@@ -17,8 +17,8 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Apps">Apps</a></dt>
 <dd><p>Apps module to start/stop/enable/disable/install third parts apps running in apex-os</p>
 </dd>
-<dt><a href="#module_Serial">Serial</a></dt>
-<dd><p>Serial module, get information about serial state</p>
+<dt><a href="#module_Bluetooth">Bluetooth</a></dt>
+<dd><p>Bluetooth module, get information about bluetooth state</p>
 </dd>
 <dt><a href="#module_Counters">Counters</a></dt>
 <dd><p>Counters module setup get and set counters from APEX OS</p>
@@ -327,63 +327,11 @@ Get the contents of SYRUS4G_APP_CONF_FILE file where it stored the configuration
 | --- | --- |
 | app | the name of the app |
 
-<a name="module_Serial"></a>
+<a name="module_Bluetooth"></a>
 
-## Serial
-Serial module, get information about serial state
+## Bluetooth
+Bluetooth module, get information about bluetooth state
 
-
-* [Serial](#module_Serial)
-    * [~getSerialMode()](#module_Serial..getSerialMode)
-    * [~setSerialMode()](#module_Serial..setSerialMode)
-    * [~getSerialModemState()](#module_Serial..getSerialModemState)
-    * [~getModemBufferSize()](#module_Serial..getModemBufferSize)
-    * [~setModemBufferSize()](#module_Serial..setModemBufferSize)
-    * [~send()](#module_Serial..send)
-    * [~onIncomingMessage()](#module_Serial..onIncomingMessage)
-
-<a name="module_Serial..getSerialMode"></a>
-
-### Serial~getSerialMode()
-get serial mode
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..setSerialMode"></a>
-
-### Serial~setSerialMode()
-set serial mode (console or modem)
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..getSerialModemState"></a>
-
-### Serial~getSerialModemState()
-get serial modem state
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..getModemBufferSize"></a>
-
-### Serial~getModemBufferSize()
-get modem buffer size
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..setModemBufferSize"></a>
-
-### Serial~setModemBufferSize()
-set the buffer size
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..send"></a>
-
-### Serial~send()
-send a message
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..onIncomingMessage"></a>
-
-### Serial~onIncomingMessage()
-monitor incoming serial messages
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
 <a name="module_Counters"></a>
 
 ## Counters
