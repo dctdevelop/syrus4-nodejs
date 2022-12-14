@@ -7,7 +7,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onAppConsoleMessage = exports.onBluetoothUpdate = void 0;
+exports.onBleUpdate = exports.onAppConsoleMessage = exports.onBluetoothUpdate = void 0;
 const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
 const Redis_1 = require("./Redis");
 // import * as Utils from "./Utils"
@@ -77,3 +77,37 @@ async function onAppConsoleMessage(callback, errorCallback) {
     return returnable;
 }
 exports.onAppConsoleMessage = onAppConsoleMessage;
+async function onBleUpdate(callback, errorCallback) {
+    const topic = "ble/notification/scan";
+    try {
+        var handler = (channel, data) => {
+            if (!channel.startsWith('ble/notification/scan'))
+                return;
+            try {
+                const state = JSON.parse(data);
+                if (!lodash_isobjectlike_1.default(state))
+                    throw 'not objectLike';
+                callback(state);
+            }
+            catch (error) {
+                console.log('onBluetoothUpdate error:', error);
+            }
+        };
+        Redis_1.SystemRedisSubscriber.subscribe(topic);
+        Redis_1.SystemRedisSubscriber.on("message", handler);
+    }
+    catch (error) {
+        console.log("onBleUpdate error:", error);
+        errorCallback(error);
+    }
+    return {
+        unsubscribe: () => {
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+        },
+        off: () => {
+            this.unsubscribe();
+        }
+    };
+}
+exports.onBleUpdate = onBleUpdate;
