@@ -201,7 +201,6 @@ async function onECUWarningEvent(callback, errorCallback) {
     const topic = "ecumonitor/notification/warning";
     try {
         var handler = (channel, data) => {
-            console.log("onEcuWarningEvent:", channel, data);
             if (!channel.startsWith('ecumonitor/notification/warning'))
                 return;
             try {

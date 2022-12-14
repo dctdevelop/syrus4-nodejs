@@ -182,7 +182,6 @@ export async function onECUWarningEvent(
 
 	try {
 		var handler = (channel: string, data: any) => {
-			console.log("onEcuWarningEvent:", channel, data);
 			if (!channel.startsWith('ecumonitor/notification/warning')) return
 			try {
 				const state = JSON.parse(data)
