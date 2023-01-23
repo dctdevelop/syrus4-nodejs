@@ -1,7 +1,7 @@
 "use strict";
 /**
- * Serial module, get information about serial state
- * @module Serial
+ * Bluetooth module, get information about bluetooth state
+ * @module Bluetooth
  */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };

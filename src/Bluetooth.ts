@@ -1,6 +1,6 @@
 /**
- * Serial module, get information about serial state
- * @module Serial
+ * Bluetooth module, get information about bluetooth state
+ * @module Bluetooth
  */
 
 import _isObjectLike from 'lodash.isobjectlike'

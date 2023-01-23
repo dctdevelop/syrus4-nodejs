@@ -9,6 +9,7 @@ import { params } from 'tag-params';
 
 import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
+import _isObjectLike from 'lodash.isobjectlike'
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -173,4 +174,40 @@ export function getECUList(reload: boolean = false) {
 	return JSON.parse(JSON.stringify(__ecu_params))
 }
 
-export default { getECUParams, getECUList, watchECUParams, getECUInfo };
+export async function onECUWarningEvent(
+	callback: (payload: any) => void,
+	errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+
+	const topic = "ecumonitor/notification/warning"
+
+	try {
+		var handler = (channel: string, data: any) => {
+			if (!channel.startsWith('ecumonitor/notification/warning')) return
+			try {
+				const state = JSON.parse(data)
+				if (!_isObjectLike(state)) throw 'not objectLike'
+				callback(state)
+			} catch (error) {
+				console.log('onECUWarningEvent error:', error)
+			}
+		};
+        subscriber.subscribe(topic);
+        subscriber.on("message", handler);    
+    } catch (error) {
+        console.log("onECUWarningEvent error:", error );
+        errorCallback(error);
+    }
+
+    return {
+      unsubscribe: () => {
+        subscriber.off("message", handler);
+        subscriber.unsubscribe(topic);  
+      },
+      off: () => {
+          this.unsubscribe();
+      }  
+    }
+
+}
+
+export default { getECUParams, getECUList, watchECUParams, getECUInfo, onECUWarningEvent };

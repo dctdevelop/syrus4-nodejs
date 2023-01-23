@@ -22,13 +22,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
+exports.onECUWarningEvent = exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const tag_params_1 = require("tag-params");
 const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
+const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -193,4 +197,38 @@ function getECUList(reload = false) {
     return JSON.parse(JSON.stringify(__ecu_params));
 }
 exports.getECUList = getECUList;
-exports.default = { getECUParams, getECUList, watchECUParams, getECUInfo };
+async function onECUWarningEvent(callback, errorCallback) {
+    const topic = "ecumonitor/notification/warning";
+    try {
+        var handler = (channel, data) => {
+            if (!channel.startsWith('ecumonitor/notification/warning'))
+                return;
+            try {
+                const state = JSON.parse(data);
+                if (!lodash_isobjectlike_1.default(state))
+                    throw 'not objectLike';
+                callback(state);
+            }
+            catch (error) {
+                console.log('onECUWarningEvent error:', error);
+            }
+        };
+        Redis_1.SystemRedisSubscriber.subscribe(topic);
+        Redis_1.SystemRedisSubscriber.on("message", handler);
+    }
+    catch (error) {
+        console.log("onECUWarningEvent error:", error);
+        errorCallback(error);
+    }
+    return {
+        unsubscribe: () => {
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+        },
+        off: () => {
+            this.unsubscribe();
+        }
+    };
+}
+exports.onECUWarningEvent = onECUWarningEvent;
+exports.default = { getECUParams, getECUList, watchECUParams, getECUInfo, onECUWarningEvent };
