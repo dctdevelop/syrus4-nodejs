@@ -27,6 +27,7 @@
         "offset": -125,
         "source_interface": "J1939",
         "$id": "f000_2",
+        "$taip_tag": "ERC-2",
         "$name": "actual_retarder_percent_torque"
     },
     "f000_3": {
@@ -89,6 +90,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "f000_1.1",
+        "$taip_tag": "ERC-1",
         "$name": "retarder_torque_mode"
     },
     "f000_5": {
@@ -104,5 +106,21 @@
         "source_interface": "J1939",
         "$id": "f000_5",
         "$name": "source_address_for_controlling_device_for_retarder"
+    },
+    "f000_7": {
+        "param_name": "RETARDER SELECTION NON-ENGINE",
+        "pgn": "f000",
+        "transmission_rate": "100MS",
+        "priority": 8,
+        "dlc": 6,
+        "length": "1_BYTE",
+        "start_position": "7",
+        "group": "PERCENT",
+        "multiplier": 0.4,
+        "source_interface": "J1939",
+        "$mutable": [],
+        "$id": "f000_7",
+        "$taip_tag": "ERC-3",
+        "$name": "retarder_selection_non_engine"
     }
 }

@@ -11,6 +11,7 @@
         "multiplier": 0.001,
         "source_interface": "J1939",
         "$id": "fd09_5-8",
+        "$taip_tag": "OF",
         "$name": "engine_total_fuel_used_high_resolution"
     },
     "fd09_1-4": {
