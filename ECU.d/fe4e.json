@@ -30,5 +30,21 @@
 		"$id": "fe4e_1.5",
 		"$name": "ramp_position",
 		"$taip_tag": "DAI.5"
-	}
+	},
+	"fe4e_1.7": {
+        "param_name": "STATUS OF DOORS 2",
+        "pgn": "fe4e",
+        "transmission_rate": "100MS",
+        "priority": 8,
+        "dlc": 6,
+        "length": "2_BITS",
+        "start_position": "1.7",
+        "group": "SIGNAL",
+        "multiplier": 1.0,
+        "source_interface": "J1939",
+        "$mutable": [],
+        "$id": "fe4e_1.7",
+        "$taip_tag": "EEV.6",
+        "$name": "status_of_doors_2"
+    }
 }

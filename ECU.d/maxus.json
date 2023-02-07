@@ -351,12 +351,42 @@
     },
     "510_6.8_maxus": {
         "$private": true,
-        "$id": "510_6.8",
+        "$id": "510_6.8_maxus",
         "$taip_tag": "MAX.16"
     },
     "510_6.6_maxus": {
         "$private": true,
-        "$id": "510_6.6",
+        "$id": "510_6.6_maxus",
         "$taip_tag": "MAX.15"
+    },
+    "3da_5-6_maxus": {
+        "$private": true,
+        "$id": "3da_5-6_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "0b4_3_maxus": {
+        "$private": true,
+        "$id": "0b4_3_maxus",
+        "$taip_tag": "MAX.12"
+    },
+    "3ba_6-7_maxus": {
+        "$private": true,
+        "$id": "3ba_6-7_maxus",
+        "$taip_tag": "MAX.20"
+    },
+    "540_1-3_maxus": {
+        "$private": true,
+        "$id": "540_1-3_maxus",
+        "$taip_tag": "MAX.7"
+    },
+    "0b4_1_maxus": {
+        "$private": true,
+        "$id": "0b4_1_maxus",
+        "$taip_tag": "MAX.28"
+    },
+    "1d8_1_maxus": {
+        "$private": true,
+        "$id": "1d8_1_maxus",
+        "$taip_tag": "MAX.28"
     }
 }

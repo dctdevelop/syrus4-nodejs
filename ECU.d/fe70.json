@@ -13,6 +13,7 @@
         "$id": "fe70_3-4",
         "$name": "weight_gross_combination",
         "$units": "kg",
+        "$taip_tag": "OZ",
         "$range": "0 to 642,550"
     },
     "fe70_1-2": {

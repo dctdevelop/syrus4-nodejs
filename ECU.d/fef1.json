@@ -49,6 +49,7 @@
         "multiplier": 1,
         "source_interface": "J1939",
         "$id": "fef1_4.1",
+        "$taip_tag": "OQ",
         "$name": "cruise_control_active"
     },
     "fef1_4.3": {
