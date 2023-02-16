@@ -98,6 +98,15 @@ async function getAll(opts) {
 }
 
 /**
+ * Get the list of geofences in wich the device is currently inside
+ * @params namespace
+ * namespace: The desired namespace to query
+ */
+async function getInside(namespace: string) {
+	return await Utils.OSExecute(`apx-geofences getinside ${namespace}`)
+}
+
+/**
  * remove all Geofences from the namespace
  * @param opts options hash
  * namespace: namespace that belongs of geofence;
@@ -116,9 +125,17 @@ async function deleteAll({ namespace = null } = {}) {
  * @param opts options hash
  * namespace: namespace to check if entered or exited from geofence;
  */
-function watchGeofences(callback, errorCb, { namespace = null } = {}) {
+async function watchGeofences(callback, errorCb, { namespace = null } = {}) {
 	if (!namespace) {
 		namespace = Utils.getPrefix();
+	}
+
+	/* Get last state */
+	const lastGeofenceState = await Utils.OSExecute(`apx-geofences getstatus ${namespace}`).catch(console.error);
+	const lastGeoObject = JSON.parse(JSON.stringify(lastGeofenceState));
+
+	if (lastGeoObject != undefined) {
+		callback(lastGeoObject);
 	}
 
 	var handler = function(pattern, channel, data) {

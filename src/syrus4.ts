@@ -53,3 +53,14 @@ export {
 	WIFI,
 	Windows,
 };
+
+
+Geofences.getAll({namespace : 'test_namespace'});
+
+Geofences.watchGeofences(event => {
+	console.log('watchGeofences:', event);
+}, console.error);
+
+Geofences.watchGroups(event => {
+	console.log('watchGroups:', event);
+}, console.error);

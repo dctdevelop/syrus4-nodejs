@@ -501,6 +501,7 @@ Geofences module
     * [~getNamespaces()](#module_Geofences..getNamespaces) ⇒ <code>\*</code>
     * [~get(opts)](#module_Geofences..get)
     * [~getAll(opts)](#module_Geofences..getAll)
+    * [~getInside()](#module_Geofences..getInside)
     * [~deleteAll(opts)](#module_Geofences..deleteAll)
     * [~watchGeofences(callback, errorCb, opts)](#module_Geofences..watchGeofences)
     * [~watchGroups(callback, errorCb, opts)](#module_Geofences..watchGroups)
@@ -566,6 +567,14 @@ Get states from all Geofences for a given namespace
 | --- | --- |
 | opts | options hash namespace: namespace that belongs of geofence; |
 
+<a name="module_Geofences..getInside"></a>
+
+### Geofences~getInside()
+Get the list of geofences in wich the device is currently inside
+
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+**Params**: namespace
+namespace: The desired namespace to query  
 <a name="module_Geofences..deleteAll"></a>
 
 ### Geofences~deleteAll(opts)
