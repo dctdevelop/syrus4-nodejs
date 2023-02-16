@@ -100,4 +100,15 @@ async function listCounters() {
     }
     return counters;
 }
-exports.default = { startCounters, stopCounters, resetCounters, watchCounters, listCounters, deleteCounters };
+async function setCounter(name = "globals", key = undefined, value = undefined) {
+    if (name == undefined)
+        throw "Counter name is required";
+    if (key == undefined)
+        throw "Counter key is required";
+    if (value == undefined)
+        throw "Counter value is required";
+    if (COUNTER_KEYS.includes(key)) {
+        await Utils.OSExecute(`apx-counter set ${name} ${key.toUpperCase()} ${value}`);
+    }
+}
+exports.default = { startCounters, stopCounters, resetCounters, watchCounters, listCounters, deleteCounters, setCounter };
