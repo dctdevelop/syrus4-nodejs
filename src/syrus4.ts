@@ -64,3 +64,5 @@ Geofences.watchGeofences(event => {
 Geofences.watchGroups(event => {
 	console.log('watchGroups:', event);
 }, console.error);
+
+Counters.setCounter("globals", "over_speed", 0).catch(console.error);
