@@ -84,7 +84,7 @@ async function setCounter(name:string = "globals", key:string = undefined, value
 	if (key == undefined) throw "Counter key is required"
 	if (value == undefined) throw "Counter value is required"
 
-	if (COUNTER_KEYS.includes(key)) {
+	if (COUNTER_KEYS.indexOf(key) > -1) {
 		await Utils.OSExecute(`apx-counter set ${name} ${key.toUpperCase()} ${value}`);
 	}
 }
