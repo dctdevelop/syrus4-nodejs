@@ -75,11 +75,3 @@ const SafeEngine = __importStar(require("./SafeEngine"));
 exports.SafeEngine = SafeEngine;
 const PeopleCounter = __importStar(require("./PeopleCounter"));
 exports.PeopleCounter = PeopleCounter;
-Geofences_1.default.getAll({ namespace: 'test_namespace' });
-Geofences_1.default.watchGeofences(event => {
-    console.log('watchGeofences:', event);
-}, console.error);
-Geofences_1.default.watchGroups(event => {
-    console.log('watchGroups:', event);
-}, console.error);
-Counters_1.default.setCounter("globals", "over_speed", 0).catch(console.error);
