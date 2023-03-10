@@ -1,0 +1,30 @@
+{
+    "fde8_5-6": {
+        "param_name": "BGSC - GASEOUS FUEL CONSUMPTION TRANSIENT MASS",
+        "pgn": "fde8",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": "VARIABLE",
+        "length": "2_BYTES",
+        "start_position": "5-6",
+        "group": "NUMBER_VALUE",
+        "multiplier": 1,
+        "source_interface": "J1939",
+        "$id": "fde8_5-6",
+        "$name": "gaseous_fuel_consumption_transient_mass"
+    },
+    "fde8_7-8": {
+        "param_name": "BGSC - GASEOUS FUEL CONSUMPTION TRANSIENT VOLUME",
+        "pgn": "fde8",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": "VARIABLE",
+        "length": "2_BYTES",
+        "start_position": "7-8",
+        "group": "NUMBER_VALUE",
+        "multiplier": 1,
+        "source_interface": "J1939",
+        "$id": "fde8_7-8",
+        "$name": "gaseous_fuel_consumption_transient_volume"
+    }
+}

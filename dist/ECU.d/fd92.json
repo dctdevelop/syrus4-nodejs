@@ -1,0 +1,16 @@
+{
+    "fd92_1.1": {
+        "param_name": "EOI - ENGINE OPERATING STATE",
+        "pgn": "fd92",
+        "transmission_rate": "250MS",
+        "priority": 3,
+        "dlc": 8,
+        "length": "4_BITS",
+        "start_position": "1.1",
+        "group": "EXTENDED_SIGNAL",
+        "multiplier": 1,
+        "source_interface": "J1939",
+        "$id": "fd92_1.1",
+        "$name": "engine_operating_state"
+    }
+}

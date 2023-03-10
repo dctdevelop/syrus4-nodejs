@@ -1,0 +1,19 @@
+{
+    "febe_3-4": {
+        "param_name": "ENGINE RATED SPEED",
+        "pgn": "febe",
+        "transmission_rate": "",
+        "priority": 7,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "3-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.125,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "febe_3-4",
+        "$name": "engine_rated_speed",
+        "$taip_float": true,
+        "$taip_tag": "OE"
+    }
+}

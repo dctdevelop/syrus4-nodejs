@@ -1,0 +1,19 @@
+{
+    "feb6_1-2": {
+        "param_name": "MAXIMUM SPEED OF THE VEHICLE IN THE TRIP",
+        "pgn": "feb6",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 7,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "1-2",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.00390625,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "feb6_1-2",
+        "$name": "maximum_speed_of_the_vehicle_in_the_trip",
+        "$taip_float": true,
+        "$taip_tag": "DA7-3"
+    }
+}

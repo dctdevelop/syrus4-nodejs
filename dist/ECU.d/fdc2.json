@@ -1,0 +1,18 @@
+{
+    "fdc2_7": {
+        "param_name": "FUEL TYPE",
+        "pgn": "fdc2",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 8,
+        "dlc": 6,
+        "length": "8_BITS",
+        "start_position": "7",
+        "group": "EXTENDED_SIGNAL",
+        "multiplier": 1.0,
+        "source_interface": "J1939",
+        "$mutable": [],
+        "$id": "fdc2_7",
+        "$name": "fuel_type",
+        "$taip_tag": "ZF"
+    }
+}

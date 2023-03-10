@@ -1,0 +1,82 @@
+{
+    "0029_1_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-1",
+        "$id": "0029_1_foton"
+    },
+    "0029_2_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-2",
+        "$id": "0029_2_foton"
+    },
+    "0029_3_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-3",
+        "$id": "0029_3_foton"
+    },
+    "0029_4_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-4",
+        "$id": "0029_4_foton"
+    },
+    "0029_5_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-5",
+        "$id": "0029_5_foton"
+    },
+    "0029_6_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-6",
+        "$id": "0029_6_foton"
+    },
+    "0029_7_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-7",
+        "$id": "0029_7_foton"
+    },
+    "0029_8_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-8",
+        "$id": "0029_8_foton"
+    },
+    "2029_1_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-9",
+        "$id": "2029_1_foton"
+    },
+    "2029_2_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-10",
+        "$id": "2029_2_foton"
+    },
+    "2029_3_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-11",
+        "$id": "2029_3_foton"
+    },
+    "2029_4_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-12",
+        "$id": "2029_4_foton"
+    },
+    "2029_5_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-13",
+        "$id": "2029_5_foton"
+    },
+    "2029_6_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-14",
+        "$id": "2029_6_foton"
+    },
+    "2029_7_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-15",
+        "$id": "2029_7_foton"
+    },
+    "2029_8_foton": {
+        "$private": true,
+        "$taip_tag": "BTT-16",
+        "$id": "2029_8_foton"
+    }
+}

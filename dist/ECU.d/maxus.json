@@ -1,0 +1,392 @@
+{
+    "0c9_5_maxus": {
+        "$private": true,
+        "$id": "0c9_5_maxus",
+        "$taip_tag": "MAX.1"
+    },
+    "1f2_1.8_maxus": {
+        "$private": true,
+        "$id": "1f2_1.8_maxus",
+        "$taip_tag": "MAX.2"
+    },
+    "1e9_1_maxus": {
+        "$private": true,
+        "$id": "1e9_1_maxus",
+        "$taip_tag": "MAX.5"
+    },
+    "1e9_4_maxus": {
+        "$private": true,
+        "$id": "1e9_4_maxus",
+        "$taip_tag": "MAX.6"
+    },
+    "540_2-3_maxus": {
+        "$private": true,
+        "$id": "540_2-3_maxus",
+        "$taip_tag": "MAX.7"
+    },
+    "6f2_2_maxus": {
+        "$private": true,
+        "$id": "6f2_2_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "1f5_4.1_maxus": {
+        "$private": true,
+        "$id": "1f5_4.1_maxus",
+        "$taip_tag": "MAX.9"
+    },
+    "1f5_4.3_maxus": {
+        "$private": true,
+        "$id": "1f5_4.3_maxus",
+        "$taip_tag": "MAX.10"
+    },
+    "281_1.6_maxus": {
+        "$private": true,
+        "$id": "281_1.6_maxus",
+        "$taip_tag": "MAX.11"
+    },
+    "0c9_7_maxus": {
+        "$private": true,
+        "$id": "0c9_7_maxus",
+        "$taip_tag": "MAX.12"
+    },
+    "1f1_1.2_maxus": {
+        "$private": true,
+        "$id": "1f1_1.2_maxus",
+        "$taip_tag": "MAX.13"
+    },
+    "281_3.1_maxus": {
+        "$private": true,
+        "$id": "281_3.1_maxus",
+        "$taip_tag": "MAX.14"
+    },
+    "510_6.3_maxus": {
+        "$private": true,
+        "$id": "510_6.3_maxus",
+        "$taip_tag": "MAX.15"
+    },
+    "510_5.6_maxus": {
+        "$private": true,
+        "$id": "510_5.6_maxus",
+        "$taip_tag": "MAX.16"
+    },
+    "510_5.8_maxus": {
+        "$private": true,
+        "$id": "510_5.8_maxus",
+        "$taip_tag": "MAX.17"
+    },
+    "6f0_1-2_maxus": {
+        "$private": true,
+        "$id": "6f0_1-2_maxus",
+        "$taip_tag": "MAX.18"
+    },
+    "0c9_4.6_maxus": {
+        "$private": true,
+        "$id": "0c9_4.6_maxus",
+        "$taip_tag": "MAX.19"
+    },
+    "6f2_6_maxus": {
+        "$private": true,
+        "$id": "6f2_6_maxus",
+        "$taip_float": true,
+        "$taip_tag": "MAX.20"
+    },
+    "6f2_7_maxus": {
+        "$private": true,
+        "$id": "6f2_7_maxus",
+        "$taip_float": true,
+        "$taip_tag": "MAX.21"
+    },
+    "604_7.1_maxus": {
+        "$private": true,
+        "$id": "604_7.1_maxus",
+        "$taip_tag": "MAX.22"
+    },
+    "604_7.2_maxus": {
+        "$private": true,
+        "$id": "604_7.2_maxus",
+        "$taip_tag": "MAX.23"
+    },
+    "604_1-2_maxus": {
+        "$private": true,
+        "$id": "604_1-2_maxus",
+        "$taip_float": true,
+        "$taip_tag": "MAX.24"
+    },
+    "604_3_maxus": {
+        "$private": true,
+        "$id": "604_3_maxus",
+        "$taip_float": true,
+        "$taip_tag": "MAX.25"
+    },
+    "23c_1-2_maxus": {
+        "$private": true,
+        "$id": "23c_1-2_maxus",
+        "$taip_tag": "MAX.26"
+    },
+    "ff10_1.1_maxus": {
+        "$private": true,
+        "$id": "ff10_1.1_maxus",
+        "$taip_tag": "MAX.27"
+    },
+    "ff10_1.2_maxus": {
+        "$private": true,
+        "$id": "ff10_1.2_maxus",
+        "$taip_tag": "MAX.28"
+    },
+    "fe6e_2_maxus": {
+        "$private": true,
+        "$id": "fe6e_2_maxus",
+        "$taip_tag": "MAX.3"
+    },
+    "ff02_1_maxus": {
+        "$private": true,
+        "$id": "ff02_1_maxus",
+        "$taip_tag": "MAX.1"
+    },
+    "ff10_5-6_maxus": {
+        "$private": true,
+        "$id": "ff10_5-6_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "ff11_3-4_maxus": {
+        "$private": true,
+        "$id": "ff11_3-4_maxus",
+        "$taip_tag": "MAX.20"
+    },
+    "ff20_4-5_maxus": {
+        "$private": true,
+        "$id": "ff20_4-5_maxus",
+        "$taip_tag": "MAX.26"
+    },
+    "ff24_4-5_maxus": {
+        "$private": true,
+        "$id": "ff24_4-5_maxus",
+        "$taip_tag": "MAX.21"
+    },
+    "205_1.1_maxus": {
+        "$private": true,
+        "$id": "205_1.1_maxus",
+        "$taip_tag": "MAX.27"
+    },
+    "205_2_maxus": {
+        "$private": true,
+        "$id": "205_2_maxus",
+        "$taip_tag": "MAX.1"
+    },
+    "230_1_maxus": {
+        "$private": true,
+        "$id": "230_1_maxus",
+        "$taip_tag": "MAX.29"
+    },
+    "300_4-5_maxus": {
+        "$private": true,
+        "$id": "300_4-5_maxus",
+        "$taip_tag": "MAX.26"
+    },
+    "305_1-2_maxus": {
+        "$private": true,
+        "$id": "305_1-2_maxus",
+        "$taip_tag": "MAX.3"
+    },
+    "322_1-2_maxus": {
+        "$private": true,
+        "$id": "322_1-2_maxus",
+        "$taip_tag": "MAX.21"
+    },
+    "322_3_maxus": {
+        "$private": true,
+        "$id": "322_3_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "322_4_maxus": {
+        "$private": true,
+        "$id": "322_4_maxus",
+        "$taip_tag": "MAX.20"
+    },
+    "380_3-4_maxus": {
+        "$private": true,
+        "$id": "380_3-4_maxus",
+        "$taip_tag": "MAX.7"
+    },
+    "08a_1_maxus": {
+        "$private": true,
+        "$id": "08a_1_maxus",
+        "$taip_tag": "MAX.12"
+    },
+    "08a_2_maxus": {
+        "$private": true,
+        "$id": "08a_2_maxus",
+        "$taip_tag": "MAX.18"
+    },
+    "3ba_3_maxus": {
+        "$private": true,
+        "$id": "3ba_3_maxus",
+        "$taip_tag": "MAX.1"
+    },
+    "3ba_1.2_maxus": {
+        "$private": true,
+        "$id": "3ba_1.2_maxus",
+        "$taip_tag": "MAX.27"
+    },
+    "6f0_1_maxus": {
+        "$private": true,
+        "$id": "6f0_1_maxus",
+        "$taip_tag": "MAX.18"
+    },
+    "269_1-2_maxus": {
+        "$private": true,
+        "$id": "269_1-2_maxus",
+        "$taip_tag": "MAX.26"
+    },
+    "362_1-2_maxus": {
+        "$private": true,
+        "$id": "362_1-2_maxus",
+        "$taip_tag": "MAX.7"
+    },
+    "6f0_5_maxus": {
+        "$private": true,
+        "$id": "6f0_5_maxus",
+        "$taip_tag": "MAX.3"
+    },
+    "6f2_1_maxus": {
+        "$private": true,
+        "$id": "6f2_1_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "501_3-4_maxus": {
+        "$private": true,
+        "$id": "501_3-4_maxus",
+        "$taip_tag": "MAX.20"
+    },
+    "3d7_1-2_maxus": {
+        "$private": true,
+        "$id": "3d7_1-2_maxus",
+        "$taip_tag": "MAX.30"
+    },
+    "389_3_maxus": {
+        "$private": true,
+        "$id": "389_3_maxus",
+        "$taip_tag": "MAX.4"
+    },
+    "0103_3_maxus": {
+        "$private": true,
+        "$id": "0103_3_maxus",
+        "$taip_tag": "MAX.29"
+    },
+    "fe4a_3.3_maxus": {
+        "$private": true,
+        "$id": "fe4a_3.3_maxus",
+        "$taip_tag": "MAX.31"
+    },
+    "febf_2_maxus": {
+        "$private": true,
+        "$id": "febf_2_maxus",
+        "$taip_tag": "MAX.3"
+    },
+    "ff32_1_maxus": {
+        "$private": true,
+        "$id": "ff32_1_maxus",
+        "$taip_tag": "MAX.29"
+    },
+    "6f1_1_maxus": {
+        "$private": true,
+        "$id": "6f1_1_maxus",
+        "$taip_tag": "MAX.28"
+    },
+    "0b4_1-2_maxus": {
+        "$private": true,
+        "$id": "0b4_1-2_maxus",
+        "$taip_tag": "MAX.26"
+    },
+    "1f6_1_maxus": {
+        "$private": true,
+        "$id": "1f6_1_maxus",
+        "$taip_tag": "MAX.29"
+    },
+    "501_5-6_maxus": {
+        "$private": true,
+        "$id": "501_5-6_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "ff00_1_maxus": {
+        "$private": true,
+        "$id": "ff00_1_maxus",
+        "$taip_tag": "MAX.1"
+    },
+    "ff81_1.5_maxus": {
+        "$private": true,
+        "$id": "ff81_1.5_maxus",
+        "$taip_tag": "MAX.27"
+    },
+    "f004_4-5_maxus": {
+        "$private": true,
+        "$id": "f004_4-5_maxus",
+        "$taip_tag": "MAX.26"
+    },
+    "fec1_1-4_maxus": {
+        "$private": true,
+        "$id": "fec1_1-4_maxus",
+        "$taip_tag": "MAX.7"
+    },
+    "fa66_2_maxus": {
+        "$private": true,
+        "$id": "fa66_2_maxus",
+        "$taip_tag": "MAX.18"
+    },
+    "82d0_1_maxus": {
+        "$private": true,
+        "$id": "82d0_1_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "82d0_3-4_maxus": {
+        "$mutable": [],
+        "$private": true,
+        "$id": "82d0_3-4_maxus",
+        "$taip_tag": "MAX.20"
+    },
+    "fef1_2-3_maxus": {
+        "$private": true,
+        "$id": "fef1_2-3_maxus",
+        "$taip_tag": "MAX.3"
+    },
+    "510_6.8_maxus": {
+        "$private": true,
+        "$id": "510_6.8_maxus",
+        "$taip_tag": "MAX.16"
+    },
+    "510_6.6_maxus": {
+        "$private": true,
+        "$id": "510_6.6_maxus",
+        "$taip_tag": "MAX.15"
+    },
+    "3da_5-6_maxus": {
+        "$private": true,
+        "$id": "3da_5-6_maxus",
+        "$taip_tag": "MAX.8"
+    },
+    "0b4_3_maxus": {
+        "$private": true,
+        "$id": "0b4_3_maxus",
+        "$taip_tag": "MAX.12"
+    },
+    "3ba_6-7_maxus": {
+        "$private": true,
+        "$id": "3ba_6-7_maxus",
+        "$taip_tag": "MAX.20"
+    },
+    "540_1-3_maxus": {
+        "$private": true,
+        "$id": "540_1-3_maxus",
+        "$taip_tag": "MAX.7"
+    },
+    "0b4_1_maxus": {
+        "$private": true,
+        "$id": "0b4_1_maxus",
+        "$taip_tag": "MAX.28"
+    },
+    "1d8_1_maxus": {
+        "$private": true,
+        "$id": "1d8_1_maxus",
+        "$taip_tag": "MAX.28"
+    }
+}

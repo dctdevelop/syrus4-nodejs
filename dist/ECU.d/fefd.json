@@ -1,0 +1,19 @@
+{
+    "fefd_2-3": {
+        "param_name": "GAS SUPPLY PRESSURE",
+        "pgn": "fefd",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "2-3",
+        "group": "NUMBER_VALUE",
+        "multiplier": 0.5,
+        "source_interface": "PRIMARY",
+        "$mutable": [],
+        "$id": "fefd_2-3",
+        "$name": "gas_supply_pressure",
+        "$taip_float": true,
+        "$taip_tag": "DAI.34"
+    }
+}

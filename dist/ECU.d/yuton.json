@@ -1,0 +1,62 @@
+{
+    "fcb7_3_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.1",
+        "$taip_float": true,
+        "$id": "fcb7_3_yuton"
+    },
+    "fcb7_1-2_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.2",
+        "$taip_float": true,
+        "$id": "fcb7_1-2_yuton"
+    },
+    "ff08_3_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.3",
+        "$id": "ff08_3_yuton"
+    },
+    "ff14_4.7_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.4",
+        "$taip_float": true,
+        "$id": "ff14_4.7_yuton"
+    },
+    "ff17_7_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.5",
+        "$taip_float": true,
+        "$id": "ff17_7_yuton"
+    },
+    "ff30_5_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.6",
+        "$taip_float": true,
+        "$id": "ff30_5_yuton"
+    },
+    "ff32_1_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.7",
+        "$id": "ff32_1_yuton"
+    },
+    "ff32_3_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.8",
+        "$id": "ff32_3_yuton"
+    },
+    "ff32_4_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.9",
+        "$id": "ff32_4_yuton"
+    },
+    "ff32_6_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.10",
+        "$id": "ff32_6_yuton"
+    },
+    "ff51_6_yuton": {
+        "$private": true,
+        "$taip_tag": "YUT.11",
+        "$id": "ff51_6_yuton"
+    }
+}

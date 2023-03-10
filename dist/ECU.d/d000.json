@@ -1,0 +1,19 @@
+{
+    "d000_1": {
+        "param_name": "CAB LIGHTING",
+        "pgn": "d000",
+        "transmission_rate": "",
+        "priority": 6,
+        "dlc": 8,
+        "length": "8_BITS",
+        "start_position": "1",
+        "group": "PERCENT",
+        "multiplier": 0.4,
+        "source_interface": "PRIMARY",
+        "$taip_float": true,
+        "$mutable": [],
+        "$id": "d000_1",
+        "$name": "cab_lighting",
+        "$taip_tag": "DA1-1"
+    }
+}

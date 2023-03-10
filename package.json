@@ -15,8 +15,7 @@
 		"sdk"
 	],
 	"files": [
-		"dist",
-		"ECU.d"
+		"dist"
 	],
 	"author": "developers@digitalcomtech.com",
 	"license": "ISC",

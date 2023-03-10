@@ -1,0 +1,22 @@
+{
+    "fedd_2-3": {
+        "param_name": "TC - ENGINE TURBOCHARGER 1 SPEED",
+        "pgn": "fedd",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "2_BYTES",
+        "start_position": "2-3",
+        "group": "NUMBER_VALUE",
+        "multiplier": 4,
+        "source_interface": "J1939",
+        "$id": "fedd_2-3",
+        "$name": "turbo_speed",
+        "$units": "rpm",
+        "$range": "0 to 257,020",
+        "$taip_tag": "ZH.5",
+        "$taip_units": "rpm",
+        "$taip_xaem_group": 2,
+        "$taip_xaem_bit": 53
+    }
+}

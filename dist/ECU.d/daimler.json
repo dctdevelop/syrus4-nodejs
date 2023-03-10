@@ -1,0 +1,26 @@
+{
+    "ff40_5.1_daiml": {
+        "$private": true,
+        "$proprietary": true,
+        "$id": "ff40_5.1_daiml",
+        "$taip_tag": "DAI.28"
+    },
+    "ff40_6.1_daiml": {
+        "$private": true,
+        "$proprietary": true,
+        "$id": "ff40_6.1_daiml",
+        "$taip_tag": "DAI.29"
+    },
+    "ff40_7.1_daiml": {
+        "$private": true,
+        "$proprietary": true,
+        "$id": "ff40_7.1_daiml",
+        "$taip_tag": "DAI.30"
+    },
+    "ff40_8.1_daiml": {
+        "$private": true,
+        "$proprietary": true,
+        "$id": "ff40_8.1_daiml",
+        "$taip_tag": "DAI.31"
+    }
+}

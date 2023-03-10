@@ -1,0 +1,16 @@
+{
+    "e0ff_1": {
+        "param_name": "CM1 - ENGINE FAN 1 REQUESTED PERCENT SPEED",
+        "pgn": "e0ff",
+        "transmission_rate": "1S",
+        "priority": 6,
+        "dlc": 8,
+        "length": "1_BYTE",
+        "start_position": "1",
+        "group": "PERCENT",
+        "multiplier": 0.4,
+        "source_interface": "J1939",
+        "$id": "e0ff_1",
+        "$name": "engine_fan_1_requested_percent_speed"
+    }
+}

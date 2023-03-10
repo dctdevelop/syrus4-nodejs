@@ -1,0 +1,30 @@
+{
+    "fdeb_1-4": {
+        "param_name": "BPAAC - GASEOUS FUEL CONSUMPTION TOTAL MASS",
+        "pgn": "fdeb",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": "VARIABLE",
+        "length": "4_BYTES",
+        "start_position": "1-4",
+        "group": "NUMBER_VALUE",
+        "multiplier": 1,
+        "source_interface": "J1939",
+        "$id": "fdeb_1-4",
+        "$name": "gaseous_fuel_consumption_total_mass"
+    },
+    "fdeb_5-8": {
+        "param_name": "BPAAC - GASEOUS FUEL CONSUMPTION TOTAL VOLUME",
+        "pgn": "fdeb",
+        "transmission_rate": "ON_REQUEST",
+        "priority": 6,
+        "dlc": "VARIABLE",
+        "length": "4_BYTES",
+        "start_position": "5-8",
+        "group": "NUMBER_VALUE",
+        "multiplier": 1,
+        "source_interface": "J1939",
+        "$id": "fdeb_5-8",
+        "$name": "gaseous_fuel_consumption_total_volume"
+    }
+}

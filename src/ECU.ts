@@ -8,8 +8,10 @@ import * as path from "path"
 import { params } from 'tag-params';
 
 import * as Utils from "./Utils"
+import * as ECUList from './ECU_db'
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import _isObjectLike from 'lodash.isobjectlike'
+
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -140,39 +142,10 @@ export async function getECUParams() {
 	return ecu_values;
 }
 
-let __ecu_loaded = false
-let __ecu_params = {}
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-export function getECUList(reload: boolean = false) {
-	if (reload) {
-		__ecu_loaded = false
-		__ecu_params = {}
-	}
-	if (__ecu_loaded) return __ecu_params
-	let ecu_paths = [
-		// '/home/syrus4g/ecumonitor/definitions',
-		path.join(__dirname, '../ECU.d'),
-	]
-	let filenames = []
-	ecu_paths.map((ecu_path)=>{
-		if(!fs.existsSync(ecu_path)) return
-		fs.readdirSync(ecu_path).map((filename)=>{
-			if (filename.startsWith('_') || !filename.endsWith('.json')) return
-			filenames.push(filename)
-			try {
-				let data = require(path.join(ecu_path, filename))
-				__ecu_params = { ...__ecu_params, ...data }
-			}catch(error){
-				console.error(error)
-			}
-		})
-	})
-	console.log("ECU loaded\n", filenames.join(","))
-	__ecu_loaded = true
-	return JSON.parse(JSON.stringify(__ecu_params))
-}
+export function getECUList(reload: boolean = false) { return ECUList }
 
 export async function onECUWarningEvent(
 	callback: (payload: any) => void,
@@ -191,22 +164,22 @@ export async function onECUWarningEvent(
 				console.log('onECUWarningEvent error:', error)
 			}
 		};
-        subscriber.subscribe(topic);
-        subscriber.on("message", handler);    
-    } catch (error) {
-        console.log("onECUWarningEvent error:", error );
-        errorCallback(error);
-    }
+		subscriber.subscribe(topic);
+		subscriber.on("message", handler);
+	} catch (error) {
+		console.log("onECUWarningEvent error:", error );
+		errorCallback(error);
+	}
 
-    return {
-      unsubscribe: () => {
-        subscriber.off("message", handler);
-        subscriber.unsubscribe(topic);  
-      },
-      off: () => {
-          this.unsubscribe();
-      }  
-    }
+	return {
+		unsubscribe: () => {
+		subscriber.off("message", handler);
+		subscriber.unsubscribe(topic);
+		},
+		off: () => {
+			this.unsubscribe();
+		}
+	}
 
 }
 

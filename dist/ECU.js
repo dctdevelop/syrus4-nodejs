@@ -27,10 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.onECUWarningEvent = exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
-const fs = __importStar(require("fs"));
-const path = __importStar(require("path"));
 const tag_params_1 = require("tag-params");
 const Utils = __importStar(require("./Utils"));
+const ECUList = __importStar(require("./ECU_db"));
 const Redis_1 = require("./Redis");
 const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
 /**
@@ -159,43 +158,10 @@ async function getECUParams() {
     return ecu_values;
 }
 exports.getECUParams = getECUParams;
-let __ecu_loaded = false;
-let __ecu_params = {};
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-function getECUList(reload = false) {
-    if (reload) {
-        __ecu_loaded = false;
-        __ecu_params = {};
-    }
-    if (__ecu_loaded)
-        return __ecu_params;
-    let ecu_paths = [
-        // '/home/syrus4g/ecumonitor/definitions',
-        path.join(__dirname, '../ECU.d'),
-    ];
-    let filenames = [];
-    ecu_paths.map((ecu_path) => {
-        if (!fs.existsSync(ecu_path))
-            return;
-        fs.readdirSync(ecu_path).map((filename) => {
-            if (filename.startsWith('_') || !filename.endsWith('.json'))
-                return;
-            filenames.push(filename);
-            try {
-                let data = require(path.join(ecu_path, filename));
-                __ecu_params = { ...__ecu_params, ...data };
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-    });
-    console.log("ECU loaded\n", filenames.join(","));
-    __ecu_loaded = true;
-    return JSON.parse(JSON.stringify(__ecu_params));
-}
+function getECUList(reload = false) { return ECUList; }
 exports.getECUList = getECUList;
 async function onECUWarningEvent(callback, errorCallback) {
     const topic = "ecumonitor/notification/warning";
