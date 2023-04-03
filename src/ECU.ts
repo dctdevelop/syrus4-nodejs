@@ -8,7 +8,7 @@ import * as path from "path"
 import { params } from 'tag-params';
 
 import * as Utils from "./Utils"
-import * as ECUList from './ECU_db'
+import ECUList from './ECU_db'
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import _isObjectLike from 'lodash.isobjectlike'
 

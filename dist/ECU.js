@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.onECUWarningEvent = exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
 const tag_params_1 = require("tag-params");
 const Utils = __importStar(require("./Utils"));
-const ECUList = __importStar(require("./ECU_db"));
+const ECU_db_1 = __importDefault(require("./ECU_db"));
 const Redis_1 = require("./Redis");
 const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
 /**
@@ -161,7 +161,7 @@ exports.getECUParams = getECUParams;
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-function getECUList(reload = false) { return ECUList; }
+function getECUList(reload = false) { return ECU_db_1.default; }
 exports.getECUList = getECUList;
 async function onECUWarningEvent(callback, errorCallback) {
     const topic = "ecumonitor/notification/warning";
