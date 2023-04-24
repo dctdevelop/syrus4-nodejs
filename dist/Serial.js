@@ -1,8 +1,4 @@
 "use strict";
-/**
- * Serial module, get information about serial state
- * @module Serial
- */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -23,7 +19,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onMDTMessage = exports.onIncomingMessage = exports.send = exports.setModemBufferSize = exports.getModemBufferSize = exports.getSerialModemState = exports.setSerialMode = exports.getSerialMode = exports.onFatigueEvent = void 0;
+exports.onSerialEvent = exports.send = exports.setModemBufferSize = exports.getModemBufferSize = exports.getSerialModemState = exports.setSerialMode = exports.getSerialMode = exports.onFatigueEvent = void 0;
+/**
+ * Serial module, get information about serial state
+ * @module Serial
+ */
 const Redis_1 = require("./Redis");
 const Utils = __importStar(require("./Utils"));
 // backwards compatability
@@ -40,7 +40,12 @@ exports.getSerialMode = getSerialMode;
  * set serial mode (console or modem)
  */
 function setSerialMode(mode) {
-    return Utils.OSExecute(`apx-serial mode ${mode}`);
+    if (mode.includes('user') || mode.includes('unmanaged')) {
+        return Utils.OSExecute(`apx-serial set --mode=${mode}`);
+    }
+    else {
+        return Utils.OSExecute(`apx-serial mode ${mode}`);
+    }
 }
 exports.setSerialMode = setSerialMode;
 /**
@@ -69,66 +74,58 @@ exports.setModemBufferSize = setModemBufferSize;
 /**
  * send a message
  */
-function send(message) {
-    if (!message.length || message.length > 340)
-        throw "invalid message length (max 340)";
-    return Utils.OSExecute(`apx-serial modem send "${message}"`);
+function send(message, mode = 'modem') {
+    switch (mode) {
+        case 'modem':
+            if (!message.length || message.length > 340)
+                throw "invalid message length (max 340)";
+            return Utils.OSExecute(`apx-serial modem send "${message}"`);
+            break;
+        case 'console':
+            return Utils.OSExecute(`apx-serial-cnsl send --msg="${message}"`);
+            break;
+        case 'mdt':
+            return Utils.OSExecute(`apx-serial-mdt send --msg="${message}"`);
+            break;
+        case 'unmanaged':
+            return Utils.OSExecute(`apx-serial-umg send --msg="${message}"`);
+            break;
+        case 'user':
+            return Utils.OSExecute(`apx-serial-user send --msg="${message}"`);
+            break;
+        default:
+            break;
+    }
 }
 exports.send = send;
-/**
- * monitor incoming serial messages
- */
-async function onIncomingMessage(callback, errorCallback) {
-    const topic = "serial/notification/modem/message";
-    // set up subscribe to receive updates
-    try {
-        var handler = (channel, raw) => {
-            if (channel != topic)
-                return;
-            callback(raw);
+async function onSerialEvent(callback, errorCallback) {
+    const pattern = "serial/notification/*";
+    // Callback Handler
+    const handler = (patt, channel, data) => {
+        if (pattern != patt)
+            return;
+        let event = {
+            topic: channel,
+            payload: data,
         };
-        Redis_1.SystemRedisSubscriber.subscribe(topic);
-        Redis_1.SystemRedisSubscriber.on("message", handler);
+        callback(event);
+    };
+    try {
+        Redis_1.SystemRedisSubscriber.on("pmessage", handler);
+        Redis_1.SystemRedisSubscriber.psubscribe(pattern);
     }
     catch (error) {
-        console.error(error);
+        console.log("onSerialEvent error:", error);
         errorCallback(error);
     }
-    let returnable = {
+    return {
         unsubscribe: () => {
-            Redis_1.SystemRedisSubscriber.off("message", handler);
-            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+            Redis_1.SystemRedisSubscriber.off("pmessage", handler);
+            Redis_1.SystemRedisSubscriber.punsubscribe(pattern);
         },
-        off: function () { this.unsubscribe(); }
+        off: () => {
+            this.unsubscribe();
+        }
     };
-    return returnable;
 }
-exports.onIncomingMessage = onIncomingMessage;
-async function onMDTMessage(callback, errorCallback) {
-    const topic = "serial/notification/mdt/pack";
-    // subscribe to receive updates
-    try {
-        var state = { message: null };
-        var handler = (channel, data) => {
-            if (channel != topic)
-                return;
-            state.message = data;
-            callback(state);
-        };
-        Redis_1.SystemRedisSubscriber.subscribe(topic);
-        Redis_1.SystemRedisSubscriber.on("message", handler);
-    }
-    catch (error) {
-        console.error(error);
-        errorCallback(error);
-    }
-    let returnable = {
-        unsubscribe: () => {
-            Redis_1.SystemRedisSubscriber.off("message", handler);
-            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
-        },
-        off: function () { this.unsubscribe(); }
-    };
-    return returnable;
-}
-exports.onMDTMessage = onMDTMessage;
+exports.onSerialEvent = onSerialEvent;

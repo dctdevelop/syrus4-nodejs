@@ -2,7 +2,6 @@
  * Serial module, get information about serial state
  * @module Serial
  */
-
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import * as Utils from "./Utils"
 
@@ -28,15 +27,19 @@ interface ModemEvent {
 /**
  * get serial mode
  */
-export function getSerialMode(): Promise<"console"|"modem"> {
+export function getSerialMode(): Promise<"console"|"modem"|"unmanaged"|"rfid"|"mdt"|"faitgue_sensor"|"fuel_sensor"|"user"> {
   return Utils.OSExecute("apx-serial mode");
 }
 
 /**
  * set serial mode (console or modem)
  */
-export function setSerialMode(mode: "modem"|"console"): Promise<ModemEvent> {
-  return Utils.OSExecute(`apx-serial mode ${mode}`);
+export function setSerialMode(mode: 'modem' | 'console' | 'mdt' | 'fatigue_sensor' | 'fuel_sensor' | 'rfid' | 'unmanaged' | 'user' ): Promise<ModemEvent> {
+    if ( mode.includes('user') || mode.includes('unmanaged') ) {
+      return Utils.OSExecute(`apx-serial set --mode=${mode}`);
+    } else { 
+      return Utils.OSExecute(`apx-serial mode ${mode}`);
+    }
 }
 
 /**
@@ -64,68 +67,73 @@ export function setModemBufferSize(size:number): Promise<void> {
 /**
  * send a message
  */
-export function send(message:string): Promise<void>{
-  if (!message.length || message.length > 340) throw "invalid message length (max 340)";
-  return Utils.OSExecute(`apx-serial modem send "${message}"`);
+export function send(message:string, mode:string = 'modem'): Promise<void>{
+    switch (mode) {
+      case 'modem':
+          if (!message.length || message.length > 340) throw "invalid message length (max 340)";
+          return Utils.OSExecute(`apx-serial modem send "${message}"`);
+        break;
+    
+      case 'console':
+        return Utils.OSExecute(`apx-serial-cnsl send --msg="${message}"`);
+      break;  
+
+      case 'mdt':
+        return Utils.OSExecute(`apx-serial-mdt send --msg="${message}"`);
+      break; 
+
+      case 'unmanaged':
+        return Utils.OSExecute(`apx-serial-umg send --msg="${message}"`);
+      break; 
+
+      case 'user':
+        return Utils.OSExecute(`apx-serial-user send --msg="${message}"`);
+      break; 
+
+      default:
+        break;
+    }
+
 }
 
-/**
- * monitor incoming serial messages
- */
-export async function onIncomingMessage(
-  callback: (arg: string) => void,
-  errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
-  const topic = "serial/notification/modem/message"
-  // set up subscribe to receive updates
-  try {
-    var handler = (channel: string, raw: string) => {
-      if (channel != topic) return
-      callback(raw)
-    };
-    subscriber.subscribe(topic);
-    subscriber.on("message", handler);
-  } catch (error) {
-    console.error(error);
-    errorCallback(error);
-  }
-  let returnable = {
-    unsubscribe: () => {
-      subscriber.off("message", handler);
-      subscriber.unsubscribe(topic);
-    },
-    off: function () { this.unsubscribe() }
-  };
-  return returnable;
+interface SerialEvent {
+  topic: string,
+  payload: string | null,
 }
 
-interface MDTEvent {
-  message: string | null
-}
-export async function onMDTMessage(
-  callback: (arg: MDTEvent) => void,
+export async function onSerialEvent( 
+  callback: (arg: SerialEvent) => void, 
   errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
-  const topic = "serial/notification/mdt/pack"
-  // subscribe to receive updates
-  try {
-    var state: MDTEvent = { message: null }
-    var handler = (channel: string, data: any) => {
-      if (channel != topic) return
-      state.message = data
-      callback(state)
+  
+  const pattern = "serial/notification/*"
+  
+  // Callback Handler
+  const handler = (patt:string, channel: string, data: any) => {
+    if (pattern != patt) return;
+
+    let event: SerialEvent = { 
+      topic: channel,  
+      payload: data, 
     };
-    subscriber.subscribe(topic);
-    subscriber.on("message", handler);
-  } catch (error) {
-    console.error(error);
-    errorCallback(error);
+    callback(event);
   }
-  let returnable = {
+
+  try {  
+      subscriber.on("pmessage", handler);
+      subscriber.psubscribe(pattern);
+  } catch (error) {
+      console.log("onSerialEvent error:", error );
+      errorCallback(error);
+  }
+
+  return {
     unsubscribe: () => {
-      subscriber.off("message", handler);
-      subscriber.unsubscribe(topic);
+			subscriber.off("pmessage", handler);
+			subscriber.punsubscribe(pattern); 
     },
-    off: function () { this.unsubscribe() }
-  };
-  return returnable;
+    off: () => {
+        this.unsubscribe();
+    }  
+  }
 }
 

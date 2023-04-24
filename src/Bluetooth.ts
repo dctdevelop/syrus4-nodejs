@@ -88,21 +88,21 @@ export async function onBleUpdate(
 				console.log('onBluetoothUpdate error:', error)
 			}
 		};
-        subscriber.subscribe(topic);
-        subscriber.on("message", handler);    
-    } catch (error) {
-        console.log("onBleUpdate error:", error );
-        errorCallback(error);
-    }
+		subscriber.subscribe(topic);
+		subscriber.on("message", handler);
+	} catch (error) {
+		console.log("onBleUpdate error:", error );
+		errorCallback(error);
+	}
 
-    return {
-      unsubscribe: () => {
-        subscriber.off("message", handler);
-        subscriber.unsubscribe(topic);  
-      },
-      off: () => {
-          this.unsubscribe();
-      }  
-    }
+	return {
+		unsubscribe: () => {
+		subscriber.off("message", handler);
+		subscriber.unsubscribe(topic);  
+		},
+		off: () => {
+			this.unsubscribe();
+		}
+	}
 
 }

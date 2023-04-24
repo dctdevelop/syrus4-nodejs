@@ -873,7 +873,6 @@ Serial module, get information about serial state
     * [~getModemBufferSize()](#module_Serial..getModemBufferSize)
     * [~setModemBufferSize()](#module_Serial..setModemBufferSize)
     * [~send()](#module_Serial..send)
-    * [~onIncomingMessage()](#module_Serial..onIncomingMessage)
 
 <a name="module_Serial..getSerialMode"></a>
 
@@ -909,12 +908,6 @@ set the buffer size
 
 ### Serial~send()
 send a message
-
-**Kind**: inner method of [<code>Serial</code>](#module_Serial)  
-<a name="module_Serial..onIncomingMessage"></a>
-
-### Serial~onIncomingMessage()
-monitor incoming serial messages
 
 **Kind**: inner method of [<code>Serial</code>](#module_Serial)  
 <a name="module_System-Info"></a>
