@@ -128,6 +128,7 @@ const mobileye_json_1 = __importDefault(require("./ECU.d/mobileye.json"));
 const movon_json_1 = __importDefault(require("./ECU.d/movon.json"));
 const yuton_json_1 = __importDefault(require("./ECU.d/yuton.json"));
 const yutong_j1939_json_1 = __importDefault(require("./ECU.d/yutong.j1939.json"));
+const obd2_json_1 = __importDefault(require("./ECU.d/obd2.json"));
 exports.default = {
     ..._0000_json_1.default,
     ..._85ff_json_1.default,
@@ -254,4 +255,5 @@ exports.default = {
     ...movon_json_1.default,
     ...yuton_json_1.default,
     ...yutong_j1939_json_1.default,
+    ...obd2_json_1.default,
 };
