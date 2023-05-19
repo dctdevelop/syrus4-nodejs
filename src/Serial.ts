@@ -25,9 +25,9 @@ interface ModemEvent {
 }
 
 /**
- * get serial mode
+ * get serial mode: Promise<"console"|"modem"|"unmanaged"|"rfid"|"mdt"|"faitgue_sensor"|"fuel_sensor"|"user"> 
  */
-export function getSerialMode(): Promise<"console"|"modem"|"unmanaged"|"rfid"|"mdt"|"faitgue_sensor"|"fuel_sensor"|"user"> {
+export function getSerialMode(){
   return Utils.OSExecute("apx-serial mode");
 }
 
@@ -67,7 +67,7 @@ export function setModemBufferSize(size:number): Promise<void> {
 /**
  * send a message
  */
-export function send(message:string, mode:string = 'modem'): Promise<void>{
+export function send(message:string, mode:string = 'console'): Promise<void>{
     switch (mode) {
       case 'modem':
           if (!message.length || message.length > 340) throw "invalid message length (max 340)";
@@ -75,7 +75,7 @@ export function send(message:string, mode:string = 'modem'): Promise<void>{
         break;
     
       case 'console':
-        return Utils.OSExecute(`apx-serial-cnsl send --msg="${message}"`);
+        return Utils.OSExecute(`apx-serial send --msg="${message}"`);
       break;  
 
       case 'mdt':

@@ -877,7 +877,7 @@ Serial module, get information about serial state
 <a name="module_Serial..getSerialMode"></a>
 
 ### Serial~getSerialMode()
-get serial mode
+get serial mode: Promise<"console"|"modem"|"unmanaged"|"rfid"|"mdt"|"faitgue_sensor"|"fuel_sensor"|"user">
 
 **Kind**: inner method of [<code>Serial</code>](#module_Serial)  
 <a name="module_Serial..setSerialMode"></a>

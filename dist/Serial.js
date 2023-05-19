@@ -30,7 +30,7 @@ const Utils = __importStar(require("./Utils"));
 var Fatigue_1 = require("./Fatigue");
 Object.defineProperty(exports, "onFatigueEvent", { enumerable: true, get: function () { return Fatigue_1.onFatigueEvent; } });
 /**
- * get serial mode
+ * get serial mode: Promise<"console"|"modem"|"unmanaged"|"rfid"|"mdt"|"faitgue_sensor"|"fuel_sensor"|"user">
  */
 function getSerialMode() {
     return Utils.OSExecute("apx-serial mode");
@@ -74,7 +74,7 @@ exports.setModemBufferSize = setModemBufferSize;
 /**
  * send a message
  */
-function send(message, mode = 'modem') {
+function send(message, mode = 'console') {
     switch (mode) {
         case 'modem':
             if (!message.length || message.length > 340)
@@ -82,7 +82,7 @@ function send(message, mode = 'modem') {
             return Utils.OSExecute(`apx-serial modem send "${message}"`);
             break;
         case 'console':
-            return Utils.OSExecute(`apx-serial-cnsl send --msg="${message}"`);
+            return Utils.OSExecute(`apx-serial send --msg="${message}"`);
             break;
         case 'mdt':
             return Utils.OSExecute(`apx-serial-mdt send --msg="${message}"`);
