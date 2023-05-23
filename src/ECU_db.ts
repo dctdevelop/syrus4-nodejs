@@ -124,6 +124,7 @@ import ecu_movon from './ECU.d/movon.json'
 import ecu_yuton from './ECU.d/yuton.json'
 import ecu_yutong from './ECU.d/yutong.j1939.json'
 import ecu_obd2 from './ECU.d/obd2.json'
+import ecu_local from  './ECU.d/local.json'
 
 export default {
 	...ecu_0000,
@@ -252,4 +253,5 @@ export default {
 	...ecu_yuton,
 	...ecu_yutong,
 	...ecu_obd2,
+	...ecu_local
 }
