@@ -8,7 +8,6 @@ import * as path from "path"
 import { params } from 'tag-params';
 
 import * as Utils from "./Utils"
-import ECUList from './ECU_db'
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import _isObjectLike from 'lodash.isobjectlike'
 
@@ -145,7 +144,21 @@ export async function getECUParams() {
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-export function getECUList(reload: boolean = false) { return ECUList }
+export function getECUList(reload: boolean = false) { 
+
+	// Try to find EcuImports.json if not present fall back to ECU.d local.json
+	if ( fs.existsSync("/data/users/syrus4g/ecumonitor/EcuImports.json") ) {
+		console.log("getEcuList file exist...");
+		let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
+		sharedEcuList = JSON.parse(sharedEcuList);
+		console.log("getEcuList:", sharedEcuList);
+		return sharedEcuList;
+
+	} else {
+		console.log("getEcuList EcuImports file not found");
+		return {}; 
+	}
+}
 
 export async function onECUWarningEvent(
 	callback: (payload: any) => void,
