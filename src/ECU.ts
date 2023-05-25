@@ -158,15 +158,12 @@ export function getECUList(reload: boolean = false) {
 		console.log("getEcuList file exist...");
 		let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
 		sharedEcuList = JSON.parse(sharedEcuList);
-		//console.log("getEcuList:", sharedEcuList);
 
+		// Convert it to object
 		const paramArray = {};
 		let parameters = {};
-
 		Object.assign(paramArray, sharedEcuList);
-
 		for (const parameterNumber in paramArray) {
-
 			const id = paramArray[parameterNumber].$id;
 			parameters[id] = paramArray[parameterNumber];
 		}
