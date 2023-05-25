@@ -61,12 +61,14 @@ function template(strings, ...keys) {
  */
 function watchECUParams(cb, errorCallback) {
     let ECU_PARAM_LIST = getECUList();
+    console.log('watchEcuParams ECU_PARAM_LIST:', ECU_PARAM_LIST);
     const errors_cache = {};
     const error_pgn = "feca_3-6";
     try {
         var handler = async (channel, raw) => {
             if (channel != "ecumonitor/parameters")
                 return;
+            console.log('watchEcuParams values:', raw);
             const ecu_values = {};
             raw.split("&").map(param => {
                 const [key, value] = param.split("=");
@@ -167,8 +169,15 @@ function getECUList(reload = false) {
         console.log("getEcuList file exist...");
         let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
         sharedEcuList = JSON.parse(sharedEcuList);
-        console.log("getEcuList:", sharedEcuList);
-        return sharedEcuList;
+        //console.log("getEcuList:", sharedEcuList);
+        const paramArray = {};
+        let parameters = {};
+        Object.assign(paramArray, sharedEcuList);
+        for (const parameterNumber in paramArray) {
+            const id = paramArray[parameterNumber].$id;
+            parameters[id] = paramArray[parameterNumber];
+        }
+        return parameters;
     }
     else {
         console.log("getEcuList EcuImports file not found");
