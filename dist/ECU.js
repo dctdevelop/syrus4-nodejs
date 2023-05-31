@@ -229,7 +229,6 @@ async function onEcuConfigChangeEvent(callback, errorCallback) {
                 console.log('onEcuConfigChangeEvent:', data);
                 const state = {
                     hash: data,
-                    instanceName: SYRUS4G_APP_NAME,
                     folderName: APP_DATA_FOLDER,
                 };
                 callback(state);
