@@ -10,7 +10,8 @@ import { params } from 'tag-params';
 import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import _isObjectLike from 'lodash.isobjectlike'
-import { hasUncaughtExceptionCaptureCallback } from "process";
+
+let { SYRUS4G_APP_NAME, APP_DATA_FOLDER } = process.env
 
 /**
  * ECU PARAM LIST from the ecu monitor
@@ -43,17 +44,11 @@ function template(strings: string[], ...keys: string[]): string {
  */
 export function watchECUParams(cb: Function, errorCallback: Function) {
 	let ECU_PARAM_LIST = getECUList()
-
-	console.log('watchEcuParams ECU_PARAM_LIST:', ECU_PARAM_LIST);
-
 	const errors_cache = {}
 	const error_pgn = "feca_3-6"
 	try {
 		var handler = async (channel:string, raw:string) => {
 			if (channel != "ecumonitor/parameters") return
-
-			console.log('watchEcuParams values:', raw);
-
 			const ecu_values = {}
 			raw.split("&").map(param => {
 				const [ key, value ] = param.split("=");
@@ -211,4 +206,45 @@ export async function onECUWarningEvent(
 
 }
 
-export default { getECUParams, getECUList, watchECUParams, getECUInfo, onECUWarningEvent };
+/* Inform that ecumonitor configuration file changed */
+export async function onEcuConfigChangeEvent(
+	callback: (payload: any) => void,
+	errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+
+	const topic = "ecumonitor/notification/newconfig"
+
+	try {
+		var handler = (channel: string, data: any) => {
+			if (!channel.startsWith('ecumonitor/notification/newconfig')) return
+			try {
+				console.log('onEcuConfigChangeEvent:', data);
+				const state = {
+					hash: data,
+					folderName: APP_DATA_FOLDER,
+				}
+				callback(state)
+			} catch (error) {
+				console.log('onEcuConfigurationChangeEvent error:', error)
+			}
+		};
+		subscriber.subscribe(topic);
+		subscriber.on("message", handler);
+	} catch (error) {
+		console.log("onEcuConfigurationChangeEvent error:", error );
+		errorCallback(error);
+	}
+
+	return {
+		unsubscribe: () => {
+		subscriber.off("message", handler);
+		subscriber.unsubscribe(topic);
+		},
+		off: () => {
+			this.unsubscribe();
+		}
+	}
+
+}
+
+
+export default { getECUParams, getECUList, watchECUParams, getECUInfo, onECUWarningEvent , onEcuConfigChangeEvent};

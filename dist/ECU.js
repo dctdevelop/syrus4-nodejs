@@ -26,12 +26,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onECUWarningEvent = exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
+exports.onEcuConfigChangeEvent = exports.onECUWarningEvent = exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
 const fs = __importStar(require("fs"));
 const tag_params_1 = require("tag-params");
 const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
 const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
+let { SYRUS4G_APP_NAME, APP_DATA_FOLDER } = process.env;
 /**
  * ECU PARAM LIST from the ecu monitor
  */
@@ -61,14 +62,12 @@ function template(strings, ...keys) {
  */
 function watchECUParams(cb, errorCallback) {
     let ECU_PARAM_LIST = getECUList();
-    console.log('watchEcuParams ECU_PARAM_LIST:', ECU_PARAM_LIST);
     const errors_cache = {};
     const error_pgn = "feca_3-6";
     try {
         var handler = async (channel, raw) => {
             if (channel != "ecumonitor/parameters")
                 return;
-            console.log('watchEcuParams values:', raw);
             const ecu_values = {};
             raw.split("&").map(param => {
                 const [key, value] = param.split("=");
@@ -169,7 +168,7 @@ function getECUList(reload = false) {
         console.log("getEcuList file exist...");
         let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
         sharedEcuList = JSON.parse(sharedEcuList);
-        //console.log("getEcuList:", sharedEcuList);
+        // Convert it to object
         const paramArray = {};
         let parameters = {};
         Object.assign(paramArray, sharedEcuList);
@@ -219,4 +218,42 @@ async function onECUWarningEvent(callback, errorCallback) {
     };
 }
 exports.onECUWarningEvent = onECUWarningEvent;
-exports.default = { getECUParams, getECUList, watchECUParams, getECUInfo, onECUWarningEvent };
+/* Inform that ecumonitor configuration file changed */
+async function onEcuConfigChangeEvent(callback, errorCallback) {
+    const topic = "ecumonitor/notification/newconfig";
+    try {
+        var handler = (channel, data) => {
+            if (!channel.startsWith('ecumonitor/notification/newconfig'))
+                return;
+            try {
+                console.log('onEcuConfigChangeEvent:', data);
+                const state = {
+                    hash: data,
+                    instanceName: SYRUS4G_APP_NAME,
+                    folderName: APP_DATA_FOLDER,
+                };
+                callback(state);
+            }
+            catch (error) {
+                console.log('onEcuConfigurationChangeEvent error:', error);
+            }
+        };
+        Redis_1.SystemRedisSubscriber.subscribe(topic);
+        Redis_1.SystemRedisSubscriber.on("message", handler);
+    }
+    catch (error) {
+        console.log("onEcuConfigurationChangeEvent error:", error);
+        errorCallback(error);
+    }
+    return {
+        unsubscribe: () => {
+            Redis_1.SystemRedisSubscriber.off("message", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+        },
+        off: () => {
+            this.unsubscribe();
+        }
+    };
+}
+exports.onEcuConfigChangeEvent = onEcuConfigChangeEvent;
+exports.default = { getECUParams, getECUList, watchECUParams, getECUInfo, onECUWarningEvent, onEcuConfigChangeEvent };
