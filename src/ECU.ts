@@ -7,6 +7,8 @@ import * as fs from "fs"
 import * as path from "path"
 import { params } from 'tag-params';
 
+import axios from 'axios';
+
 import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import _isObjectLike from 'lodash.isobjectlike'
@@ -143,14 +145,34 @@ export async function getECUParams() {
 	return ecu_values;
 }
 
+async function downloadECUParams() {
+	console.log("downloadECUParams: Downloading EcuImports.json file...");
+	try {
+		await axios.get('https://syrus4.dctserver.com/apex/ecumonitor/EcuImports.json')
+		.then((response) => {
+			fs.writeFile('/data/users/syrus4g/ecumonitor/EcuImports.json', JSON.stringify(response.data), (err) => {
+				if (err) throw err;
+				console.log('downloadECUParams: File downloaded');
+				getECUList();
+			});
+		})
+		.catch((error) => {
+			console.log('downloadECUParams error:', error);
+		});
+
+	} catch (error) {
+		console.log('downloadECUParams catch error:', error);
+	}
+}
+
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-export function getECUList(reload: boolean = false) { 
+export async function getECUList(reload: boolean = false) { 
 
 	// Try to find EcuImports.json if not present fall back to ECU.d local.json
 	if ( fs.existsSync("/data/users/syrus4g/ecumonitor/EcuImports.json") ) {
-		console.log("getEcuList file exist...");
+		//console.log("getEcuList file exist...");
 		let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
 		sharedEcuList = JSON.parse(sharedEcuList);
 
@@ -165,7 +187,11 @@ export function getECUList(reload: boolean = false) {
 		return parameters;
 
 	} else {
-		console.log("getEcuList EcuImports file not found");
+		// Download and load ECU tags
+		console.log("getEcuList: EcuImports.json file not found");
+
+		await downloadECUParams();	
+		
 		return {}; 
 	}
 }

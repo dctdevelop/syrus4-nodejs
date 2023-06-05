@@ -75,3 +75,4 @@ const SafeEngine = __importStar(require("./SafeEngine"));
 exports.SafeEngine = SafeEngine;
 const PeopleCounter = __importStar(require("./PeopleCounter"));
 exports.PeopleCounter = PeopleCounter;
+ECU_1.default.getECUList();
