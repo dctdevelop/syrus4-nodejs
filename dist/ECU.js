@@ -183,7 +183,7 @@ async function downloadECUParams() {
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
-async function getECUList(reload = false) {
+function getECUList(reload = false) {
     // Try to find EcuImports.json if not present fall back to ECU.d local.json
     if (fs.existsSync("/data/users/syrus4g/ecumonitor/EcuImports.json")) {
         //console.log("getEcuList file exist...");
@@ -202,7 +202,7 @@ async function getECUList(reload = false) {
     else {
         // Download and load ECU tags
         console.log("getEcuList: EcuImports.json file not found");
-        await downloadECUParams();
+        downloadECUParams();
         return {};
     }
 }

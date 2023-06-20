@@ -31,6 +31,18 @@ export interface ModemEvent {
 		sender: string,
 		date: string,
 	},
+	APN: string,
+	USER: string,
+	PASS: string,
+	JAMMING: string,
+	TEMPERATURE: number,
+	SIM_PRIORITY: string,
+	KEEP_ALIVE: number,
+	CALL_VALIDATION: true,
+	MODEL: string,
+	REVISION: string,
+	MODEM_STATE: string,
+	NO_CONN_TIME: number,
 }
 
 /**
