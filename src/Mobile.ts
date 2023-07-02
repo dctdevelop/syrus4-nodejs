@@ -43,6 +43,7 @@ export interface ModemEvent {
 	REVISION: string,
 	MODEM_STATE: string,
 	NO_CONN_TIME: number,
+	TOPIC: string,
 }
 
 /**
@@ -78,6 +79,7 @@ export async function onModemChange(
 			let key = channel.split('/')[2]
 			if('VOICE_CALL,SMS_RX'.includes(key)) data = JSON.parse(data)
 			state[key] = data
+			state['TOPIC'] = channel;
 			callback(state)
 		};
 		subscriber.on("pmessage", handler);

@@ -59,6 +59,7 @@ async function onModemChange(callback, errorCallback) {
             if ('VOICE_CALL,SMS_RX'.includes(key))
                 data = JSON.parse(data);
             state[key] = data;
+            state['TOPIC'] = channel;
             callback(state);
         };
         Redis_1.SystemRedisSubscriber.on("pmessage", handler);
