@@ -53,6 +53,3 @@ export {
 	WIFI,
 	Windows,
 };
-
-
-ECU.getECUList();
