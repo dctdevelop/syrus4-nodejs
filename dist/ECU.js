@@ -29,7 +29,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.onEcuConfigChangeEvent = exports.onECUWarningEvent = exports.getECUList = exports.getECUParams = exports.watchECUParams = exports.getECUInfo = void 0;
 const fs = __importStar(require("fs"));
 const tag_params_1 = require("tag-params");
-const axios_1 = __importDefault(require("axios"));
 const Utils = __importStar(require("./Utils"));
 const Redis_1 = require("./Redis");
 const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
@@ -160,33 +159,12 @@ async function getECUParams() {
     return ecu_values;
 }
 exports.getECUParams = getECUParams;
-async function downloadECUParams() {
-    console.log("downloadECUParams: Downloading EcuImports.json file...");
-    try {
-        await axios_1.default.get('https://syrus4.dctserver.com/apex/ecumonitor/EcuImports.json')
-            .then((response) => {
-            fs.writeFile('/data/users/syrus4g/ecumonitor/EcuImports.json', JSON.stringify(response.data), (err) => {
-                if (err)
-                    throw err;
-                console.log('downloadECUParams: File downloaded');
-                getECUList();
-            });
-        })
-            .catch((error) => {
-            console.log('downloadECUParams error:', error);
-        });
-    }
-    catch (error) {
-        console.log('downloadECUParams catch error:', error);
-    }
-}
 /**
  * get ecu paramas list associated to all the pgn and id for ecu and taip tag associated
  */
 function getECUList(reload = false) {
     // Try to find EcuImports.json if not present fall back to ECU.d local.json
     if (fs.existsSync("/data/users/syrus4g/ecumonitor/EcuImports.json")) {
-        //console.log("getEcuList file exist...");
         let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
         sharedEcuList = JSON.parse(sharedEcuList);
         // Convert it to object
@@ -202,7 +180,6 @@ function getECUList(reload = false) {
     else {
         // Download and load ECU tags
         console.log("getEcuList: EcuImports.json file not found");
-        downloadECUParams();
         return {};
     }
 }
