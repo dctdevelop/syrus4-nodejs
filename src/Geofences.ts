@@ -1,4 +1,5 @@
 import * as Utils from "./Utils";
+import _isObjectLike from 'lodash.isobjectlike';
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 
 /**
@@ -109,6 +110,44 @@ async function deleteAll({ namespace = null } = {}) {
 	return Utils.OSExecute(`apx-geofences remove ${namespace}`);
 }
 
+
+/**
+ *
+ * @param callback callback to execute when the device enters or exits from a geofence
+ * @param errorCb error callback to execute if there is an unexpected error
+ * @param opts options hash
+ * namespace: namespace to check if entered or exited from geofence;
+ */
+ async function watchGeofencesSpeedLimits(callback, errorCb, { namespace = null } = {}) {
+	if (!namespace) {
+		namespace = Utils.getPrefix();
+	}
+
+	var handler = function(pattern, channel, data) {
+		if (pattern !== `geofences/notification/warning/${namespace}/*`) return;
+		try {
+			let state = JSON.parse(data)
+			if (!_isObjectLike(state)) throw 'not objectLike';
+			state.is_inside = true;
+			callback(state);
+		} catch (error) {
+			console.log('watchGeofencesSpeedLimits Error:', error);
+		}
+	};
+	try {
+		subscriber.psubscribe(`geofences/notification/warning/${namespace}/*`);
+		subscriber.on("pmessage", handler);
+	} catch (error) {
+		errorCb(error);
+	}
+	return {
+		unsubscribe: () => {
+			subscriber.off("pmessage", handler);
+			subscriber.unsubscribe(`geofences/notification/warning/${namespace}/*`);
+		}
+	};
+}
+
 /**
  *
  * @param callback callback to execute when the device enters or exits from a geofence
@@ -184,4 +223,4 @@ function watchGroups(callback, errorCb, { namespace = null } = {}) {
 	};
 }
 
-export default { addGeofence, updateGeofence, removeGeofence, getNamespaces, get, getAll, watchGeofences, watchGroups, deleteAll };
+export default { addGeofence, updateGeofence, removeGeofence, getNamespaces, get, getAll, watchGeofences, watchGroups, watchGeofencesSpeedLimits, deleteAll };

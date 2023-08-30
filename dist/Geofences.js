@@ -18,8 +18,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Utils = __importStar(require("./Utils"));
+const lodash_isobjectlike_1 = __importDefault(require("lodash.isobjectlike"));
 const Redis_1 = require("./Redis");
 /**
  * Geofences module
@@ -128,6 +132,45 @@ async function deleteAll({ namespace = null } = {}) {
  * @param opts options hash
  * namespace: namespace to check if entered or exited from geofence;
  */
+async function watchGeofencesSpeedLimits(callback, errorCb, { namespace = null } = {}) {
+    if (!namespace) {
+        namespace = Utils.getPrefix();
+    }
+    var handler = function (pattern, channel, data) {
+        if (pattern !== `geofences/notification/warning/${namespace}/*`)
+            return;
+        try {
+            let state = JSON.parse(data);
+            if (!lodash_isobjectlike_1.default(state))
+                throw 'not objectLike';
+            state.is_inside = true;
+            callback(state);
+        }
+        catch (error) {
+            console.log('watchGeofencesSpeedLimits Error:', error);
+        }
+    };
+    try {
+        Redis_1.SystemRedisSubscriber.psubscribe(`geofences/notification/warning/${namespace}/*`);
+        Redis_1.SystemRedisSubscriber.on("pmessage", handler);
+    }
+    catch (error) {
+        errorCb(error);
+    }
+    return {
+        unsubscribe: () => {
+            Redis_1.SystemRedisSubscriber.off("pmessage", handler);
+            Redis_1.SystemRedisSubscriber.unsubscribe(`geofences/notification/warning/${namespace}/*`);
+        }
+    };
+}
+/**
+ *
+ * @param callback callback to execute when the device enters or exits from a geofence
+ * @param errorCb error callback to execute if there is an unexpected error
+ * @param opts options hash
+ * namespace: namespace to check if entered or exited from geofence;
+ */
 async function watchGeofences(callback, errorCb, { namespace = null } = {}) {
     if (!namespace) {
         namespace = Utils.getPrefix();
@@ -196,4 +239,4 @@ function watchGroups(callback, errorCb, { namespace = null } = {}) {
         }
     };
 }
-exports.default = { addGeofence, updateGeofence, removeGeofence, getNamespaces, get, getAll, watchGeofences, watchGroups, deleteAll };
+exports.default = { addGeofence, updateGeofence, removeGeofence, getNamespaces, get, getAll, watchGeofences, watchGroups, watchGeofencesSpeedLimits, deleteAll };

@@ -502,6 +502,7 @@ Geofences module
     * [~get(opts)](#module_Geofences..get)
     * [~getAll(opts)](#module_Geofences..getAll)
     * [~deleteAll(opts)](#module_Geofences..deleteAll)
+    * [~watchGeofencesSpeedLimits(callback, errorCb, opts)](#module_Geofences..watchGeofencesSpeedLimits)
     * [~watchGeofences(callback, errorCb, opts)](#module_Geofences..watchGeofences)
     * [~watchGroups(callback, errorCb, opts)](#module_Geofences..watchGroups)
 
@@ -576,6 +577,17 @@ remove all Geofences from the namespace
 | Param | Description |
 | --- | --- |
 | opts | options hash namespace: namespace that belongs of geofence; |
+
+<a name="module_Geofences..watchGeofencesSpeedLimits"></a>
+
+### Geofences~watchGeofencesSpeedLimits(callback, errorCb, opts)
+**Kind**: inner method of [<code>Geofences</code>](#module_Geofences)  
+
+| Param | Description |
+| --- | --- |
+| callback | callback to execute when the device enters or exits from a geofence |
+| errorCb | error callback to execute if there is an unexpected error |
+| opts | options hash namespace: namespace to check if entered or exited from geofence; |
 
 <a name="module_Geofences..watchGeofences"></a>
 
