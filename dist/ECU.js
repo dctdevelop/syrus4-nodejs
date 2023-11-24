@@ -165,15 +165,20 @@ exports.getECUParams = getECUParams;
 function getECUList(reload = false) {
     // Try to find EcuImports.json if not present fall back to ECU.d local.json
     if (fs.existsSync("/data/users/syrus4g/ecumonitor/EcuImports.json")) {
-        let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
-        sharedEcuList = JSON.parse(sharedEcuList);
-        // Convert it to object
-        const paramArray = {};
         let parameters = {};
-        Object.assign(paramArray, sharedEcuList);
-        for (const parameterNumber in paramArray) {
-            const id = paramArray[parameterNumber].$id;
-            parameters[id] = paramArray[parameterNumber];
+        try {
+            let sharedEcuList = fs.readFileSync("/data/users/syrus4g/ecumonitor/EcuImports.json").toString();
+            sharedEcuList = JSON.parse(sharedEcuList);
+            // Convert it to object
+            const paramArray = {};
+            Object.assign(paramArray, sharedEcuList);
+            for (const parameterNumber in paramArray) {
+                const id = paramArray[parameterNumber].$id;
+                parameters[id] = paramArray[parameterNumber];
+            }
+        }
+        catch (error) {
+            console.log('getECUList error:', error);
         }
         return parameters;
     }

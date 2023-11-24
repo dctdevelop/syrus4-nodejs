@@ -4,10 +4,7 @@
  */
 
 import * as fs from "fs"
-import * as path from "path"
 import { params } from 'tag-params';
-
-import axios from 'axios';
 
 import * as Utils from "./Utils"
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";

@@ -4,6 +4,7 @@
  */
 import { SystemRedisSubscriber as subscriber, SystemRedisClient as redis } from "./Redis";
 import * as Utils from "./Utils"
+import _isObjectLike from 'lodash.isobjectlike'
 /**
  * Watch the motion state of the Syrus Apex accceleration hardware module
  * @param callback callback to executed when motion state changes
@@ -103,6 +104,42 @@ async function isMoving() {
 	return result == "1";
 }
 
+async function onAccelUpdate(
+	callback: (payload: any) => void,
+	errorCallback: (arg: Error) => void): Promise<{ unsubscribe: () => void, off: () => void }> {
+
+	const topic = "accel/report"
+
+	try {
+		var handler = (channel: string, data: any) => {
+			if (!channel.startsWith('accel/report')) return
+			try {
+				const state = JSON.parse(data)
+				if (!_isObjectLike(state)) throw 'not objectLike'
+				callback(state)
+			} catch (error) {
+				console.log('onAccelUpdate error:', error)
+			}
+		};
+		subscriber.subscribe(topic);
+		subscriber.on("message", handler);
+	} catch (error) {
+		console.log("onAccelUpdate error:", error );
+		errorCallback(error);
+	}
+
+	return {
+		unsubscribe: () => {
+		subscriber.off("message", handler);
+		subscriber.unsubscribe(topic);  
+		},
+		off: () => {
+			this.unsubscribe();
+		}
+	}
+
+}
+
 export default {
 	isMoving,
 	onMotionChange,
@@ -111,4 +148,5 @@ export default {
 	startSelfAccelerationTest,
 	isAutoAligning,
 	isAccelerationTest,
+	onAccelUpdate
 };
