@@ -28,7 +28,7 @@ export async function getStatus(name:string = 'all') : Promise<LogEvent> {
     return JSON.parse(await Utils.OSExecute(`apx-logrotate status --name=${name}`))
 } 
 
-export async function setConfiguration(name:string, path: string, rotate: string = '1D', size: string = '100MB', compress: boolean = true, headers: boolean = false): Promise<void> {
+export async function setConfiguration(name:string, path: string, rotate: string = '1D', size: string = '100MB', compress: boolean = true, headers: string = ''): Promise<void> {
     if (!name) throw "Name is required";
     if (!path) throw "Path is required";
     
