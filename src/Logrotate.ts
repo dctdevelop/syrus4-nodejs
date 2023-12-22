@@ -54,7 +54,12 @@ export async function setConfiguration(name:string, path: string, rotate: string
     
     let response = undefined
     try {
-        response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress} --headers=${headers}`) 
+      if (headers != '') {
+        response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress} --headers=${headers}`)         
+      } else {
+        response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress}`) 
+      }
+        
     } catch (error) {
         console.log('setConfiguration error:', error);
     }
