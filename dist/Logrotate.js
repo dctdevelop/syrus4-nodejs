@@ -40,7 +40,7 @@ async function getStatus(name = 'all') {
     return JSON.parse(await Utils.OSExecute(`apx-logrotate status --name=${name}`));
 }
 exports.getStatus = getStatus;
-async function setConfiguration(name, path, rotate = '1D', size = '100MB', compress = true) {
+async function setConfiguration(name, path, rotate = '1D', size = '100MB', compress = true, headers = '') {
     if (!name)
         throw "Name is required";
     if (!path)
@@ -66,7 +66,12 @@ async function setConfiguration(name, path, rotate = '1D', size = '100MB', compr
     }
     let response = undefined;
     try {
-        response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress}`);
+        if (headers != '') {
+            response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress} --headers=${headers}`);
+        }
+        else {
+            response = await Utils.OSExecute(`apx-logrotate configure --name=${name} --path=${path} --rotate=${rotation} --size=${rotate_size} --period=${period} --compress=${compress}`);
+        }
     }
     catch (error) {
         console.log('setConfiguration error:', error);
