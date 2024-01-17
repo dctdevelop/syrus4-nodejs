@@ -5,7 +5,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -82,29 +86,31 @@ function removeAll() {
 exports.removeAll = removeAll;
 async function onRFIDEvent(callback, errorCallback) {
     const topic = "serial/notification/rfid/state";
+    const topic2 = "rfid/notification/state";
     // GET last RFID data
     let rfid_update = new RFIDUpdate();
     let last_rfid_event = await getLast().catch(console.error);
     if (last_rfid_event) {
         callback(rfid_update.digest(last_rfid_event));
     }
+    console.log('onRFIDEvent:', rfid_update);
     // Subscribe to receive updates
-    try {
-        var state;
-        var handler = (channel, data) => {
-            if (channel != topic)
-                return;
+    var state;
+    var handler = (channel, data) => {
+        if (channel == "serial/notification/rfid/state" || channel == "rfid/notification/state") {
             try {
                 state = JSON.parse(data);
-                if (!lodash_isobjectlike_1.default(state))
+                if (!(0, lodash_isobjectlike_1.default)(state))
                     throw 'not objectLike';
                 callback(rfid_update.digest(state));
             }
             catch (error) {
                 console.log('onRFIDevent syntax error:', error);
             }
-        };
-        Redis_1.SystemRedisSubscriber.subscribe(topic);
+        }
+    };
+    try {
+        Redis_1.SystemRedisSubscriber.subscribe(topic, topic2);
         Redis_1.SystemRedisSubscriber.on("message", handler);
     }
     catch (error) {
@@ -114,7 +120,7 @@ async function onRFIDEvent(callback, errorCallback) {
     let returnable = {
         unsubscribe: () => {
             Redis_1.SystemRedisSubscriber.off("message", handler);
-            Redis_1.SystemRedisSubscriber.unsubscribe(topic);
+            Redis_1.SystemRedisSubscriber.unsubscribe(topic, topic2);
         },
         off: function () { this.unsubscribe(); }
     };

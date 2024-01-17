@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -141,7 +145,7 @@ async function watchGeofencesSpeedLimits(callback, errorCb, { namespace = null }
             return;
         try {
             let state = JSON.parse(data);
-            if (!lodash_isobjectlike_1.default(state))
+            if (!(0, lodash_isobjectlike_1.default)(state))
                 throw 'not objectLike';
             state.is_inside = true;
             callback(state);

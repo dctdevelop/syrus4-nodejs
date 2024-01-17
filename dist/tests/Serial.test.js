@@ -14,7 +14,7 @@ describe('Fatigue Tests', () => {
     // set up watcher
     before(async function () {
         console.log("setting up watcher");
-        watcher = Serial_1.onFatigueEvent((update) => {
+        watcher = (0, Serial_1.onFatigueEvent)((update) => {
             for (let key in callbacks) {
                 callbacks[key](update);
             }
@@ -34,7 +34,7 @@ describe('Fatigue Tests', () => {
     after(function () {
         console.log('deregistering watcher');
         watcher.off();
-        Redis_1.disconnectAll();
+        (0, Redis_1.disconnectAll)();
     });
 });
 describe('RFID Tests', () => {
@@ -44,7 +44,7 @@ describe('RFID Tests', () => {
     // set up watcher
     before(async function () {
         console.log("setting up watcher");
-        watcher = await RFID_1.onRFIDEvent((update) => {
+        watcher = await (0, RFID_1.onRFIDEvent)((update) => {
             console.log("RFID update:", update);
             for (let key in callbacks) {
                 callbacks[key](update);
@@ -65,7 +65,7 @@ describe('RFID Tests', () => {
     after(function () {
         console.log('deregistering watcher');
         watcher.off();
-        Redis_1.disconnectAll();
+        (0, Redis_1.disconnectAll)();
     });
 });
 describe('fuel-event-test', () => {
@@ -75,7 +75,7 @@ describe('fuel-event-test', () => {
     // set up watcher
     before(async function () {
         console.log("setting up watcher");
-        watcher = await Technoton_1.onFuelEvent((update) => {
+        watcher = await (0, Technoton_1.onFuelEvent)((update) => {
             console.log("Fuel event update:", update);
             for (let key in callbacks) {
                 callbacks[key](update);
@@ -96,6 +96,6 @@ describe('fuel-event-test', () => {
     after(function () {
         console.log('deregistering watcher');
         watcher.off();
-        Redis_1.disconnectAll();
+        (0, Redis_1.disconnectAll)();
     });
 });

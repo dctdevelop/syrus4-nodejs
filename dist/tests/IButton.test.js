@@ -11,7 +11,7 @@ describe('IButton Tests', () => {
     // set up watcher
     before(async function () {
         console.log("setting up watcher");
-        watcher = await IButton_1.onIButtonChange((update) => {
+        watcher = await (0, IButton_1.onIButtonChange)((update) => {
             console.log("iButton update:", update);
             for (let key in callbacks) {
                 callbacks[key](update);
@@ -23,8 +23,8 @@ describe('IButton Tests', () => {
         this.timeout(TIMEOUT);
         // register callback
         callbacks['unauthorized'] = function (update) {
-            chai_1.expect(update.connected.id).to.exist;
-            chai_1.expect(update.connected.whitelisted).to.be.false;
+            (0, chai_1.expect)(update.connected.id).to.exist;
+            (0, chai_1.expect)(update.connected.whitelisted).to.be.false;
             delete callbacks['unauthorized'];
             done();
         };
@@ -34,7 +34,7 @@ describe('IButton Tests', () => {
         this.timeout(TIMEOUT);
         // register callback
         callbacks['authorized'] = function (update) {
-            chai_1.expect(update.authorized.connected.id).to.exist;
+            (0, chai_1.expect)(update.authorized.connected.id).to.exist;
             delete callbacks['authorized'];
             done();
         };
@@ -43,6 +43,6 @@ describe('IButton Tests', () => {
     after(function () {
         console.log('deregistering watcher');
         watcher.off();
-        Redis_1.disconnectAll();
+        (0, Redis_1.disconnectAll)();
     });
 });

@@ -5,7 +5,11 @@
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -101,7 +105,7 @@ function watchECUParams(cb, errorCallback) {
                         let { groups } = regex.exec(token);
                         let tags;
                         if ($item_name) {
-                            tags = tag_params_1.params($item_name, groups);
+                            tags = (0, tag_params_1.params)($item_name, groups);
                             skey = `${template(...tags)}`;
                         }
                         let svalue = isNaN(Number(groups.value)) ? groups.value : Number(groups.value);
@@ -197,7 +201,7 @@ async function onECUWarningEvent(callback, errorCallback) {
                 return;
             try {
                 const state = JSON.parse(data);
-                if (!lodash_isobjectlike_1.default(state))
+                if (!(0, lodash_isobjectlike_1.default)(state))
                     throw 'not objectLike';
                 callback(state);
             }

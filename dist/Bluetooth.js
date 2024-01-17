@@ -25,7 +25,7 @@ async function onBluetoothUpdate(callback, errorCallback) {
             }
             try {
                 const state = JSON.parse(data);
-                if (!lodash_isobjectlike_1.default(state))
+                if (!(0, lodash_isobjectlike_1.default)(state))
                     throw 'not objectLike';
                 callback(channel, state);
             }
@@ -85,7 +85,7 @@ async function onBleUpdate(callback, errorCallback) {
                 return;
             try {
                 const state = JSON.parse(data);
-                if (!lodash_isobjectlike_1.default(state))
+                if (!(0, lodash_isobjectlike_1.default)(state))
                     throw 'not objectLike';
                 callback(state);
             }

@@ -10,7 +10,7 @@ describe('TPMS Tests', () => {
     // set up watcher
     before(async function () {
         console.log("setting up watcher");
-        watcher = ECU_1.watchECUParams((update) => {
+        watcher = (0, ECU_1.watchECUParams)((update) => {
             for (let key in callbacks) {
                 callbacks[key](update);
             }
@@ -38,6 +38,6 @@ describe('TPMS Tests', () => {
     after(function () {
         console.log('deregistering watcher');
         watcher.off();
-        Redis_1.disconnectAll();
+        (0, Redis_1.disconnectAll)();
     });
 });

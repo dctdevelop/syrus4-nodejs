@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -31,7 +35,7 @@ const path = __importStar(require("path"));
 const ssh2_1 = require("ssh2");
 let { APP_DATA_FOLDER } = process.env;
 let { SYRUS4G_REMOTE, SYRUS4G_APP_NAME } = process.env;
-const USERNAME = os_1.userInfo().username;
+const USERNAME = (0, os_1.userInfo)().username;
 var __shell_promise;
 async function getShell() {
     if (__shell_promise)
@@ -145,7 +149,7 @@ async function OSExecute(...args) {
     return new Promise((resolve, reject) => {
         if (USERNAME != "syrus4g")
             opts.uid = 1000;
-        child_process_1.exec(command, opts, (error, stdout, stderr) => {
+        (0, child_process_1.exec)(command, opts, (error, stdout, stderr) => {
             if (error || stderr) {
                 reject({
                     command,
@@ -204,7 +208,7 @@ function getPrefix() {
         return APP_DATA_FOLDER.split(path.sep).pop();
     }
     // determine from current running directory
-    var arr = child_process_1.execSync("pwd")
+    var arr = (0, child_process_1.execSync)("pwd")
         .toString()
         .replace("\n", "")
         .split("node_modules/")[0]

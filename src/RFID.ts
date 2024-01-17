@@ -7,6 +7,7 @@ import _isObjectLike from 'lodash.isobjectlike'
 import { SystemRedisSubscriber as subscriber } from "./Redis";
 import * as Utils from "./Utils"
 
+
 /**
  * RFIDEvent published via the broker from the core tools
  * @interface RFIDEvent
@@ -74,39 +75,53 @@ export function removeAll(): Promise<void>{
   return Utils.OSExecute('apx-serial-rfid remove --all');
 }
 
-export async function onRFIDEvent( callback:(arg: RFIDUpdate) => void, errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
-  const topic = "serial/notification/rfid/state";
+export async function onRFIDEvent( 
+  callback:(arg: RFIDUpdate) => void, 
+  errorCallback:(arg: Error) => void) : Promise<{ unsubscribe: () => void, off: () => void}> {
+  
+    const topic = "serial/notification/rfid/state";
+    const topic2 = "rfid/notification/state";
+
   // GET last RFID data
   let rfid_update = new RFIDUpdate()
   let last_rfid_event = await getLast().catch(console.error)
   if(last_rfid_event) {
     callback(rfid_update.digest(last_rfid_event))
   }
+  console.log('onRFIDEvent:', rfid_update);
   // Subscribe to receive updates
-  try {
+ 
     var state: RFIDEvent;
     var handler = (channel: string, data: any) => {
-      if (channel != topic) return
-      try {
-        state = JSON.parse(data);
-        if (!_isObjectLike(state)) throw 'not objectLike'
-        callback(rfid_update.digest(state))
-      } catch (error) {
-        console.log('onRFIDevent syntax error:', error);
+      if ( channel =="serial/notification/rfid/state" || channel == "rfid/notification/state") {
+        try {
+          state = JSON.parse(data);
+          if (!_isObjectLike(state)) throw 'not objectLike'
+          callback(rfid_update.digest(state))
+        } catch (error) {
+          console.log('onRFIDevent syntax error:', error);
+        }
       }
     };
-    subscriber.subscribe(topic);
+
+  try { 
+    subscriber.subscribe(topic, topic2);
     subscriber.on("message", handler);
+
   } catch (error) {
     console.error('onRFIDEvent error:', error);
     errorCallback(error);
   }
+
+
   let returnable = {
     unsubscribe: () => {
       subscriber.off("message", handler);
-      subscriber.unsubscribe(topic);
+      subscriber.unsubscribe(topic, topic2);
     },
     off: function () { this.unsubscribe() }
   };
   return returnable;
 }
+
+
