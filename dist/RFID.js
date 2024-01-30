@@ -93,7 +93,6 @@ async function onRFIDEvent(callback, errorCallback) {
     if (last_rfid_event) {
         callback(rfid_update.digest(last_rfid_event));
     }
-    console.log('onRFIDEvent:', rfid_update);
     // Subscribe to receive updates
     var state;
     var handler = (channel, data) => {
