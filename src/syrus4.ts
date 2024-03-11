@@ -24,12 +24,14 @@ import WIFI from "./WIFI"
 import * as Windows from "./Windows"
 import * as SafeEngine from "./SafeEngine"
 import * as PeopleCounter from "./PeopleCounter"
+import Database from "./Database"
 
 export {
 	Accelerometer,
 	Apps,
 	Bluetooth,
 	Counters,
+	Database,
 	ECU,
 	Fatigue,
 	Geofences,

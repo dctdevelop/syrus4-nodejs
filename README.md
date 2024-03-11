@@ -23,6 +23,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_Counters">Counters</a></dt>
 <dd><p>Counters module setup get and set counters from APEX OS</p>
 </dd>
+<dt><a href="#module_Database">Database</a></dt>
+<dd><p>Logrotate module setup get and set counters from APEX OS</p>
+</dd>
 <dt><a href="#module_ECU">ECU</a></dt>
 <dd><p>ECU module get information about EcU monitor and vehicle in ApexOS</p>
 </dd>
@@ -336,6 +339,11 @@ Bluetooth module, get information about bluetooth state
 
 ## Counters
 Counters module setup get and set counters from APEX OS
+
+<a name="module_Database"></a>
+
+## Database
+Logrotate module setup get and set counters from APEX OS
 
 <a name="module_ECU"></a>
 
