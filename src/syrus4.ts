@@ -25,6 +25,8 @@ import * as Windows from "./Windows"
 import * as SafeEngine from "./SafeEngine"
 import * as PeopleCounter from "./PeopleCounter"
 import Database from "./Database"
+import * as IOExpander from "./IOExpander"
+import * as PulseCounter from "./PulseCounter"
 
 export {
 	Accelerometer,
@@ -39,6 +41,7 @@ export {
 	Hotspot,
 	IButton,
 	IOS,
+	IOExpander,
 	Logrotate,
 	Mobile,
 	Network,
@@ -48,6 +51,7 @@ export {
 	System,
 	SafeEngine,
 	PeopleCounter,
+	PulseCounter,
 	Technoton,
 	Temperature,
 	Update,

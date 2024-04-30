@@ -44,6 +44,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 <dt><a href="#module_IButton">IButton</a></dt>
 <dd><p>IButton module get information about onewire</p>
 </dd>
+<dt><a href="#module_IOExpander">IOExpander</a></dt>
+<dd><p>Logrotate module setup get and set counters from APEX OS</p>
+</dd>
 <dt><a href="#module_IOS">IOS</a></dt>
 <dd><p>IOS module allow to get and set status from Input and Outputs in Syrus 4 Apex OS</p>
 </dd>
@@ -55,6 +58,9 @@ $ npm install https://github.com/dctdevelop/syrus4-nodejs/tarball/master
 </dd>
 <dt><a href="#module_PeopleCounter">PeopleCounter</a></dt>
 <dd><p>PeopleCounter module setup get and set Safe engine cut of from APEX OS</p>
+</dd>
+<dt><a href="#module_PulseCounter">PulseCounter</a></dt>
+<dd><p>Logrotate module setup get and set counters from APEX OS</p>
 </dd>
 <dt><a href="#module_RFID">RFID</a></dt>
 <dd><p>RFID module get information about RFID states</p>
@@ -744,6 +750,11 @@ remove Alias from ibutton whitelist
 monitor iButton notifications
 
 **Kind**: inner method of [<code>IButton</code>](#module_IButton)  
+<a name="module_IOExpander"></a>
+
+## IOExpander
+Logrotate module setup get and set counters from APEX OS
+
 <a name="module_IOS"></a>
 
 ## IOS
@@ -854,6 +865,11 @@ get network information about all the available networks on APEX OS
 
 ## PeopleCounter
 PeopleCounter module setup get and set Safe engine cut of from APEX OS
+
+<a name="module_PulseCounter"></a>
+
+## PulseCounter
+Logrotate module setup get and set counters from APEX OS
 
 <a name="module_RFID"></a>
 

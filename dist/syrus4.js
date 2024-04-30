@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Windows = exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.Technoton = exports.PeopleCounter = exports.SafeEngine = exports.System = exports.Serial = exports.RFID = exports.Redis = exports.Network = exports.Mobile = exports.Logrotate = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Database = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
+exports.Windows = exports.WIFI = exports.Utils = exports.Update = exports.Temperature = exports.Technoton = exports.PulseCounter = exports.PeopleCounter = exports.SafeEngine = exports.System = exports.Serial = exports.RFID = exports.Redis = exports.Network = exports.Mobile = exports.Logrotate = exports.IOExpander = exports.IOS = exports.IButton = exports.Hotspot = exports.GPS = exports.Geofences = exports.Fatigue = exports.ECU = exports.Database = exports.Counters = exports.Bluetooth = exports.Apps = exports.Accelerometer = void 0;
 const Accelerometer_1 = __importDefault(require("./Accelerometer"));
 exports.Accelerometer = Accelerometer_1.default;
 const Apps_1 = __importDefault(require("./Apps"));
@@ -81,3 +81,7 @@ const PeopleCounter = __importStar(require("./PeopleCounter"));
 exports.PeopleCounter = PeopleCounter;
 const Database_1 = __importDefault(require("./Database"));
 exports.Database = Database_1.default;
+const IOExpander = __importStar(require("./IOExpander"));
+exports.IOExpander = IOExpander;
+const PulseCounter = __importStar(require("./PulseCounter"));
+exports.PulseCounter = PulseCounter;
