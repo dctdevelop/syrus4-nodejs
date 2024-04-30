@@ -25,6 +25,7 @@ function watchInputState(inputName: AllInputs = "*", cb: (response: any) => void
 	} else if (inputName[0] == "A") {
 		chn = `interface/analog/${inputName}`
 	}
+	
 	let callback = function (pattern: string, channel: string, raw: string) {
 		if (pattern != chn) return
 		if (channel.includes('/desired')) return
