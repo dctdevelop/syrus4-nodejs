@@ -77,7 +77,7 @@ function watchInputState(inputName = "*", cb, errorCallback) {
  */
 async function getInputState(inputName = "IGN") {
     var response = await Utils.OSExecute(`apx-io get ${inputName}`);
-    return response == "true";
+    return Boolean(response);
 }
 /**
  * Allow to change the state of an output

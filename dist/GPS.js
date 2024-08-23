@@ -55,6 +55,32 @@ function distanceBetweenCoordinates(coord1, coord2) {
 function rawdataToCoordinates(raw) {
     var gps = JSON.parse(raw);
     var speed = Number(gps.speed) * 0.277778;
+    if (gps.timestamp != undefined) {
+        return {
+            coords: {
+                latitude: gps.lat || 0,
+                longitude: gps.lon || 0,
+                speed: speed,
+                accuracy: 5 * gps.hdop || 20000,
+                altitude: gps.alt || 0,
+                bearing: gps.track,
+                altitudeAccuracy: 5 * gps.vdop || 0
+            },
+            timestamp: gps.timestamp,
+            time: gps.time,
+            extras: {
+                hdop: gps.hdop,
+                vdop: gps.vdop,
+                pdop: gps.pdop,
+                quality: gps.quality,
+                fix: gps.fix,
+                satsActive: gps.satused,
+                satsVisible: gps.satview,
+                criteria: gps.type || null,
+                acceleration: gps.kphs || 0
+            }
+        };
+    }
     return {
         coords: {
             latitude: gps.lat || 0,

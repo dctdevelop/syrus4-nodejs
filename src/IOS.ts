@@ -54,7 +54,7 @@ function watchInputState(inputName: AllInputs = "*", cb: (response: any) => void
  */
 async function getInputState(inputName: AllInputs = "IGN"): Promise<any> {
 	var response = await Utils.OSExecute(`apx-io get ${inputName}`);
-	return response == "true";
+	return Boolean(response);
 }
 
 /**

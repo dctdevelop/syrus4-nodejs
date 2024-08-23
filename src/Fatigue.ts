@@ -41,6 +41,7 @@ export async function onFatigueEvent(
   try {
     var state: FatigueState = await Utils.OSExecute('apx-serial fatigue_sensor state')
     state.photos = {}
+    state.channel = 'serial'
     if (state.latest_photo) {
       state.channel = 'serial'
       state.epoch = Number(state.latest_photo.split('-')[0])
@@ -49,7 +50,10 @@ export async function onFatigueEvent(
     callback(state)
     var handler = (channel: string, data: any) => {
       if (!all_topics.includes(channel)) return
-      if (channel == serial_state_topic) state.state = data
+      if (channel == serial_state_topic) {
+        state.channel = 'serial'
+        state.state = data
+      }
       if (channel == serial_photo_topic) {
         let photo_type = data.split('-')[1].split('.')[0]
         state.latest_photo = data
@@ -76,6 +80,7 @@ export async function onFatigueEvent(
         state.channel = 'cipia'
         state.epoch = data.system_epoch
         state.event = data.event
+        state = { ...state, ...data }
       }
       if (channel == cipia_topic_update) {
         data = JSON.parse(data)
