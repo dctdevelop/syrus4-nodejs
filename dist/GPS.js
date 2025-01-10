@@ -228,7 +228,7 @@ function watchGPS(callback, errorCallback) {
  * @param callback callback to execute when new data arrive from tracking resolution
  * @param opts tracking_resolution: *  namespace: The name used as a reference to identify a tracking criteria.          * *Max 30 characters     * *   heading:     The heading threshold for triggering notifications based on heading   * *changes. Use 0 to disable. Range (0 - 180)            * *   time:        The time limit in seconds for triggering tracking notifications.      * *Use 0 to disable. Range (0 - 86400)   * *   distance:    The distance threshold in meters for triggering tracking              * *notifications based on the traveled distance. Use 0 to disable.       * *Range (0 - 100000)
  */
-function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true, posAcc = 0, negAcc = 0, posUnits = "", negUnits = "" }) {
+async function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0, namespace, prefix, deleteOnExit = true, posAcc = 0, negAcc = 0, posUnits = "", negUnits = "" }) {
     if (!prefix) {
         prefix = Utils.getPrefix();
     }
@@ -238,8 +238,16 @@ function watchTrackingResolution(callback, { distance = 0, heading = 0, time = 0
     var name = `${prefix}_${namespace}`;
     posUnits = posUnits || "";
     negUnits = negUnits || "";
-    if (!(!heading && !time && !distance))
-        Utils.OSExecute(`apx-tracking set  --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc}${posUnits} --nacc=${negAcc}${negUnits}`); // Adde accel variables
+    if (!(!heading && !time && !distance)) {
+        //Utils.OSExecute(`apx-tracking set  --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc}${posUnits} --nacc=${negAcc}${negUnits}`); // Adde accel variables
+        const command = `apx-tracking set --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc}${posUnits} --nacc=${negAcc}${negUnits}`;
+        try {
+            await Utils.OSExecute(command);
+        }
+        catch (error) {
+            console.error('Error executing tracking command:', error);
+        }
+    }
     var handler = function (channel, gps) {
         if (channel !== `tracking/notification/${name}`)
             return;
@@ -326,7 +334,14 @@ async function setTrackingResolution({ distance = 0, heading = 0, time = 0, name
     var name = `${prefix}_${namespace}`;
     posUnits = posUnits || "";
     negUnits = negUnits || "";
-    await Utils.OSExecute(`apx-tracking set --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc}${posUnits} --nacc=${negAcc}${negUnits}`); // "${name}" ${heading} ${time} ${distance} --pacc=${posAcc} --nacc=${negAcc}
+    const command = `apx-tracking set --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc}${posUnits} --nacc=${negAcc}${negUnits}`;
+    try {
+        await Utils.OSExecute(command);
+    }
+    catch (error) {
+        console.error('Error executing tracking command:', error);
+    }
+    //await Utils.OSExecute(`apx-tracking set --namespace="${name}" --heading=${heading} --time=${time} --distance=${distance} --pacc=${posAcc}${posUnits} --nacc=${negAcc}${negUnits}`); // "${name}" ${heading} ${time} ${distance} --pacc=${posAcc} --nacc=${negAcc}
     if (deleteOnExit) {
         tracking_resolutions.names.push(name);
         __initExitHandlers();
