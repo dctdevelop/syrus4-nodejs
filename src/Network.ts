@@ -104,8 +104,6 @@ async function getNetworkInfo(net:string) {
 		if (start > -1) data["tx_bytes"] = parseInt(raw.substring(start, end));	
 	}
 
-
-
 	data.connected = await IsConnected(net).catch(Utils.$throw);
 	if (data.ip_address == "") {
 		data.ip_address = null;
