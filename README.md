@@ -1,3 +1,7 @@
+# ⚠️ This Repo has been migrated, check out the new one here https://github.com/digitalcomtech/syrus4-sdk-nodejs ⚠️
+
+---
+
 # Syrus 4 SDK for nodejs
 Interactive function to consult enable or disable multiple modules for APEX OS
 
